@@ -19,6 +19,8 @@
     "windowsAssetName",
     "macAssetName",
     "linuxAssetName",
+    "heroTypedTitle",
+    "heroSloganText",
   ]);
 
   const MESSAGES = {
@@ -54,10 +56,11 @@
             "OpenAkita 官方网站：一个会自学习、会自检修复、永不放弃的 AI Agent。提供下载、配置教程与文档入口。",
         },
         hero: {
-          title: "OpenAkita 是一个自进化 AI Agent 框架",
-          desc: "面向生产场景，支持多 LLM 端点编排、IM 通道接入与持续自检修复。3 分钟完成首配。",
-          btnDownload: "下载桌面版",
-          btnSetup: "3 分钟配置教程",
+          title: "OpenAkita 让AI随时陪伴",
+          slogan: "一直在身边，一直在变强。",
+          desc: "填一个 API Key，剩下的交给 OpenAkita。",
+          btnDownload: "立即下载",
+          btnSetup: "3 分钟开始",
           btnTutorials: "全部教程",
         },
         release: {
@@ -184,10 +187,11 @@
             "Official OpenAkita website for a self-evolving AI Agent that learns, self-repairs, and never gives up.",
         },
         hero: {
-          title: "OpenAkita Is a Self-Evolving AI Agent Framework",
-          desc: "Built for production with multi-LLM routing, IM channel integration, and continuous self-repair. First setup takes about 3 minutes.",
-          btnDownload: "Download Desktop",
-          btnSetup: "3-Min Setup Guide",
+          title: "OpenAkita, Always by Your Side",
+          slogan: "Always with you. Always getting stronger.",
+          desc: "Bring one API key. OpenAkita handles the rest.",
+          btnDownload: "Download Now",
+          btnSetup: "Start in 3 Min",
           btnTutorials: "All Tutorials",
         },
         release: {
@@ -287,8 +291,9 @@
       },
       home: {
         hero: {
-          title: "OpenAkita は自己進化する AI Agent フレームワーク",
-          desc: "本番利用を前提に、マルチ LLM ルーティング、IM 連携、自己修復を提供します。初期設定は約 3 分です。",
+          title: "あなたに寄り添い成長する、万能 AI アシスタント",
+          slogan: "毎日に寄り添う、あなたの本当の相棒。",
+          desc: "API Key を 1 つ入れるだけ。あとは OpenAkita が実行します。",
         },
       },
       download: { hero: { title: "OpenAkita をダウンロード", desc: "Desktop / CLI / Source の 3 つの導入方法を提供します。" } },
@@ -315,8 +320,9 @@
       },
       home: {
         hero: {
-          title: "OpenAkita는 자기진화형 AI Agent 프레임워크",
-          desc: "프로덕션 환경을 위해 멀티 LLM 라우팅, IM 연동, 지속적 자기복구를 제공합니다. 초기 설정은 약 3분입니다.",
+          title: "함께 성장하는 올인원 AI 어시스턴트",
+          slogan: "매일 곁에서 함께하는 진짜 전능한 도우미.",
+          desc: "API Key 하나면 시작됩니다. 나머지는 OpenAkita가 처리합니다.",
         },
       },
       download: { hero: { title: "OpenAkita 다운로드", desc: "Desktop / CLI / Source 3가지 설치 경로를 지원합니다." } },
@@ -343,8 +349,9 @@
       },
       home: {
         hero: {
-          title: "OpenAkita — самоэволюционирующий фреймворк AI Agent",
-          desc: "Для production: маршрутизация между несколькими LLM, интеграция IM-каналов и постоянное самовосстановление. Первый запуск за 3 минуты.",
+          title: "Универсальный AI-помощник, который растет вместе с вами",
+          slogan: "Каждый день рядом с вами — как надежный компаньон.",
+          desc: "Нужен только API Key. Остальное OpenAkita сделает сам.",
         },
       },
       download: { hero: { title: "Скачать OpenAkita", desc: "Доступны Desktop, CLI и исходная установка." } },
@@ -371,8 +378,9 @@
       },
       home: {
         hero: {
-          title: "OpenAkita est un framework AI Agent auto-évolutif",
-          desc: "Conçu pour la production avec routage multi-LLM, intégration des canaux IM et auto-réparation continue. Configuration initiale en 3 minutes.",
+          title: "Un assistant IA tout-en-un qui grandit avec vous",
+          slogan: "Un compagnon au quotidien, un assistant vraiment complet.",
+          desc: "Ajoutez une clé API. OpenAkita gère le reste.",
         },
       },
       download: { hero: { title: "Télécharger OpenAkita", desc: "Installation Desktop, CLI et source." } },
@@ -399,8 +407,9 @@
       },
       home: {
         hero: {
-          title: "OpenAkita ist ein selbst-evolvierendes AI-Agent-Framework",
-          desc: "Für den Produktionseinsatz mit Multi-LLM-Routing, IM-Integration und kontinuierlicher Selbstreparatur. Ersteinrichtung in etwa 3 Minuten.",
+          title: "Ein Allround-AI-Assistent, der mit dir mitwächst",
+          slogan: "Dein täglicher Begleiter und wirklich vielseitiger Assistent.",
+          desc: "Ein API Key reicht. Den Rest erledigt OpenAkita.",
         },
       },
       download: { hero: { title: "OpenAkita herunterladen", desc: "Desktop-, CLI- und Source-Installation verfügbar." } },
@@ -508,6 +517,51 @@
     const value = t(key);
     return Array.isArray(value) ? value : [];
   }
+
+  let homeHeroTypingRun = 0;
+
+  function applyHomeRevealStagger() {
+    const revealNodes = document.querySelectorAll(".home-section .reveal");
+    revealNodes.forEach(function (node, index) {
+      const delay = Math.min(index * 65, 520);
+      node.style.setProperty("--reveal-delay", delay + "ms");
+    });
+  }
+
+  function startHomeHeroTyping() {
+    const target = document.getElementById("heroTypedTitle");
+    if (!target) return;
+
+    const text = t("home.hero.title") || target.getAttribute("data-typed-title") || "";
+    const reducedMotion =
+      typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    homeHeroTypingRun += 1;
+    const runId = homeHeroTypingRun;
+    target.textContent = "";
+
+    if (!text || reducedMotion) {
+      target.textContent = text;
+      return;
+    }
+
+    let cursor = 0;
+
+    function typeNext() {
+      if (runId !== homeHeroTypingRun) return;
+      cursor += 1;
+      target.textContent = text.slice(0, cursor);
+
+      if (cursor >= text.length) return;
+
+      const typedChar = text.charAt(cursor - 1);
+      const delay = /[\s·,.;:!?，。！？：；、]/.test(typedChar) ? 85 : 48;
+      window.setTimeout(typeNext, delay);
+    }
+
+    window.setTimeout(typeNext, 240);
+  }
+
   function applyMeta(pageKey) {
     const title = t(pageKey + ".meta.title");
     const description = t(pageKey + ".meta.description");
@@ -528,13 +582,13 @@
   }
 
   function applyHomeTexts() {
-    setText(".hero h1", t("home.hero.title"));
+    setText("#heroTypedTitle", t("home.hero.title"));
+    setText("#heroSloganText", t("home.hero.slogan"));
     setText(".hero .hero-lead", t("home.hero.desc"));
     setInlineLabel("#downloadDesktopButton", t("home.hero.btnDownload"));
     setInlineLabel('.hero .hero-actions a[href="/tutorials/setup-install/"]', t("home.hero.btnSetup"));
     setInlineLabel('.hero .hero-actions a[href="/tutorials/"]', t("home.hero.btnTutorials"));
-    setText(".hero-panel h3", t("home.releaseTitle"));
-    setText("#latestReleaseNotesLink", t("home.release.link"));
+    startHomeHeroTyping();
   }
 
   function applyDownloadTexts() {
@@ -633,6 +687,7 @@
       applyMeta(pageKey);
       applyCommonTexts();
       applyPageTexts(pageKey);
+      applyHomeRevealStagger();
       enhanceCodeBlocks();
       loadLatestRelease();
       void autoTranslateSiteContent();
@@ -1020,6 +1075,7 @@
   applyMeta(pageKey);
   applyCommonTexts();
   applyPageTexts(pageKey);
+  applyHomeRevealStagger();
   injectLanguageSwitcher(pageKey);
   enhanceCodeBlocks();
 
