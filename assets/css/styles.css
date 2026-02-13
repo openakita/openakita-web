@@ -365,7 +365,7 @@ main > section:nth-of-type(even)::before {
 }
 
 body[data-page="home"] .hero .container {
-  width: min(1760px, calc(100% - 24px));
+  width: min(1600px, calc(100% - 88px));
 }
 
 body[data-page="home"] .hero-title-typing {
@@ -374,7 +374,7 @@ body[data-page="home"] .hero-title-typing {
   font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-weight: 900;
   font-size-adjust: 0.62;
-  font-size: clamp(58px, 8.3vw, 126px);
+  font-size: clamp(52px, 7.2vw, 110px);
   line-height: 0.98;
   letter-spacing: -0.028em;
   text-wrap: nowrap;
@@ -385,7 +385,7 @@ body[data-page="home"] .hero-title-typing {
   min-height: 34px;
   margin: 8px 0 20px;
   font-family: "JetBrains Mono", "Consolas", monospace;
-  font-size: clamp(16px, 1.45vw, 22px);
+  font-size: clamp(14px, 1.2vw, 18px);
   color: var(--primary-strong);
   letter-spacing: 0.01em;
 }
@@ -1496,7 +1496,7 @@ body[data-page="home"] .home-section .reveal.is-visible {
   }
 
   body[data-page="home"] .hero .container {
-    width: min(1760px, calc(100% - 16px));
+    width: min(1600px, calc(100% - 24px));
   }
 
   body[data-page="home"] .hero-title-typing {
