@@ -56,7 +56,7 @@
             "OpenAkita 官方网站：一个会自学习、会自检修复、永不放弃的 AI Agent。提供下载、配置教程与文档入口。",
         },
         hero: {
-          title: "OpenAkita 让AI随时陪伴",
+          title: "OpenAkita 让私人AI随时陪伴",
           slogan: "一直在身边，一直在变强。",
           desc: "填一个 API Key，剩下的交给 OpenAkita。",
           btnDownload: "立即下载",
