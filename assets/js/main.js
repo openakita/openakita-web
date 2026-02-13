@@ -56,7 +56,7 @@
             "OpenAkita 官方网站：一个会自学习、会自检修复、永不放弃的 AI Agent。提供下载、配置教程与文档入口。",
         },
         hero: {
-          title: "OpenAkita 让私人AI随时陪伴",
+          title: "让私人AI随时陪伴",
           slogan: "一直在身边，一直在变强。",
           desc: "填一个 API Key，剩下的交给 OpenAkita。",
           btnDownload: "立即下载",
@@ -528,11 +528,18 @@
     });
   }
 
+  function getHomeHeroSubtitle(rawTitle, fallback) {
+    const raw = (rawTitle || "").trim();
+    if (!raw) return (fallback || "").trim();
+    const stripped = raw.replace(/^openakita[\s,，:：-]*/i, "").trim();
+    return stripped || raw;
+  }
+
   function startHomeHeroTyping() {
     const target = document.getElementById("heroTypedTitle");
     if (!target) return;
 
-    const text = t("home.hero.title") || target.getAttribute("data-typed-title") || "";
+    const text = getHomeHeroSubtitle(t("home.hero.title"), target.getAttribute("data-typed-title"));
     const reducedMotion =
       typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -582,7 +589,7 @@
   }
 
   function applyHomeTexts() {
-    setText("#heroTypedTitle", t("home.hero.title"));
+    setText("#heroTypedTitle", getHomeHeroSubtitle(t("home.hero.title"), "让私人AI随时陪伴"));
     setText("#heroSloganText", t("home.hero.slogan"));
     setText(".hero .hero-lead", t("home.hero.desc"));
     setInlineLabel("#downloadDesktopButton", t("home.hero.btnDownload"));

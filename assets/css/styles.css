@@ -337,6 +337,13 @@ main > section:nth-of-type(even)::before {
   width: 100%;
 }
 
+body[data-page="home"] .hero-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -370,15 +377,27 @@ body[data-page="home"] .hero .container {
 
 body[data-page="home"] .hero-title-typing {
   max-width: none;
-  white-space: nowrap;
   font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-weight: 900;
   font-size-adjust: 0.62;
   font-size: clamp(52px, 7.2vw, 110px);
   line-height: 0.98;
   letter-spacing: -0.028em;
-  text-wrap: nowrap;
+  text-wrap: balance;
   margin: 18px 0 26px;
+}
+
+.hero-title-line {
+  display: block;
+}
+
+.hero-title-brand {
+  white-space: nowrap;
+}
+
+.hero-title-subline {
+  margin-top: 0.06em;
+  white-space: normal;
 }
 
 .hero-slogan {
@@ -414,6 +433,10 @@ body[data-page="home"] .hero-title-typing {
   flex-wrap: wrap;
   gap: 12px;
   justify-content: center;
+}
+
+body[data-page="home"] .hero-actions {
+  justify-content: flex-start;
 }
 
 .hero-kpis {
@@ -1397,7 +1420,6 @@ body[data-page="home"] .home-section .reveal.is-visible {
   }
 
   body[data-page="home"] .hero-title-typing {
-    white-space: normal;
     font-size: clamp(44px, 10vw, 74px);
     line-height: 1.04;
     letter-spacing: -0.024em;
@@ -1500,7 +1522,6 @@ body[data-page="home"] .home-section .reveal.is-visible {
   }
 
   body[data-page="home"] .hero-title-typing {
-    white-space: normal;
     font-size: clamp(34px, 12vw, 52px);
     line-height: 1.08;
     letter-spacing: -0.016em;
