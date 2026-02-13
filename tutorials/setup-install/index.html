@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>OpenAkita 安装教程 - Desktop 与 CLI</title>
+<meta content="OpenAkita 安装配置教程：Desktop 图形化安装、PyPI 命令行安装、源码安装与首次启动验证。" name="description"/>
+<link href="https://openakita.ai/tutorials/setup-install/" rel="canonical"/>
+<link href="../../assets/img/logo.png" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="../../assets/css/styles.css" rel="stylesheet"/>
+</head>
+<body data-page="tutorials">
+<header class="site-header">
+<div class="container nav-inner">
+<a class="brand" href="/">
+<img alt="OpenAkita" src="../../assets/img/logo.png"/>
+<span>OpenAkita</span>
+</a>
+<button aria-expanded="false" aria-label="打开导航" class="nav-toggle">
+<img alt="menu" src="../../assets/img/icons/menu.svg"/>
+</button>
+<nav aria-label="主导航" class="main-nav">
+<a data-nav="home" href="/">首页</a>
+<a data-nav="download" href="/download/">下载</a>
+<a data-nav="tutorials" href="/tutorials/">教程</a>
+<a data-nav="about" href="/about/">关于我们</a>
+<a href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub</a>
+</nav>
+</div>
+</header>
+<main>
+<section class="page-hero">
+<div class="container reveal">
+<div class="eyebrow" data-i18n="setup.0001">Tutorial / Setup</div>
+<h1 data-i18n="setup.0002">AI 助手安装与初始配置</h1>
+<p data-i18n="setup.0003">本教程按可落地标准整理：安装、初始化、验证、排障、上线检查，一步到位。</p>
+</div>
+</section>
+<section>
+<div class="container tutorial-shell">
+<aside class="side-nav reveal">
+<h3 data-i18n="setup.0004">目录</h3>
+<a data-i18n="setup.0005" href="#overview">教程概览</a>
+<a data-i18n="setup.0006" href="#requirements">环境要求</a>
+<a data-i18n="setup.0007" href="#desktop">方式一：Desktop</a>
+<a data-i18n="setup.0008" href="#pypi">方式二：PyPI</a>
+<a data-i18n="setup.0009" href="#source">方式三：源码</a>
+<a data-i18n="setup.0010" href="#first-run">首次启动验证</a>
+<a data-i18n="setup.0011" href="#video">视频教程</a>
+<a data-i18n="setup.0012" href="#refs">参考文档</a>
+</aside>
+<div class="reveal">
+<section class="tutorial-section" id="overview">
+<div class="card">
+<h2 data-i18n="setup.0013" style="margin-top: 0;">教程概览</h2>
+<p data-i18n="setup.0014">推荐路径：Desktop 快速启动，CLI 稳定部署，源码模式用于团队二次开发。</p>
+<div class="step-list" style="margin-top: 12px;">
+<article class="step"><div class="index">1</div><div><h4 data-i18n="setup.0015">完成安装</h4><p data-i18n="setup.0016">根据角色选择 Desktop / PyPI / 源码方式。</p></div></article>
+<article class="step"><div class="index">2</div><div><h4 data-i18n="setup.0017">执行初始化</h4><p data-i18n="setup.0018">运行 `openakita init` 生成 `.env` 与必要目录。</p></div></article>
+<article class="step"><div class="index">3</div><div><h4 data-i18n="setup.0019">做首次验证</h4><p data-i18n="setup.0020">确认对话、任务执行与日志输出全部正常。</p></div></article>
+</div>
+<div class="image-placeholder">
+<div>
+<strong data-i18n="setup.0021">配图位：安装流程总览图</strong>
+<span data-i18n="setup.0022">建议放：安装方式选择 -&gt; 初始化 -&gt; 首次验证 -&gt; 接入 IM/LLM</span>
+</div>
+</div>
+</div>
+</section>
+<section class="tutorial-section" id="requirements">
+<div class="card">
+<h2 data-i18n="setup.0023" style="margin-top: 0;">环境要求</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="setup.0024">项目</th><th data-i18n="setup.0025">最低要求</th><th data-i18n="setup.0026">推荐</th></tr></thead>
+<tbody>
+<tr><td data-i18n="setup.0027">Python</td><td>3.11+</td><td data-i18n="setup.0028">3.11+ 稳定版本</td></tr>
+<tr><td data-i18n="setup.0029">内存</td><td data-i18n="setup.0030">2 GB</td><td data-i18n="setup.0031">4 GB+</td></tr>
+<tr><td data-i18n="setup.0032">磁盘</td><td data-i18n="setup.0033">5 GB</td><td data-i18n="setup.0034">20 GB+</td></tr>
+<tr><td data-i18n="setup.0035">系统</td><td data-i18n="setup.0036">Windows / Linux / macOS</td><td data-i18n="setup.0037">新版本系统</td></tr>
+</tbody>
+</table>
+</div>
+<div class="tutorial-grid">
+<article class="tutorial-panel">
+<h4 data-i18n="setup.0038">网络要求</h4>
+<p data-i18n="setup.0039">需访问 LLM API 端点；若网络受限，提前准备代理配置。</p>
+</article>
+<article class="tutorial-panel">
+<h4 data-i18n="setup.0040">权限要求</h4>
+<p data-i18n="setup.0041">安装目录需有读写权限，服务模式建议使用独立运行账户。</p>
+</article>
+</div>
+</div>
+</section>
+<section class="tutorial-section" id="desktop">
+<div class="card">
+<h2 data-i18n="setup.0042" style="margin-top: 0;">方式一：Desktop（按配置向导）</h2>
+<p data-i18n="setup.0043">以下步骤依据桌面端配置向导整理，覆盖快速配置与完整配置两种模式。首次启动 OpenAkita Desktop 后会自动进入该向导。</p>
+<p class="notice" data-i18n="setup.0044">开始前请准备：可联网环境、至少 1 个可用 LLM API Key、2 GB 以上可用磁盘空间。</p>
+<h3 data-i18n="setup.0045" style="margin-top: 14px;">0. 启动与前置检查</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th data-i18n="setup.0046">项目</th>
+<th data-i18n="setup.0047">建议值</th>
+<th data-i18n="setup.0048">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-i18n="setup.0049">操作系统</td>
+<td data-i18n="setup.0050">Windows 10/11、macOS 12+、Linux x86_64</td>
+<td data-i18n="setup.0051">桌面安装包按系统分别下载</td>
+</tr>
+<tr>
+<td data-i18n="setup.0052">网络</td>
+<td data-i18n="setup.0053">可访问 Python 依赖源和 LLM 服务</td>
+<td data-i18n="setup.0054">首次配置会下载运行环境与依赖</td>
+</tr>
+<tr>
+<td data-i18n="setup.0055">LLM API</td>
+<td data-i18n="setup.0056">至少 1 个可用端点</td>
+<td data-i18n="setup.0057">快速配置必须先添加端点才能继续</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="image-placeholder">
+<div>
+<strong data-i18n="setup.0058">配图位：首次启动主界面</strong>
+<span data-i18n="setup.0059">建议放 Desktop 启动后自动进入配置向导的页面</span>
+</div>
+</div>
+<h3 data-i18n="setup.0060" style="margin-top: 14px;">1. 选择配置模式</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th data-i18n="setup.0061">模式</th>
+<th data-i18n="setup.0062">耗时</th>
+<th data-i18n="setup.0063">适合场景</th>
+<th data-i18n="setup.0064">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-i18n="setup.0065">快速配置</td>
+<td data-i18n="setup.0066">约 3 分钟</td>
+<td data-i18n="setup.0067">首次体验、默认部署</td>
+<td data-i18n="setup.0068">自动完成环境搭建，只需填写关键项</td>
+</tr>
+<tr>
+<td data-i18n="setup.0069">完整配置</td>
+<td data-i18n="setup.0070">约 10 分钟</td>
+<td data-i18n="setup.0071">生产定制、企业部署</td>
+<td data-i18n="setup.0072">逐项配置工作区、Python、端点、工具与系统参数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tutorial-grid">
+<div class="image-placeholder">
+<div>
+<strong data-i18n="setup.0073">配图位：模式选择页</strong>
+<span data-i18n="setup.0074">建议放快速配置 / 完整配置两张卡片</span>
+</div>
+</div>
+<div class="image-placeholder">
+<div>
+<strong data-i18n="setup.0075">配图位：切换模式入口</strong>
+<span data-i18n="setup.0076">建议放侧边栏中的切换配置模式按钮</span>
+</div>
+</div>
+</div>
+<h3 data-i18n="setup.0077" style="margin-top: 14px;">2. 快速配置（约 3 分钟）</h3>
+<p data-i18n="setup.0078">快速配置会自动创建默认工作区、安装内置 Python、创建虚拟环境并安装依赖。你只需补全 LLM 端点，IM 通道可选。</p>
+<div class="step-list" style="margin-top: 12px;">
+<article class="step"><div class="index">1</div><div><h4 data-i18n="setup.0079">添加 LLM 端点（必填）</h4><p data-i18n="setup.0080">点击“+ 添加端点”，填写服务商、Base URL、API Key、模型、能力标签。</p></div></article>
+<article class="step"><div class="index">2</div><div><h4 data-i18n="setup.0081">配置 IM 通道（可选）</h4><p data-i18n="setup.0082">按需填写 Telegram / 飞书 / 企业微信 / 钉钉 / QQ 参数，不配也可先使用桌面对话。</p></div></article>
+<article class="step"><div class="index">3</div><div><h4 data-i18n="setup.0083">点击开始配置</h4><p data-i18n="setup.0084">未添加任何 LLM 端点时按钮会禁用，先补全端点后再继续。</p></div></article>
+<article class="step"><div class="index">4</div><div><h4 data-i18n="setup.0085">等待自动配置完成</h4><p data-i18n="setup.0086">向导会按顺序安装运行环境并写入默认配置，可在进度页查看日志。</p></div></article>
+<article class="step"><div class="index">5</div><div><h4 data-i18n="setup.0087">完成并启动服务</h4><p data-i18n="setup.0088">在完成页查看工作区、端点和 IM 摘要，点击“启动服务”进入状态面板。</p></div></article>
+</div>
+<div class="tutorial-grid">
+<div class="image-placeholder">
+<div>
+<strong data-i18n="setup.0089">配图位：快速配置填写页</strong>
+<span data-i18n="setup.0090">建议放 LLM 端点对话框（含高级选项展开）</span>
+</div>
+</div>
+<div class="image-placeholder">
+<div>
+<strong data-i18n="setup.0091">配图位：IM 通道填写页</strong>
+<span data-i18n="setup.0092">建议放 IM 区域展开后的配置表单</span>
+</div>
+</div>
+</div>
+<div class="image-placeholder">
+<div>
+<strong data-i18n="setup.0093">配图位：自动配置进度页</strong>
+<span data-i18n="setup.0094">建议放创建工作区、安装 Python、安装依赖、写入配置的分步进度</span>
+</div>
+</div>
+<ul class="checklist">
+<li>自动步骤包含：创建默认工作区、安装内置 Python 3.11、创建 venv、安装 <code>openakita[all]</code>、写入默认配置。</li>
+<li data-i18n="setup.0095">网络异常导致失败时，可返回模式选择切换到完整配置进行手动排查。</li>
+<li data-i18n="setup.0096">完成后优先验证一次模型连通性，再继续接入 IM 通道。</li>
+</ul>
+<h3 data-i18n="setup.0097" style="margin-top: 14px;">3. 完整配置（约 10 分钟）</h3>
+<p data-i18n="setup.0098">完整配置适合生产场景，适合需要自定义运行环境、安装源、工具能力和 Agent 行为策略的团队。</p>
+<div class="tutorial-grid">
+<article class="tutorial-panel">
+<h4 data-i18n="setup.0099">4.1 工作区</h4>
+<p>新建或切换工作区，隔离 <code>.env</code>、<code>data/llm_endpoints.json</code> 和角色配置。</p>
+</article>
+<article class="tutorial-panel">
+<h4 data-i18n="setup.0100">4.2 Python 环境</h4>
+<p data-i18n="setup.0101">可选内置 Python（推荐）或系统 Python 3.11+，检测通过后再进入安装步骤。</p>
+</article>
+<article class="tutorial-panel">
+<h4 data-i18n="setup.0102">4.3 安装</h4>
+<p data-i18n="setup.0103">支持 PyPI / GitHub / 本地三种来源，可选择镜像源与 extras 组件。</p>
+</article>
+<article class="tutorial-panel">
+<h4 data-i18n="setup.0104">4.4 LLM 端点</h4>
+<p data-i18n="setup.0105">支持多端点、优先级和故障切换；主端点建议配置 2 个不同服务商。</p>
+</article>
+<article class="tutorial-panel">
+<h4 data-i18n="setup.0106">4.5 IM 通道</h4>
+<p data-i18n="setup.0107">按需启用 Telegram、飞书、企业微信、钉钉、QQ OneBot，全部为可选项。</p>
+</article>
+<article class="tutorial-panel">
+<h4 data-i18n="setup.0108">4.6 工具与技能</h4>
+<p data-i18n="setup.0109">配置 MCP 工具、桌面自动化、语音与代理参数，并管理内置/外部 Skills。</p>
+</article>
+<article class="tutorial-panel">
+<h4 data-i18n="setup.0110">4.7 Agent 与系统</h4>
+<p data-i18n="setup.0111">设置角色人格、日志、记忆、主动消息与调度器参数。</p>
+</article>
+<article class="tutorial-panel">
+<h4 data-i18n="setup.0112">4.8 完成</h4>
+<p data-i18n="setup.0113">检查配置文件、启动服务并进入状态面板，必要时可执行清理或重装。</p>
+</article>
+</div>
+<div class="table-wrap" style="margin-top: 12px;">
+<table>
+<thead>
+<tr>
+<th data-i18n="setup.0114">安装来源</th>
+<th data-i18n="setup.0115">说明</th>
+<th data-i18n="setup.0116">推荐场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-i18n="setup.0117">PyPI</td>
+<td data-i18n="setup.0118">稳定版本，默认来源</td>
+<td data-i18n="setup.0119">生产环境、常规部署</td>
+</tr>
+<tr>
+<td data-i18n="setup.0120">GitHub</td>
+<td data-i18n="setup.0121">拉取最新仓库代码</td>
+<td data-i18n="setup.0122">需要新特性或测试分支</td>
+</tr>
+<tr>
+<td data-i18n="setup.0123">本地目录</td>
+<td data-i18n="setup.0124">从本地源码安装</td>
+<td data-i18n="setup.0125">本地开发和调试</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tutorial-grid">
+<div class="image-placeholder">
+<div>
+<strong data-i18n="setup.0126">配图位：完整配置-Python 检测页</strong>
+<span data-i18n="setup.0127">建议放内置 Python 安装与系统 Python 检测结果</span>
+</div>
+</div>
+<div class="image-placeholder">
+<div>
+<strong data-i18n="setup.0128">配图位：完整配置-LLM 端点页</strong>
+<span data-i18n="setup.0129">建议放多端点列表、优先级和能力标签配置</span>
+</div>
+</div>
+</div>
+<div class="image-placeholder">
+<div>
+<strong data-i18n="setup.0130">配图位：完整配置-完成页</strong>
+<span data-i18n="setup.0131">建议放配置摘要、启动服务按钮与状态面板入口</span>
+</div>
+</div>
+<h3 data-i18n="setup.0132" style="margin-top: 14px;">4. 配置完成后的文件位置</h3>
+<p data-i18n="setup.0133">向导会把配置写入工作区目录。建议通过桌面端修改配置，避免手工编辑导致格式错误。</p>
+<div class="code-block"><code># 环境变量文件
+~/.openakita/workspaces/{workspace_id}/.env
+
+# LLM 端点列表
+~/.openakita/workspaces/{workspace_id}/data/llm_endpoints.json
+
+# 角色灵魂文件
+~/.openakita/workspaces/{workspace_id}/identity/SOUL.md</code></div>
+<ul class="checklist">
+<li>修改 <code>.env</code> 或 <code>llm_endpoints.json</code> 后，执行“应用并重启”或重启服务。</li>
+<li data-i18n="setup.0134">生产环境建议保留一份可回滚的配置快照。</li>
+</ul>
+</div>
+</section>
+<section class="tutorial-section" id="pypi">
+<div class="card">
+<h2 data-i18n="setup.0135" style="margin-top: 0;">方式二：PyPI CLI</h2>
+<p data-i18n="setup.0136">适合研发环境和自动化部署脚本，推荐作为 CI/CD 的基础安装路径。</p>
+<div class="code-block"><code># 1) 创建虚拟环境
+python -m venv venv
+
+# 2) 激活环境（Linux/macOS）
+source venv/bin/activate
+
+# 3) 激活环境（Windows PowerShell）
+# .\\venv\\Scripts\\activate
+
+# 4) 安装 openakita 与常用扩展
+pip install openakita[all]
+
+# 5) 初始化配置文件
+openakita init
+
+# 6) 启动交互模式
+openakita</code></div>
+<p class="notice" data-i18n="setup.0137">按需安装可选包：`openakita[feishu]`、`openakita[whisper]`、`openakita[browser]` 等。</p>
+<div class="image-placeholder"><div><strong data-i18n="setup.0138">配图位：命令行安装截图</strong><span data-i18n="setup.0139">建议放 pip 安装和 init 成功输出</span></div></div>
+</div>
+</section>
+<section class="tutorial-section" id="source">
+<div class="card">
+<h2 data-i18n="setup.0140" style="margin-top: 0;">方式三：源码安装</h2>
+<p data-i18n="setup.0141">适合研发团队进行二次开发、定制模型策略和平台适配器扩展。</p>
+<div class="code-block"><code># 1) 拉取源码
+git clone https://github.com/openakita/openakita.git
+cd openakita
+
+# 2) 创建并激活虚拟环境
+python -m venv venv
+source venv/bin/activate
+
+# 3) 升级 pip 并安装开发依赖
+pip install --upgrade pip
+pip install -e ".[all,dev]"
+
+# 4) 准备配置模板
+cp examples/.env.example .env
+cp data/llm_endpoints.json.example data/llm_endpoints.json
+
+# 5) 初始化运行环境
+openakita init</code></div>
+<ul class="checklist">
+<li data-i18n="setup.0142">确认 `openakita` 命令可执行。</li>
+<li data-i18n="setup.0143">确认 `data/llm_endpoints.json` 存在且至少配置一个端点。</li>
+<li data-i18n="setup.0144">确认 `.env` 中至少有一个有效 API Key。</li>
+</ul>
+</div>
+</section>
+<section class="tutorial-section" id="first-run">
+<div class="card">
+<h2 data-i18n="setup.0145" style="margin-top: 0;">首次启动验证</h2>
+<div class="code-block"><code># 交互模式
+openakita
+
+# 服务模式（仅 IM）
+openakita serve
+
+# 单次任务测试
+openakita run "创建一个带测试的 Python 计算器"</code></div>
+<h3 data-i18n="setup.0146" style="margin-top: 14px;">上线前检查清单</h3>
+<ul class="checklist">
+<li data-i18n="setup.0147">对话请求可返回，日志无连续 ERROR。</li>
+<li data-i18n="setup.0148">模型调用成功，响应延迟在可接受范围。</li>
+<li data-i18n="setup.0149">配置文件已备份（`.env`、`llm_endpoints.json`）。</li>
+<li data-i18n="setup.0150">若接 IM 通道，平台回调或长连接已验证通过。</li>
+</ul>
+<div class="faq-list">
+<article class="faq-item">
+<h4 data-i18n="setup.0151">Q：提示 API key not found？</h4>
+<p data-i18n="setup.0152">A：检查 `.env` 路径与变量名，确认与 `api_key_env` 一致。</p>
+</article>
+<article class="faq-item">
+<h4 data-i18n="setup.0153">Q：安装成功但命令不可用？</h4>
+<p data-i18n="setup.0154">A：确认虚拟环境已激活，或使用 `python -m openakita` 方式启动。</p>
+</article>
+<article class="faq-item">
+<h4 data-i18n="setup.0155">Q：大陆网络调用超时？</h4>
+<p data-i18n="setup.0156">A：配置 `ALL_PROXY` 或改用可访问的 `base_url` 代理端点。</p>
+</article>
+</div>
+</div>
+</section>
+<section class="tutorial-section" id="video">
+<div class="card">
+<h2 data-i18n="setup.0157" style="margin-top: 0;">视频教程占位</h2>
+<div class="video-block">
+<div class="video-embed" data-i18n="setup.0158">替换为 B 站或 YouTube iframe</div>
+<p data-i18n="setup.0159" style="margin-top: 10px; color: var(--text-muted);">示例：将 `&lt;iframe src="..."&gt;&lt;/iframe&gt;` 直接替换到上方容器中。</p>
+</div>
+<div class="tutorial-grid">
+<div class="image-placeholder"><div><strong data-i18n="setup.0160">配图位：视频封面图 1</strong><span data-i18n="setup.0161">安装与启动</span></div></div>
+<div class="image-placeholder"><div><strong data-i18n="setup.0162">配图位：视频封面图 2</strong><span data-i18n="setup.0163">常见错误与排障</span></div></div>
+</div>
+</div>
+</section>
+<section class="tutorial-section" id="refs">
+<div class="card">
+<h2 data-i18n="setup.0164" style="margin-top: 0;">参考文档</h2>
+<ul class="link-list">
+<li><a data-i18n="setup.0165" href="https://github.com/openakita/openakita/blob/main/README_CN.md" rel="noreferrer noopener" target="_blank">README_CN.md</a></li>
+<li><a data-i18n="setup.0166" href="https://github.com/openakita/openakita/blob/main/docs/deploy.md" rel="noreferrer noopener" target="_blank">docs/deploy.md</a></li>
+<li><a data-i18n="setup.0167" href="/tutorials/llm-endpoints/">下一步：LLM 端点配置教程</a></li>
+</ul>
+</div>
+</section>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-grid">
+<div>
+<h4 data-i18n="setup.0168">安装教程</h4>
+<p data-i18n="setup.0169">覆盖 Desktop、PyPI、源码三种安装路径。</p>
+</div>
+<div>
+<h4 data-i18n="setup.0170">继续学习</h4>
+<ul>
+<li><a data-i18n="setup.0171" href="/tutorials/llm-endpoints/">LLM 端点配置</a></li>
+<li><a data-i18n="setup.0172" href="/tutorials/im-channels/">IM 通道配置</a></li>
+</ul>
+</div>
+<div>
+<h4 data-i18n="setup.0173">开源仓库</h4>
+<ul>
+<li><a data-i18n="setup.0174" href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">openakita/openakita</a></li>
+</ul>
+</div>
+</div>
+<div class="container" style="margin-top: 16px; color: var(--text-muted); font-size: 13px;">
+      © <span data-current-year=""></span> OpenAkita Contributors
+    </div>
+</footer>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

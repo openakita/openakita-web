@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>下载 OpenAkita - Desktop / CLI / Source</title>
+<meta content="OpenAkita 下载页面：Desktop 安装包、PyPI CLI 安装、源码部署和一键脚本。" name="description"/>
+<link href="https://openakita.ai/download/" rel="canonical"/>
+<link href="../assets/img/logo.png" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="../assets/css/styles.css" rel="stylesheet"/>
+</head>
+<body data-page="download">
+<header class="site-header">
+<div class="container nav-inner">
+<a class="brand" href="/">
+<img alt="OpenAkita" src="../assets/img/logo.png"/>
+<span>OpenAkita</span>
+</a>
+<button aria-expanded="false" aria-label="打开导航" class="nav-toggle">
+<img alt="menu" src="../assets/img/icons/menu.svg"/>
+</button>
+<nav aria-label="主导航" class="main-nav">
+<a data-nav="home" href="/">首页</a>
+<a data-nav="download" href="/download/">下载</a>
+<a data-nav="tutorials" href="/tutorials/">教程</a>
+<a data-nav="about" href="/about/">关于我们</a>
+<a href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub</a>
+</nav>
+</div>
+</header>
+<main>
+<section class="page-hero">
+<div class="container reveal">
+<div class="eyebrow" data-i18n="download.0001">Download</div>
+<h1 data-i18n="download.0002">下载与安装 OpenAkita</h1>
+<p data-i18n="download.0003">官方支持 Desktop、CLI、源码部署三种方式。你可以从简单到深入逐步切换。</p>
+</div>
+</section>
+<section>
+<div class="container card-grid">
+<article class="card reveal">
+<img alt="desktop" class="card-icon" src="../assets/img/icons/download.svg"/>
+<h3 data-i18n="download.0004">Desktop 安装包（Win / macOS / Linux）</h3>
+<p data-i18n="download.0005">只保留三端最新安装包入口，按你的系统直接下载即可。</p>
+<div class="meta" data-i18n="download.0006">版本：<span id="latestReleaseVersion">加载中...</span> · <span id="latestReleaseDate">--</span></div>
+<div class="actions">
+<a class="btn btn-primary" href="https://github.com/openakita/openakita/releases" id="downloadDesktopButton" rel="noreferrer noopener" target="_blank">查看全部安装包</a>
+<a class="btn btn-secondary" href="https://github.com/openakita/openakita/releases" id="latestReleaseNotesLink" rel="noreferrer noopener" target="_blank">Release 说明</a>
+</div>
+<div class="platform-grid">
+<a class="platform-link" href="https://github.com/openakita/openakita/releases" id="downloadWindowsBtn" rel="noreferrer noopener" target="_blank">
+<span class="platform-icon"><img alt="Windows" src="../assets/img/icons/windows.svg"/></span>
+<span class="platform-meta"><strong data-i18n="download.0007">Windows</strong><span id="windowsAssetName">加载中...</span></span>
+</a>
+<a class="platform-link" href="https://github.com/openakita/openakita/releases" id="downloadMacBtn" rel="noreferrer noopener" target="_blank">
+<span class="platform-icon"><img alt="macOS" src="../assets/img/icons/macos.svg"/></span>
+<span class="platform-meta"><strong data-i18n="download.0008">macOS</strong><span id="macAssetName">加载中...</span></span>
+</a>
+<a class="platform-link" href="https://github.com/openakita/openakita/releases" id="downloadLinuxBtn" rel="noreferrer noopener" target="_blank">
+<span class="platform-icon"><img alt="Linux" src="../assets/img/icons/linux.svg"/></span>
+<span class="platform-meta"><strong data-i18n="download.0009">Linux</strong><span id="linuxAssetName">加载中...</span></span>
+</a>
+</div>
+<p data-i18n="download.0010" style="margin-top: 10px; color: var(--text-muted); font-size: 13px;">若当前版本缺少某端包，按钮会自动跳转到 Releases 页。</p>
+</article>
+<article class="card reveal">
+<img alt="cli" class="card-icon" src="../assets/img/icons/book.svg"/>
+<h3 data-i18n="download.0011">PyPI CLI 安装</h3>
+<p data-i18n="download.0012">适合命令行用户与自动化部署，步骤最短。</p>
+<div class="code-block"><code># 1) 创建虚拟环境
+python -m venv venv
+
+# 2) 激活环境（Linux/macOS）
+source venv/bin/activate
+
+# 3) 激活环境（Windows PowerShell）
+# .\\venv\\Scripts\\activate
+
+# 4) 安装 openakita 与常用扩展
+pip install openakita[all]
+
+# 5) 初始化配置文件
+openakita init
+
+# 6) 启动交互模式
+openakita</code></div>
+<div class="actions">
+<a class="btn btn-secondary" data-i18n="download.0013" href="/tutorials/setup-install/">查看安装教程</a>
+</div>
+</article>
+<article class="card reveal">
+<img alt="source" class="card-icon" src="../assets/img/icons/github.svg"/>
+<h3 data-i18n="download.0014">源码安装</h3>
+<p data-i18n="download.0015">适合需要二次开发、定制构建和自托管流程的团队。</p>
+<div class="code-block"><code># 1) 拉取源码
+git clone https://github.com/openakita/openakita.git
+cd openakita
+
+# 2) 创建并激活虚拟环境
+python -m venv venv
+source venv/bin/activate
+
+# 3) 以开发模式安装（含 dev 依赖）
+pip install -e ".[all,dev]"
+
+# 4) 准备运行配置文件
+cp examples/.env.example .env
+cp data/llm_endpoints.json.example data/llm_endpoints.json
+
+# 5) 初始化并生成目录
+openakita init</code></div>
+</article>
+</div>
+</section>
+<section>
+<div class="container reveal">
+<div class="section-head">
+<h2 data-i18n="download.0016">一键脚本安装</h2>
+<p data-i18n="download.0017">官方脚本来自项目仓库 `scripts/quickstart.*`。</p>
+</div>
+<div class="two-col">
+<article class="card">
+<h3 data-i18n="download.0018">Linux / macOS</h3>
+<div class="code-block"><code>curl -fsSL https://raw.githubusercontent.com/openakita/openakita/main/scripts/quickstart.sh | bash</code></div>
+</article>
+<article class="card">
+<h3 data-i18n="download.0019">Windows PowerShell</h3>
+<div class="code-block"><code>irm https://raw.githubusercontent.com/openakita/openakita/main/scripts/quickstart.ps1 | iex</code></div>
+</article>
+</div>
+<p class="notice" data-i18n="download.0020">脚本会自动准备虚拟环境与基础配置，适合第一次落地。</p>
+</div>
+</section>
+<section>
+<div class="container reveal">
+<div class="section-head">
+<h2 data-i18n="download.0021">系统要求</h2>
+<p data-i18n="download.0022">建议按生产部署标准准备运行环境。</p>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th data-i18n="download.0023">项目</th><th data-i18n="download.0024">最低配置</th><th data-i18n="download.0025">推荐配置</th></tr>
+</thead>
+<tbody>
+<tr><td data-i18n="download.0026">CPU</td><td data-i18n="download.0027">2 核</td><td data-i18n="download.0028">4 核及以上</td></tr>
+<tr><td data-i18n="download.0029">内存</td><td data-i18n="download.0030">2 GB</td><td data-i18n="download.0031">4 GB 及以上</td></tr>
+<tr><td data-i18n="download.0032">磁盘</td><td data-i18n="download.0033">5 GB</td><td data-i18n="download.0034">20 GB 及以上</td></tr>
+<tr><td data-i18n="download.0035">Python</td><td>3.11+</td><td data-i18n="download.0036">3.11+ 稳定版本</td></tr>
+<tr><td data-i18n="download.0037">系统</td><td data-i18n="download.0038">Windows / Linux / macOS</td><td data-i18n="download.0039">新版本系统 + 稳定网络</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-grid">
+<div>
+<h4 data-i18n="download.0040">下载中心</h4>
+<p data-i18n="download.0041">按需求选择 Desktop、CLI 或源码安装路径。</p>
+</div>
+<div>
+<h4 data-i18n="download.0042">相关教程</h4>
+<ul>
+<li><a data-i18n="download.0043" href="/tutorials/setup-install/">安装与配置</a></li>
+<li><a data-i18n="download.0044" href="/tutorials/llm-endpoints/">LLM 端点</a></li>
+<li><a data-i18n="download.0045" href="/tutorials/im-channels/">IM 通道</a></li>
+</ul>
+</div>
+<div>
+<h4 data-i18n="download.0046">开源链接</h4>
+<ul>
+<li><a data-i18n="download.0047" href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub 仓库</a></li>
+<li><a data-i18n="download.0048" href="https://pypi.org/project/openakita/" rel="noreferrer noopener" target="_blank">PyPI</a></li>
+</ul>
+</div>
+</div>
+<div class="container" style="margin-top: 16px; color: var(--text-muted); font-size: 13px;">
+      © <span data-current-year=""></span> OpenAkita Contributors
+    </div>
+</footer>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

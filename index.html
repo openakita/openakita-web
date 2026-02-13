@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenAkita - 自进化 AI Agent 官网</title>
+  <meta name="description" content="OpenAkita 官方网站：一个会自学习、会自检修复、永不放弃的 AI Agent。提供下载、配置教程与文档入口。" />
+  <meta name="keywords" content="OpenAkita,AI Agent,开源,自进化,IM 通道,LLM,教程,下载" />
+  <link rel="canonical" href="https://openakita.ai/" />
+  <link rel="icon" href="assets/img/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="home">
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a class="brand" href="/">
+        <img src="assets/img/logo.png" alt="OpenAkita" />
+        <span>OpenAkita</span>
+      </a>
+      <button class="nav-toggle" aria-label="打开导航" aria-expanded="false">
+        <img src="assets/img/icons/menu.svg" alt="menu" />
+      </button>
+      <nav class="main-nav" aria-label="主导航">
+        <a href="/" data-nav="home">首页</a>
+        <a href="/download/" data-nav="download">下载</a>
+        <a href="/tutorials/" data-nav="tutorials">教程</a>
+        <a href="/about/" data-nav="about">关于我们</a>
+        <a href="https://github.com/openakita/openakita" target="_blank" rel="noreferrer noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow">Self-Evolving AI Agent</div>
+          <h1>一个你睡觉时还在变强的 AI Agent</h1>
+          <p>OpenAkita 会自主学习技能、自检修复并持续进化。3 分钟完成配置，填入 API Key 即可使用。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" id="downloadDesktopButton" href="https://github.com/openakita/openakita/releases" target="_blank" rel="noreferrer noopener">
+              <img src="assets/img/icons/download.svg" alt="download" />
+              下载桌面版
+            </a>
+            <a class="btn btn-secondary" href="/tutorials/setup-install/">
+              <img src="assets/img/icons/book.svg" alt="book" />
+              3 分钟配置教程
+            </a>
+            <a class="btn btn-accent" href="/tutorials/">
+              <img src="assets/img/icons/arrow-right.svg" alt="arrow" />
+              全部教程
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel reveal">
+          <h3>发布信息</h3>
+          <p>版本：<strong id="latestReleaseVersion">加载中...</strong></p>
+          <p>发布时间：<span id="latestReleaseDate">--</span></p>
+          <p style="margin-top: 12px;">
+            <a id="latestReleaseNotesLink" href="https://github.com/openakita/openakita/releases" target="_blank" rel="noreferrer noopener" style="text-decoration: underline;">查看 Release 详情</a>
+          </p>
+          <div class="quick-stats">
+            <div class="item"><strong>9+</strong><span>LLM 服务商</span></div>
+            <div class="item"><strong>6</strong><span>IM 平台接入</span></div>
+            <div class="item"><strong>8</strong><span>人格预设</span></div>
+            <div class="item"><strong>3min</strong><span>快速配置</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>核心特性</h2>
+          <p>基于最新 README 摘要，聚焦生产可用能力。</p>
+        </div>
+        <div class="card-grid">
+          <article class="card reveal">
+            <img class="card-icon" src="assets/img/icons/plus.svg" alt="evolution" />
+            <h3>自学习与自进化</h3>
+            <p>每日自检修复、记忆整理、任务复盘，持续迭代。</p>
+          </article>
+          <article class="card reveal">
+            <img class="card-icon" src="assets/img/icons/llm.svg" alt="llm" />
+            <h3>多 LLM 动态端点</h3>
+            <p>支持多模型路由、优先级调度和自动故障切换。</p>
+          </article>
+          <article class="card reveal">
+            <img class="card-icon" src="assets/img/icons/im.svg" alt="im" />
+            <h3>6 大通道接入</h3>
+            <p>CLI、Telegram、飞书、企业微信、钉钉、QQ。</p>
+          </article>
+          <article class="card reveal">
+            <img class="card-icon" src="assets/img/icons/book.svg" alt="desktop" />
+            <h3>桌面终端一站式管理</h3>
+            <p>聊天、配置、状态监控与技能管理整合在同一界面。</p>
+          </article>
+          <article class="card reveal">
+            <img class="card-icon" src="assets/img/icons/github.svg" alt="skills" />
+            <h3>Skill + MCP 标准化</h3>
+            <p>遵循开放标准，插件与外部能力可插拔扩展。</p>
+          </article>
+          <article class="card reveal">
+            <img class="card-icon" src="assets/img/icons/menu.svg" alt="persona" />
+            <h3>8 种人格与活人感</h3>
+            <p>支持主动消息与长期记忆，越用越懂用户偏好。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container reveal">
+        <div class="highlight-band">
+          <h2 style="margin: 0; font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;">3 分钟快速开始</h2>
+          <ul>
+            <li>下载桌面端，首次启动进入配置向导。</li>
+            <li>添加一个 LLM 端点（API Key 必填）。</li>
+            <li>点击开始配置，完成后直接进入对话。</li>
+          </ul>
+          <div class="hero-actions" style="margin-top: 18px;">
+            <a class="btn btn-primary" href="/download/">立即下载</a>
+            <a class="btn btn-secondary" href="/tutorials/setup-install/">安装教程</a>
+            <a class="btn btn-secondary" href="/tutorials/llm-endpoints/">LLM 配置教程</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container card-grid">
+        <article class="card reveal">
+          <span class="badge"><img src="assets/img/icons/book.svg" alt="preview" />桌面终端</span>
+          <div class="media-frame" style="margin-top: 10px;">
+            <img src="assets/img/desktop_terminal.png" alt="OpenAkita Desktop Terminal" loading="lazy" />
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <span class="badge"><img src="assets/img/icons/book.svg" alt="setup" />配置中心</span>
+          <div class="media-frame" style="margin-top: 10px;">
+            <img src="assets/img/setupcenter.png" alt="OpenAkita Setup Center" loading="lazy" />
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <span class="badge"><img src="assets/img/icons/github.svg" alt="docs" />文档与社区</span>
+          <ul class="link-list">
+            <li><a href="https://github.com/openakita/openakita/blob/main/docs/configuration-guide.md" target="_blank" rel="noreferrer noopener">配置指南</a></li>
+            <li><a href="https://github.com/openakita/openakita/blob/main/docs/llm-provider-setup-tutorial.md" target="_blank" rel="noreferrer noopener">LLM 服务商配置教程</a></li>
+            <li><a href="https://github.com/openakita/openakita/blob/main/docs/im-channel-setup-tutorial.md" target="_blank" rel="noreferrer noopener">IM 通道配置教程</a></li>
+            <li><a href="https://github.com/openakita/openakita/discussions" target="_blank" rel="noreferrer noopener">Discussions</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h4>OpenAkita</h4>
+        <p>Self-Evolving AI Agent：自主学习，永不放弃。</p>
+      </div>
+      <div>
+        <h4>快速链接</h4>
+        <ul>
+          <li><a href="/download/">下载</a></li>
+          <li><a href="/tutorials/">教程</a></li>
+          <li><a href="/about/">关于我们</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>开源社区</h4>
+        <ul>
+          <li><a href="https://github.com/openakita/openakita" target="_blank" rel="noreferrer noopener">GitHub 仓库</a></li>
+          <li><a href="https://github.com/openakita/openakita/issues" target="_blank" rel="noreferrer noopener">Issue</a></li>
+          <li><a href="https://discord.gg/Mkpd3rsm" target="_blank" rel="noreferrer noopener">Discord</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container" style="margin-top: 16px; color: var(--text-muted); font-size: 13px;">
+      © <span data-current-year></span> OpenAkita Contributors
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

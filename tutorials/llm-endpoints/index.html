@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>OpenAkita LLM 端点与 API Key 配置教程</title>
+<meta content="OpenAkita LLM 教程：API Key 申请、.env 配置、llm_endpoints.json 多端点与能力路由设置。" name="description"/>
+<link href="https://openakita.ai/tutorials/llm-endpoints/" rel="canonical"/>
+<link href="../../assets/img/logo.png" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="../../assets/css/styles.css" rel="stylesheet"/>
+</head>
+<body data-page="tutorials">
+<header class="site-header">
+<div class="container nav-inner">
+<a class="brand" href="/">
+<img alt="OpenAkita" src="../../assets/img/logo.png"/>
+<span>OpenAkita</span>
+</a>
+<button aria-expanded="false" aria-label="打开导航" class="nav-toggle">
+<img alt="menu" src="../../assets/img/icons/menu.svg"/>
+</button>
+<nav aria-label="主导航" class="main-nav">
+<a data-nav="home" href="/">首页</a>
+<a data-nav="download" href="/download/">下载</a>
+<a data-nav="tutorials" href="/tutorials/">教程</a>
+<a data-nav="about" href="/about/">关于我们</a>
+<a href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub</a>
+</nav>
+</div>
+</header>
+<main>
+<section class="page-hero">
+<div class="container reveal">
+<div class="eyebrow" data-i18n="llm.0001">Tutorial / LLM Endpoints</div>
+<h1 data-i18n="llm.0002">LLM 端点与 API Key 配置</h1>
+<p data-i18n="llm.0003">从 API Key 申请到多端点容灾，覆盖 `.env`、`llm_endpoints.json`、路由策略和上线验证。</p>
+</div>
+</section>
+<section>
+<div class="container tutorial-shell">
+<aside class="side-nav reveal">
+<h3 data-i18n="llm.0004">目录</h3>
+<a data-i18n="llm.0005" href="#overview">配置概览</a>
+<a data-i18n="llm.0006" href="#apikey">API Key 申请</a>
+<a data-i18n="llm.0007" href="#env">.env 配置</a>
+<a data-i18n="llm.0008" href="#endpoints">llm_endpoints.json</a>
+<a data-i18n="llm.0009" href="#routing">能力路由策略</a>
+<a data-i18n="llm.0010" href="#verify">连通性验证</a>
+<a data-i18n="llm.0011" href="#video">视频教程</a>
+</aside>
+<div class="reveal">
+<section class="tutorial-section" id="overview">
+<div class="card">
+<h2 data-i18n="llm.0012" style="margin-top: 0;">配置模型访问层的正确顺序</h2>
+<p data-i18n="llm.0013">OpenAkita 的模型访问层分为两层：`.env` 存密钥和全局参数，`llm_endpoints.json` 管理端点拓扑与策略。</p>
+<div class="step-list" style="margin-top: 12px;">
+<article class="step"><div class="index">1</div><div><h4 data-i18n="llm.0014">先单端点跑通</h4><p data-i18n="llm.0015">先配置一个稳定端点验证基础链路，避免一次引入过多变量。</p></div></article>
+<article class="step"><div class="index">2</div><div><h4 data-i18n="llm.0016">再增加备份端点</h4><p data-i18n="llm.0017">按优先级配置主备，明确每个端点的 `capabilities`。</p></div></article>
+<article class="step"><div class="index">3</div><div><h4 data-i18n="llm.0018">最后做故障演练</h4><p data-i18n="llm.0019">主动模拟主端点失败，确认重试和回退策略按预期生效。</p></div></article>
+</div>
+<div class="tutorial-grid">
+<div class="image-placeholder"><div><strong data-i18n="llm.0020">配图位：LLM 配置总览图</strong><span data-i18n="llm.0021">建议放 `.env` 与 endpoints 文件关系图</span></div></div>
+<div class="image-placeholder"><div><strong data-i18n="llm.0022">配图位：模型调用链路图</strong><span data-i18n="llm.0023">建议放请求 -&gt; 路由 -&gt; 端点 -&gt; 回退流程图</span></div></div>
+</div>
+<p class="notice" data-i18n="llm.0024">上线建议：主端点优先选择稳定性高模型，备份端点优先选择区域近、成本低模型。</p>
+</div>
+</section>
+<section class="tutorial-section" id="apikey">
+<div class="card">
+<h2 data-i18n="llm.0025" style="margin-top: 0;">API Key 申请与管理</h2>
+<p data-i18n="llm.0026">统一在平台控制台申请 API Key，按供应商将密钥写入环境变量，不要硬编码到仓库。</p>
+<div class="table-wrap" style="margin-top: 12px;">
+<table>
+<thead><tr><th data-i18n="llm.0027">供应商</th><th data-i18n="llm.0028">变量名</th><th data-i18n="llm.0029">申请入口</th><th data-i18n="llm.0030">建议</th></tr></thead>
+<tbody>
+<tr><td data-i18n="llm.0031">Anthropic</td><td data-i18n="llm.0032">ANTHROPIC_API_KEY</td><td><a data-i18n="llm.0033" href="https://console.anthropic.com/" rel="noreferrer noopener" target="_blank">console.anthropic.com</a></td><td data-i18n="llm.0034">适合作为主端点</td></tr>
+<tr><td data-i18n="llm.0035">OpenAI</td><td data-i18n="llm.0036">OPENAI_API_KEY</td><td><a data-i18n="llm.0037" href="https://platform.openai.com/api-keys" rel="noreferrer noopener" target="_blank">platform.openai.com</a></td><td data-i18n="llm.0038">兼容生态广</td></tr>
+<tr><td data-i18n="llm.0039">DashScope</td><td data-i18n="llm.0040">DASHSCOPE_API_KEY</td><td><a data-i18n="llm.0041" href="https://dashscope.console.aliyun.com/" rel="noreferrer noopener" target="_blank">dashscope.console.aliyun.com</a></td><td data-i18n="llm.0042">国内网络友好</td></tr>
+<tr><td data-i18n="llm.0043">Kimi</td><td data-i18n="llm.0044">KIMI_API_KEY</td><td><a data-i18n="llm.0045" href="https://platform.moonshot.cn/console/api-keys" rel="noreferrer noopener" target="_blank">platform.moonshot.cn</a></td><td data-i18n="llm.0046">中文场景常用</td></tr>
+<tr><td data-i18n="llm.0047">DeepSeek</td><td data-i18n="llm.0048">DEEPSEEK_API_KEY</td><td><a data-i18n="llm.0049" href="https://platform.deepseek.com/" rel="noreferrer noopener" target="_blank">platform.deepseek.com</a></td><td data-i18n="llm.0050">推理场景成本低</td></tr>
+<tr><td data-i18n="llm.0051">OpenRouter</td><td data-i18n="llm.0052">OPENROUTER_API_KEY</td><td><a data-i18n="llm.0053" href="https://openrouter.ai/keys" rel="noreferrer noopener" target="_blank">openrouter.ai</a></td><td data-i18n="llm.0054">多模型聚合</td></tr>
+<tr><td data-i18n="llm.0055">MiniMax</td><td data-i18n="llm.0056">MINIMAX_API_KEY</td><td><a data-i18n="llm.0057" href="https://platform.minimaxi.com/" rel="noreferrer noopener" target="_blank">platform.minimaxi.com</a></td><td data-i18n="llm.0058">多模态补充</td></tr>
+<tr><td data-i18n="llm.0059">SiliconFlow</td><td data-i18n="llm.0060">SILICONFLOW_API_KEY</td><td><a data-i18n="llm.0061" href="https://cloud.siliconflow.cn/" rel="noreferrer noopener" target="_blank">cloud.siliconflow.cn</a></td><td data-i18n="llm.0062">高并发性价比</td></tr>
+</tbody>
+</table>
+</div>
+<div class="tutorial-grid">
+<div class="image-placeholder"><div><strong data-i18n="llm.0063">配图位：控制台 Key 页面截图</strong><span data-i18n="llm.0064">建议放申请入口和密钥生成流程</span></div></div>
+<div class="image-placeholder"><div><strong data-i18n="llm.0065">配图位：密钥管理规范图</strong><span data-i18n="llm.0066">建议放轮换、禁用、审计策略示意图</span></div></div>
+</div>
+<ul class="checklist">
+<li data-i18n="llm.0067">每个环境（开发/测试/生产）使用独立 API Key。</li>
+<li data-i18n="llm.0068">为 Key 设置最小权限和配额上限，避免异常消耗。</li>
+<li data-i18n="llm.0069">密钥泄露后立即吊销并更新部署环境。</li>
+</ul>
+</div>
+</section>
+<section class="tutorial-section" id="env">
+<div class="card">
+<h2 data-i18n="llm.0070" style="margin-top: 0;">.env 配置模板</h2>
+<p data-i18n="llm.0071">`.env` 负责统一声明 API Key、默认模型和网络参数。至少配置一个可用 Key。</p>
+<div class="code-block"><code># 复制模板
+cp examples/.env.example .env
+
+# 至少配置一个有效 API Key
+ANTHROPIC_API_KEY=sk-xxx
+DASHSCOPE_API_KEY=xxx
+KIMI_API_KEY=xxx
+
+# 端点配置文件
+LLM_ENDPOINTS_CONFIG=data/llm_endpoints.json
+DEFAULT_MODEL=claude-opus-4-5-20251101-thinking
+MAX_TOKENS=8192
+
+# 网络受限场景可配置
+ALL_PROXY=http://127.0.0.1:7890</code></div>
+<div class="tutorial-grid">
+<article class="tutorial-panel">
+<h4 data-i18n="llm.0072">命名一致性</h4>
+<p data-i18n="llm.0073">`api_key_env` 值必须和 `.env` 变量名完全一致，否则会出现 key not found。</p>
+</article>
+<article class="tutorial-panel">
+<h4 data-i18n="llm.0074">配置隔离</h4>
+<p data-i18n="llm.0075">不要把 `.env` 提交到 git。建议使用 `.env.production` 与部署系统密钥托管。</p>
+</article>
+</div>
+<div class="image-placeholder"><div><strong data-i18n="llm.0076">配图位：.env 编辑示例截图</strong><span data-i18n="llm.0077">建议放关键变量高亮后的配置截图</span></div></div>
+</div>
+</section>
+<section class="tutorial-section" id="endpoints">
+<div class="card">
+<h2 data-i18n="llm.0078" style="margin-top: 0;">`llm_endpoints.json` 多端点配置</h2>
+<p data-i18n="llm.0079">推荐先通过向导生成，再按业务能力做精细化调整。</p>
+<div class="code-block"><code># 向导模式（推荐）
+python -m openakita.llm.setup.cli
+
+# 手动模板
+cp data/llm_endpoints.json.example data/llm_endpoints.json</code></div>
+<div class="code-block"><code>{
+  "endpoints": [
+    {
+      "name": "claude-primary",
+      "provider": "anthropic",
+      "api_type": "anthropic",
+      "base_url": "https://api.anthropic.com",
+      "api_key_env": "ANTHROPIC_API_KEY",
+      "model": "claude-opus-4-5-20251101-thinking",
+      "priority": 1,
+      "max_tokens": 8192,
+      "timeout": 60,
+      "capabilities": ["text", "vision", "tools", "thinking"]
+    },
+    {
+      "name": "qwen-backup",
+      "provider": "dashscope",
+      "api_type": "openai",
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "api_key_env": "DASHSCOPE_API_KEY",
+      "model": "qwen3-max",
+      "priority": 2,
+      "timeout": 60,
+      "capabilities": ["text", "tools", "thinking"],
+      "extra_params": {
+        "enable_thinking": true
+      }
+    }
+  ],
+  "settings": {
+    "retry_count": 2,
+    "retry_delay_seconds": 2,
+    "health_check_interval": 60,
+    "fallback_on_error": true
+  }
+}</code></div>
+<div class="tutorial-grid">
+<div class="image-placeholder"><div><strong data-i18n="llm.0080">配图位：端点编排示意图</strong><span data-i18n="llm.0081">建议放主备端点优先级关系图</span></div></div>
+<div class="image-placeholder"><div><strong data-i18n="llm.0082">配图位：配置文件 diff 截图</strong><span data-i18n="llm.0083">建议放模板与生产配置差异截图</span></div></div>
+</div>
+</div>
+</section>
+<section class="tutorial-section" id="routing">
+<div class="card">
+<h2 data-i18n="llm.0084" style="margin-top: 0;">能力路由与故障切换策略</h2>
+<p data-i18n="llm.0085">通过 `capabilities` 和 `priority` 配置，把请求自动路由到最合适的模型端点。</p>
+<div class="table-wrap" style="margin-top: 12px;">
+<table>
+<thead><tr><th data-i18n="llm.0086">能力</th><th data-i18n="llm.0087">建议主端点</th><th data-i18n="llm.0088">建议备份端点</th><th data-i18n="llm.0089">说明</th></tr></thead>
+<tbody>
+<tr><td data-i18n="llm.0090">text</td><td data-i18n="llm.0091">稳定高质量模型</td><td data-i18n="llm.0092">低成本模型</td><td data-i18n="llm.0093">覆盖绝大多数对话请求</td></tr>
+<tr><td data-i18n="llm.0094">tools</td><td data-i18n="llm.0095">工具调用兼容性强模型</td><td data-i18n="llm.0096">OpenAI 兼容模型</td><td data-i18n="llm.0097">要求函数调用格式稳定</td></tr>
+<tr><td data-i18n="llm.0098">vision</td><td data-i18n="llm.0099">多模态模型</td><td data-i18n="llm.0100">支持图像输入的次级模型</td><td data-i18n="llm.0101">需显式声明 `vision` 能力</td></tr>
+<tr><td data-i18n="llm.0102">thinking</td><td data-i18n="llm.0103">推理强化模型</td><td data-i18n="llm.0104">推理成本较低模型</td><td data-i18n="llm.0105">建议设置较高超时时间</td></tr>
+</tbody>
+</table>
+</div>
+<ul class="checklist">
+<li data-i18n="llm.0106">主端点 `priority` 设为 1，备份按 2、3 递增。</li>
+<li data-i18n="llm.0107">不同供应商的超时和重试策略分开评估，避免放大延迟。</li>
+<li data-i18n="llm.0108">出现持续失败时，检查端点状态与配额是否触发限流。</li>
+</ul>
+<div class="image-placeholder"><div><strong data-i18n="llm.0109">配图位：故障切换时序图</strong><span data-i18n="llm.0110">建议放主端点失败后重试与回退流程</span></div></div>
+</div>
+</section>
+<section class="tutorial-section" id="verify">
+<div class="card">
+<h2 data-i18n="llm.0111" style="margin-top: 0;">连通性验证与排障</h2>
+<p data-i18n="llm.0112">完成配置后建议做三类验证：交互验证、任务验证、故障模拟验证。</p>
+<div class="code-block"><code># 交互验证
+openakita
+
+# 任务验证
+openakita run "请总结当前 LLM 端点配置并输出检查项"
+
+# 服务模式（如需 IM）
+openakita serve</code></div>
+<div class="faq-list">
+<article class="faq-item">
+<h4 data-i18n="llm.0113">Q：报错 API key not found？</h4>
+<p data-i18n="llm.0114">A：检查 `api_key_env` 与 `.env` 中变量名是否完全一致，并确认运行目录正确。</p>
+</article>
+<article class="faq-item">
+<h4 data-i18n="llm.0115">Q：报错 timeout 或 connection error？</h4>
+<p data-i18n="llm.0116">A：优先检查 `base_url`、代理配置和供应商网络可达性，再调高 `timeout`。</p>
+</article>
+<article class="faq-item">
+<h4 data-i18n="llm.0117">Q：工具调用失败或参数错乱？</h4>
+<p data-i18n="llm.0118">A：检查模型是否支持 tool-calling，必要时切换到兼容性更高端点。</p>
+</article>
+</div>
+</div>
+</section>
+<section class="tutorial-section" id="video">
+<div class="card">
+<h2 data-i18n="llm.0119" style="margin-top: 0;">视频教程与参考资料</h2>
+<div class="tutorial-grid">
+<div class="video-block">
+<div class="video-embed" data-i18n="llm.0120">替换为视频 1：API Key 申请与 `.env` 配置（B 站 / YouTube iframe）</div>
+</div>
+<div class="video-block">
+<div class="video-embed" data-i18n="llm.0121">替换为视频 2：多端点容灾策略实战（B 站 / YouTube iframe）</div>
+</div>
+</div>
+<div class="tutorial-grid">
+<div class="image-placeholder"><div><strong data-i18n="llm.0122">配图位：视频封面图 1</strong><span data-i18n="llm.0123">建议放 API Key 配置封面</span></div></div>
+<div class="image-placeholder"><div><strong data-i18n="llm.0124">配图位：视频封面图 2</strong><span data-i18n="llm.0125">建议放端点路由实战封面</span></div></div>
+</div>
+<ul class="link-list">
+<li><a data-i18n="llm.0126" href="https://github.com/openakita/openakita/blob/main/docs/deploy.md" rel="noreferrer noopener" target="_blank">原始文档：docs/deploy.md</a></li>
+<li><a data-i18n="llm.0127" href="https://github.com/openakita/openakita/blob/main/data/llm_endpoints.json.example" rel="noreferrer noopener" target="_blank">样例文件：data/llm_endpoints.json.example</a></li>
+<li><a data-i18n="llm.0128" href="/tutorials/im-channels/">下一步：IM 通道配置与平台申请</a></li>
+</ul>
+</div>
+</section>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-grid">
+<div>
+<h4 data-i18n="llm.0129">LLM 教程</h4>
+<p data-i18n="llm.0130">覆盖 API Key、端点编排、路由策略和上线验证。</p>
+</div>
+<div>
+<h4 data-i18n="llm.0131">继续学习</h4>
+<ul>
+<li><a data-i18n="llm.0132" href="/tutorials/setup-install/">安装教程</a></li>
+<li><a data-i18n="llm.0133" href="/tutorials/im-channels/">IM 通道教程</a></li>
+</ul>
+</div>
+<div>
+<h4 data-i18n="llm.0134">开源文档</h4>
+<ul>
+<li><a data-i18n="llm.0135" href="https://github.com/openakita/openakita/blob/main/docs/deploy.md" rel="noreferrer noopener" target="_blank">docs/deploy.md</a></li>
+</ul>
+</div>
+</div>
+<div class="container" style="margin-top: 16px; color: var(--text-muted); font-size: 13px;">
+      © <span data-current-year=""></span> OpenAkita Contributors
+    </div>
+</footer>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
