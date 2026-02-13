@@ -54,8 +54,8 @@
             "OpenAkita 官方网站：一个会自学习、会自检修复、永不放弃的 AI Agent。提供下载、配置教程与文档入口。",
         },
         hero: {
-          title: "一个你睡觉时还在变强的 AI Agent",
-          desc: "OpenAkita 会自主学习技能、自检修复并持续进化。3 分钟完成配置，填入 API Key 即可使用。",
+          title: "OpenAkita 是一个自进化 AI Agent 框架",
+          desc: "面向生产场景，支持多 LLM 端点编排、IM 通道接入与持续自检修复。3 分钟完成首配。",
           btnDownload: "下载桌面版",
           btnSetup: "3 分钟配置教程",
           btnTutorials: "全部教程",
@@ -98,7 +98,7 @@
         meta: {
           title: "OpenAkita 教程中心 - 图文与视频",
           description:
-            "OpenAkita 官方教程中心：安装配置、IM 通道接入、LLM 端点与 API Key 配置，包含图文和视频入口。",
+            "OpenAkita 官方教程中心：安装配置、IM 通道接入、QQ 官方机器人、OneBot、LLM 端点与 API Key 配置，包含图文和视频入口。",
         },
         hero: {
           title: "教程中心：图文 + 视频",
@@ -121,13 +121,13 @@
         meta: {
           title: "OpenAkita IM 通道配置教程",
           description:
-            "OpenAkita IM 通道配置教程：Telegram、飞书、钉钉、企业微信、QQ 的平台申请与配置流程。",
+            "OpenAkita IM 通道配置教程：Telegram、飞书、钉钉、企业微信、QQ 官方机器人、OneBot 的平台申请与配置流程。",
         },
         hero: {
           title: "IM 通道配置与平台端申请",
-          desc: "覆盖平台申请步骤与 OpenAkita `.env` 配置。",
+          desc: "覆盖平台申请步骤与 OpenAkita `.env` 配置，含 QQ 官方机器人与 OneBot。",
         },
-        side: ["平台概览", "Telegram", "飞书", "钉钉", "企业微信", "QQ OneBot", "语音转写", "视频教程"],
+        side: ["平台概览", "Telegram", "飞书", "钉钉", "企业微信", "QQ 官方机器人", "OneBot（通用协议）", "语音转写", "视频教程"],
       },
       llm: {
         meta: {
@@ -184,8 +184,8 @@
             "Official OpenAkita website for a self-evolving AI Agent that learns, self-repairs, and never gives up.",
         },
         hero: {
-          title: "An AI Agent That Gets Better While You Sleep",
-          desc: "OpenAkita learns skills, fixes itself, and keeps evolving. Setup takes about 3 minutes.",
+          title: "OpenAkita Is a Self-Evolving AI Agent Framework",
+          desc: "Built for production with multi-LLM routing, IM channel integration, and continuous self-repair. First setup takes about 3 minutes.",
           btnDownload: "Download Desktop",
           btnSetup: "3-Min Setup Guide",
           btnTutorials: "All Tutorials",
@@ -227,7 +227,8 @@
       tutorials: {
         meta: {
           title: "OpenAkita Tutorials - Text and Video",
-          description: "Official OpenAkita tutorials for setup, IM channels, and LLM endpoint/API key configuration.",
+          description:
+            "Official OpenAkita tutorials for setup, IM channels, QQ Official Bot, OneBot, and LLM endpoint/API key configuration.",
         },
         hero: {
           title: "Tutorial Center",
@@ -248,13 +249,13 @@
       im: {
         meta: {
           title: "OpenAkita IM Channel Configuration Guide",
-          description: "Platform onboarding and configuration for Telegram, Feishu, DingTalk, WeCom, and QQ.",
+          description: "Platform onboarding and configuration for Telegram, Feishu, DingTalk, WeCom, QQ Official Bot, and OneBot.",
         },
         hero: {
           title: "IM Channel Config and Platform Onboarding",
-          desc: "Covers platform onboarding and `.env` configuration in OpenAkita.",
+          desc: "Covers platform onboarding and `.env` configuration, including QQ Official Bot and OneBot.",
         },
-        side: ["Platform Overview", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ OneBot", "Voice", "Video"],
+        side: ["Platform Overview", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ Official Bot", "OneBot (Universal)", "Voice", "Video"],
       },
       llm: {
         meta: {
@@ -284,7 +285,12 @@
         language: "言語",
         nav: { home: "ホーム", download: "ダウンロード", tutorials: "チュートリアル", about: "概要", github: "GitHub" },
       },
-      home: { hero: { title: "オープンソース AI Agent サイト", desc: "セットアップから本番運用までをカバーします。" } },
+      home: {
+        hero: {
+          title: "OpenAkita は自己進化する AI Agent フレームワーク",
+          desc: "本番利用を前提に、マルチ LLM ルーティング、IM 連携、自己修復を提供します。初期設定は約 3 分です。",
+        },
+      },
       download: { hero: { title: "OpenAkita をダウンロード", desc: "Desktop / CLI / Source の 3 つの導入方法を提供します。" } },
       tutorials: { hero: { title: "チュートリアルセンター", desc: "インストール、IM 連携、LLM 設定を網羅。" } },
       setup: {
@@ -292,8 +298,8 @@
         side: ["概要", "要件", "方法1: Desktop", "方法2: PyPI", "方法3: ソース", "初回検証", "動画", "参考資料"],
       },
       im: {
-        hero: { title: "IM チャネル設定", desc: "各プラットフォームの申請と接続手順。" },
-        side: ["プラットフォーム概要", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ OneBot", "音声変換", "動画"],
+        hero: { title: "IM チャネル設定", desc: "各プラットフォームの申請と接続手順（QQ公式ボットとOneBotを含む）。" },
+        side: ["プラットフォーム概要", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ公式ボット", "OneBot（汎用プロトコル）", "音声変換", "動画"],
       },
       llm: {
         hero: { title: "LLM エンドポイント設定", desc: "API Key とエンドポイント構成を設定。" },
@@ -307,7 +313,12 @@
         language: "언어",
         nav: { home: "홈", download: "다운로드", tutorials: "튜토리얼", about: "소개", github: "GitHub" },
       },
-      home: { hero: { title: "오픈소스 AI Agent 사이트", desc: "설치부터 운영까지 한 번에 안내합니다." } },
+      home: {
+        hero: {
+          title: "OpenAkita는 자기진화형 AI Agent 프레임워크",
+          desc: "프로덕션 환경을 위해 멀티 LLM 라우팅, IM 연동, 지속적 자기복구를 제공합니다. 초기 설정은 약 3분입니다.",
+        },
+      },
       download: { hero: { title: "OpenAkita 다운로드", desc: "Desktop / CLI / Source 3가지 설치 경로를 지원합니다." } },
       tutorials: { hero: { title: "튜토리얼 센터", desc: "설치, IM 연동, LLM 설정을 다룹니다." } },
       setup: {
@@ -315,8 +326,8 @@
         side: ["개요", "요구 사항", "방법 1: Desktop", "방법 2: PyPI", "방법 3: 소스", "최초 검증", "영상", "참고 자료"],
       },
       im: {
-        hero: { title: "IM 채널 설정", desc: "플랫폼 신청 및 연동 절차." },
-        side: ["플랫폼 개요", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ OneBot", "음성 전사", "영상"],
+        hero: { title: "IM 채널 설정", desc: "플랫폼 신청 및 연동 절차(QQ 공식 봇과 OneBot 포함)." },
+        side: ["플랫폼 개요", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ 공식 봇", "OneBot(범용 프로토콜)", "음성 전사", "영상"],
       },
       llm: {
         hero: { title: "LLM 엔드포인트 설정", desc: "API Key 및 엔드포인트 구성." },
@@ -330,7 +341,12 @@
         language: "Язык",
         nav: { home: "Главная", download: "Скачать", tutorials: "Руководства", about: "О проекте", github: "GitHub" },
       },
-      home: { hero: { title: "Сайт open-source AI Agent", desc: "От настройки до продакшена в одном потоке." } },
+      home: {
+        hero: {
+          title: "OpenAkita — самоэволюционирующий фреймворк AI Agent",
+          desc: "Для production: маршрутизация между несколькими LLM, интеграция IM-каналов и постоянное самовосстановление. Первый запуск за 3 минуты.",
+        },
+      },
       download: { hero: { title: "Скачать OpenAkita", desc: "Доступны Desktop, CLI и исходная установка." } },
       tutorials: { hero: { title: "Центр руководств", desc: "Установка, IM-каналы и настройка LLM." } },
       setup: {
@@ -338,8 +354,8 @@
         side: ["Обзор", "Требования", "Вариант 1: Desktop", "Вариант 2: PyPI", "Вариант 3: Source", "Первая проверка", "Видео", "Ссылки"],
       },
       im: {
-        hero: { title: "Настройка IM-каналов", desc: "Подключение платформ и конфигурация." },
-        side: ["Обзор платформ", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ OneBot", "Голос", "Видео"],
+        hero: { title: "Настройка IM-каналов", desc: "Подключение платформ и конфигурация (включая QQ Official Bot и OneBot)." },
+        side: ["Обзор платформ", "Telegram", "Feishu", "DingTalk", "WeCom", "Официальный бот QQ", "OneBot (универсальный)", "Голос", "Видео"],
       },
       llm: {
         hero: { title: "Настройка LLM endpoints", desc: "API Key и отказоустойчивые endpoints." },
@@ -353,7 +369,12 @@
         language: "Langue",
         nav: { home: "Accueil", download: "Télécharger", tutorials: "Tutoriels", about: "À propos", github: "GitHub" },
       },
-      home: { hero: { title: "Site open source AI Agent", desc: "Du setup à la production, en un seul parcours." } },
+      home: {
+        hero: {
+          title: "OpenAkita est un framework AI Agent auto-évolutif",
+          desc: "Conçu pour la production avec routage multi-LLM, intégration des canaux IM et auto-réparation continue. Configuration initiale en 3 minutes.",
+        },
+      },
       download: { hero: { title: "Télécharger OpenAkita", desc: "Installation Desktop, CLI et source." } },
       tutorials: { hero: { title: "Centre de tutoriels", desc: "Installation, canaux IM et configuration LLM." } },
       setup: {
@@ -361,8 +382,8 @@
         side: ["Aperçu", "Prérequis", "Option 1 : Desktop", "Option 2 : PyPI", "Option 3 : Source", "Vérification", "Vidéo", "Références"],
       },
       im: {
-        hero: { title: "Configuration des canaux IM", desc: "Onboarding des plateformes et intégration." },
-        side: ["Aperçu plateforme", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ OneBot", "Voix", "Vidéo"],
+        hero: { title: "Configuration des canaux IM", desc: "Onboarding des plateformes et intégration (QQ Bot officiel et OneBot inclus)." },
+        side: ["Aperçu plateforme", "Telegram", "Feishu", "DingTalk", "WeCom", "Bot officiel QQ", "OneBot (universel)", "Voix", "Vidéo"],
       },
       llm: {
         hero: { title: "Configuration des endpoints LLM", desc: "API Key et stratégie de bascule." },
@@ -376,7 +397,12 @@
         language: "Sprache",
         nav: { home: "Start", download: "Download", tutorials: "Tutorials", about: "Über uns", github: "GitHub" },
       },
-      home: { hero: { title: "Open-Source AI-Agent Website", desc: "Von Setup bis Produktion in einem Ablauf." } },
+      home: {
+        hero: {
+          title: "OpenAkita ist ein selbst-evolvierendes AI-Agent-Framework",
+          desc: "Für den Produktionseinsatz mit Multi-LLM-Routing, IM-Integration und kontinuierlicher Selbstreparatur. Ersteinrichtung in etwa 3 Minuten.",
+        },
+      },
       download: { hero: { title: "OpenAkita herunterladen", desc: "Desktop-, CLI- und Source-Installation verfügbar." } },
       tutorials: { hero: { title: "Tutorial-Zentrum", desc: "Installation, IM-Kanäle und LLM-Konfiguration." } },
       setup: {
@@ -384,8 +410,8 @@
         side: ["Überblick", "Voraussetzungen", "Option 1: Desktop", "Option 2: PyPI", "Option 3: Source", "Erstprüfung", "Video", "Referenzen"],
       },
       im: {
-        hero: { title: "IM-Kanal-Konfiguration", desc: "Plattform-Onboarding und Integration." },
-        side: ["Plattformüberblick", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ OneBot", "Sprache", "Video"],
+        hero: { title: "IM-Kanal-Konfiguration", desc: "Plattform-Onboarding und Integration (inkl. QQ Official Bot und OneBot)." },
+        side: ["Plattformüberblick", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ Official Bot", "OneBot (Universal)", "Sprache", "Video"],
       },
       llm: {
         hero: { title: "LLM-Endpoint-Konfiguration", desc: "API-Keys und Failover-Endpunkte." },
@@ -503,7 +529,7 @@
 
   function applyHomeTexts() {
     setText(".hero h1", t("home.hero.title"));
-    setText(".hero .hero-grid > div.reveal p", t("home.hero.desc"));
+    setText(".hero .hero-lead", t("home.hero.desc"));
     setInlineLabel("#downloadDesktopButton", t("home.hero.btnDownload"));
     setInlineLabel('.hero .hero-actions a[href="/tutorials/setup-install/"]', t("home.hero.btnSetup"));
     setInlineLabel('.hero .hero-actions a[href="/tutorials/"]', t("home.hero.btnTutorials"));

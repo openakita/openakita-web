@@ -6,12 +6,42 @@
   <title>OpenAkita - 自进化 AI Agent 官网</title>
   <meta name="description" content="OpenAkita 官方网站：一个会自学习、会自检修复、永不放弃的 AI Agent。提供下载、配置教程与文档入口。" />
   <meta name="keywords" content="OpenAkita,AI Agent,开源,自进化,IM 通道,LLM,教程,下载" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="author" content="OpenAkita Contributors" />
+  <meta name="theme-color" content="#eaf6ff" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="OpenAkita" />
+  <meta property="og:title" content="OpenAkita - 自进化 AI Agent 官网" />
+  <meta property="og:description" content="面向生产场景的开源 AI Agent 框架：下载、教程、IM 与 LLM 配置一站式入口。" />
+  <meta property="og:url" content="https://openakita.ai/" />
+  <meta property="og:image" content="https://openakita.ai/assets/img/desktop_terminal.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="OpenAkita - Self-Evolving AI Agent" />
+  <meta name="twitter:description" content="Production-ready open-source AI Agent framework with multilingual docs and guided setup." />
+  <meta name="twitter:image" content="https://openakita.ai/assets/img/desktop_terminal.png" />
   <link rel="canonical" href="https://openakita.ai/" />
   <link rel="icon" href="assets/img/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "OpenAkita",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Windows, macOS, Linux",
+      "license": "https://github.com/openakita/openakita/blob/main/LICENSE",
+      "downloadUrl": "https://github.com/openakita/openakita/releases",
+      "url": "https://openakita.ai/",
+      "sameAs": [
+        "https://github.com/openakita/openakita",
+        "https://discord.gg/vFwxNVNH",
+        "https://x.com/openakita"
+      ]
+    }
+  </script>
 </head>
 <body data-page="home">
   <header class="site-header">
@@ -36,10 +66,16 @@
   <main>
     <section class="hero">
       <div class="container hero-grid">
-        <div class="reveal">
+        <div class="hero-main reveal">
           <div class="eyebrow">Self-Evolving AI Agent</div>
-          <h1>一个你睡觉时还在变强的 AI Agent</h1>
-          <p>OpenAkita 会自主学习技能、自检修复并持续进化。3 分钟完成配置，填入 API Key 即可使用。</p>
+          <h1>OpenAkita 是一个自进化 AI Agent 框架</h1>
+          <p class="hero-lead">面向生产场景，支持多 LLM 端点编排、IM 通道接入与持续自检修复。3 分钟完成首配。</p>
+          <div class="hero-kpis">
+            <div class="kpi-item"><strong>9+</strong><span>LLM 供应商</span></div>
+            <div class="kpi-item"><strong>7</strong><span>IM 平台</span></div>
+            <div class="kpi-item"><strong>8</strong><span>人格预设</span></div>
+            <div class="kpi-item"><strong>3min</strong><span>首次启动</span></div>
+          </div>
           <div class="hero-actions">
             <a class="btn btn-primary" id="downloadDesktopButton" href="https://github.com/openakita/openakita/releases" target="_blank" rel="noreferrer noopener">
               <img src="assets/img/icons/download.svg" alt="download" />
@@ -60,15 +96,15 @@
           <h3>发布信息</h3>
           <p>版本：<strong id="latestReleaseVersion">加载中...</strong></p>
           <p>发布时间：<span id="latestReleaseDate">--</span></p>
-          <p style="margin-top: 12px;">
-            <a id="latestReleaseNotesLink" href="https://github.com/openakita/openakita/releases" target="_blank" rel="noreferrer noopener" style="text-decoration: underline;">查看 Release 详情</a>
+          <p class="release-link-wrap">
+            <a id="latestReleaseNotesLink" class="release-link" href="https://github.com/openakita/openakita/releases" target="_blank" rel="noreferrer noopener">查看 Release 详情</a>
           </p>
-          <div class="quick-stats">
-            <div class="item"><strong>9+</strong><span>LLM 服务商</span></div>
-            <div class="item"><strong>6</strong><span>IM 平台接入</span></div>
-            <div class="item"><strong>8</strong><span>人格预设</span></div>
-            <div class="item"><strong>3min</strong><span>快速配置</span></div>
-          </div>
+          <p class="panel-note-title">生产可用能力</p>
+          <ul class="panel-checklist">
+            <li>动态端点路由与自动故障切换</li>
+            <li>多 IM 通道统一接入和配置向导</li>
+            <li>Skill + MCP 可插拔扩展体系</li>
+          </ul>
         </aside>
       </div>
     </section>
@@ -76,39 +112,24 @@
     <section>
       <div class="container">
         <div class="section-head reveal">
-          <h2>核心特性</h2>
-          <p>基于最新 README 摘要，聚焦生产可用能力。</p>
+          <h2>核心能力</h2>
+          <p>突出稳定性、扩展性与部署效率。</p>
         </div>
-        <div class="card-grid">
+        <div class="card-grid home-feature-grid">
           <article class="card reveal">
             <img class="card-icon" src="assets/img/icons/plus.svg" alt="evolution" />
-            <h3>自学习与自进化</h3>
-            <p>每日自检修复、记忆整理、任务复盘，持续迭代。</p>
+            <h3>自进化闭环</h3>
+            <p>自主学习技能、持续自检修复、记忆整理与任务复盘。</p>
           </article>
           <article class="card reveal">
             <img class="card-icon" src="assets/img/icons/llm.svg" alt="llm" />
             <h3>多 LLM 动态端点</h3>
-            <p>支持多模型路由、优先级调度和自动故障切换。</p>
+            <p>支持路由编排、优先级调度与故障自动切换。</p>
           </article>
           <article class="card reveal">
             <img class="card-icon" src="assets/img/icons/im.svg" alt="im" />
-            <h3>6 大通道接入</h3>
-            <p>CLI、Telegram、飞书、企业微信、钉钉、QQ。</p>
-          </article>
-          <article class="card reveal">
-            <img class="card-icon" src="assets/img/icons/book.svg" alt="desktop" />
-            <h3>桌面终端一站式管理</h3>
-            <p>聊天、配置、状态监控与技能管理整合在同一界面。</p>
-          </article>
-          <article class="card reveal">
-            <img class="card-icon" src="assets/img/icons/github.svg" alt="skills" />
-            <h3>Skill + MCP 标准化</h3>
-            <p>遵循开放标准，插件与外部能力可插拔扩展。</p>
-          </article>
-          <article class="card reveal">
-            <img class="card-icon" src="assets/img/icons/menu.svg" alt="persona" />
-            <h3>8 种人格与活人感</h3>
-            <p>支持主动消息与长期记忆，越用越懂用户偏好。</p>
+            <h3>多端接入架构</h3>
+            <p>Desktop、CLI 与 IM 通道统一配置，快速进入生产。</p>
           </article>
         </div>
       </div>
@@ -116,45 +137,54 @@
 
     <section>
       <div class="container reveal">
-        <div class="highlight-band">
-          <h2 style="margin: 0; font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;">3 分钟快速开始</h2>
-          <ul>
-            <li>下载桌面端，首次启动进入配置向导。</li>
-            <li>添加一个 LLM 端点（API Key 必填）。</li>
-            <li>点击开始配置，完成后直接进入对话。</li>
-          </ul>
-          <div class="hero-actions" style="margin-top: 18px;">
-            <a class="btn btn-primary" href="/download/">立即下载</a>
-            <a class="btn btn-secondary" href="/tutorials/setup-install/">安装教程</a>
-            <a class="btn btn-secondary" href="/tutorials/llm-endpoints/">LLM 配置教程</a>
+        <div class="highlight-band quickstart-band">
+          <div>
+            <h2 class="quickstart-title">3 步完成上线</h2>
+            <ol class="quickstart-list">
+              <li><strong>安装并启动</strong><span>下载 Desktop 安装包并完成初始化。</span></li>
+              <li><strong>配置 LLM 端点</strong><span>填入 API Key，完成连通性验证。</span></li>
+              <li><strong>接入 IM 通道</strong><span>按教程完成平台申请与回调配置。</span></li>
+            </ol>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="/download/">立即下载</a>
+              <a class="btn btn-secondary" href="/tutorials/setup-install/">安装教程</a>
+              <a class="btn btn-secondary" href="/tutorials/llm-endpoints/">LLM 教程</a>
+            </div>
+          </div>
+          <div class="media-frame quickstart-media">
+            <img src="assets/img/desktop_terminal.png" alt="OpenAkita Desktop Terminal" loading="lazy" />
           </div>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="container card-grid">
+      <div class="container card-grid home-link-grid">
         <article class="card reveal">
-          <span class="badge"><img src="assets/img/icons/book.svg" alt="preview" />桌面终端</span>
-          <div class="media-frame" style="margin-top: 10px;">
-            <img src="assets/img/desktop_terminal.png" alt="OpenAkita Desktop Terminal" loading="lazy" />
-          </div>
-        </article>
-
-        <article class="card reveal">
-          <span class="badge"><img src="assets/img/icons/book.svg" alt="setup" />配置中心</span>
-          <div class="media-frame" style="margin-top: 10px;">
-            <img src="assets/img/setupcenter.png" alt="OpenAkita Setup Center" loading="lazy" />
-          </div>
-        </article>
-
-        <article class="card reveal">
-          <span class="badge"><img src="assets/img/icons/github.svg" alt="docs" />文档与社区</span>
+          <span class="badge"><img src="assets/img/icons/book.svg" alt="tutorials" />教程入口</span>
           <ul class="link-list">
+            <li><a href="/tutorials/setup-install/">安装与桌面配置</a></li>
+            <li><a href="/tutorials/im-channels/">IM 通道配置与平台申请</a></li>
+            <li><a href="/tutorials/llm-endpoints/">LLM 端点与 API Key</a></li>
+          </ul>
+        </article>
+        <article class="card reveal">
+          <span class="badge"><img src="assets/img/icons/github.svg" alt="docs" />文档入口</span>
+          <ul class="link-list">
+            <li><a href="https://github.com/openakita/openakita/blob/main/README.md" target="_blank" rel="noreferrer noopener">README</a></li>
             <li><a href="https://github.com/openakita/openakita/blob/main/docs/configuration-guide.md" target="_blank" rel="noreferrer noopener">配置指南</a></li>
-            <li><a href="https://github.com/openakita/openakita/blob/main/docs/llm-provider-setup-tutorial.md" target="_blank" rel="noreferrer noopener">LLM 服务商配置教程</a></li>
-            <li><a href="https://github.com/openakita/openakita/blob/main/docs/im-channel-setup-tutorial.md" target="_blank" rel="noreferrer noopener">IM 通道配置教程</a></li>
+            <li><a href="https://github.com/openakita/openakita/blob/main/docs/im-channel-setup-tutorial.md" target="_blank" rel="noreferrer noopener">IM 通道教程</a></li>
+          </ul>
+        </article>
+        <article class="card reveal">
+          <span class="badge"><img src="assets/img/icons/github.svg" alt="community" />社区与联系</span>
+          <ul class="link-list">
+            <li><a href="https://github.com/openakita/openakita" target="_blank" rel="noreferrer noopener">GitHub 仓库</a></li>
+            <li><a href="https://github.com/openakita/openakita/issues" target="_blank" rel="noreferrer noopener">Issue 反馈</a></li>
             <li><a href="https://github.com/openakita/openakita/discussions" target="_blank" rel="noreferrer noopener">Discussions</a></li>
+            <li><a href="https://discord.gg/vFwxNVNH" target="_blank" rel="noreferrer noopener">Discord</a></li>
+            <li><a href="https://x.com/openakita" target="_blank" rel="noreferrer noopener">X / @openakita</a></li>
+            <li><a href="mailto:zacon365@gmail.com">zacon365@gmail.com</a></li>
           </ul>
         </article>
       </div>
@@ -177,10 +207,11 @@
       </div>
       <div>
         <h4>开源社区</h4>
-        <ul>
-          <li><a href="https://github.com/openakita/openakita" target="_blank" rel="noreferrer noopener">GitHub 仓库</a></li>
-          <li><a href="https://github.com/openakita/openakita/issues" target="_blank" rel="noreferrer noopener">Issue</a></li>
-          <li><a href="https://discord.gg/Mkpd3rsm" target="_blank" rel="noreferrer noopener">Discord</a></li>
+        <ul class="social-list">
+          <li><a class="social-link" href="https://github.com/openakita/openakita" target="_blank" rel="noreferrer noopener"><img src="assets/img/icons/github.svg" alt="GitHub" />GitHub</a></li>
+          <li><a class="social-link" href="https://discord.gg/vFwxNVNH" target="_blank" rel="noreferrer noopener"><img src="assets/img/icons/discord.svg" alt="Discord" />Discord</a></li>
+          <li><a class="social-link" href="https://x.com/openakita" target="_blank" rel="noreferrer noopener"><img src="assets/img/icons/x.svg" alt="X" />X / @openakita</a></li>
+          <li><a class="social-link" href="mailto:zacon365@gmail.com"><img src="assets/img/icons/mail.svg" alt="Email" />zacon365@gmail.com</a></li>
         </ul>
       </div>
     </div>

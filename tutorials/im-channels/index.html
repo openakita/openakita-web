@@ -5,7 +5,19 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>OpenAkita IM 通道配置教程</title>
-<meta content="OpenAkita IM 通道配置教程：Telegram、飞书、钉钉、企业微信、QQ 的平台申请、配置与排障流程。" name="description"/>
+<meta content="OpenAkita IM 通道配置教程：Telegram、飞书、钉钉、企业微信、QQ 官方机器人、OneBot 的平台申请、配置与排障流程。" name="description"/>
+<meta content="OpenAkita,IM 通道,QQ 官方机器人,OneBot,Telegram,企业微信,钉钉,飞书" name="keywords"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+<meta content="OpenAkita Contributors" name="author"/>
+<meta content="article" property="og:type"/>
+<meta content="OpenAkita" property="og:site_name"/>
+<meta content="OpenAkita IM 通道配置教程" property="og:title"/>
+<meta content="平台申请 + OpenAkita 配置 + 验证排障：Telegram/飞书/钉钉/企业微信/QQ 官方机器人/OneBot。" property="og:description"/>
+<meta content="https://openakita.ai/tutorials/im-channels/" property="og:url"/>
+<meta content="https://openakita.ai/assets/img/setupcenter.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="OpenAkita IM Channels Guide" name="twitter:title"/>
+<meta content="Official IM channel setup guide for Telegram, Feishu, DingTalk, WeCom, QQ Official Bot, and OneBot." name="twitter:description"/>
 <link href="https://openakita.ai/tutorials/im-channels/" rel="canonical"/>
 <link href="../../assets/img/logo.png" rel="icon"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -37,7 +49,7 @@
 <div class="container reveal">
 <div class="eyebrow" data-i18n="im.0001">Tutorial / IM Channels</div>
 <h1 data-i18n="im.0002">IM 通道配置与平台端申请</h1>
-<p data-i18n="im.0003">本页按 `D:\coder\myagent\docs\im-channel-setup-tutorial.md` 重排，覆盖平台申请、OpenAkita 配置、验证与常见问题。</p>
+<p data-i18n="im.0003">本页按最新开源文档重排，覆盖平台申请、OpenAkita 配置、验证与常见问题。</p>
 </div>
 </section>
 <section>
@@ -49,9 +61,10 @@
 <a data-i18n="im.0007" href="#feishu">飞书</a>
 <a data-i18n="im.0008" href="#dingtalk">钉钉</a>
 <a data-i18n="im.0009" href="#wework">企业微信</a>
-<a data-i18n="im.0010" href="#qq">QQ OneBot</a>
-<a data-i18n="im.0011" href="#voice">语音转写</a>
-<a data-i18n="im.0012" href="#video">视频教程</a>
+<a data-i18n="im.0010" href="#qqbot">QQ 官方机器人</a>
+<a data-i18n="im.0011" href="#onebot">OneBot（通用协议）</a>
+<a data-i18n="im.0012" href="#voice">语音转写</a>
+<a href="#video">视频教程</a>
 </aside>
 <div class="reveal">
 <section class="tutorial-section" id="overview">
@@ -68,7 +81,8 @@
 <tr><td data-i18n="im.0027">飞书</td><td data-i18n="im.0028">稳定</td><td data-i18n="im.0029">WebSocket 长连接</td><td data-i18n="im.0030">不需要</td><td data-i18n="im.0031">`pip install openakita[feishu]`</td><td data-i18n="im.0032">低</td></tr>
 <tr><td data-i18n="im.0033">钉钉</td><td data-i18n="im.0034">稳定</td><td data-i18n="im.0035">Stream 模式</td><td data-i18n="im.0036">不需要</td><td data-i18n="im.0037">`pip install openakita[dingtalk]`</td><td data-i18n="im.0038">低</td></tr>
 <tr><td data-i18n="im.0039">企业微信</td><td data-i18n="im.0040">稳定</td><td data-i18n="im.0041">HTTP 回调</td><td data-i18n="im.0042">需要</td><td data-i18n="im.0043">`pip install openakita[wework]`</td><td data-i18n="im.0044">中</td></tr>
-<tr><td data-i18n="im.0045">QQ</td><td data-i18n="im.0046">Beta</td><td data-i18n="im.0047">OneBot WebSocket</td><td data-i18n="im.0048">不需要</td><td data-i18n="im.0049">`pip install openakita[qq]`</td><td data-i18n="im.0050">中</td></tr>
+<tr><td data-i18n="im.0045">QQ 官方机器人</td><td data-i18n="im.0046">稳定</td><td data-i18n="im.0047">QQ 开放平台 WebSocket</td><td data-i18n="im.0048">不需要</td><td data-i18n="im.0049">`pip install openakita[qqbot]`</td><td data-i18n="im.0050">中</td></tr>
+<tr><td>OneBot</td><td>稳定</td><td>OneBot v11 WebSocket</td><td>不需要</td><td>`pip install openakita[onebot]`</td><td>中</td></tr>
 </tbody>
 </table>
 </div>
@@ -76,14 +90,14 @@
 <div class="table-wrap">
 <table>
 <thead>
-<tr><th data-i18n="im.0052">类型</th><th data-i18n="im.0053">Telegram</th><th data-i18n="im.0054">飞书</th><th data-i18n="im.0055">钉钉</th><th data-i18n="im.0056">企业微信</th><th data-i18n="im.0057">QQ</th></tr>
+<tr><th data-i18n="im.0052">类型</th><th data-i18n="im.0053">Telegram</th><th data-i18n="im.0054">飞书</th><th data-i18n="im.0055">钉钉</th><th data-i18n="im.0056">企业微信</th><th>QQ 官方机器人</th><th>OneBot</th></tr>
 </thead>
 <tbody>
-<tr><td data-i18n="im.0058">文字</td><td data-i18n="im.0059">支持</td><td data-i18n="im.0060">支持</td><td data-i18n="im.0061">支持</td><td data-i18n="im.0062">支持</td><td data-i18n="im.0063">支持</td></tr>
-<tr><td data-i18n="im.0064">图片</td><td data-i18n="im.0065">支持</td><td data-i18n="im.0066">支持</td><td data-i18n="im.0067">支持</td><td data-i18n="im.0068">单聊支持</td><td data-i18n="im.0069">支持</td></tr>
-<tr><td data-i18n="im.0070">语音</td><td data-i18n="im.0071">Whisper 转写</td><td data-i18n="im.0072">Whisper 转写</td><td data-i18n="im.0073">Whisper 转写</td><td data-i18n="im.0074">不支持</td><td data-i18n="im.0075">Whisper 转写</td></tr>
-<tr><td data-i18n="im.0076">文件</td><td data-i18n="im.0077">支持</td><td data-i18n="im.0078">支持</td><td data-i18n="im.0079">支持</td><td data-i18n="im.0080">不支持</td><td data-i18n="im.0081">支持</td></tr>
-<tr><td data-i18n="im.0082">视频</td><td data-i18n="im.0083">支持</td><td data-i18n="im.0084">支持</td><td data-i18n="im.0085">支持</td><td data-i18n="im.0086">不支持</td><td data-i18n="im.0087">支持</td></tr>
+<tr><td data-i18n="im.0058">文字</td><td data-i18n="im.0059">支持</td><td data-i18n="im.0060">支持</td><td data-i18n="im.0061">支持</td><td data-i18n="im.0062">支持</td><td data-i18n="im.0063">支持</td><td>支持</td></tr>
+<tr><td data-i18n="im.0064">图片</td><td data-i18n="im.0065">支持</td><td data-i18n="im.0066">支持</td><td data-i18n="im.0067">支持</td><td data-i18n="im.0068">单聊支持</td><td data-i18n="im.0069">支持</td><td>支持</td></tr>
+<tr><td data-i18n="im.0070">语音</td><td data-i18n="im.0071">Whisper 转写</td><td data-i18n="im.0072">Whisper 转写</td><td data-i18n="im.0073">Whisper 转写</td><td data-i18n="im.0074">不支持</td><td data-i18n="im.0075">支持</td><td>Whisper 转写</td></tr>
+<tr><td data-i18n="im.0076">文件</td><td data-i18n="im.0077">支持</td><td data-i18n="im.0078">支持</td><td data-i18n="im.0079">支持</td><td data-i18n="im.0080">不支持</td><td data-i18n="im.0081">支持</td><td>支持</td></tr>
+<tr><td data-i18n="im.0082">视频</td><td data-i18n="im.0083">支持</td><td data-i18n="im.0084">支持</td><td data-i18n="im.0085">支持</td><td data-i18n="im.0086">不支持</td><td data-i18n="im.0087">支持</td><td>支持</td></tr>
 </tbody>
 </table>
 </div>
@@ -91,14 +105,14 @@
 <div class="table-wrap">
 <table>
 <thead>
-<tr><th data-i18n="im.0089">类型</th><th data-i18n="im.0090">Telegram</th><th data-i18n="im.0091">飞书</th><th data-i18n="im.0092">钉钉</th><th data-i18n="im.0093">企业微信</th><th data-i18n="im.0094">QQ</th></tr>
+<tr><th data-i18n="im.0089">类型</th><th data-i18n="im.0090">Telegram</th><th data-i18n="im.0091">飞书</th><th data-i18n="im.0092">钉钉</th><th data-i18n="im.0093">企业微信</th><th data-i18n="im.0094">QQ 官方机器人</th><th>OneBot</th></tr>
 </thead>
 <tbody>
-<tr><td data-i18n="im.0095">文字</td><td data-i18n="im.0096">支持</td><td data-i18n="im.0097">支持</td><td data-i18n="im.0098">支持</td><td data-i18n="im.0099">支持（stream）</td><td data-i18n="im.0100">支持</td></tr>
-<tr><td data-i18n="im.0101">图片</td><td data-i18n="im.0102">支持</td><td data-i18n="im.0103">支持</td><td data-i18n="im.0104">支持</td><td data-i18n="im.0105">支持（JPG/PNG）</td><td data-i18n="im.0106">支持</td></tr>
-<tr><td data-i18n="im.0107">语音</td><td data-i18n="im.0108">支持</td><td data-i18n="im.0109">支持</td><td data-i18n="im.0110">降级为文件</td><td data-i18n="im.0111">不支持</td><td data-i18n="im.0112">支持</td></tr>
-<tr><td data-i18n="im.0113">文件</td><td data-i18n="im.0114">支持</td><td data-i18n="im.0115">支持</td><td data-i18n="im.0116">降级为链接</td><td data-i18n="im.0117">降级为文本</td><td data-i18n="im.0118">支持</td></tr>
-<tr><td data-i18n="im.0119">视频</td><td data-i18n="im.0120">支持</td><td data-i18n="im.0121">支持</td><td data-i18n="im.0122">支持</td><td data-i18n="im.0123">不支持</td><td data-i18n="im.0124">支持</td></tr>
+<tr><td data-i18n="im.0095">文字</td><td data-i18n="im.0096">支持</td><td data-i18n="im.0097">支持</td><td data-i18n="im.0098">支持</td><td data-i18n="im.0099">支持（stream）</td><td data-i18n="im.0100">支持</td><td>支持</td></tr>
+<tr><td data-i18n="im.0101">图片</td><td data-i18n="im.0102">支持</td><td data-i18n="im.0103">支持</td><td data-i18n="im.0104">支持</td><td data-i18n="im.0105">支持（JPG/PNG）</td><td data-i18n="im.0106">需公网 URL</td><td>支持</td></tr>
+<tr><td data-i18n="im.0107">语音</td><td data-i18n="im.0108">支持</td><td data-i18n="im.0109">支持</td><td data-i18n="im.0110">降级为文件</td><td data-i18n="im.0111">不支持</td><td data-i18n="im.0112">需 silk + 公网 URL</td><td>支持</td></tr>
+<tr><td data-i18n="im.0113">文件</td><td data-i18n="im.0114">支持</td><td data-i18n="im.0115">支持</td><td data-i18n="im.0116">降级为链接</td><td data-i18n="im.0117">降级为文本</td><td data-i18n="im.0118">暂未开放</td><td>支持</td></tr>
+<tr><td data-i18n="im.0119">视频</td><td data-i18n="im.0120">支持</td><td data-i18n="im.0121">支持</td><td data-i18n="im.0122">支持</td><td data-i18n="im.0123">不支持</td><td data-i18n="im.0124">需公网 URL</td><td>支持</td></tr>
 </tbody>
 </table>
 </div>
@@ -111,11 +125,12 @@ pip install openakita[all]
 pip install openakita[feishu]
 pip install openakita[dingtalk]
 pip install openakita[wework]
-pip install openakita[qq]
+pip install openakita[qqbot]
+pip install openakita[onebot]
 pip install openakita[whisper]
 
 # 组合安装示例
-pip install openakita[feishu,dingtalk,whisper]</code></div>
+pip install openakita[feishu,dingtalk,qqbot,onebot,whisper]</code></div>
 <h3 data-i18n="im.0127" style="margin-top: 14px;">三种配置方式</h3>
 <div class="tutorial-grid">
 <article class="tutorial-panel">
@@ -369,51 +384,81 @@ WEWORK_CALLBACK_PORT=9880</code></div>
 </div>
 </div>
 </section>
-<section class="tutorial-section" id="qq">
+<section class="tutorial-section" id="qqbot">
 <div class="card">
-<h2 data-i18n="im.0275" style="margin-top: 0;">五、QQ（OneBot）配置教程</h2>
-<p data-i18n="im.0276">QQ 通道依赖 OneBot v11 实现（NapCat 或 Lagrange），OpenAkita 通过 WebSocket 接入。</p>
-<h3 data-i18n="im.0277" style="margin-top: 14px;">部署 OneBot</h3>
-<div class="tutorial-grid">
-<article class="tutorial-panel">
-<h4 data-i18n="im.0278">方案一：NapCat（推荐）</h4>
-<p data-i18n="im.0279">下载后登录 QQ，启用正向 WebSocket，地址通常为 `ws://127.0.0.1:8080`。</p>
-</article>
-<article class="tutorial-panel">
-<h4 data-i18n="im.0280">方案二：Lagrange.OneBot</h4>
-<p data-i18n="im.0281">按官方文档安装并开启正向 WebSocket 服务。</p>
-</article>
+<h2 style="margin-top: 0;">五、QQ 官方机器人配置教程</h2>
+<p>QQ 官方机器人通过 QQ 开放平台接入，使用官方 botpy 体系，支持频道、群聊与单聊消息。</p>
+<h3 style="margin-top: 14px;">平台端申请步骤</h3>
+<div class="step-list">
+<article class="step"><div class="index">1</div><div><h4>创建机器人应用</h4><p>访问 <code>https://q.qq.com</code>，创建机器人并填写基本信息。</p></div></article>
+<article class="step"><div class="index">2</div><div><h4>获取 AppID / AppSecret</h4><p>在开发设置页复制凭证，后续用于 OpenAkita 鉴权。</p></div></article>
+<article class="step"><div class="index">3</div><div><h4>配置事件订阅</h4><p>在功能配置中开启消息接收相关事件，建议先在沙箱环境联调。</p></div></article>
 </div>
 <div class="tutorial-grid">
-<div class="image-placeholder"><div><strong data-i18n="im.0282">配图位：NapCat 下载页</strong><span data-i18n="im.0283">建议放 NapCat 项目首页或下载入口</span></div></div>
-<div class="image-placeholder"><div><strong data-i18n="im.0284">配图位：OneBot 配置页</strong><span data-i18n="im.0285">建议放正向 WebSocket 配置截图</span></div></div>
+<div class="image-placeholder"><div><strong>配图位：QQ 开放平台控制台</strong><span>建议放 AppID / AppSecret 获取页面</span></div></div>
+<div class="image-placeholder"><div><strong>配图位：事件订阅页</strong><span>建议放消息订阅开关和沙箱配置截图</span></div></div>
 </div>
-<h3 data-i18n="im.0286" style="margin-top: 14px;">OpenAkita 配置</h3>
-<div class="code-block"><code># 安装依赖
-pip install openakita[qq]
+<h3 style="margin-top: 14px;">OpenAkita 配置</h3>
+<div class="code-block"><code># 安装 QQ 官方机器人依赖
+pip install openakita[qqbot]
 
-# 向导配置
+# 交互式向导
 openakita setup
 
 # --- .env ---
-QQ_ENABLED=true
-QQ_ONEBOT_URL=ws://127.0.0.1:8080</code></div>
-<h3 data-i18n="im.0287" style="margin-top: 14px;">验证与常见问题</h3>
+QQBOT_ENABLED=true
+QQBOT_APP_ID=你的AppID
+QQBOT_APP_SECRET=你的AppSecret
+QQBOT_SANDBOX=false  # 调试阶段可改为 true</code></div>
+<h3 style="margin-top: 14px;">验证与常见问题</h3>
 <ul class="checklist">
-<li data-i18n="im.0288">先启动 OneBot 服务，再启动 OpenAkita。</li>
-<li data-i18n="im.0289">日志应出现 `QQ adapter connected to ws://127.0.0.1:8080`。</li>
-<li data-i18n="im.0290">私聊或群聊 @ 机器人发送消息验证收发。</li>
+<li>日志出现 <code>QQ Official Bot ready</code> 代表接入成功。</li>
+<li>群聊/单聊富媒体通常需要先上传公网 URL，再下发消息。</li>
+<li>语音需 silk 格式，文件发送能力当前受官方接口限制。</li>
 </ul>
-<div class="faq-list">
-<article class="faq-item"><h4 data-i18n="im.0291">Q：连接失败？</h4><p data-i18n="im.0292">A：确认 OneBot 已启动且地址可达。</p></article>
-<article class="faq-item"><h4 data-i18n="im.0293">Q：频繁断线？</h4><p data-i18n="im.0294">A：适配器会自动重连，重点检查 OneBot 端稳定性。</p></article>
-<article class="faq-item"><h4 data-i18n="im.0295">Q：文件发送失败？</h4><p data-i18n="im.0296">A：确认 OneBot 实现支持 `upload_group_file` / `upload_private_file`。</p></article>
 </div>
+</section>
+<section class="tutorial-section" id="onebot">
+<div class="card">
+<h2 style="margin-top: 0;">六、OneBot（通用协议）配置教程</h2>
+<p>OneBot 是通用聊天机器人协议（v11），可对接 NapCat、Lagrange 等实现端，不限于 QQ 官方体系。</p>
+<h3 style="margin-top: 14px;">部署 OneBot 服务</h3>
+<div class="tutorial-grid">
+<article class="tutorial-panel">
+<h4>方案一：NapCat（推荐）</h4>
+<p>安装后登录账号，启用正向 WebSocket，默认地址可设为 <code>ws://127.0.0.1:8080</code>。</p>
+</article>
+<article class="tutorial-panel">
+<h4>方案二：Lagrange.OneBot</h4>
+<p>按项目文档部署并开启正向 WebSocket 服务，再与 OpenAkita 对接。</p>
+</article>
+</div>
+<div class="tutorial-grid">
+<div class="image-placeholder"><div><strong>配图位：NapCat 下载页</strong><span>建议放项目主页或版本下载入口</span></div></div>
+<div class="image-placeholder"><div><strong>配图位：OneBot 配置页</strong><span>建议放 WS 地址和 Token 配置截图</span></div></div>
+</div>
+<h3 style="margin-top: 14px;">OpenAkita 配置</h3>
+<div class="code-block"><code># 安装 OneBot 依赖
+pip install openakita[onebot]
+
+# 启动向导并填写 OneBot URL
+openakita setup
+
+# --- .env ---
+ONEBOT_ENABLED=true
+ONEBOT_WS_URL=ws://127.0.0.1:8080
+ONEBOT_ACCESS_TOKEN=  # 可选，留空表示不校验</code></div>
+<h3 style="margin-top: 14px;">验证与常见问题</h3>
+<ul class="checklist">
+<li>先启动 OneBot 服务，再启动 OpenAkita。</li>
+<li>日志出现 <code>OneBot adapter connected</code> 表示连接成功。</li>
+<li>连接失败优先检查 URL、端口防火墙和 Access Token 一致性。</li>
+</ul>
 </div>
 </section>
 <section class="tutorial-section" id="voice">
 <div class="card">
-<h2 data-i18n="im.0297" style="margin-top: 0;">六、语音识别（Whisper）配置</h2>
+<h2 data-i18n="im.0297" style="margin-top: 0;">七、语音识别（Whisper）配置</h2>
 <p data-i18n="im.0298">所有通道语音消息统一走 Whisper 转写。</p>
 <h3 data-i18n="im.0299" style="margin-top: 14px;">工作流程</h3>
 <div class="code-block"><code>用户发送语音 -&gt; IM 适配器接收 -&gt; Gateway 下载语音 -&gt; Whisper 转写 -&gt; 文本传给 Agent</code></div>
@@ -449,7 +494,7 @@ WHISPER_LANGUAGE=zh  # zh | en | auto</code></div>
 </section>
 <section class="tutorial-section" id="video">
 <div class="card">
-<h2 data-i18n="im.0333" style="margin-top: 0;">七、视频教程与常见问题</h2>
+<h2 data-i18n="im.0333" style="margin-top: 0;">八、视频教程与常见问题</h2>
 <div class="tutorial-grid">
 <div class="video-block">
 <div class="video-embed" data-i18n="im.0334">替换为视频 1：IM 平台申请全流程（B 站 / YouTube iframe）</div>
@@ -494,16 +539,23 @@ WEWORK_TOKEN=
 WEWORK_ENCODING_AES_KEY=
 # WEWORK_CALLBACK_PORT=9880
 
-# --- QQ（需要 openakita[qq] + NapCat/Lagrange）---
-QQ_ENABLED=false
-QQ_ONEBOT_URL=ws://127.0.0.1:8080
+# --- QQ 官方机器人（需要 openakita[qqbot]）---
+QQBOT_ENABLED=false
+QQBOT_APP_ID=
+QQBOT_APP_SECRET=
+QQBOT_SANDBOX=false
+
+# --- OneBot（需要 openakita[onebot] + NapCat/Lagrange）---
+ONEBOT_ENABLED=false
+ONEBOT_WS_URL=ws://127.0.0.1:8080
+ONEBOT_ACCESS_TOKEN=
 
 # --- 语音识别 ---
 WHISPER_MODEL=base
 WHISPER_LANGUAGE=zh</code></div>
 <ul class="link-list">
-<li data-i18n="im.0349">内部基准文档：`D:\coder\myagent\docs\im-channel-setup-tutorial.md`</li>
-<li><a data-i18n="im.0350" href="https://github.com/openakita/openakita/blob/main/docs/im-channels.md" rel="noreferrer noopener" target="_blank">开源文档：docs/im-channels.md</a></li>
+<li><a data-i18n="im.0349" href="https://github.com/openakita/openakita/blob/main/docs/im-channel-setup-tutorial.md" rel="noreferrer noopener" target="_blank">开源文档：docs/im-channel-setup-tutorial.md</a></li>
+<li><a data-i18n="im.0350" href="https://github.com/openakita/openakita/blob/main/docs/im-channels.md" rel="noreferrer noopener" target="_blank">参考文档：docs/im-channels.md</a></li>
 <li><a data-i18n="im.0351" href="/tutorials/llm-endpoints/">下一步：LLM 端点与 API Key 配置</a></li>
 </ul>
 </div>
@@ -516,7 +568,7 @@ WHISPER_LANGUAGE=zh</code></div>
 <div class="container footer-grid">
 <div>
 <h4 data-i18n="im.0352">IM 通道教程</h4>
-<p data-i18n="im.0353">本页按你提供的 IM 配置教程文档重排，覆盖平台端申请、配置和排障。</p>
+<p data-i18n="im.0353">本页按最新开源文档同步更新，覆盖平台端申请、配置和排障。</p>
 </div>
 <div>
 <h4 data-i18n="im.0354">继续学习</h4>
@@ -530,6 +582,9 @@ WHISPER_LANGUAGE=zh</code></div>
 <ul>
 <li><a data-i18n="im.0358" href="https://github.com/openakita/openakita/blob/main/docs/im-channels.md" rel="noreferrer noopener" target="_blank">docs/im-channels.md</a></li>
 <li><a data-i18n="im.0359" href="https://github.com/openakita/openakita/blob/main/docs/deploy.md" rel="noreferrer noopener" target="_blank">docs/deploy.md</a></li>
+<li><a href="https://discord.gg/vFwxNVNH" rel="noreferrer noopener" target="_blank">Discord</a></li>
+<li><a href="https://x.com/openakita" rel="noreferrer noopener" target="_blank">X / @openakita</a></li>
+<li><a href="mailto:zacon365@gmail.com">zacon365@gmail.com</a></li>
 </ul>
 </div>
 </div>
