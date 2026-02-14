@@ -380,8 +380,8 @@ body[data-page="home"] .hero-title-typing {
   font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-weight: 900;
   font-size-adjust: 0.62;
-  font-size: clamp(52px, 7.2vw, 110px);
-  line-height: 0.98;
+  font-size: clamp(46px, 6.5vw, 96px);
+  line-height: 1.08;
   letter-spacing: -0.028em;
   text-wrap: balance;
   margin: 18px 0 26px;
@@ -389,15 +389,17 @@ body[data-page="home"] .hero-title-typing {
 
 .hero-title-line {
   display: block;
+  line-height: 1.06;
 }
 
 .hero-title-brand {
   white-space: nowrap;
+  margin-bottom: 0.12em;
 }
 
 .hero-title-subline {
-  margin-top: 0.06em;
-  white-space: normal;
+  margin-top: 0;
+  white-space: nowrap;
   word-break: keep-all;
 }
 
@@ -1421,8 +1423,8 @@ body[data-page="home"] .home-section .reveal.is-visible {
   }
 
   body[data-page="home"] .hero-title-typing {
-    font-size: clamp(44px, 10vw, 74px);
-    line-height: 1.04;
+    font-size: clamp(38px, 8.4vw, 64px);
+    line-height: 1.1;
     letter-spacing: -0.024em;
     margin: 16px 0 22px;
   }
@@ -1523,8 +1525,8 @@ body[data-page="home"] .home-section .reveal.is-visible {
   }
 
   body[data-page="home"] .hero-title-typing {
-    font-size: clamp(27px, 8.6vw, 36px);
-    line-height: 1.06;
+    font-size: clamp(24px, 7.4vw, 32px);
+    line-height: 1.12;
     letter-spacing: -0.012em;
     margin: 14px 0 18px;
   }
