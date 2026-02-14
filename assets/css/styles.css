@@ -377,24 +377,30 @@ body[data-page="home"] .hero .container {
 
 body[data-page="home"] .hero-title-typing {
   max-width: none;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.14em;
   font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-weight: 900;
   font-size-adjust: 0.62;
   font-size: clamp(46px, 6.5vw, 96px);
-  line-height: 1.08;
+  line-height: 1;
   letter-spacing: -0.028em;
+  color: #1c436b;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
   text-wrap: balance;
   margin: 18px 0 26px;
 }
 
 .hero-title-line {
   display: block;
-  line-height: 1.06;
+  line-height: 1.03;
 }
 
 .hero-title-brand {
   white-space: nowrap;
-  margin-bottom: 0.12em;
+  margin-bottom: 0;
 }
 
 .hero-title-subline {
@@ -1424,7 +1430,8 @@ body[data-page="home"] .home-section .reveal.is-visible {
 
   body[data-page="home"] .hero-title-typing {
     font-size: clamp(38px, 8.4vw, 64px);
-    line-height: 1.1;
+    gap: 0.12em;
+    line-height: 1;
     letter-spacing: -0.024em;
     margin: 16px 0 22px;
   }
@@ -1526,7 +1533,8 @@ body[data-page="home"] .home-section .reveal.is-visible {
 
   body[data-page="home"] .hero-title-typing {
     font-size: clamp(24px, 7.4vw, 32px);
-    line-height: 1.12;
+    gap: 0.1em;
+    line-height: 1;
     letter-spacing: -0.012em;
     margin: 14px 0 18px;
   }
