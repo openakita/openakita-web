@@ -928,6 +928,27 @@ th {
   background: rgba(255, 255, 255, 0.96);
 }
 
+/* Recommended platform (auto-detected OS) */
+.platform-link.recommended {
+  border-color: rgba(25, 118, 210, 0.7);
+  background: rgba(227, 242, 253, 0.9);
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.15);
+  position: relative;
+  transform: scale(1.03);
+}
+.platform-link.recommended::after {
+  content: "\63a8\8350";
+  position: absolute;
+  top: -8px;
+  right: 10px;
+  background: #1976d2;
+  color: #fff;
+  font-size: 10px;
+  padding: 1px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
 .platform-icon {
   width: 32px;
   height: 32px;

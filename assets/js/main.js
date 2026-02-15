@@ -1131,6 +1131,45 @@
     }
   }
 
+  // ── OS Detection for smart download recommendation ──
+  function detectOS() {
+    var ua = (navigator.userAgent || "").toLowerCase();
+    var platform = (navigator.platform || "").toLowerCase();
+    if (ua.indexOf("win") !== -1 || platform.indexOf("win") !== -1) return "windows";
+    if (ua.indexOf("mac") !== -1 || platform.indexOf("mac") !== -1) return "macos";
+    if (ua.indexOf("linux") !== -1 || platform.indexOf("linux") !== -1) return "linux";
+    return null;
+  }
+
+  function highlightRecommendedPlatform() {
+    var os = detectOS();
+    var map = { windows: "downloadWindowsBtn", macos: "downloadMacBtn", linux: "downloadLinuxBtn" };
+    if (!os || !map[os]) return;
+    var btn = document.getElementById(map[os]);
+    if (btn) {
+      btn.classList.add("recommended");
+    }
+  }
+
+  function showPrimaryDownloadButton(os, asset, version) {
+    var container = document.getElementById("primaryDownload");
+    if (!container || !os || !asset) return;
+
+    var btn = document.getElementById("primaryDownloadBtn");
+    var meta = document.getElementById("primaryDownloadMeta");
+    if (!btn) return;
+
+    var osLabels = { windows: "Windows", macos: "macOS", linux: "Linux" };
+    var sizeMb = asset.size ? (asset.size / 1024 / 1024).toFixed(1) + " MB" : "";
+
+    btn.href = asset.browser_download_url || asset.url || "#";
+    btn.querySelector("span:nth-child(2)").textContent = "\u4e0b\u8f7d OpenAkita " + (version || "");
+    if (meta) {
+      meta.textContent = (osLabels[os] || os) + (sizeMb ? " \u00b7 " + sizeMb : "");
+    }
+    container.style.display = "";
+  }
+
   function formatAssetSize(asset) {
     return asset && asset.size ? (asset.size / 1024 / 1024).toFixed(1) + " MB" : "--";
   }
@@ -1179,51 +1218,78 @@
         versionNode.textContent = t("common.release.loading");
       }
 
-      const response = await fetch("https://api.github.com/repos/openakita/openakita/releases/latest", {
-        headers: {
-          Accept: "application/vnd.github+json",
-        },
-      });
+      // ── 优先从 latest.json 加载（更快、无速率限制） ──
+      let release = null;
+      let assets = [];
+      let version = "latest";
+      let published = "--";
+      let htmlUrl = fallbackUrl;
 
-      if (!response.ok) {
-        throw new Error("release_request_failed");
+      try {
+        const latestRes = await fetch("/api/latest.json", { signal: AbortSignal.timeout(3000) });
+        if (latestRes.ok) {
+          const latestData = await latestRes.json();
+          version = latestData.version ? "v" + latestData.version : "latest";
+          published = latestData.pub_date ? formatDate(latestData.pub_date) : "--";
+          htmlUrl = "https://github.com/openakita/openakita/releases/tag/v" + latestData.version;
+          // Convert latest.json platforms to asset-like objects
+          if (latestData.platforms) {
+            Object.keys(latestData.platforms).forEach(function(key) {
+              var p = latestData.platforms[key];
+              if (p && p.url) {
+                var name = p.url.split("/").pop() || key;
+                assets.push({
+                  name: name,
+                  browser_download_url: p.url,
+                  size: 0, // size not available in latest.json
+                });
+              }
+            });
+          }
+          if (latestData.notes) {
+            showReleaseNotes(latestData.notes, version, htmlUrl);
+          }
+          release = latestData;
+        }
+      } catch (e) { /* latest.json not available, fallback to GitHub API */ }
+
+      // ── 回退到 GitHub API ──
+      if (!release || assets.length === 0) {
+        const response = await fetch("https://api.github.com/repos/openakita/openakita/releases/latest", {
+          headers: { Accept: "application/vnd.github+json" },
+        });
+        if (!response.ok) throw new Error("release_request_failed");
+
+        const ghRelease = await response.json();
+        version = ghRelease.tag_name || "latest";
+        published = ghRelease.published_at ? formatDate(ghRelease.published_at) : "--";
+        htmlUrl = ghRelease.html_url || fallbackUrl;
+        assets = Array.isArray(ghRelease.assets) ? ghRelease.assets : [];
+        if (ghRelease.body) {
+          showReleaseNotes(ghRelease.body, version, htmlUrl);
+        }
       }
-
-      const release = await response.json();
-      const version = release.tag_name || "latest";
-      const published = release.published_at ? formatDate(release.published_at) : "--";
-      const htmlUrl = release.html_url || fallbackUrl;
-      const assets = Array.isArray(release.assets) ? release.assets : [];
 
       if (versionNode) versionNode.textContent = version;
       if (dateNode) dateNode.textContent = published;
       if (notesNode) notesNode.href = htmlUrl;
       if (desktopBtn) desktopBtn.href = htmlUrl;
 
-      applyPlatformAsset(
-        {
-          buttonId: "downloadWindowsBtn",
-          nameId: "windowsAssetName",
-        },
-        pickReleaseAsset(assets, [/\.exe$/i, /\.msi$/i, /windows/i]),
-        htmlUrl
-      );
-      applyPlatformAsset(
-        {
-          buttonId: "downloadMacBtn",
-          nameId: "macAssetName",
-        },
-        pickReleaseAsset(assets, [/\.dmg$/i, /\.pkg$/i, /mac|darwin|osx/i]),
-        htmlUrl
-      );
-      applyPlatformAsset(
-        {
-          buttonId: "downloadLinuxBtn",
-          nameId: "linuxAssetName",
-        },
-        pickReleaseAsset(assets, [/\.appimage$/i, /\.deb$/i, /\.rpm$/i, /linux/i, /\.tar\.gz$/i]),
-        htmlUrl
-      );
+      var winAsset = pickReleaseAsset(assets, [/\.exe$/i, /\.msi$/i, /windows/i]);
+      var macAsset = pickReleaseAsset(assets, [/\.dmg$/i, /\.pkg$/i, /mac|darwin|osx/i]);
+      var linuxAsset = pickReleaseAsset(assets, [/\.appimage$/i, /\.deb$/i, /\.rpm$/i, /linux/i, /\.tar\.gz$/i]);
+
+      applyPlatformAsset({ buttonId: "downloadWindowsBtn", nameId: "windowsAssetName" }, winAsset, htmlUrl);
+      applyPlatformAsset({ buttonId: "downloadMacBtn", nameId: "macAssetName" }, macAsset, htmlUrl);
+      applyPlatformAsset({ buttonId: "downloadLinuxBtn", nameId: "linuxAssetName" }, linuxAsset, htmlUrl);
+
+      // ── 高亮推荐平台 + 一键下载按钮 ──
+      highlightRecommendedPlatform();
+      var os = detectOS();
+      var osAsset = os === "windows" ? winAsset : os === "macos" ? macAsset : os === "linux" ? linuxAsset : null;
+      if (osAsset) {
+        showPrimaryDownloadButton(os, osAsset, version);
+      }
 
       if (assetsNode) {
         assetsNode.innerHTML = "";
@@ -1261,6 +1327,33 @@
           "</a></li>";
       }
     }
+  }
+
+  // ── Release notes summary (inserted into download page) ──
+  function showReleaseNotes(body, version, url) {
+    var target = document.getElementById("releaseNotesSummary");
+    if (!target || !body) return;
+    // Extract first 5 lines (bullet points) as summary
+    var lines = body.split("\n").filter(function(l) { return l.trim().length > 0; });
+    var summary = lines.slice(0, 8).join("\n");
+    if (lines.length > 8) summary += "\n...";
+    target.innerHTML = "";
+    var heading = document.createElement("h4");
+    heading.textContent = (version || "") + " \u66f4\u65b0\u65e5\u5fd7";
+    heading.style.marginBottom = "8px";
+    target.appendChild(heading);
+    var pre = document.createElement("div");
+    pre.style.cssText = "font-size:13px;line-height:1.7;color:var(--text-muted);white-space:pre-wrap;word-break:break-word;";
+    pre.textContent = summary;
+    target.appendChild(pre);
+    var link = document.createElement("a");
+    link.href = url || "#";
+    link.target = "_blank";
+    link.rel = "noreferrer noopener";
+    link.textContent = "\u67e5\u770b\u5b8c\u6574\u66f4\u65b0\u65e5\u5fd7 \u2192";
+    link.style.cssText = "display:inline-block;margin-top:8px;font-size:12px;color:var(--primary);";
+    target.appendChild(link);
+    target.style.display = "";
   }
 
   loadLatestRelease();
