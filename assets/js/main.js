@@ -29,6 +29,7 @@
           home: "首页",
           download: "下载",
           services: "服务",
+          scenarios: "应用场景",
           tutorials: "教程",
           about: "关于我们",
           github: "GitHub",
@@ -206,6 +207,7 @@
           home: "Home",
           download: "Download",
           services: "Services",
+          scenarios: "Use Cases",
           tutorials: "Tutorials",
           about: "About",
           github: "GitHub",
@@ -376,7 +378,7 @@
       common: {
         navToggle: "ナビを開く",
         language: "言語",
-        nav: { home: "ホーム", download: "ダウンロード", services: "サービス", tutorials: "チュートリアル", about: "概要", github: "GitHub" },
+        nav: { home: "ホーム", download: "ダウンロード", services: "サービス", scenarios: "活用シーン", tutorials: "チュートリアル", about: "概要", github: "GitHub" },
         footerTagline: "Self-Evolving AI Agent：自ら学び、決して諦めない。",
         footer: {
           quickLinks: "クイックリンク",
@@ -423,7 +425,7 @@
       common: {
         navToggle: "탐색 열기",
         language: "언어",
-        nav: { home: "홈", download: "다운로드", services: "서비스", tutorials: "튜토리얼", about: "소개", github: "GitHub" },
+        nav: { home: "홈", download: "다운로드", services: "서비스", scenarios: "활용 사례", tutorials: "튜토리얼", about: "소개", github: "GitHub" },
         footerTagline: "Self-Evolving AI Agent: 스스로 학습하고, 절대 포기하지 않습니다.",
         footer: {
           quickLinks: "바로가기",
@@ -470,7 +472,7 @@
       common: {
         navToggle: "Открыть навигацию",
         language: "Язык",
-        nav: { home: "Главная", download: "Скачать", services: "Услуги", tutorials: "Руководства", about: "О проекте", github: "GitHub" },
+        nav: { home: "Главная", download: "Скачать", services: "Услуги", scenarios: "Сценарии", tutorials: "Руководства", about: "О проекте", github: "GitHub" },
         footerTagline: "Self-Evolving AI Agent: Учится, адаптируется, никогда не сдаётся.",
         footer: {
           quickLinks: "Быстрые ссылки",
@@ -517,7 +519,7 @@
       common: {
         navToggle: "Ouvrir la navigation",
         language: "Langue",
-        nav: { home: "Accueil", download: "Télécharger", services: "Services", tutorials: "Tutoriels", about: "À propos", github: "GitHub" },
+        nav: { home: "Accueil", download: "Télécharger", services: "Services", scenarios: "Cas d'usage", tutorials: "Tutoriels", about: "À propos", github: "GitHub" },
         footerTagline: "Self-Evolving AI Agent : Apprendre, s'adapter, ne jamais abandonner.",
         footer: {
           quickLinks: "Liens rapides",
@@ -564,7 +566,7 @@
       common: {
         navToggle: "Navigation öffnen",
         language: "Sprache",
-        nav: { home: "Start", download: "Download", services: "Dienste", tutorials: "Tutorials", about: "Über uns", github: "GitHub" },
+        nav: { home: "Start", download: "Download", services: "Dienste", scenarios: "Anwendungen", tutorials: "Tutorials", about: "Über uns", github: "GitHub" },
         footerTagline: "Self-Evolving AI Agent: Lernen, anpassen, nie aufgeben.",
         footer: {
           quickLinks: "Schnellzugriff",
@@ -745,9 +747,11 @@
     var mainEl = document.querySelector("main");
     var footerEl = document.querySelector(".site-footer");
     var drawerEl = document.querySelector("[data-setup-drawer]");
+    var sceneNavEl = document.querySelector(".scene-nav");
     if (mainEl) roots.push(mainEl);
     if (footerEl) roots.push(footerEl);
     if (drawerEl) roots.push(drawerEl);
+    if (sceneNavEl) roots.push(sceneNavEl);
 
     var meaningfulPattern = /[\p{L}\p{N}]/u;
 
@@ -925,6 +929,7 @@
     setText('.main-nav a[data-nav="home"]', t("common.nav.home"));
     setText('.main-nav a[data-nav="download"]', t("common.nav.download"));
     setText('.main-nav a[data-nav="services"]', t("common.nav.services"));
+    setText('.main-nav a[data-nav="scenarios"]', t("common.nav.scenarios"));
     setText('.main-nav a[data-nav="tutorials"]', t("common.nav.tutorials"));
     setText('.main-nav a[data-nav="about"]', t("common.nav.about"));
     const githubLink = document.querySelector('.main-nav a[href*="github.com/openakita/openakita"]');
@@ -1250,6 +1255,7 @@
   injectLanguageSwitcher(pageKey);
   enhanceCodeBlocks();
   initSetupInstallDrawer();
+  initSceneNav();
 
   function recoverBrokenSvgIcons() {
     const svgImages = document.querySelectorAll('img[src$=".svg"]');
@@ -1396,6 +1402,7 @@
 
       enhanceCodeBlocks();
       applyContentTranslations();
+      applyImageTranslations();
       drawer.classList.add("is-open");
       backdrop.classList.add("is-open");
       drawer.setAttribute("aria-hidden", "false");
@@ -1473,5 +1480,27 @@
       })
       .catch(function () {});
   })();
+
+  function initSceneNav() {
+    var navItems = document.querySelectorAll(".scene-nav-item");
+    if (!navItems.length) return;
+    var sections = [];
+    navItems.forEach(function (a) {
+      var id = a.getAttribute("data-target");
+      var sec = document.getElementById(id);
+      if (sec) sections.push({ el: sec, link: a });
+    });
+    if (!sections.length) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var item = sections.find(function (s) { return s.el === entry.target; });
+        if (item) {
+          if (entry.isIntersecting) item.link.classList.add("active");
+          else item.link.classList.remove("active");
+        }
+      });
+    }, { rootMargin: "-20% 0px -60% 0px" });
+    sections.forEach(function (s) { observer.observe(s.el); });
+  }
 
 })();

@@ -1479,6 +1479,119 @@ section[id] {
   overflow: hidden;
 }
 
+/* ── Scenarios page ── */
+
+.scene-stats {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.scene-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scene-stat-num {
+  font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+.scene-stat-label {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.scene-category-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.scene-category-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scene-category-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.scene-category-head h2 {
+  margin-bottom: 4px;
+}
+
+.scene-category-head p {
+  margin: 0;
+}
+
+.scene-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+.scene-tags span {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(15, 111, 204, 0.08);
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.scene-nav {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scene-nav-item {
+  font-size: 12px;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.scene-nav-item:hover {
+  color: var(--primary);
+  background: rgba(15, 111, 204, 0.06);
+}
+
+.scene-nav-item.active {
+  color: var(--primary-strong);
+  background: rgba(15, 111, 204, 0.1);
+  border-color: rgba(15, 111, 204, 0.2);
+  font-weight: 600;
+}
+
 @media (max-width: 900px) {
   .setup-drawer {
     width: 100vw;
@@ -1936,6 +2049,14 @@ body[data-page="home"] .home-section .reveal.is-visible {
   .tutorial-grid,
   .quickstart-band {
     grid-template-columns: 1fr;
+  }
+
+  .scene-nav {
+    display: none;
+  }
+
+  .scene-stats {
+    gap: 24px;
   }
 
   .hero {
