@@ -115,7 +115,7 @@
         meta: {
           title: "OpenAkita 教程中心 - 图文与视频",
           description:
-            "OpenAkita 官方教程中心：安装配置、IM 通道接入、QQ 官方机器人、OneBot、LLM 端点与 API Key 配置，包含图文和视频入口。",
+            "OpenAkita 官方教程中心：安装配置、IM 通道接入、QQ、微信、LLM 端点与 API Key 配置，包含图文和视频入口。",
         },
         hero: {
           title: "教程中心：图文 + 视频",
@@ -138,13 +138,13 @@
         meta: {
           title: "OpenAkita IM 通道配置教程",
           description:
-            "OpenAkita IM 通道配置教程：Telegram、飞书、钉钉、企业微信、QQ 官方机器人、OneBot 的平台申请与配置流程。",
+            "OpenAkita IM 通道配置教程：Telegram、飞书、钉钉、企业微信、QQ、微信的平台申请与配置流程。",
         },
         hero: {
           title: "IM 通道配置与平台端申请",
-          desc: "覆盖平台申请步骤与 OpenAkita `.env` 配置，含 QQ 官方机器人与 OneBot。",
+          desc: "覆盖平台申请步骤与 OpenAkita 配置，含 QQ 与微信。",
         },
-        side: ["平台概览", "Telegram", "飞书", "钉钉", "企业微信", "QQ 官方机器人", "OneBot（通用协议）", "语音转写", "视频教程"],
+        side: ["平台概览", "Telegram", "飞书", "钉钉", "企业微信", "QQ", "微信", "语音转写", "视频教程"],
       },
       llm: {
         meta: {
@@ -293,7 +293,7 @@
         meta: {
           title: "OpenAkita Tutorials - Text and Video",
           description:
-            "Official OpenAkita tutorials for setup, IM channels, QQ Official Bot, OneBot, and LLM endpoint/API key configuration.",
+            "Official OpenAkita tutorials for setup, IM channels, QQ, WeChat, and LLM endpoint/API key configuration.",
         },
         hero: {
           title: "Tutorial Center",
@@ -314,13 +314,13 @@
       im: {
         meta: {
           title: "OpenAkita IM Channel Configuration Guide",
-          description: "Platform onboarding and configuration for Telegram, Feishu, DingTalk, WeCom, QQ Official Bot, and OneBot.",
+          description: "Platform onboarding and configuration for Telegram, Feishu, DingTalk, WeCom, QQ, and WeChat.",
         },
         hero: {
           title: "IM Channel Config and Platform Onboarding",
-          desc: "Covers platform onboarding and `.env` configuration, including QQ Official Bot and OneBot.",
+          desc: "Covers platform onboarding and configuration, including QQ and WeChat.",
         },
-        side: ["Platform Overview", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ Official Bot", "OneBot (Universal)", "Voice", "Video"],
+        side: ["Platform Overview", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Voice", "Video"],
       },
       llm: {
         meta: {
@@ -409,8 +409,8 @@
         side: ["概要", "要件", "OpenAkita のインストール", "起動検証"],
       },
       im: {
-        hero: { title: "IM チャネル設定", desc: "各プラットフォームの申請と接続手順（QQ公式ボットとOneBotを含む）。" },
-        side: ["プラットフォーム概要", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ公式ボット", "OneBot（汎用プロトコル）", "音声変換", "動画"],
+        hero: { title: "IM チャネル設定", desc: "各プラットフォームの申請と接続手順（QQとWeChatを含む）。" },
+        side: ["プラットフォーム概要", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "音声変換", "動画"],
       },
       llm: {
         hero: { title: "LLM エンドポイント設定", desc: "API Key とエンドポイント構成を設定。" },
@@ -456,8 +456,8 @@
         side: ["개요", "요구 사항", "OpenAkita 설치", "시작 검증"],
       },
       im: {
-        hero: { title: "IM 채널 설정", desc: "플랫폼 신청 및 연동 절차(QQ 공식 봇과 OneBot 포함)." },
-        side: ["플랫폼 개요", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ 공식 봇", "OneBot(범용 프로토콜)", "음성 전사", "영상"],
+        hero: { title: "IM 채널 설정", desc: "플랫폼 신청 및 연동 절차(QQ와 WeChat 포함)." },
+        side: ["플랫폼 개요", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "음성 전사", "영상"],
       },
       llm: {
         hero: { title: "LLM 엔드포인트 설정", desc: "API Key 및 엔드포인트 구성." },
@@ -503,8 +503,8 @@
         side: ["Обзор", "Требования", "Установка OpenAkita", "Проверка запуска"],
       },
       im: {
-        hero: { title: "Настройка IM-каналов", desc: "Подключение платформ и конфигурация (включая QQ Official Bot и OneBot)." },
-        side: ["Обзор платформ", "Telegram", "Feishu", "DingTalk", "WeCom", "Официальный бот QQ", "OneBot (универсальный)", "Голос", "Видео"],
+        hero: { title: "Настройка IM-каналов", desc: "Подключение платформ и конфигурация (включая QQ и WeChat)." },
+        side: ["Обзор платформ", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Голос", "Видео"],
       },
       llm: {
         hero: { title: "Настройка LLM endpoints", desc: "API Key и отказоустойчивые endpoints." },
@@ -550,8 +550,8 @@
         side: ["Aperçu", "Prérequis", "Installer OpenAkita", "Vérification du démarrage"],
       },
       im: {
-        hero: { title: "Configuration des canaux IM", desc: "Onboarding des plateformes et intégration (QQ Bot officiel et OneBot inclus)." },
-        side: ["Aperçu plateforme", "Telegram", "Feishu", "DingTalk", "WeCom", "Bot officiel QQ", "OneBot (universel)", "Voix", "Vidéo"],
+        hero: { title: "Configuration des canaux IM", desc: "Onboarding des plateformes et intégration (QQ et WeChat inclus)." },
+        side: ["Aperçu plateforme", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Voix", "Vidéo"],
       },
       llm: {
         hero: { title: "Configuration des endpoints LLM", desc: "API Key et stratégie de bascule." },
@@ -597,8 +597,8 @@
         side: ["Überblick", "Voraussetzungen", "OpenAkita installieren", "Startprüfung"],
       },
       im: {
-        hero: { title: "IM-Kanal-Konfiguration", desc: "Plattform-Onboarding und Integration (inkl. QQ Official Bot und OneBot)." },
-        side: ["Plattformüberblick", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ Official Bot", "OneBot (Universal)", "Sprache", "Video"],
+        hero: { title: "IM-Kanal-Konfiguration", desc: "Plattform-Onboarding und Integration (inkl. QQ und WeChat)." },
+        side: ["Plattformüberblick", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Sprache", "Video"],
       },
       llm: {
         hero: { title: "LLM-Endpoint-Konfiguration", desc: "API-Keys und Failover-Endpunkte." },

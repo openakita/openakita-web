@@ -1669,6 +1669,9 @@ section[id] {
 .tutorial-shot--sm {
   max-width: 75%;
 }
+.tutorial-shot--portrait {
+  max-width: 38%;
+}
 
 .feature-list,
 .checklist,
