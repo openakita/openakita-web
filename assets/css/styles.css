@@ -1553,6 +1553,10 @@ section[id] {
   border-top: 1px solid rgba(119, 175, 220, 0.32);
 }
 
+.tutorial-shot--sm {
+  max-width: 75%;
+}
+
 .feature-list,
 .checklist,
 .link-list {

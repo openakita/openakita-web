@@ -719,7 +719,7 @@
     if (languagePacks[lang]) return Promise.resolve(languagePacks[lang]);
     if (loadingPacks[lang]) return loadingPacks[lang];
 
-    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260316-i18n-full")
+    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260401-desktop-i18n")
       .then(function (response) {
         if (!response.ok) throw new Error("i18n_load_failed");
         return response.json();
@@ -1319,22 +1319,18 @@
         title: "方式一：Desktop（配置向导）",
         templateId: "setup-drawer-template-desktop",
         chapters: [
-          { id: "drawer-desktop-start", label: "0. 启动应用" },
-          { id: "drawer-desktop-mode", label: "1. 选择配置模式" },
-          { id: "drawer-desktop-quick-overview", label: "2. 快速配置概览" },
-          { id: "drawer-desktop-quick-llm", label: "2.1 填写LLM 端点参数" },
-          { id: "drawer-desktop-quick-im", label: "2.2 填写 IM 通道参数" },
-          { id: "drawer-desktop-quick-auto", label: "2.3 开始配置" },
-          { id: "drawer-desktop-quick-done", label: "2.4 配置完成" },
-          { id: "drawer-desktop-full-overview", label: "3. 完整配置" },
-          { id: "drawer-desktop-full-workspace", label: "3.1 工作区" },
-          { id: "drawer-desktop-full-python", label: "3.2 Python 环境" },
-          { id: "drawer-desktop-full-install", label: "3.3 安装" },
-          { id: "drawer-desktop-full-llm", label: "3.4 LLM 端点" },
-          { id: "drawer-desktop-full-im", label: "3.5 IM 通道" },
-          { id: "drawer-desktop-full-tools", label: "3.6 工具与技能" },
-          { id: "drawer-desktop-full-agent", label: "3.7 Agent 与系统" },
-          { id: "drawer-desktop-full-done", label: "3.8 完成" },
+          { id: "drawer-desktop-prereq",        label: "前置条件" },
+          { id: "drawer-desktop-download",      label: "1. 下载安装包" },
+          { id: "drawer-desktop-install-steps", label: "2. 正式安装" },
+          { id: "drawer-desktop-wizard",        label: "3. 配置向导（初次配置）" },
+          { id: "drawer-desktop-full-overview", label: "4. 完整配置" },
+          { id: "drawer-desktop-full-llm",      label: "4.1 LLM 端点配置" },
+          { id: "drawer-desktop-full-im",       label: "4.2 IM 通道" },
+          { id: "drawer-desktop-full-tools",    label: "4.3 工具与技能" },
+          { id: "drawer-desktop-full-soul",     label: "4.4 灵魂与意志" },
+          { id: "drawer-desktop-full-advanced", label: "4.5 高级配置" },
+          { id: "drawer-desktop-full-multi",    label: "4.6 多 Agent 模式" },
+          { id: "drawer-desktop-full-done",     label: "4.7 完成" },
         ],
       },
       pypi: {
