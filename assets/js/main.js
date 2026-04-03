@@ -1450,9 +1450,13 @@
       if (heroLink) heroLink.classList.add("is-visible");
     }
 
+    var lastStarCount = null;
+
     function injectNavBadge(count) {
       var navGH = document.querySelector('.main-nav a[href*="github.com"]');
-      if (!navGH || navGH.querySelector(".nav-star-badge")) return;
+      if (!navGH) return;
+      var existing = navGH.querySelector(".nav-star-badge");
+      if (existing) return;
       var badge = document.createElement("span");
       badge.className = "nav-star-badge";
       badge.textContent = formatCount(count);
@@ -1460,9 +1464,14 @@
       navGH.appendChild(badge);
     }
 
+    document.addEventListener("openakita:language-changed", function () {
+      if (lastStarCount !== null) injectNavBadge(lastStarCount);
+    });
+
     try {
       var cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
       if (cached.count && cached.ts && Date.now() - cached.ts < CACHE_TTL) {
+        lastStarCount = cached.count;
         applyStars(cached.count);
         injectNavBadge(cached.count);
         return;
@@ -1474,6 +1483,7 @@
       .then(function (data) {
         var count = data.stargazers_count;
         if (typeof count !== "number") return;
+        lastStarCount = count;
         localStorage.setItem(CACHE_KEY, JSON.stringify({ count: count, ts: Date.now() }));
         applyStars(count);
         injectNavBadge(count);
