@@ -707,6 +707,16 @@ body[data-page="home"] .hero-actions {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
+
+@media (min-width: 981px) {
+  .desktop-hidden {
+    display: none !important;
+  }
+
+  .card-grid:has(.desktop-hidden) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 .card-stack {
   display: flex;
   flex-direction: column;
