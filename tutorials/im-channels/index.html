@@ -5,19 +5,19 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>OpenAkita IM 通道配置教程</title>
-<meta content="OpenAkita IM 通道配置教程：Telegram、飞书、钉钉、企业微信、QQ 官方机器人、OneBot 的平台申请、配置与排障流程。" name="description"/>
-<meta content="OpenAkita,IM 通道,QQ 官方机器人,OneBot,Telegram,企业微信,钉钉,飞书" name="keywords"/>
+<meta content="OpenAkita IM 通道配置教程：Telegram、飞书、钉钉、企业微信、QQ、微信的平台申请、配置与排障流程。" name="description"/>
+<meta content="OpenAkita,IM 通道,Telegram,飞书,钉钉,企业微信,QQ,微信" name="keywords"/>
 <meta content="index,follow,max-image-preview:large" name="robots"/>
 <meta content="Fuzhou Stack Technology Co., Ltd. All rights reserved." name="author"/>
 <meta content="article" property="og:type"/>
 <meta content="OpenAkita" property="og:site_name"/>
 <meta content="OpenAkita IM 通道配置教程" property="og:title"/>
-<meta content="平台申请 + OpenAkita 配置 + 验证排障：Telegram/飞书/钉钉/企业微信/QQ 官方机器人/OneBot。" property="og:description"/>
+<meta content="平台申请 + OpenAkita 配置 + 验证排障：Telegram/飞书/钉钉/企业微信/QQ/微信。" property="og:description"/>
 <meta content="https://openakita.ai/tutorials/im-channels/" property="og:url"/>
 <meta content="https://openakita.ai/assets/img/zh/setupcenter.png" property="og:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="OpenAkita IM Channels Guide" name="twitter:title"/>
-<meta content="Official IM channel setup guide for Telegram, Feishu, DingTalk, WeCom, QQ Official Bot, and OneBot." name="twitter:description"/>
+<meta content="Official IM channel setup guide for Telegram, Feishu, DingTalk, WeCom, QQ, and WeChat." name="twitter:description"/>
 <link href="https://openakita.ai/tutorials/im-channels/" rel="canonical"/>
 <link href="../../assets/img/logo.png" rel="icon"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -38,7 +38,8 @@
 <nav aria-label="主导航" class="main-nav">
 <a data-nav="home" href="/">首页</a>
 <a data-nav="download" href="/download/">下载</a>
-<a data-nav="services" href="/services/">\u670d\u52a1</a>
+<a data-nav="services" href="/services/">服务</a>
+<a href="/scenarios/" data-nav="scenarios">应用场景</a>
 <a data-nav="tutorials" href="/tutorials/">教程</a>
 <a data-nav="about" href="/about/">关于我们</a>
 <a href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub</a>
@@ -50,7 +51,7 @@
 <div class="container reveal">
 <div class="eyebrow" data-i18n="im.0001">Tutorial / IM Channels</div>
 <h1 data-i18n="im.0002">IM 通道配置与平台端申请</h1>
-<p data-i18n="im.0003">本页按最新开源文档重排，覆盖平台申请、OpenAkita 配置、验证与常见问题。</p>
+<p data-i18n="im.0003">本教程详细介绍如何为 OpenAkita 配置各 IM 通道，包含平台端完整的申请流程和配置步骤。</p>
 </div>
 </section>
 <section>
@@ -62,12 +63,16 @@
 <a data-i18n="im.0007" href="#feishu">飞书</a>
 <a data-i18n="im.0008" href="#dingtalk">钉钉</a>
 <a data-i18n="im.0009" href="#wework">企业微信</a>
-<a data-i18n="im.0010" href="#qqbot">QQ 官方机器人</a>
-<a data-i18n="im.0011" href="#onebot">OneBot（通用协议）</a>
+<a data-i18n="im.0400" href="#qq">QQ</a>
+<a data-i18n="im.0401" href="#wechat">微信</a>
 <a data-i18n="im.0012" href="#voice">语音转写</a>
 <a href="#video">视频教程</a>
 </aside>
 <div class="reveal">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 1 — 平台概览
+     ═══════════════════════════════════════════════════════════════ -->
 <section class="tutorial-section" id="overview">
 <div class="card">
 <h2 data-i18n="im.0013" style="margin-top: 0;">平台概览</h2>
@@ -79,45 +84,48 @@
 </thead>
 <tbody>
 <tr><td data-i18n="im.0021">Telegram</td><td data-i18n="im.0022">稳定</td><td data-i18n="im.0023">Long Polling</td><td data-i18n="im.0024">不需要</td><td data-i18n="im.0025">默认包含</td><td data-i18n="im.0026">低</td></tr>
-<tr><td data-i18n="im.0027">飞书</td><td data-i18n="im.0028">稳定</td><td data-i18n="im.0029">WebSocket 长连接</td><td data-i18n="im.0030">不需要</td><td data-i18n="im.0031">`pip install openakita[feishu]`</td><td data-i18n="im.0032">低</td></tr>
-<tr><td data-i18n="im.0033">钉钉</td><td data-i18n="im.0034">稳定</td><td data-i18n="im.0035">Stream 模式</td><td data-i18n="im.0036">不需要</td><td data-i18n="im.0037">`pip install openakita[dingtalk]`</td><td data-i18n="im.0038">低</td></tr>
-<tr><td data-i18n="im.0039">企业微信</td><td data-i18n="im.0040">稳定</td><td data-i18n="im.0041">HTTP 回调</td><td data-i18n="im.0042">需要</td><td data-i18n="im.0043">`pip install openakita[wework]`</td><td data-i18n="im.0044">中</td></tr>
-<tr><td data-i18n="im.0045">QQ 官方机器人</td><td data-i18n="im.0046">稳定</td><td data-i18n="im.0047">QQ 开放平台 WebSocket</td><td data-i18n="im.0048">不需要</td><td data-i18n="im.0049">`pip install openakita[qqbot]`</td><td data-i18n="im.0050">中</td></tr>
-<tr><td>OneBot</td><td>稳定</td><td>OneBot v11 WebSocket</td><td>不需要</td><td>`pip install openakita[onebot]`</td><td>中</td></tr>
+<tr><td data-i18n="im.0027">飞书</td><td data-i18n="im.0028">稳定</td><td data-i18n="im.0029">WebSocket 长连接</td><td data-i18n="im.0030">不需要</td><td><code>pip install openakita[feishu]</code></td><td data-i18n="im.0032">低</td></tr>
+<tr><td data-i18n="im.0033">钉钉</td><td data-i18n="im.0034">稳定</td><td data-i18n="im.0035">Stream 模式</td><td data-i18n="im.0036">不需要</td><td><code>pip install openakita[dingtalk]</code></td><td data-i18n="im.0038">低</td></tr>
+<tr><td data-i18n="im.0039">企业微信</td><td data-i18n="im.0040">稳定</td><td data-i18n="im.0402">WebSocket 长连接</td><td data-i18n="im.0042">不需要</td><td><code>pip install openakita[wework]</code></td><td data-i18n="im.0044">低</td></tr>
+<tr><td data-i18n="im.0403">QQ</td><td data-i18n="im.0046">稳定</td><td data-i18n="im.0404">WebSocket 长连接</td><td data-i18n="im.0048">不需要</td><td><code>pip install openakita[qq]</code></td><td data-i18n="im.0050">低</td></tr>
+<tr><td data-i18n="im.0405">微信</td><td data-i18n="im.0406">稳定</td><td data-i18n="im.0407">iLink Bot API</td><td data-i18n="im.0408">不需要</td><td><code>pip install openakita[wechat]</code></td><td data-i18n="im.0409">低</td></tr>
 </tbody>
 </table>
 </div>
+
 <h3 data-i18n="im.0051" style="margin-top: 14px;">媒体类型支持（接收）</h3>
 <div class="table-wrap">
 <table>
 <thead>
-<tr><th data-i18n="im.0052">类型</th><th data-i18n="im.0053">Telegram</th><th data-i18n="im.0054">飞书</th><th data-i18n="im.0055">钉钉</th><th data-i18n="im.0056">企业微信</th><th>QQ 官方机器人</th><th>OneBot</th></tr>
+<tr><th data-i18n="im.0052">类型</th><th data-i18n="im.0053">Telegram</th><th data-i18n="im.0054">飞书</th><th data-i18n="im.0055">钉钉</th><th data-i18n="im.0056">企业微信</th><th data-i18n="im.0410">QQ</th><th data-i18n="im.0411">微信</th></tr>
 </thead>
 <tbody>
-<tr><td data-i18n="im.0058">文字</td><td data-i18n="im.0059">支持</td><td data-i18n="im.0060">支持</td><td data-i18n="im.0061">支持</td><td data-i18n="im.0062">支持</td><td data-i18n="im.0063">支持</td><td>支持</td></tr>
-<tr><td data-i18n="im.0064">图片</td><td data-i18n="im.0065">支持</td><td data-i18n="im.0066">支持</td><td data-i18n="im.0067">支持</td><td data-i18n="im.0068">单聊支持</td><td data-i18n="im.0069">支持</td><td>支持</td></tr>
-<tr><td data-i18n="im.0070">语音</td><td data-i18n="im.0071">Whisper 转写</td><td data-i18n="im.0072">Whisper 转写</td><td data-i18n="im.0073">Whisper 转写</td><td data-i18n="im.0074">不支持</td><td data-i18n="im.0075">支持</td><td>Whisper 转写</td></tr>
-<tr><td data-i18n="im.0076">文件</td><td data-i18n="im.0077">支持</td><td data-i18n="im.0078">支持</td><td data-i18n="im.0079">支持</td><td data-i18n="im.0080">不支持</td><td data-i18n="im.0081">支持</td><td>支持</td></tr>
-<tr><td data-i18n="im.0082">视频</td><td data-i18n="im.0083">支持</td><td data-i18n="im.0084">支持</td><td data-i18n="im.0085">支持</td><td data-i18n="im.0086">不支持</td><td data-i18n="im.0087">支持</td><td>支持</td></tr>
+<tr><td data-i18n="im.0058">文字</td><td data-i18n="im.0059">支持</td><td data-i18n="im.0060">支持</td><td data-i18n="im.0061">支持</td><td data-i18n="im.0062">支持</td><td data-i18n="im.0063">支持</td><td data-i18n="im.0412">支持</td></tr>
+<tr><td data-i18n="im.0064">图片</td><td data-i18n="im.0065">支持</td><td data-i18n="im.0066">支持</td><td data-i18n="im.0067">支持</td><td data-i18n="im.0068">单聊支持</td><td data-i18n="im.0069">支持</td><td data-i18n="im.0413">支持</td></tr>
+<tr><td data-i18n="im.0070">语音</td><td data-i18n="im.0071">Whisper 转写</td><td data-i18n="im.0072">Whisper 转写</td><td data-i18n="im.0073">Whisper 转写</td><td data-i18n="im.0074">不支持</td><td data-i18n="im.0414">Whisper 转写</td><td data-i18n="im.0415">Whisper 转写</td></tr>
+<tr><td data-i18n="im.0076">文件</td><td data-i18n="im.0077">支持</td><td data-i18n="im.0078">支持</td><td data-i18n="im.0079">支持</td><td data-i18n="im.0080">不支持</td><td data-i18n="im.0416">支持</td><td data-i18n="im.0417">支持</td></tr>
+<tr><td data-i18n="im.0082">视频</td><td data-i18n="im.0083">支持</td><td data-i18n="im.0084">支持</td><td data-i18n="im.0085">支持</td><td data-i18n="im.0086">不支持</td><td data-i18n="im.0418">支持</td><td data-i18n="im.0419">支持</td></tr>
 </tbody>
 </table>
 </div>
+
 <h3 data-i18n="im.0088" style="margin-top: 14px;">媒体类型支持（发送）</h3>
 <div class="table-wrap">
 <table>
 <thead>
-<tr><th data-i18n="im.0089">类型</th><th data-i18n="im.0090">Telegram</th><th data-i18n="im.0091">飞书</th><th data-i18n="im.0092">钉钉</th><th data-i18n="im.0093">企业微信</th><th data-i18n="im.0094">QQ 官方机器人</th><th>OneBot</th></tr>
+<tr><th data-i18n="im.0089">类型</th><th data-i18n="im.0090">Telegram</th><th data-i18n="im.0091">飞书</th><th data-i18n="im.0092">钉钉</th><th data-i18n="im.0093">企业微信</th><th data-i18n="im.0420">QQ</th><th data-i18n="im.0421">微信</th></tr>
 </thead>
 <tbody>
-<tr><td data-i18n="im.0095">文字</td><td data-i18n="im.0096">支持</td><td data-i18n="im.0097">支持</td><td data-i18n="im.0098">支持</td><td data-i18n="im.0099">支持（stream）</td><td data-i18n="im.0100">支持</td><td>支持</td></tr>
-<tr><td data-i18n="im.0101">图片</td><td data-i18n="im.0102">支持</td><td data-i18n="im.0103">支持</td><td data-i18n="im.0104">支持</td><td data-i18n="im.0105">支持（JPG/PNG）</td><td data-i18n="im.0106">需公网 URL</td><td>支持</td></tr>
-<tr><td data-i18n="im.0107">语音</td><td data-i18n="im.0108">支持</td><td data-i18n="im.0109">支持</td><td data-i18n="im.0110">降级为文件</td><td data-i18n="im.0111">不支持</td><td data-i18n="im.0112">需 silk + 公网 URL</td><td>支持</td></tr>
-<tr><td data-i18n="im.0113">文件</td><td data-i18n="im.0114">支持</td><td data-i18n="im.0115">支持</td><td data-i18n="im.0116">降级为链接</td><td data-i18n="im.0117">降级为文本</td><td data-i18n="im.0118">暂未开放</td><td>支持</td></tr>
-<tr><td data-i18n="im.0119">视频</td><td data-i18n="im.0120">支持</td><td data-i18n="im.0121">支持</td><td data-i18n="im.0122">支持</td><td data-i18n="im.0123">不支持</td><td data-i18n="im.0124">需公网 URL</td><td>支持</td></tr>
+<tr><td data-i18n="im.0095">文字</td><td data-i18n="im.0096">支持</td><td data-i18n="im.0097">支持</td><td data-i18n="im.0098">支持</td><td data-i18n="im.0099">支持（stream）</td><td data-i18n="im.0422">支持</td><td data-i18n="im.0423">支持</td></tr>
+<tr><td data-i18n="im.0101">图片</td><td data-i18n="im.0102">支持</td><td data-i18n="im.0103">支持</td><td data-i18n="im.0104">支持</td><td data-i18n="im.0105">支持（JPG/PNG）</td><td data-i18n="im.0424">支持</td><td data-i18n="im.0425">支持</td></tr>
+<tr><td data-i18n="im.0107">语音</td><td data-i18n="im.0108">支持</td><td data-i18n="im.0109">支持</td><td data-i18n="im.0110">降级为文件</td><td data-i18n="im.0111">不支持</td><td data-i18n="im.0426">支持</td><td data-i18n="im.0427">支持</td></tr>
+<tr><td data-i18n="im.0113">文件</td><td data-i18n="im.0114">支持</td><td data-i18n="im.0115">支持</td><td data-i18n="im.0116">降级为链接</td><td data-i18n="im.0117">降级为文本</td><td data-i18n="im.0428">支持</td><td data-i18n="im.0429">支持</td></tr>
+<tr><td data-i18n="im.0119">视频</td><td data-i18n="im.0120">支持</td><td data-i18n="im.0121">支持</td><td data-i18n="im.0122">支持</td><td data-i18n="im.0123">不支持</td><td data-i18n="im.0430">支持</td><td data-i18n="im.0431">支持</td></tr>
 </tbody>
 </table>
 </div>
 <p class="notice" data-i18n="im.0125">企业微信智能机器人通过 stream 被动回复文本和图片，不支持语音、文件、视频收发。</p>
+
 <h3 data-i18n="im.0126" style="margin-top: 14px;">快速安装</h3>
 <div class="code-block"><code># 安装全部 IM 依赖
 pip install openakita[all]
@@ -126,12 +134,13 @@ pip install openakita[all]
 pip install openakita[feishu]
 pip install openakita[dingtalk]
 pip install openakita[wework]
-pip install openakita[qqbot]
-pip install openakita[onebot]
+pip install openakita[qq]
+pip install openakita[wechat]
 pip install openakita[whisper]
 
 # 组合安装示例
-pip install openakita[feishu,dingtalk,qqbot,onebot,whisper]</code></div>
+pip install openakita[feishu,dingtalk,qq,wechat,whisper]</code></div>
+
 <h3 data-i18n="im.0127" style="margin-top: 14px;">三种配置方式</h3>
 <div class="tutorial-grid">
 <article class="tutorial-panel">
@@ -140,11 +149,11 @@ pip install openakita[feishu,dingtalk,qqbot,onebot,whisper]</code></div>
 </article>
 <article class="tutorial-panel">
 <h4 data-i18n="im.0130">方式二：CLI 向导</h4>
-<p data-i18n="im.0131">执行 `openakita setup`，在 Step 4 选择并配置 IM 通道，适合命令行用户。</p>
+<p data-i18n="im.0131">执行 <code>openakita setup</code>，在 Step 4 选择并配置 IM 通道，适合命令行用户。</p>
 </article>
 <article class="tutorial-panel">
 <h4 data-i18n="im.0132">方式三：手动 .env</h4>
-<p data-i18n="im.0133">直接编辑 `.env`，适合高级用户精细化控制。三种方式最终都写入同一文件。</p>
+<p data-i18n="im.0133">直接编辑 <code>.env</code>，适合高级用户精细化控制。三种方式最终都写入同一文件。</p>
 </article>
 <article class="tutorial-panel">
 <h4 data-i18n="im.0134">CLI 向导命令</h4>
@@ -152,42 +161,90 @@ pip install openakita[feishu,dingtalk,qqbot,onebot,whisper]</code></div>
 openakita setup</code></div>
 </article>
 </div>
-<div class="tutorial-grid">
-<div class="image-placeholder"><div><strong data-i18n="im.0135">配图位：Desktop 主界面</strong><span data-i18n="im.0136">建议放 OpenAkita Desktop 的 IM 通道入口</span></div></div>
-<div class="image-placeholder"><div><strong data-i18n="im.0137">配图位：Desktop 状态页</strong><span data-i18n="im.0138">建议放通道在线状态（在线/离线/未启用）</span></div></div>
-</div>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-主界面.png" data-i18n-img alt="OpenAkita Desktop 主界面" />
+<figcaption data-i18n="im.0432">OpenAkita Desktop 主界面</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-IM 通道配置的页面.png" data-i18n-img alt="IM 通道配置页面" />
+<figcaption data-i18n="im.0433">IM 通道配置页面</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-状态页面中 IM 通道健康检查页面.png" data-i18n-img alt="IM 通道健康检查" />
+<figcaption data-i18n="im.0434">状态页面 IM 通道健康检查（🟢 在线 / 🔴 离线 / ⚪ 未启用）</figcaption>
+</figure>
 </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 2 — Telegram
+     ═══════════════════════════════════════════════════════════════ -->
 <section class="tutorial-section" id="telegram">
 <div class="card">
 <h2 data-i18n="im.0139" style="margin-top: 0;">一、Telegram 配置教程</h2>
 <p data-i18n="im.0140">Telegram 是最容易配置的 IM 通道，只需 Bot Token 即可，默认采用 Long Polling。</p>
+
 <h3 data-i18n="im.0141" style="margin-top: 14px;">前置条件</h3>
 <ul class="checklist">
-<li data-i18n="im.0142">具备 Telegram 账号。</li>
+<li data-i18n="im.0142">具备 Telegram 账号（手机号注册即可）。</li>
 <li data-i18n="im.0143">网络可访问 Telegram（大陆环境通常需要代理）。</li>
 </ul>
+
 <h3 data-i18n="im.0144" style="margin-top: 14px;">平台端申请步骤</h3>
 <div class="step-list">
-<article class="step"><div class="index">1</div><div><h4 data-i18n="im.0145">打开 BotFather</h4><p data-i18n="im.0146">搜索 `@BotFather` 并进入对话。</p></div></article>
-<article class="step"><div class="index">2</div><div><h4 data-i18n="im.0147">创建新机器人</h4><p data-i18n="im.0148">发送 `/newbot`，设置 name 与以 `bot` 结尾的 username。</p></div></article>
-<article class="step"><div class="index">3</div><div><h4 data-i18n="im.0149">获取 Bot Token</h4><p data-i18n="im.0150">复制创建完成后返回的 Token，妥善保存。</p></div></article>
-<article class="step"><div class="index">4</div><div><h4 data-i18n="im.0151">可选：设置资料</h4><p data-i18n="im.0152">可执行 `/setuserpic`、`/setdescription`、`/setcommands`。</p></div></article>
-<article class="step"><div class="index">5</div><div><h4 data-i18n="im.0153">可选：隐私模式</h4><p data-i18n="im.0154">群聊需要接收全量消息时，在 `/setprivacy` 中选择 Disable。</p></div></article>
+<article class="step"><div class="index">1</div><div><h4 data-i18n="im.0145">打开 BotFather</h4><p data-i18n="im.0146">在 Telegram 搜索栏中搜索 <code>@BotFather</code>，点击进入对话。</p></div></article>
+<article class="step"><div class="index">2</div><div><h4 data-i18n="im.0147">创建新机器人</h4><p data-i18n="im.0148">发送 <code>/newbot</code>，设置显示名称与以 <code>bot</code> 结尾的用户名。</p></div></article>
+<article class="step"><div class="index">3</div><div><h4 data-i18n="im.0149">获取 Bot Token</h4><p data-i18n="im.0150">创建完成后 BotFather 返回 Bot Token，妥善保管。</p></div></article>
+<article class="step"><div class="index">4</div><div><h4 data-i18n="im.0151">可选：设置资料</h4><p data-i18n="im.0152">可执行 <code>/setuserpic</code>、<code>/setdescription</code>、<code>/setcommands</code> 等。</p></div></article>
+<article class="step"><div class="index">5</div><div><h4 data-i18n="im.0153">可选：隐私模式</h4><p data-i18n="im.0435">群聊需要接收全量消息时，向 BotFather 发送 <code>/setprivacy</code> 并选择 Disable。</p></div></article>
 </div>
-<div class="image-placeholder"><div><strong data-i18n="im.0155">配图位：BotFather 完整流程</strong><span data-i18n="im.0156">建议放创建机器人和获取 Token 全流程截图</span></div></div>
+
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/Telegram-搜索 BotFather 的界面.png" data-i18n-img alt="搜索 BotFather" />
+<figcaption data-i18n="im.0436">在 Telegram 搜索 BotFather</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--portrait">
+<img src="../../assets/img/tutorials/im-channels/zh/Telegram-与 BotFather 对话创建机器人的完整流程界面.png" data-i18n-img alt="创建机器人完整流程" />
+<figcaption data-i18n="im.0437">与 BotFather 对话创建机器人并获取 Token</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--portrait">
+<img src="../../assets/img/tutorials/im-channels/zh/Telegram-设置机器人头像和描述的界面.png" data-i18n-img alt="设置机器人头像和描述" />
+<figcaption data-i18n="im.0438">设置机器人头像和描述</figcaption>
+</figure>
+
 <h3 data-i18n="im.0157" style="margin-top: 14px;">OpenAkita 配置</h3>
-<div class="tutorial-grid">
-<article class="tutorial-panel">
-<h4 data-i18n="im.0158">Desktop 配置</h4>
-<p data-i18n="im.0159">在 IM 通道中启用 `TELEGRAM_ENABLED`，填入 `TELEGRAM_BOT_TOKEN`，必要时配置 `TELEGRAM_PROXY`。</p>
-</article>
-<article class="tutorial-panel">
-<h4 data-i18n="im.0160">CLI 配置</h4>
-<div class="code-block"><code># 启动向导后在 Step 4 选择 Telegram
-openakita setup</code></div>
-</article>
+
+<h4 data-i18n="im.0439" style="margin-top: 10px;">方式 A：OpenAkita Desktop（推荐）</h4>
+<div class="step-list">
+<article class="step"><div class="index">1</div><div><p data-i18n="im.0440">打开 Desktop，进入「IM 通道」，点击「引导创建」</p></div></article>
+<article class="step"><div class="index">2</div><div><p data-i18n="im.0441">选择接入「Telegram」，选择绑定的 Agent</p></div></article>
+<article class="step"><div class="index">3</div><div><p data-i18n="im.0442">设置机器人标识和名称（Bot ID 创建后不可更改）</p></div></article>
+<article class="step"><div class="index">4</div><div><p data-i18n="im.0443">填写 Bot Token，生成配对码，保存并重启服务</p></div></article>
 </div>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-Telegram-引导创建选择 Telegram 页面.png" data-i18n-img alt="选择 Telegram" />
+<figcaption data-i18n="im.0444">引导创建 — 选择 Telegram</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-Telegram-选择机器人绑定的 Agent 页面.png" data-i18n-img alt="选择绑定 Agent" />
+<figcaption data-i18n="im.0445">选择机器人绑定的 Agent</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-Telegram-设置机器人的标识和名称页面.png" data-i18n-img alt="设置标识和名称" />
+<figcaption data-i18n="im.0446">设置机器人的标识和名称</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-Telegram-填写 Bot Token 和配对码页面.png" data-i18n-img alt="填写 Bot Token" />
+<figcaption data-i18n="im.0447">填写 Bot Token 和配对码</figcaption>
+</figure>
+
+<h4 data-i18n="im.0448" style="margin-top: 10px;">方式 B：CLI 交互式向导</h4>
+<div class="code-block"><code># 启动向导后在 Step 4 选择 Telegram
+openakita setup
+
+# 按提示输入 Bot Token、是否启用配对码、代理地址等</code></div>
+
+<h4 data-i18n="im.0449" style="margin-top: 10px;">方式 C：手动编辑 .env 文件</h4>
 <div class="code-block"><code># --- Telegram ---
 TELEGRAM_ENABLED=true
 TELEGRAM_BOT_TOKEN=your-bot-token
@@ -200,6 +257,7 @@ TELEGRAM_PROXY=http://127.0.0.1:7890
 
 # 可选：Webhook 模式
 # TELEGRAM_WEBHOOK_URL=https://your-domain.com/webhook/telegram</code></div>
+
 <h3 data-i18n="im.0161" style="margin-top: 14px;">部署模式</h3>
 <div class="table-wrap">
 <table>
@@ -210,174 +268,319 @@ TELEGRAM_PROXY=http://127.0.0.1:7890
 </tbody>
 </table>
 </div>
-<h3 data-i18n="im.0171" style="margin-top: 14px;">验证与常见问题</h3>
+
+<h3 data-i18n="im.0171" style="margin-top: 14px;">验证与测试</h3>
 <ul class="checklist">
-<li data-i18n="im.0172">发送 `/start` 后应收到回复。</li>
-<li data-i18n="im.0173">启用配对时，需输入正确配对码。</li>
-<li data-i18n="im.0174">群聊无响应时，检查隐私模式与群内权限。</li>
+<li data-i18n="im.0172">启动 OpenAkita，在 Telegram 中搜索你的机器人用户名。</li>
+<li data-i18n="im.0173">点击 Start 或发送 <code>/start</code>，如启用配对需输入配对码。</li>
+<li data-i18n="im.0174">发送一条测试消息，等待机器人回复。</li>
 </ul>
+<figure class="tutorial-shot tutorial-shot--portrait">
+<img src="../../assets/img/tutorials/im-channels/zh/Telegram 中与机器人对话页面.png" data-i18n-img alt="Telegram 对话效果" />
+<figcaption data-i18n="im.0450">在 Telegram 中与机器人对话</figcaption>
+</figure>
+
+<h3 data-i18n="im.0451" style="margin-top: 14px;">常见问题</h3>
 <div class="faq-list">
-<article class="faq-item"><h4 data-i18n="im.0175">Q：无法连接 Telegram？</h4><p data-i18n="im.0176">A：优先检查 `TELEGRAM_PROXY` 是否可达，代理协议是否匹配。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0175">Q：无法连接 Telegram？</h4><p data-i18n="im.0176">A：优先检查 <code>TELEGRAM_PROXY</code> 是否可达，代理协议是否匹配。</p></article>
 <article class="faq-item"><h4 data-i18n="im.0177">Q：机器人不回复？</h4><p data-i18n="im.0178">A：检查 Token 是否正确、服务是否正常启动、日志是否报错。</p></article>
-<article class="faq-item"><h4 data-i18n="im.0179">Q：群聊收不到消息？</h4><p data-i18n="im.0180">A：根据需求在 BotFather 调整隐私模式设置。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0179">Q：群聊收不到消息？</h4><p data-i18n="im.0180">A：检查是否需要关闭隐私模式（通过 BotFather <code>/setprivacy</code>）。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0452">Q：提示"配对码错误"？</h4><p data-i18n="im.0453">A：确认 <code>TELEGRAM_PAIRING_CODE</code> 与输入一致。</p></article>
 </div>
 </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 3 — 飞书
+     ═══════════════════════════════════════════════════════════════ -->
 <section class="tutorial-section" id="feishu">
 <div class="card">
 <h2 data-i18n="im.0181" style="margin-top: 0;">二、飞书（Lark）配置教程</h2>
-<p data-i18n="im.0182">飞书使用长连接接收事件，不要求公网回调，适合企业内部部署。</p>
-<h3 data-i18n="im.0183" style="margin-top: 14px;">平台端申请步骤</h3>
-<div class="step-list">
-<article class="step"><div class="index">1</div><div><h4 data-i18n="im.0184">创建企业自建应用</h4><p data-i18n="im.0185">在飞书开发者后台创建应用并填写基础信息。</p></div></article>
-<article class="step"><div class="index">2</div><div><h4 data-i18n="im.0186">获取 App ID / Secret</h4><p data-i18n="im.0187">在「凭证与基础信息」中复制凭证。</p></div></article>
-<article class="step"><div class="index">3</div><div><h4 data-i18n="im.0188">添加机器人能力</h4><p data-i18n="im.0189">在应用能力中添加机器人。</p></div></article>
-<article class="step"><div class="index">4</div><div><h4 data-i18n="im.0190">开通权限</h4><p data-i18n="im.0191">开通 `im:message`、`im:message.create_v1`、`im:resource`、`im:file`。</p></div></article>
-<article class="step"><div class="index">5</div><div><h4 data-i18n="im.0192">配置事件订阅</h4><p data-i18n="im.0193">选择「使用长连接接收事件」，添加 `im.message.receive_v1`。</p></div></article>
-<article class="step"><div class="index">6</div><div><h4 data-i18n="im.0194">创建版本并发布</h4><p data-i18n="im.0195">设置可用范围并完成发布审批。</p></div></article>
-</div>
-<div class="tutorial-grid">
-<div class="image-placeholder"><div><strong data-i18n="im.0196">配图位：飞书凭证页</strong><span data-i18n="im.0197">建议放 App ID / App Secret 位置</span></div></div>
-<div class="image-placeholder"><div><strong data-i18n="im.0198">配图位：事件订阅页</strong><span data-i18n="im.0199">建议放长连接模式与事件添加截图</span></div></div>
-</div>
+<p data-i18n="im.0182">飞书通过 WebSocket 长连接接入，无需公网 IP，适合企业内部使用。</p>
+
+<h3 data-i18n="im.0454" style="margin-top: 14px;">前置条件</h3>
+<ul class="checklist">
+<li data-i18n="im.0455">一个飞书账号。</li>
+</ul>
+
+<h3 data-i18n="im.0456" style="margin-top: 14px;">依赖安装</h3>
+<div class="code-block"><code># OpenAkita Desktop 用户可跳过，依赖会自动安装
+pip install openakita[feishu]</code></div>
+
 <h3 data-i18n="im.0200" style="margin-top: 14px;">OpenAkita 配置</h3>
-<div class="code-block"><code># 安装依赖
-pip install openakita[feishu]
 
-# 向导配置
-openakita setup
+<h4 data-i18n="im.0457" style="margin-top: 10px;">方式 A：OpenAkita Desktop（推荐）</h4>
+<div class="step-list">
+<article class="step"><div class="index">1</div><div><p data-i18n="im.0458">打开 Desktop，进入「IM 通道」，点击「引导创建」</p></div></article>
+<article class="step"><div class="index">2</div><div><p data-i18n="im.0459">选择接入「飞书」，选择绑定的 Agent</p></div></article>
+<article class="step"><div class="index">3</div><div><p data-i18n="im.0460">设置机器人标识和名称</p></div></article>
+<article class="step"><div class="index">4</div><div><p data-i18n="im.0461">飞书扫码创建机器人</p></div></article>
+<article class="step"><div class="index">5</div><div><p data-i18n="im.0462">保存并重启服务</p></div></article>
+</div>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita%20Desktop-飞书-引导创建选择飞书页面.png" data-i18n-img alt="选择飞书" />
+<figcaption data-i18n="im.0463">引导创建 — 选择飞书</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-飞书-选择机器人绑定的 Agent 页面.png" data-i18n-img alt="选择绑定 Agent" />
+<figcaption data-i18n="im.0464">选择机器人绑定的 Agent</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-飞书-设置机器人的标识和名称页面.png" data-i18n-img alt="设置标识和名称" />
+<figcaption data-i18n="im.0465">设置机器人的标识和名称</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-飞书-扫码创建机器人.png" data-i18n-img alt="飞书扫码创建" />
+<figcaption data-i18n="im.0466">飞书扫码创建机器人</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-飞书-机器人平台配置页面.png" data-i18n-img alt="飞书平台配置" />
+<figcaption data-i18n="im.0467">机器人平台配置页面</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-飞书-状态页面显示通道在线状态.png" data-i18n-img alt="飞书在线状态" />
+<figcaption data-i18n="im.0468">状态页面显示飞书通道在线</figcaption>
+</figure>
 
-# --- .env ---
+<h4 data-i18n="im.0469" style="margin-top: 10px;">方式 B：CLI 交互式向导</h4>
+<div class="code-block"><code>openakita setup
+# 在 Step 4 选择 [2] Feishu (Lark)，按提示输入 App ID 和 App Secret</code></div>
+
+<h4 data-i18n="im.0470" style="margin-top: 10px;">方式 C：手动编辑 .env 文件</h4>
+<div class="code-block"><code># --- 飞书 ---
 FEISHU_ENABLED=true
 FEISHU_APP_ID=cli_a5xxxxxxxxxxxxx
 FEISHU_APP_SECRET=xxxxxxxxxxxxxxxxxx</code></div>
-<h3 data-i18n="im.0201" style="margin-top: 14px;">验证与常见问题</h3>
+
+<h3 data-i18n="im.0201" style="margin-top: 14px;">验证与测试</h3>
 <ul class="checklist">
-<li data-i18n="im.0202">日志应出现 `Feishu adapter: WebSocket started in background`。</li>
-<li data-i18n="im.0203">应用必须发布且你在可用范围内，才能搜索并使用机器人。</li>
+<li data-i18n="im.0202">日志应出现 <code>Feishu adapter: WebSocket started in background</code>。</li>
+<li data-i18n="im.0203">打开飞书，找到机器人并发送消息测试。</li>
 </ul>
+<figure class="tutorial-shot tutorial-shot--portrait">
+<img src="../../assets/img/tutorials/im-channels/zh/飞书-与机器人对话效果图.jpg" data-i18n-img alt="飞书对话效果" />
+<figcaption data-i18n="im.0471">在飞书中与机器人对话</figcaption>
+</figure>
+
+<h3 data-i18n="im.0472" style="margin-top: 14px;">常见问题</h3>
 <div class="faq-list">
-<article class="faq-item"><h4 data-i18n="im.0204">Q：搜索不到机器人？</h4><p data-i18n="im.0205">A：检查发布状态与可用范围设置。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0204">Q：搜索不到机器人？</h4><p data-i18n="im.0205">A：确认应用已发布且你在可用范围内。</p></article>
 <article class="faq-item"><h4 data-i18n="im.0206">Q：收不到消息？</h4><p data-i18n="im.0207">A：确认是长连接模式，不是 Webhook 模式。</p></article>
-<article class="faq-item"><h4 data-i18n="im.0208">Q：权限不足？</h4><p data-i18n="im.0209">A：权限变更后需要重新发布应用。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0208">Q：权限不足？</h4><p data-i18n="im.0209">A：确认所有必要权限已开通，且应用已重新发布。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0473">Q：日志显示连接失败？</h4><p data-i18n="im.0474">A：检查 App ID 和 App Secret 是否正确。</p></article>
 </div>
 </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 4 — 钉钉
+     ═══════════════════════════════════════════════════════════════ -->
 <section class="tutorial-section" id="dingtalk">
 <div class="card">
 <h2 data-i18n="im.0210" style="margin-top: 0;">三、钉钉配置教程</h2>
-<p data-i18n="im.0211">钉钉采用 Stream 模式（WebSocket）接入，通常不需要公网 IP。</p>
+<p data-i18n="im.0211">钉钉使用 Stream 模式（WebSocket）接入，无需公网 IP，企业内部部署友好。</p>
+
+<h3 data-i18n="im.0475" style="margin-top: 14px;">前置条件</h3>
+<ul class="checklist">
+<li data-i18n="im.0476">一个企业钉钉账号。</li>
+<li data-i18n="im.0477">钉钉管理员或具有应用开发权限的账号。</li>
+</ul>
+
 <h3 data-i18n="im.0212" style="margin-top: 14px;">平台端申请步骤</h3>
 <div class="step-list">
-<article class="step"><div class="index">1</div><div><h4 data-i18n="im.0213">创建企业内部应用</h4><p data-i18n="im.0214">在钉钉开放平台创建应用并填写基础信息。</p></div></article>
-<article class="step"><div class="index">2</div><div><h4 data-i18n="im.0215">获取凭证</h4><p data-i18n="im.0216">在应用凭证中记录 AppKey（Client ID）和 AppSecret（Client Secret）。</p></div></article>
-<article class="step"><div class="index">3</div><div><h4 data-i18n="im.0217">开启机器人功能</h4><p data-i18n="im.0218">在应用功能中开启机器人并配置名称、简介。</p></div></article>
-<article class="step"><div class="index">4</div><div><h4 data-i18n="im.0219">消息接收模式选 Stream</h4><p data-i18n="im.0220">必须选择 Stream，不建议 HTTP 模式。</p></div></article>
-<article class="step"><div class="index">5</div><div><h4 data-i18n="im.0221">配置权限并发布</h4><p data-i18n="im.0222">申请机器人发送消息、读取用户信息等权限后发布应用。</p></div></article>
+<article class="step"><div class="index">1</div><div><h4 data-i18n="im.0213">登录钉钉开发者后台</h4><p data-i18n="im.0478">访问 <a href="https://open-dev.dingtalk.com/" target="_blank" rel="noreferrer noopener">钉钉开放平台</a>，使用钉钉扫码或账号密码登录。</p></div></article>
+<article class="step"><div class="index">2</div><div><h4 data-i18n="im.0479">创建企业内部应用</h4><p data-i18n="im.0214">在「应用开发」中选择「企业内部应用」→「钉钉应用」→「创建应用」。</p></div></article>
+<article class="step"><div class="index">3</div><div><h4 data-i18n="im.0215">获取凭证</h4><p data-i18n="im.0216">在「凭证与基础信息」中记录 AppKey（Client ID）和 AppSecret（Client Secret）。</p></div></article>
+<article class="step"><div class="index">4</div><div><h4 data-i18n="im.0217">开启机器人功能</h4><p data-i18n="im.0218">在「添加应用能力」中添加机器人，并填写名称、简介等信息。</p></div></article>
+<article class="step"><div class="index">5</div><div><h4 data-i18n="im.0219">消息接收模式选 Stream</h4><p data-i18n="im.0220">⚠️ 必须选择 Stream 模式（WebSocket），不要选 HTTP 模式。</p></div></article>
+<article class="step"><div class="index">6</div><div><h4 data-i18n="im.0221">配置权限并发布</h4><p data-i18n="im.0222">申请「企业内机器人发送消息」「通讯录个人信息读权限」后发布应用。</p></div></article>
 </div>
-<div class="tutorial-grid">
-<div class="image-placeholder"><div><strong data-i18n="im.0223">配图位：钉钉 Stream 模式页</strong><span data-i18n="im.0224">建议放消息接收模式选择截图</span></div></div>
-<div class="image-placeholder"><div><strong data-i18n="im.0225">配图位：钉钉权限页</strong><span data-i18n="im.0226">建议放权限申请与发布截图</span></div></div>
-</div>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/钉钉-开放平台首页.png" data-i18n-img alt="钉钉开放平台" />
+<figcaption data-i18n="im.0480">钉钉开放平台首页</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/钉钉-企业内部开发页面.png" data-i18n-img alt="企业内部开发" />
+<figcaption data-i18n="im.0481">企业内部应用开发页面</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/钉钉-创建应用表单截图.png" data-i18n-img alt="创建应用" />
+<figcaption data-i18n="im.0482">创建应用表单</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/钉钉-获取 AppKey（Client ID）和 AppSecret（Client Secret）.png" data-i18n-img alt="获取凭证" />
+<figcaption data-i18n="im.0483">获取 AppKey 和 AppSecret</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/钉钉-添加机器人应用能力.png" data-i18n-img alt="添加机器人" />
+<figcaption data-i18n="im.0484">添加机器人应用能力</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/钉钉-开启并配置机器人功能.png" data-i18n-img alt="配置机器人" />
+<figcaption data-i18n="im.0485">开启并配置机器人功能</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/钉钉-选择steam模式.png" data-i18n-img alt="选择 Stream 模式" />
+<figcaption data-i18n="im.0486">选择 Stream 模式（关键步骤）</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/钉钉-权限管理页面截图.png" data-i18n-img alt="权限管理" />
+<figcaption data-i18n="im.0487">权限管理页面</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/钉钉-发布应用界面截图.png" data-i18n-img alt="发布应用" />
+<figcaption data-i18n="im.0488">发布应用</figcaption>
+</figure>
+
 <h3 data-i18n="im.0227" style="margin-top: 14px;">OpenAkita 配置</h3>
-<div class="code-block"><code># 安装依赖
-pip install openakita[dingtalk]
+<div class="code-block"><code># OpenAkita Desktop 用户可跳过，依赖会自动安装
+pip install openakita[dingtalk]</code></div>
 
-# 向导配置
-openakita setup
+<h4 data-i18n="im.0489" style="margin-top: 10px;">方式 A：OpenAkita Desktop（推荐）</h4>
+<div class="step-list">
+<article class="step"><div class="index">1</div><div><p data-i18n="im.0490">打开 Desktop，进入「IM 通道」，点击「引导创建」</p></div></article>
+<article class="step"><div class="index">2</div><div><p data-i18n="im.0491">选择接入「钉钉」，选择绑定的 Agent</p></div></article>
+<article class="step"><div class="index">3</div><div><p data-i18n="im.0492">设置机器人标识和名称</p></div></article>
+<article class="step"><div class="index">4</div><div><p data-i18n="im.0493">填写 App Key 和 App Secret，保存并重启服务</p></div></article>
+</div>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-钉钉-引导创建选择页面.png" data-i18n-img alt="选择钉钉" />
+<figcaption data-i18n="im.0494">引导创建 — 选择钉钉</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-钉钉-选择机器人绑定的 Agent 页面.png" data-i18n-img alt="选择绑定 Agent" />
+<figcaption data-i18n="im.0495">选择机器人绑定的 Agent</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-钉钉-设置机器人的标识和名称页面.png" data-i18n-img alt="设置标识和名称" />
+<figcaption data-i18n="im.0496">设置机器人的标识和名称</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-钉钉-填写App Key 和App Secret页面.png" data-i18n-img alt="填写凭证" />
+<figcaption data-i18n="im.0497">填写 App Key 和 App Secret</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-钉钉-状态页面显示通道在线状态.png" data-i18n-img alt="钉钉在线状态" />
+<figcaption data-i18n="im.0498">状态页面显示钉钉通道在线</figcaption>
+</figure>
 
-# --- .env ---
+<h4 data-i18n="im.0499" style="margin-top: 10px;">方式 B：CLI 交互式向导</h4>
+<div class="code-block"><code>openakita setup
+# 在 Step 4 选择 [4] DingTalk (钉钉)，按提示输入 App Key 和 App Secret</code></div>
+
+<h4 data-i18n="im.0500" style="margin-top: 10px;">方式 C：手动编辑 .env 文件</h4>
+<div class="code-block"><code># --- 钉钉 ---
 DINGTALK_ENABLED=true
 DINGTALK_CLIENT_ID=dingxxxxxxxxxx
 DINGTALK_CLIENT_SECRET=xxxxxxxxxxxxxxxxxx</code></div>
-<h3 data-i18n="im.0228" style="margin-top: 14px;">验证与常见问题</h3>
+
+<h3 data-i18n="im.0228" style="margin-top: 14px;">验证与测试</h3>
 <ul class="checklist">
-<li data-i18n="im.0229">日志出现 `DingTalk Stream client starting...`。</li>
+<li data-i18n="im.0229">日志出现 <code>DingTalk Stream client starting...</code>。</li>
 <li data-i18n="im.0230">单聊可直接发消息，群聊需先将机器人拉入群并 @机器人。</li>
 </ul>
+<figure class="tutorial-shot tutorial-shot--portrait">
+<img src="../../assets/img/tutorials/im-channels/zh/钉钉中与机器人对话的效果图.jpg" data-i18n-img alt="钉钉对话" />
+<figcaption data-i18n="im.0501">钉钉单聊对话效果</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--portrait">
+<img src="../../assets/img/tutorials/im-channels/zh/钉钉群聊中与机器人对话的效果图.jpg" data-i18n-img alt="钉钉群聊" />
+<figcaption data-i18n="im.0502">钉钉群聊对话效果</figcaption>
+</figure>
+
+<h3 data-i18n="im.0503" style="margin-top: 14px;">常见问题</h3>
 <div class="faq-list">
-<article class="faq-item"><h4 data-i18n="im.0231">Q：收不到消息？</h4><p data-i18n="im.0232">A：检查后台是否选择 Stream 模式。</p></article>
-<article class="faq-item"><h4 data-i18n="im.0233">Q：群里 @ 机器人不回复？</h4><p data-i18n="im.0234">A：确认机器人已在群内且应用已发布可见。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0231">Q：收不到消息？</h4><p data-i18n="im.0232">A：确认后台已选择 Stream 模式（不是 HTTP 模式）。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0504">Q：Stream 连接失败？</h4><p data-i18n="im.0505">A：检查 Client ID 和 Client Secret 是否正确。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0233">Q：群里 @ 机器人不回复？</h4><p data-i18n="im.0234">A：确认机器人已添加到群聊中且应用已发布可见。</p></article>
 <article class="faq-item"><h4 data-i18n="im.0235">Q：图片/文件异常？</h4><p data-i18n="im.0236">A：钉钉部分富媒体会降级为链接展示。</p></article>
 </div>
 </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 5 — 企业微信
+     ═══════════════════════════════════════════════════════════════ -->
 <section class="tutorial-section" id="wework">
 <div class="card">
 <h2 data-i18n="im.0237" style="margin-top: 0;">四、企业微信配置教程</h2>
-<p data-i18n="im.0238">企业微信采用 HTTP 回调模式，需要公网可访问 URL。最关键的是配置顺序。</p>
-<p class="notice" data-i18n="im.0239">关键顺序：先配置 OpenAkita 并启动回调端口，再在企业微信后台创建机器人并校验 URL。</p>
-<h3 data-i18n="im.0240" style="margin-top: 14px;">网络准备</h3>
-<div class="tutorial-grid">
-<article class="tutorial-panel">
-<h4 data-i18n="im.0241">方案一：公网服务器</h4>
-<p data-i18n="im.0242">回调地址示例：`http://公网IP:9880/callback`。</p>
-</article>
-<article class="tutorial-panel">
-<h4 data-i18n="im.0243">方案二：端口转发</h4>
-<p data-i18n="im.0244">将路由器外网端口转发到内网机器 `9880` 端口。</p>
-</article>
-<article class="tutorial-panel">
-<h4 data-i18n="im.0245">方案三：ngrok</h4>
-<div class="code-block"><code># 启动内网穿透
-ngrok http 9880
-# 回调 URL 示例
-# https://abc123.ngrok-free.app/callback</code></div>
-</article>
-<article class="tutorial-panel">
-<h4 data-i18n="im.0246">方案四：cpolar / frp</h4>
-<div class="code-block"><code># cpolar
-cpolar http 9880
+<p data-i18n="im.0506">企业微信通过 WebSocket 长连接接入，无需公网 IP。</p>
 
-# frp 客户端示例
-[wework]
-type = http
-local_port = 9880
-custom_domains = your-domain.com</code></div>
-</article>
-</div>
-<h3 data-i18n="im.0247" style="margin-top: 14px;">平台端申请步骤</h3>
+<h3 data-i18n="im.0507" style="margin-top: 14px;">依赖安装</h3>
+<div class="code-block"><code># OpenAkita Desktop 用户可跳过，依赖会自动安装
+pip install openakita[wework]</code></div>
+
+<h3 data-i18n="im.0508" style="margin-top: 14px;">OpenAkita 配置</h3>
+
+<h4 data-i18n="im.0509" style="margin-top: 10px;">方式 A：OpenAkita Desktop（推荐）</h4>
 <div class="step-list">
-<article class="step"><div class="index">1</div><div><h4 data-i18n="im.0248">获取企业 ID</h4><p data-i18n="im.0249">企业微信管理后台「我的企业 -&gt; 企业信息」中获取 Corp ID。</p></div></article>
-<article class="step"><div class="index">2</div><div><h4 data-i18n="im.0250">先启动 OpenAkita</h4><p data-i18n="im.0251">先配置并启动服务，确保回调端口已监听。</p></div></article>
-<article class="step"><div class="index">3</div><div><h4 data-i18n="im.0252">创建智能机器人</h4><p data-i18n="im.0253">在「应用管理 -&gt; 智能机器人」创建机器人。</p></div></article>
-<article class="step"><div class="index">4</div><div><h4 data-i18n="im.0254">配置回调 URL</h4><p data-i18n="im.0255">填写 URL、Token、EncodingAESKey 并完成校验。</p></div></article>
-<article class="step"><div class="index">5</div><div><h4 data-i18n="im.0256">设置可见范围</h4><p data-i18n="im.0257">必须把目标部门/成员加入可见范围。</p></div></article>
+<article class="step"><div class="index">1</div><div><p data-i18n="im.0510">打开 Desktop，进入「IM 通道」，点击「引导创建」</p></div></article>
+<article class="step"><div class="index">2</div><div><p data-i18n="im.0511">选择接入「企业微信」，选择绑定的 Agent</p></div></article>
+<article class="step"><div class="index">3</div><div><p data-i18n="im.0512">选择接入模式 — WebSocket 长连接</p></div></article>
+<article class="step"><div class="index">4</div><div><p data-i18n="im.0513">设置机器人标识和名称</p></div></article>
+<article class="step"><div class="index">5</div><div><p data-i18n="im.0514">扫码配置企业微信机器人</p></div></article>
+<article class="step"><div class="index">6</div><div><p data-i18n="im.0515">保存并重启服务</p></div></article>
 </div>
-<div class="code-block"><code># 推荐：先写基础参数并启动服务
-WEWORK_ENABLED=true
-WEWORK_CORP_ID=ww1234567890abcdef
-WEWORK_CALLBACK_PORT=9880
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-企业微信-引导创建选择企业微信页面.png" data-i18n-img alt="选择企业微信" />
+<figcaption data-i18n="im.0516">引导创建 — 选择企业微信</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-企业微信-选择机器人绑定的 Agent 页面.png" data-i18n-img alt="选择绑定 Agent" />
+<figcaption data-i18n="im.0517">选择机器人绑定的 Agent</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-企业微信-设置机器人的接入模式 .png" data-i18n-img alt="选择接入模式" />
+<figcaption data-i18n="im.0518">选择 WebSocket 长连接模式</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-企业微信-设置机器人的标识和名称页面.png" data-i18n-img alt="设置标识和名称" />
+<figcaption data-i18n="im.0519">设置机器人的标识和名称</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-企业微信-扫码创建企业微信机器人页面.png" data-i18n-img alt="扫码创建" />
+<figcaption data-i18n="im.0520">扫码创建企业微信机器人</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-企业微信-状态页面显示企业微信通道在线状态.png" data-i18n-img alt="企业微信在线状态" />
+<figcaption data-i18n="im.0521">状态页面显示企业微信通道在线</figcaption>
+</figure>
 
-python -m openakita
-# 或
-openakita start</code></div>
-<div class="code-block"><code># --- 企业微信完整 .env ---
+<h4 data-i18n="im.0522" style="margin-top: 10px;">方式 B：CLI 交互式向导</h4>
+<div class="code-block"><code>openakita setup
+# 在 Step 4 选择 [3] WeCom (企业微信)，按提示输入 Corp ID、Token、EncodingAESKey</code></div>
+
+<h4 data-i18n="im.0523" style="margin-top: 10px;">方式 C：手动编辑 .env 文件</h4>
+<div class="code-block"><code># --- 企业微信 ---
 WEWORK_ENABLED=true
 WEWORK_CORP_ID=ww1234567890abcdef
 WEWORK_TOKEN=your-token-here
 WEWORK_ENCODING_AES_KEY=your-aes-key-here
 WEWORK_CALLBACK_PORT=9880</code></div>
-<h3 data-i18n="im.0258" style="margin-top: 14px;">配置流程总结</h3>
-<div class="code-block"><code>1. 获取企业 ID
-2. 写入 WEWORK_CORP_ID / WEWORK_ENABLED
-3. 准备公网访问（公网IP/ngrok/frp/cpolar）
-4. 启动 OpenAkita，确认回调端口监听
-5. 创建智能机器人
-6. 填回调 URL，获取 Token / EncodingAESKey
-7. 更新 .env 后重启服务
-8. 设置可见范围
-9. 在企业微信中测试对话</code></div>
-<h3 data-i18n="im.0259" style="margin-top: 14px;">能力限制</h3>
+
+<h3 data-i18n="im.0524" style="margin-top: 14px;">消息回复机制</h3>
+<p data-i18n="im.0525">企业微信智能机器人使用 stream 流式被动回复机制。</p>
 <div class="table-wrap">
 <table>
 <thead><tr><th data-i18n="im.0260">方向</th><th data-i18n="im.0261">支持</th><th data-i18n="im.0262">限制</th></tr></thead>
 <tbody>
-<tr><td data-i18n="im.0263">发送</td><td data-i18n="im.0264">文本、图片</td><td data-i18n="im.0265">语音/文件/视频不支持</td></tr>
+<tr><td data-i18n="im.0263">发送</td><td data-i18n="im.0264">文本、图片（JPG/PNG ≤10MB）</td><td data-i18n="im.0265">语音/文件/视频不支持</td></tr>
 <tr><td data-i18n="im.0266">接收</td><td data-i18n="im.0267">文字、图文混排、图片</td><td data-i18n="im.0268">图片仅单聊，群聊不支持图片输入</td></tr>
 </tbody>
 </table>
 </div>
+
+<h3 data-i18n="im.0526" style="margin-top: 14px;">验证与测试</h3>
+<ul class="checklist">
+<li data-i18n="im.0527">确认日志中出现 <code>WeWorkBot adapter started</code>。</li>
+<li data-i18n="im.0528">在企业微信中搜索机器人，发送消息测试。</li>
+</ul>
+<figure class="tutorial-shot tutorial-shot--portrait">
+<img src="../../assets/img/tutorials/im-channels/zh/企业微信中与机器人对话的效果图.jpg" data-i18n-img alt="企业微信对话效果" />
+<figcaption data-i18n="im.0529">在企业微信中与机器人对话</figcaption>
+</figure>
+
+<h3 data-i18n="im.0530" style="margin-top: 14px;">常见问题</h3>
 <div class="faq-list">
 <article class="faq-item"><h4 data-i18n="im.0269">Q：创建机器人提示网络失败？</h4><p data-i18n="im.0270">A：回调 URL 不通。确认服务已启动且公网地址可访问。</p></article>
 <article class="faq-item"><h4 data-i18n="im.0271">Q：URL 校验失败？</h4><p data-i18n="im.0272">A：检查 Token 与 EncodingAESKey 是否与后台一致。</p></article>
@@ -385,78 +588,128 @@ WEWORK_CALLBACK_PORT=9880</code></div>
 </div>
 </div>
 </section>
-<section class="tutorial-section" id="qqbot">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 6 — QQ
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="tutorial-section" id="qq">
 <div class="card">
-<h2 style="margin-top: 0;">五、QQ 官方机器人配置教程</h2>
-<p>QQ 官方机器人通过 QQ 开放平台接入，使用官方 botpy 体系，支持频道、群聊与单聊消息。</p>
-<h3 style="margin-top: 14px;">平台端申请步骤</h3>
+<h2 data-i18n="im.0531" style="margin-top: 0;">五、QQ 配置教程</h2>
+<p data-i18n="im.0532">QQ 通过 WebSocket 长连接接入，无需公网 IP。</p>
+
+<h3 data-i18n="im.0533" style="margin-top: 14px;">依赖安装</h3>
+<div class="code-block"><code># OpenAkita Desktop 用户可跳过，依赖会自动安装
+pip install openakita[qq]</code></div>
+
+<h3 data-i18n="im.0534" style="margin-top: 14px;">OpenAkita 配置</h3>
+
+<h4 data-i18n="im.0535" style="margin-top: 10px;">方式 A：OpenAkita Desktop（推荐）</h4>
 <div class="step-list">
-<article class="step"><div class="index">1</div><div><h4>创建机器人应用</h4><p>访问 <code>https://q.qq.com</code>，创建机器人并填写基本信息。</p></div></article>
-<article class="step"><div class="index">2</div><div><h4>获取 AppID / AppSecret</h4><p>在开发设置页复制凭证，后续用于 OpenAkita 鉴权。</p></div></article>
-<article class="step"><div class="index">3</div><div><h4>配置事件订阅</h4><p>在功能配置中开启消息接收相关事件，建议先在沙箱环境联调。</p></div></article>
+<article class="step"><div class="index">1</div><div><p data-i18n="im.0536">打开 Desktop，进入「IM 通道」，点击「引导创建」</p></div></article>
+<article class="step"><div class="index">2</div><div><p data-i18n="im.0537">选择接入「QQ」，选择绑定的 Agent</p></div></article>
+<article class="step"><div class="index">3</div><div><p data-i18n="im.0538">设置机器人标识和名称</p></div></article>
+<article class="step"><div class="index">4</div><div><p data-i18n="im.0539">微信扫码登录 QQ</p></div></article>
+<article class="step"><div class="index">5</div><div><p data-i18n="im.0540">保存并重启服务</p></div></article>
 </div>
-<div class="tutorial-grid">
-<div class="image-placeholder"><div><strong>配图位：QQ 开放平台控制台</strong><span>建议放 AppID / AppSecret 获取页面</span></div></div>
-<div class="image-placeholder"><div><strong>配图位：事件订阅页</strong><span>建议放消息订阅开关和沙箱配置截图</span></div></div>
-</div>
-<h3 style="margin-top: 14px;">OpenAkita 配置</h3>
-<div class="code-block"><code># 安装 QQ 官方机器人依赖
-pip install openakita[qqbot]
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-QQ-引导创建选择QQ页面.png" data-i18n-img alt="选择 QQ" />
+<figcaption data-i18n="im.0541">引导创建 — 选择 QQ</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-QQ-选择机器人绑定的 Agent 页面.png" data-i18n-img alt="选择绑定 Agent" />
+<figcaption data-i18n="im.0542">选择机器人绑定的 Agent</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-QQ-设置机器人的标识和名称页面.png" data-i18n-img alt="设置标识和名称" />
+<figcaption data-i18n="im.0543">设置机器人的标识和名称</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-QQ-扫码创建机器人页面.png" data-i18n-img alt="扫码登录 QQ" />
+<figcaption data-i18n="im.0544">微信扫码登录 QQ</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-QQ-机器人接入模式选择页面.png" data-i18n-img alt="接入模式" />
+<figcaption data-i18n="im.0545">机器人接入模式选择</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-QQ-状态页面显示 QQ 通道在线状态.png" data-i18n-img alt="QQ 在线状态" />
+<figcaption data-i18n="im.0546">状态页面显示 QQ 通道在线</figcaption>
+</figure>
 
-# 交互式向导
-openakita setup
-
-# --- .env ---
-QQBOT_ENABLED=true
-QQBOT_APP_ID=你的AppID
-QQBOT_APP_SECRET=你的AppSecret
-QQBOT_SANDBOX=false  # 调试阶段可改为 true</code></div>
-<h3 style="margin-top: 14px;">验证与常见问题</h3>
+<h3 data-i18n="im.0547" style="margin-top: 14px;">验证与测试</h3>
 <ul class="checklist">
-<li>日志出现 <code>QQ Official Bot ready</code> 代表接入成功。</li>
-<li>群聊/单聊富媒体通常需要先上传公网 URL，再下发消息。</li>
-<li>语音需 silk 格式，文件发送能力当前受官方接口限制。</li>
+<li data-i18n="im.0548">先启动 OneBot 服务器（如 NapCat），确认 WebSocket 监听正常。</li>
+<li data-i18n="im.0549">启动 OpenAkita，日志应显示 <code>QQ adapter connected</code>。</li>
+<li data-i18n="im.0550">使用另一个 QQ 号给机器人发消息测试。</li>
 </ul>
+<figure class="tutorial-shot tutorial-shot--portrait">
+<img src="../../assets/img/tutorials/im-channels/zh/QQ 中与机器人对话的效果图.jpg" data-i18n-img alt="QQ 对话效果" />
+<figcaption data-i18n="im.0551">在 QQ 中与机器人对话</figcaption>
+</figure>
+
+<h3 data-i18n="im.0552" style="margin-top: 14px;">常见问题</h3>
+<div class="faq-list">
+<article class="faq-item"><h4 data-i18n="im.0553">Q：连接失败？</h4><p data-i18n="im.0554">A：确认 OneBot 服务器已启动且 WebSocket 地址正确。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0555">Q：频繁断线？</h4><p data-i18n="im.0556">A：适配器支持自动重连（指数退避策略，初始 1 秒，最大 60 秒）。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0557">Q：文件发送失败？</h4><p data-i18n="im.0558">A：确认 OneBot 实现支持 <code>upload_group_file</code> / <code>upload_private_file</code> API。</p></article>
+</div>
 </div>
 </section>
-<section class="tutorial-section" id="onebot">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 7 — 微信
+     ═══════════════════════════════════════════════════════════════ -->
+<section class="tutorial-section" id="wechat">
 <div class="card">
-<h2 style="margin-top: 0;">六、OneBot（通用协议）配置教程</h2>
-<p>OneBot 是通用聊天机器人协议（v11），可对接 NapCat、Lagrange 等实现端，不限于 QQ 官方体系。</p>
-<h3 style="margin-top: 14px;">部署 OneBot 服务</h3>
-<div class="tutorial-grid">
-<article class="tutorial-panel">
-<h4>方案一：NapCat（推荐）</h4>
-<p>安装后登录账号，启用正向 WebSocket，默认地址可设为 <code>ws://127.0.0.1:8080</code>。</p>
-</article>
-<article class="tutorial-panel">
-<h4>方案二：Lagrange.OneBot</h4>
-<p>按项目文档部署并开启正向 WebSocket 服务，再与 OpenAkita 对接。</p>
-</article>
-</div>
-<div class="tutorial-grid">
-<div class="image-placeholder"><div><strong>配图位：NapCat 下载页</strong><span>建议放项目主页或版本下载入口</span></div></div>
-<div class="image-placeholder"><div><strong>配图位：OneBot 配置页</strong><span>建议放 WS 地址和 Token 配置截图</span></div></div>
-</div>
-<h3 style="margin-top: 14px;">OpenAkita 配置</h3>
-<div class="code-block"><code># 安装 OneBot 依赖
-pip install openakita[onebot]
+<h2 data-i18n="im.0559" style="margin-top: 0;">六、微信配置教程</h2>
+<p data-i18n="im.0560">微信通过 iLink Bot API 接入，无需公网 IP。</p>
 
-# 启动向导并填写 OneBot URL
-openakita setup
+<h3 data-i18n="im.0561" style="margin-top: 14px;">依赖安装</h3>
+<div class="code-block"><code># OpenAkita Desktop 用户可跳过，依赖会自动安装
+pip install openakita[wechat]</code></div>
 
-# --- .env ---
-ONEBOT_ENABLED=true
-ONEBOT_WS_URL=ws://127.0.0.1:8080
-ONEBOT_ACCESS_TOKEN=  # 可选，留空表示不校验</code></div>
-<h3 style="margin-top: 14px;">验证与常见问题</h3>
+<h3 data-i18n="im.0562" style="margin-top: 14px;">OpenAkita 配置</h3>
+
+<h4 data-i18n="im.0563" style="margin-top: 10px;">方式 A：OpenAkita Desktop（推荐）</h4>
+<div class="step-list">
+<article class="step"><div class="index">1</div><div><p data-i18n="im.0564">打开 Desktop，进入「IM 通道」，点击「引导创建」</p></div></article>
+<article class="step"><div class="index">2</div><div><p data-i18n="im.0565">选择接入「微信」，选择绑定的 Agent</p></div></article>
+<article class="step"><div class="index">3</div><div><p data-i18n="im.0566">设置机器人标识和名称</p></div></article>
+<article class="step"><div class="index">4</div><div><p data-i18n="im.0567">微信扫码登录</p></div></article>
+<article class="step"><div class="index">5</div><div><p data-i18n="im.0568">保存并重启服务</p></div></article>
+</div>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-微信-引导创建选择微信页面.png" data-i18n-img alt="引导创建 — 选择微信" />
+<figcaption data-i18n="im.0582">引导创建 — 选择微信</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-微信-选择机器人绑定的Agent界面.png" data-i18n-img alt="选择绑定 Agent" />
+<figcaption data-i18n="im.0569">选择机器人绑定的 Agent</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-微信-设置机器人的标识和名称界面.png" data-i18n-img alt="设置标识和名称" />
+<figcaption data-i18n="im.0570">设置机器人的标识和名称</figcaption>
+</figure>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/im-channels/zh/OpenAkita Desktop-微信-扫码登录界面.png" data-i18n-img alt="微信扫码登录" />
+<figcaption data-i18n="im.0571">微信扫码登录</figcaption>
+</figure>
+
+<h3 data-i18n="im.0572" style="margin-top: 14px;">验证与测试</h3>
 <ul class="checklist">
-<li>先启动 OneBot 服务，再启动 OpenAkita。</li>
-<li>日志出现 <code>OneBot adapter connected</code> 表示连接成功。</li>
-<li>连接失败优先检查 URL、端口防火墙和 Access Token 一致性。</li>
+<li data-i18n="im.0573">在微信中打开机器人对话，发送一条消息测试。</li>
+<li data-i18n="im.0574">也可将机器人拉入群聊，@机器人 发消息测试。</li>
 </ul>
+<figure class="tutorial-shot tutorial-shot--portrait">
+<img src="../../assets/img/tutorials/im-channels/zh/微信中与机器人对话的效果图.png" data-i18n-img alt="微信对话效果" />
+<figcaption data-i18n="im.0575">在微信中与机器人对话</figcaption>
+</figure>
 </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 8 — 语音识别 Whisper（保留原有内容）
+     ═══════════════════════════════════════════════════════════════ -->
 <section class="tutorial-section" id="voice">
 <div class="card">
 <h2 data-i18n="im.0297" style="margin-top: 0;">七、语音识别（Whisper）配置</h2>
@@ -493,25 +746,32 @@ WHISPER_LANGUAGE=zh  # zh | en | auto</code></div>
 </div>
 </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 9 — 视频教程与常见问题
+     ═══════════════════════════════════════════════════════════════ -->
 <section class="tutorial-section" id="video">
 <div class="card">
 <h2 data-i18n="im.0333" style="margin-top: 0;">八、视频教程与常见问题</h2>
 <div class="tutorial-grid">
 <div class="video-block">
-<div class="video-embed" data-i18n="im.0334">替换为视频 1：IM 平台申请全流程（B 站 / YouTube iframe）</div>
-</div>
-<div class="video-block">
-<div class="video-embed" data-i18n="im.0335">替换为视频 2：企业微信回调排障实战（B 站 / YouTube iframe）</div>
+<div class="video-embed">
+<iframe src="//player.bilibili.com/player.html?bvid=BV146QDBUE6U&page=1&autoplay=0&high_quality=1&danmaku=0" allowfullscreen="true" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
 </div>
 </div>
+</div>
+
 <div class="faq-list" style="margin-top: 12px;">
-<article class="faq-item"><h4 data-i18n="im.0336">Q1：如何同时启用多个通道？</h4><p data-i18n="im.0337">A：把多个 `*_ENABLED=true` 写入 `.env` 即可并行接入。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0336">Q1：如何同时启用多个通道？</h4><p data-i18n="im.0576">A：在 <code>.env</code> 中将多个通道的 <code>*_ENABLED</code> 设为 true 即可，OpenAkita 会同时连接所有启用的通道。</p></article>
 <article class="faq-item"><h4 data-i18n="im.0338">Q2：不同通道消息会互相影响吗？</h4><p data-i18n="im.0339">A：不会。会话按通道独立隔离。</p></article>
-<article class="faq-item"><h4 data-i18n="im.0340">Q3：同一用户跨平台会话是否共享？</h4><p data-i18n="im.0341">A：默认不共享，Telegram 与飞书会话分别存储。</p></article>
-<article class="faq-item"><h4 data-i18n="im.0342">Q4：如何查看通道状态？</h4><p data-i18n="im.0343">A：可通过日志、OpenAkita Desktop 状态页和 `GET /api/im/channels` 查看。</p></article>
-<article class="faq-item"><h4 data-i18n="im.0344">Q5：代理设置对哪些通道生效？</h4><p data-i18n="im.0345">A：Telegram 通常需要代理，其他国内平台一般不需要。</p></article>
-<article class="faq-item"><h4 data-i18n="im.0346">Q6：Desktop 和手动 .env 会冲突吗？</h4><p data-i18n="im.0347">A：不会。两者最终写入同一个 `.env` 文件。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0340">Q3：同一用户跨平台会话是否共享？</h4><p data-i18n="im.0341">A：默认不共享，每个平台的对话历史分开存储。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0577">Q4：消息处理的架构是怎样的？</h4><p data-i18n="im.0578">A：平台消息 → Adapter（解析）→ UnifiedMessage → Gateway（预处理）→ Agent → 回复原路返回。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0342">Q5：如何查看通道状态？</h4><p data-i18n="im.0343">A：可通过日志、OpenAkita Desktop 状态页和 <code>GET /api/im/channels</code> 查看。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0344">Q6：代理设置对哪些通道生效？</h4><p data-i18n="im.0345">A：Telegram 通常需要代理，其他国内平台一般不需要。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0346">Q7：Desktop 和手动 .env 会冲突吗？</h4><p data-i18n="im.0579">A：不会。两者最终写入同一个 <code>.env</code> 文件，可以先用 Desktop 完成基本配置，再手动微调。</p></article>
+<article class="faq-item"><h4 data-i18n="im.0580">Q8：有桌面安装中心吗？</h4><p data-i18n="im.0581">A：有。OpenAkita Desktop（基于 Tauri）提供图形界面完成所有 IM 通道配置，无需手动编辑 .env 文件。</p></article>
 </div>
+
 <h3 data-i18n="im.0348" style="margin-top: 14px;">附录：完整 .env 模板</h3>
 <div class="code-block"><code># ========== IM 通道 ==========
 
@@ -540,20 +800,18 @@ WEWORK_TOKEN=
 WEWORK_ENCODING_AES_KEY=
 # WEWORK_CALLBACK_PORT=9880
 
-# --- QQ 官方机器人（需要 openakita[qqbot]）---
-QQBOT_ENABLED=false
-QQBOT_APP_ID=
-QQBOT_APP_SECRET=
-QQBOT_SANDBOX=false
+# --- QQ（需要 openakita[qq]）---
+QQ_ENABLED=false
+QQ_WS_URL=ws://127.0.0.1:8080
+QQ_ACCESS_TOKEN=
 
-# --- OneBot（需要 openakita[onebot] + NapCat/Lagrange）---
-ONEBOT_ENABLED=false
-ONEBOT_WS_URL=ws://127.0.0.1:8080
-ONEBOT_ACCESS_TOKEN=
+# --- 微信（需要 openakita[wechat]）---
+WECHAT_ENABLED=false
 
 # --- 语音识别 ---
 WHISPER_MODEL=base
 WHISPER_LANGUAGE=zh</code></div>
+
 <ul class="link-list">
 <li><a data-i18n="im.0349" href="https://github.com/openakita/openakita/blob/main/docs/im-channel-setup-tutorial.md" rel="noreferrer noopener" target="_blank">开源文档：docs/im-channel-setup-tutorial.md</a></li>
 <li><a data-i18n="im.0350" href="https://github.com/openakita/openakita/blob/main/docs/im-channels.md" rel="noreferrer noopener" target="_blank">参考文档：docs/im-channels.md</a></li>
@@ -561,6 +819,7 @@ WHISPER_LANGUAGE=zh</code></div>
 </ul>
 </div>
 </section>
+
 </div>
 </div>
 </section>
@@ -605,7 +864,6 @@ WHISPER_LANGUAGE=zh</code></div>
 </footer>
 <script src="../../assets/js/tracker.js"></script>
 <script src="../../assets/js/motion.js"></script>
-  <script src="../../assets/js/main.js?v=20260316-i18n-full"></script>
+<script src="../../assets/js/main.js?v=20260402-im-sidebar-fix"></script>
 </body>
 </html>
-

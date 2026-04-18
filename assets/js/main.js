@@ -29,6 +29,7 @@
           home: "首页",
           download: "下载",
           services: "服务",
+          scenarios: "应用场景",
           tutorials: "教程",
           about: "关于我们",
           github: "GitHub",
@@ -114,7 +115,7 @@
         meta: {
           title: "OpenAkita 教程中心 - 图文与视频",
           description:
-            "OpenAkita 官方教程中心：安装配置、IM 通道接入、QQ 官方机器人、OneBot、LLM 端点与 API Key 配置，包含图文和视频入口。",
+            "OpenAkita 官方教程中心：安装配置、IM 通道接入、QQ、微信、LLM 端点与 API Key 配置，包含图文和视频入口。",
         },
         hero: {
           title: "教程中心：图文 + 视频",
@@ -137,13 +138,13 @@
         meta: {
           title: "OpenAkita IM 通道配置教程",
           description:
-            "OpenAkita IM 通道配置教程：Telegram、飞书、钉钉、企业微信、QQ 官方机器人、OneBot 的平台申请与配置流程。",
+            "OpenAkita IM 通道配置教程：Telegram、飞书、钉钉、企业微信、QQ、微信的平台申请与配置流程。",
         },
         hero: {
           title: "IM 通道配置与平台端申请",
-          desc: "覆盖平台申请步骤与 OpenAkita `.env` 配置，含 QQ 官方机器人与 OneBot。",
+          desc: "覆盖平台申请步骤与 OpenAkita 配置，含 QQ 与微信。",
         },
-        side: ["平台概览", "Telegram", "飞书", "钉钉", "企业微信", "QQ 官方机器人", "OneBot（通用协议）", "语音转写", "视频教程"],
+        side: ["平台概览", "Telegram", "飞书", "钉钉", "企业微信", "QQ", "微信", "语音转写", "视频教程"],
       },
       llm: {
         meta: {
@@ -206,6 +207,7 @@
           home: "Home",
           download: "Download",
           services: "Services",
+          scenarios: "Use Cases",
           tutorials: "Tutorials",
           about: "About",
           github: "GitHub",
@@ -291,7 +293,7 @@
         meta: {
           title: "OpenAkita Tutorials - Text and Video",
           description:
-            "Official OpenAkita tutorials for setup, IM channels, QQ Official Bot, OneBot, and LLM endpoint/API key configuration.",
+            "Official OpenAkita tutorials for setup, IM channels, QQ, WeChat, and LLM endpoint/API key configuration.",
         },
         hero: {
           title: "Tutorial Center",
@@ -312,13 +314,13 @@
       im: {
         meta: {
           title: "OpenAkita IM Channel Configuration Guide",
-          description: "Platform onboarding and configuration for Telegram, Feishu, DingTalk, WeCom, QQ Official Bot, and OneBot.",
+          description: "Platform onboarding and configuration for Telegram, Feishu, DingTalk, WeCom, QQ, and WeChat.",
         },
         hero: {
           title: "IM Channel Config and Platform Onboarding",
-          desc: "Covers platform onboarding and `.env` configuration, including QQ Official Bot and OneBot.",
+          desc: "Covers platform onboarding and configuration, including QQ and WeChat.",
         },
-        side: ["Platform Overview", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ Official Bot", "OneBot (Universal)", "Voice", "Video"],
+        side: ["Platform Overview", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Voice", "Video"],
       },
       llm: {
         meta: {
@@ -376,7 +378,7 @@
       common: {
         navToggle: "ナビを開く",
         language: "言語",
-        nav: { home: "ホーム", download: "ダウンロード", services: "サービス", tutorials: "チュートリアル", about: "概要", github: "GitHub" },
+        nav: { home: "ホーム", download: "ダウンロード", services: "サービス", scenarios: "活用シーン", tutorials: "チュートリアル", about: "概要", github: "GitHub" },
         footerTagline: "Self-Evolving AI Agent：自ら学び、決して諦めない。",
         footer: {
           quickLinks: "クイックリンク",
@@ -407,8 +409,8 @@
         side: ["概要", "要件", "OpenAkita のインストール", "起動検証"],
       },
       im: {
-        hero: { title: "IM チャネル設定", desc: "各プラットフォームの申請と接続手順（QQ公式ボットとOneBotを含む）。" },
-        side: ["プラットフォーム概要", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ公式ボット", "OneBot（汎用プロトコル）", "音声変換", "動画"],
+        hero: { title: "IM チャネル設定", desc: "各プラットフォームの申請と接続手順（QQとWeChatを含む）。" },
+        side: ["プラットフォーム概要", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "音声変換", "動画"],
       },
       llm: {
         hero: { title: "LLM エンドポイント設定", desc: "API Key とエンドポイント構成を設定。" },
@@ -423,7 +425,7 @@
       common: {
         navToggle: "탐색 열기",
         language: "언어",
-        nav: { home: "홈", download: "다운로드", services: "서비스", tutorials: "튜토리얼", about: "소개", github: "GitHub" },
+        nav: { home: "홈", download: "다운로드", services: "서비스", scenarios: "활용 사례", tutorials: "튜토리얼", about: "소개", github: "GitHub" },
         footerTagline: "Self-Evolving AI Agent: 스스로 학습하고, 절대 포기하지 않습니다.",
         footer: {
           quickLinks: "바로가기",
@@ -454,8 +456,8 @@
         side: ["개요", "요구 사항", "OpenAkita 설치", "시작 검증"],
       },
       im: {
-        hero: { title: "IM 채널 설정", desc: "플랫폼 신청 및 연동 절차(QQ 공식 봇과 OneBot 포함)." },
-        side: ["플랫폼 개요", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ 공식 봇", "OneBot(범용 프로토콜)", "음성 전사", "영상"],
+        hero: { title: "IM 채널 설정", desc: "플랫폼 신청 및 연동 절차(QQ와 WeChat 포함)." },
+        side: ["플랫폼 개요", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "음성 전사", "영상"],
       },
       llm: {
         hero: { title: "LLM 엔드포인트 설정", desc: "API Key 및 엔드포인트 구성." },
@@ -470,7 +472,7 @@
       common: {
         navToggle: "Открыть навигацию",
         language: "Язык",
-        nav: { home: "Главная", download: "Скачать", services: "Услуги", tutorials: "Руководства", about: "О проекте", github: "GitHub" },
+        nav: { home: "Главная", download: "Скачать", services: "Услуги", scenarios: "Сценарии", tutorials: "Руководства", about: "О проекте", github: "GitHub" },
         footerTagline: "Self-Evolving AI Agent: Учится, адаптируется, никогда не сдаётся.",
         footer: {
           quickLinks: "Быстрые ссылки",
@@ -501,8 +503,8 @@
         side: ["Обзор", "Требования", "Установка OpenAkita", "Проверка запуска"],
       },
       im: {
-        hero: { title: "Настройка IM-каналов", desc: "Подключение платформ и конфигурация (включая QQ Official Bot и OneBot)." },
-        side: ["Обзор платформ", "Telegram", "Feishu", "DingTalk", "WeCom", "Официальный бот QQ", "OneBot (универсальный)", "Голос", "Видео"],
+        hero: { title: "Настройка IM-каналов", desc: "Подключение платформ и конфигурация (включая QQ и WeChat)." },
+        side: ["Обзор платформ", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Голос", "Видео"],
       },
       llm: {
         hero: { title: "Настройка LLM endpoints", desc: "API Key и отказоустойчивые endpoints." },
@@ -517,7 +519,7 @@
       common: {
         navToggle: "Ouvrir la navigation",
         language: "Langue",
-        nav: { home: "Accueil", download: "Télécharger", services: "Services", tutorials: "Tutoriels", about: "À propos", github: "GitHub" },
+        nav: { home: "Accueil", download: "Télécharger", services: "Services", scenarios: "Cas d'usage", tutorials: "Tutoriels", about: "À propos", github: "GitHub" },
         footerTagline: "Self-Evolving AI Agent : Apprendre, s'adapter, ne jamais abandonner.",
         footer: {
           quickLinks: "Liens rapides",
@@ -548,8 +550,8 @@
         side: ["Aperçu", "Prérequis", "Installer OpenAkita", "Vérification du démarrage"],
       },
       im: {
-        hero: { title: "Configuration des canaux IM", desc: "Onboarding des plateformes et intégration (QQ Bot officiel et OneBot inclus)." },
-        side: ["Aperçu plateforme", "Telegram", "Feishu", "DingTalk", "WeCom", "Bot officiel QQ", "OneBot (universel)", "Voix", "Vidéo"],
+        hero: { title: "Configuration des canaux IM", desc: "Onboarding des plateformes et intégration (QQ et WeChat inclus)." },
+        side: ["Aperçu plateforme", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Voix", "Vidéo"],
       },
       llm: {
         hero: { title: "Configuration des endpoints LLM", desc: "API Key et stratégie de bascule." },
@@ -564,7 +566,7 @@
       common: {
         navToggle: "Navigation öffnen",
         language: "Sprache",
-        nav: { home: "Start", download: "Download", services: "Dienste", tutorials: "Tutorials", about: "Über uns", github: "GitHub" },
+        nav: { home: "Start", download: "Download", services: "Dienste", scenarios: "Anwendungen", tutorials: "Tutorials", about: "Über uns", github: "GitHub" },
         footerTagline: "Self-Evolving AI Agent: Lernen, anpassen, nie aufgeben.",
         footer: {
           quickLinks: "Schnellzugriff",
@@ -595,8 +597,8 @@
         side: ["Überblick", "Voraussetzungen", "OpenAkita installieren", "Startprüfung"],
       },
       im: {
-        hero: { title: "IM-Kanal-Konfiguration", desc: "Plattform-Onboarding und Integration (inkl. QQ Official Bot und OneBot)." },
-        side: ["Plattformüberblick", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ Official Bot", "OneBot (Universal)", "Sprache", "Video"],
+        hero: { title: "IM-Kanal-Konfiguration", desc: "Plattform-Onboarding und Integration (inkl. QQ und WeChat)." },
+        side: ["Plattformüberblick", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Sprache", "Video"],
       },
       llm: {
         hero: { title: "LLM-Endpoint-Konfiguration", desc: "API-Keys und Failover-Endpunkte." },
@@ -719,7 +721,7 @@
     if (languagePacks[lang]) return Promise.resolve(languagePacks[lang]);
     if (loadingPacks[lang]) return loadingPacks[lang];
 
-    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260316-i18n-full")
+    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260401-desktop-i18n")
       .then(function (response) {
         if (!response.ok) throw new Error("i18n_load_failed");
         return response.json();
@@ -745,9 +747,11 @@
     var mainEl = document.querySelector("main");
     var footerEl = document.querySelector(".site-footer");
     var drawerEl = document.querySelector("[data-setup-drawer]");
+    var sceneNavEl = document.querySelector(".scene-nav");
     if (mainEl) roots.push(mainEl);
     if (footerEl) roots.push(footerEl);
     if (drawerEl) roots.push(drawerEl);
+    if (sceneNavEl) roots.push(sceneNavEl);
 
     var meaningfulPattern = /[\p{L}\p{N}]/u;
 
@@ -925,6 +929,7 @@
     setText('.main-nav a[data-nav="home"]', t("common.nav.home"));
     setText('.main-nav a[data-nav="download"]', t("common.nav.download"));
     setText('.main-nav a[data-nav="services"]', t("common.nav.services"));
+    setText('.main-nav a[data-nav="scenarios"]', t("common.nav.scenarios"));
     setText('.main-nav a[data-nav="tutorials"]', t("common.nav.tutorials"));
     setText('.main-nav a[data-nav="about"]', t("common.nav.about"));
     const githubLink = document.querySelector('.main-nav a[href*="github.com/openakita/openakita"]');
@@ -1250,6 +1255,7 @@
   injectLanguageSwitcher(pageKey);
   enhanceCodeBlocks();
   initSetupInstallDrawer();
+  initSceneNav();
 
   function recoverBrokenSvgIcons() {
     const svgImages = document.querySelectorAll('img[src$=".svg"]');
@@ -1319,22 +1325,18 @@
         title: "方式一：Desktop（配置向导）",
         templateId: "setup-drawer-template-desktop",
         chapters: [
-          { id: "drawer-desktop-start", label: "0. 启动应用" },
-          { id: "drawer-desktop-mode", label: "1. 选择配置模式" },
-          { id: "drawer-desktop-quick-overview", label: "2. 快速配置概览" },
-          { id: "drawer-desktop-quick-llm", label: "2.1 填写LLM 端点参数" },
-          { id: "drawer-desktop-quick-im", label: "2.2 填写 IM 通道参数" },
-          { id: "drawer-desktop-quick-auto", label: "2.3 开始配置" },
-          { id: "drawer-desktop-quick-done", label: "2.4 配置完成" },
-          { id: "drawer-desktop-full-overview", label: "3. 完整配置" },
-          { id: "drawer-desktop-full-workspace", label: "3.1 工作区" },
-          { id: "drawer-desktop-full-python", label: "3.2 Python 环境" },
-          { id: "drawer-desktop-full-install", label: "3.3 安装" },
-          { id: "drawer-desktop-full-llm", label: "3.4 LLM 端点" },
-          { id: "drawer-desktop-full-im", label: "3.5 IM 通道" },
-          { id: "drawer-desktop-full-tools", label: "3.6 工具与技能" },
-          { id: "drawer-desktop-full-agent", label: "3.7 Agent 与系统" },
-          { id: "drawer-desktop-full-done", label: "3.8 完成" },
+          { id: "drawer-desktop-prereq",        label: "前置条件" },
+          { id: "drawer-desktop-download",      label: "1. 下载安装包" },
+          { id: "drawer-desktop-install-steps", label: "2. 正式安装" },
+          { id: "drawer-desktop-wizard",        label: "3. 配置向导（初次配置）" },
+          { id: "drawer-desktop-full-overview", label: "4. 完整配置" },
+          { id: "drawer-desktop-full-llm",      label: "4.1 LLM 端点配置" },
+          { id: "drawer-desktop-full-im",       label: "4.2 IM 通道" },
+          { id: "drawer-desktop-full-tools",    label: "4.3 工具与技能" },
+          { id: "drawer-desktop-full-soul",     label: "4.4 灵魂与意志" },
+          { id: "drawer-desktop-full-advanced", label: "4.5 高级配置" },
+          { id: "drawer-desktop-full-multi",    label: "4.6 多 Agent 模式" },
+          { id: "drawer-desktop-full-done",     label: "4.7 完成" },
         ],
       },
       pypi: {
@@ -1400,6 +1402,7 @@
 
       enhanceCodeBlocks();
       applyContentTranslations();
+      applyImageTranslations();
       drawer.classList.add("is-open");
       backdrop.classList.add("is-open");
       drawer.setAttribute("aria-hidden", "false");
@@ -1447,9 +1450,13 @@
       if (heroLink) heroLink.classList.add("is-visible");
     }
 
+    var lastStarCount = null;
+
     function injectNavBadge(count) {
       var navGH = document.querySelector('.main-nav a[href*="github.com"]');
-      if (!navGH || navGH.querySelector(".nav-star-badge")) return;
+      if (!navGH) return;
+      var existing = navGH.querySelector(".nav-star-badge");
+      if (existing) return;
       var badge = document.createElement("span");
       badge.className = "nav-star-badge";
       badge.textContent = formatCount(count);
@@ -1457,9 +1464,14 @@
       navGH.appendChild(badge);
     }
 
+    document.addEventListener("openakita:language-changed", function () {
+      if (lastStarCount !== null) injectNavBadge(lastStarCount);
+    });
+
     try {
       var cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
       if (cached.count && cached.ts && Date.now() - cached.ts < CACHE_TTL) {
+        lastStarCount = cached.count;
         applyStars(cached.count);
         injectNavBadge(cached.count);
         return;
@@ -1471,11 +1483,34 @@
       .then(function (data) {
         var count = data.stargazers_count;
         if (typeof count !== "number") return;
+        lastStarCount = count;
         localStorage.setItem(CACHE_KEY, JSON.stringify({ count: count, ts: Date.now() }));
         applyStars(count);
         injectNavBadge(count);
       })
       .catch(function () {});
   })();
+
+  function initSceneNav() {
+    var navItems = document.querySelectorAll(".scene-nav-item");
+    if (!navItems.length) return;
+    var sections = [];
+    navItems.forEach(function (a) {
+      var id = a.getAttribute("data-target");
+      var sec = document.getElementById(id);
+      if (sec) sections.push({ el: sec, link: a });
+    });
+    if (!sections.length) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var item = sections.find(function (s) { return s.el === entry.target; });
+        if (item) {
+          if (entry.isIntersecting) item.link.classList.add("active");
+          else item.link.classList.remove("active");
+        }
+      });
+    }, { rootMargin: "-20% 0px -60% 0px" });
+    sections.forEach(function (s) { observer.observe(s.el); });
+  }
 
 })();

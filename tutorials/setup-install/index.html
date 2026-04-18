@@ -39,6 +39,7 @@
 <a data-nav="home" href="/">首页</a>
 <a data-nav="download" href="/download/">下载</a>
 <a data-nav="services" href="/services/">\u670d\u52a1</a>
+        <a href="/scenarios/" data-nav="scenarios">应用场景</a>
 <a data-nav="tutorials" href="/tutorials/">教程</a>
 <a data-nav="about" href="/about/">关于我们</a>
 <a href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub</a>
@@ -164,33 +165,80 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 </aside>
 
 <template id="setup-drawer-template-desktop">
-<section id="drawer-desktop-start">
-<h3>0. 启动应用</h3>
-<p>安装完成后，双击打开 OpenAkita 桌面客户端。首次启动时会自动进入配置向导。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="应用启动后的主界面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/插图：应用启动后的主界面.png"/><figcaption>应用启动后的主界面。</figcaption></figure>
+<section id="drawer-desktop-prereq">
+<h3>前置条件</h3>
+<ul class="checklist">
+<li><strong>官网地址</strong>：<a href="https://openakita.ai/download/" rel="noopener" target="_blank">openakita.ai/download</a></li>
+<li><strong>LLM API Key</strong>：OpenAkita 本身是一个框架，需要连接大模型才能思考。如果没有 API Key，可以前往对应官网注册（如阿里云、DeepSeek、Anthropic 等）</li>
+</ul>
 </section>
-<section id="drawer-desktop-mode">
-<h3>1. 选择配置模式</h3>
-<p>首次进入配置向导，你将看到<strong>模式选择页面</strong>，提供两种配置方式：</p>
-<div class="table-wrap">
-<table>
-<thead><tr><th>模式</th><th>时间</th><th>适合人群</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td>快速配置</td><td>~3 分钟</td><td>新手用户、快速体验</td><td>自动完成环境搭建，只需配置 LLM 端点</td></tr>
-<tr><td>完整配置</td><td>~10 分钟</td><td>高级用户、需自定义</td><td>逐步配置所有选项，完全掌控每个细节</td></tr>
-</tbody>
-</table>
-</div>
+<section id="drawer-desktop-download">
+<h3>1. 下载安装包</h3>
+<p>根据你的操作系统下载对应的安装包，教程以 Windows 11、v1.24.16 版本为例。</p>
+<p><strong>下载步骤：</strong></p>
+<ol>
+<li>打开浏览器，访问 <a href="https://openakita.ai/download/" rel="noopener" target="_blank">OpenAkita 官网下载地址</a></li>
+<li>根据你的操作系统下载对应的安装包，点击下载</li>
+</ol>
+<figure class="tutorial-shot"><img data-i18n-img alt="OpenAkita 官网下载页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-官网-下载页面.png"/><figcaption>OpenAkita 官网下载页面。</figcaption></figure>
 </section>
-<section id="drawer-desktop-quick-overview">
-<h3>2. 快速配置</h3>
-<p>快速配置会自动完成：创建默认工作区、安装内置 Python 3.11、创建虚拟环境并安装依赖、写入推荐默认配置。你只需填写 LLM 端点（必填）和 IM 通道（可选）。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="快速配置填写页面全貌" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/插图：快速配置 - 填写配置页面全貌.png"/><figcaption>快速配置填写页面全貌。</figcaption></figure>
+<section id="drawer-desktop-install-steps">
+<h3>2. 正式安装</h3>
+<p><strong>安装步骤：</strong></p>
+<ol>
+<li>找到刚刚下载的 <strong>.exe 文件</strong>，双击打开</li>
+<li>根据安装向导指引，点击<strong>「下一步」</strong></li>
+<li>选择安装路径</li>
+<li>点击<strong>「安装」</strong></li>
+<li>等待进度条走完（看到一个黑色命令窗口一闪而过，这是正常的）</li>
+<li>安装结束后，勾选<strong>「运行 OpenAkita Desktop」</strong>和<strong>「创建桌面快捷方式」</strong></li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="安装向导 - 确认使用风险" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-安装向导_确认使用风险.png"/><figcaption>安装向导 - 确认使用风险。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="安装向导 - 选择安装路径" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-安装向导_选择安装路径页面.png"/><figcaption>安装向导 - 选择安装路径。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="安装向导 - 选择要注册的终端命令" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-安装向导_选择要注册的终端命令.png"/><figcaption>安装向导 - 选择要注册的终端命令。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="安装向导 - 正在安装" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-安装向导_正在安装.png"/><figcaption>安装向导 - 正在安装。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="安装向导 - 安装结束" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-安装向导_安装结束.png"/><figcaption>安装结束，勾选「运行 OpenAkita Desktop」和「创建桌面快捷方式」。</figcaption></figure>
 </section>
-<section id="drawer-desktop-quick-llm">
-<h4>2.1 填写LLM 端点参数</h4>
-<p>你至少需要添加 <strong>1 个 LLM 端点</strong> 才能开始使用。点击「+ 添加端点」按钮打开端点配置对话框：</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="添加 LLM 端点对话框" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/快速配置-添加 LLM 端点对话框.png"/><figcaption>添加 LLM 端点对话框。</figcaption></figure>
+<section id="drawer-desktop-wizard">
+<h3>3. 配置向导（初次配置）</h3>
+<p><strong>配置步骤：</strong></p>
+<ol>
+<li>欢迎使用 OpenAkita 页面，点击<strong>「开始配置」</strong></li>
+<li>确认使用风险，输入"<strong>我已知晓</strong>"</li>
+<li>配置 LLM 端点：你至少需要添加 <strong>1 个 LLM 端点</strong> 才能开始使用。
+<ul>
+<li>点击 LLM 中的<strong>「添加端点」</strong></li>
+<li>选择服务商，填写 API Key</li>
+<li>点击<strong>「重新拉取」</strong>，选择模型</li>
+<li>点击<strong>「添加端点」</strong></li>
+</ul>
+</li>
+<li>配置 IM 通道：暂时可不填，直接跳过</li>
+<li>终端命令与系统设置：根据需求设置，点击<strong>「下一步」</strong></li>
+<li>配置完成，进入 OpenAkita 会自动启动服务</li>
+<li>切换到聊天页面，即可开始使用</li>
+</ol>
+<p class="notice"><strong>注意</strong>：可在配置向导页面选择暂不配置 LLM 和 IM 通道，进入 OpenAkita 后再进行配置。</p>
+<figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 欢迎使用页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-欢迎使用页面.png"/><figcaption>配置向导 - 欢迎使用页面。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 使用风险须知" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-使用风险须知页面.jpg"/><figcaption>配置向导 - 使用风险须知。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 配置 AI 模型" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-配置AI模型页面.png"/><figcaption>配置向导 - 配置 AI 模型。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 添加端点，填写 API Key 和选择模型" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-添加端点，填写API Key和选择模型.png"/><figcaption>添加端点 - 填写 API Key 和选择模型。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 配置系统选项" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-配置系统选项.png"/><figcaption>配置向导 - 配置系统选项。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 正在配置" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-正在配置页面.png"/><figcaption>配置向导 - 正在配置...</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 配置完成" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-配置完成页面.png"/><figcaption>配置向导 - 配置完成。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="OpenAkita 状态页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-状态页面.png"/><figcaption>OpenAkita 状态页面。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="OpenAkita 聊天页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-聊天页面.png"/><figcaption>切换到聊天页面即可开始使用。</figcaption></figure>
+</section>
+<section id="drawer-desktop-full-overview">
+<h3>4. 完整配置</h3>
+<p>完整配置提供对各功能模块的精细控制，适合需要自定义 LLM 端点、接入 IM 通道、调整 Agent 行为等的用户。</p>
+</section>
+<section id="drawer-desktop-full-llm">
+<h4>4.1 LLM 端点配置（必填）</h4>
+<p>LLM 端点是 OpenAkita 调用大语言模型的入口。你可以配置多个端点，系统会根据优先级和可用性自动选择。</p>
+<figure class="tutorial-shot"><img data-i18n-img alt="LLM 端点配置页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-LLM 端点配置页面.png"/><figcaption>LLM 端点配置页面。</figcaption></figure>
+<p><strong>添加主端点：</strong>点击<strong>「+ 添加端点」</strong>按钮，打开端点配置对话框</p>
+<figure class="tutorial-shot"><img data-i18n-img alt="添加 LLM 端点页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-添加 LLM 端点页面.png"/><figcaption>添加 LLM 端点对话框。</figcaption></figure>
 <div class="table-wrap">
 <table>
 <thead><tr><th>字段</th><th>说明</th><th>示例</th></tr></thead>
@@ -204,180 +252,7 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 </tbody>
 </table>
 </div>
-<p class="notice"><strong>高级选项</strong>（点击展开）：</p>
-<ul class="checklist">
-<li><strong>API Type</strong>：<code>openai</code>（默认）或 <code>anthropic</code></li>
-<li><strong>Key 环境变量名</strong>：API Key 在 <code>.env</code> 中存储的变量名</li>
-<li><strong>优先级</strong>：数值越小优先级越高（默认 0）</li>
-</ul>
-<p>添加成功后，端点会出现在列表中：</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="已添加的 LLM 端点列表" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/快速配置-已添加的 LLM 端点列表.png"/><figcaption>已添加的 LLM 端点列表。</figcaption></figure>
-</section>
-<section id="drawer-desktop-quick-im">
-<h4>2.2 填写 IM 通道参数</h4>
-<p>不配置 IM 通道也可正常使用桌面对话。需要接入时再展开 IM 区域填写参数。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="IM 通道配置区域" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/快速配置-IM 通道配置区域（展开后）.png"/><figcaption>IM 通道配置区域（展开后）。</figcaption></figure>
-<div class="table-wrap">
-<table>
-<thead><tr><th>通道</th><th>接入方式</th><th>需要公网 IP</th><th>主要配置项</th></tr></thead>
-<tbody>
-<tr><td>Telegram</td><td>Long Polling</td><td>否</td><td>Bot Token、代理地址</td></tr>
-<tr><td>飞书</td><td>自建应用</td><td>否</td><td>App ID、App Secret</td></tr>
-<tr><td>企业微信</td><td>智能机器人</td><td>是</td><td>Corp ID、Token、AES Key</td></tr>
-<tr><td>钉钉</td><td>企业内部应用</td><td>否</td><td>Client ID、Client Secret</td></tr>
-<tr><td>QQ（OneBot）</td><td>OneBot 协议</td><td>否</td><td>OneBot WebSocket URL</td></tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="drawer-desktop-quick-auto">
-<h4>2.3 开始配置</h4>
-<p>填写完所有必要信息后，点击页面底部的 <strong>「开始配置」</strong> 按钮。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="开始配置按钮高亮状态" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/快速配置-开始配置按钮（高亮状态）.png"/><figcaption>开始配置按钮（高亮状态）。</figcaption></figure>
-<p class="notice">如果尚未添加任何 LLM 端点，按钮会处于禁用状态，并提示「请先添加至少 1 个 LLM 端点」。</p>
-<p>点击「开始配置」后，系统将自动执行以下步骤：</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="快速配置自动配置进度页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/快速配置-自动配置进度页面.png"/><figcaption>自动配置进度页面。</figcaption></figure>
-<div class="table-wrap">
-<table>
-<thead><tr><th>步骤</th><th>说明</th><th>预计耗时</th></tr></thead>
-<tbody>
-<tr><td>1. 创建默认工作区</td><td>在 <code>~/.openakita/workspaces/default</code> 下创建工作区目录</td><td>&lt; 1 秒</td></tr>
-<tr><td>2. 安装内置 Python</td><td>下载并安装 Python 3.11 嵌入版</td><td>10~30 秒</td></tr>
-<tr><td>3. 创建虚拟环境并安装依赖</td><td>创建 venv，<code>pip install openakita[all]</code></td><td>1~3 分钟</td></tr>
-<tr><td>4. 写入默认配置</td><td>将推荐配置写入工作区 <code>.env</code> 文件</td><td>&lt; 1 秒</td></tr>
-<tr><td>5. 保存 IM 通道配置</td><td>将你填写的 IM 配置保存到 <code>.env</code></td><td>&lt; 1 秒</td></tr>
-</tbody>
-</table>
-</div>
-<p class="notice"><strong>注意</strong>：此过程中请保持网络畅通。如果安装失败，可以点击「返回模式选择」切换到完整配置模式手动排查。</p>
-<h4 id="drawer-desktop-quick-done">2.4 配置完成</h4>
-<p>自动配置完成后，你将看到配置摘要页面：</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="快速配置完成页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/快速配置-快速配置完成页面.png"/><figcaption>快速配置完成页面。</figcaption></figure>
-<p>页面显示以下信息：</p>
-<ul class="checklist">
-<li><strong>工作区</strong>：工作区名称和路径</li>
-<li><strong>LLM 端点</strong>：已配置的端点数量</li>
-<li><strong>IM 通道</strong>：已启用的通道列表（如有）</li>
-</ul>
-<p>你可以选择：</p>
-<ul class="checklist">
-<li><strong>「启动服务」</strong>：立即启动 OpenAkita 后端服务并跳转到状态面板</li>
-<li><strong>「跳转状态面板」</strong>：不启动服务，仅查看状态面板</li>
-</ul>
-<p class="notice">恭喜！快速配置已完成，你现在可以开始使用 OpenAkita 了。</p>
-</section>
-<section id="drawer-desktop-full-overview">
-<h3>3. 完整配置</h3>
-<p>完整配置提供对每个环节的精细控制，适合需要自定义环境、调整参数的高级用户。</p>
-</section>
-<section id="drawer-desktop-full-workspace">
-<h4>3.1 工作区</h4>
-<p>工作区是 OpenAkita 的配置隔离单元。每个工作区独立维护以下文件：</p>
-<ul class="checklist">
-<li><code>.env</code> — 环境变量配置</li>
-<li><code>data/llm_endpoints.json</code> — LLM 端点列表</li>
-<li><code>identity/SOUL.md</code> — 角色灵魂文件</li>
-</ul>
-<figure class="tutorial-shot"><img data-i18n-img alt="工作区配置页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-工作区配置界面.png"/><figcaption>工作区配置页面。</figcaption></figure>
-<p><strong>操作说明：</strong></p>
-<div class="table-wrap">
-<table>
-<thead><tr><th>操作</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td><strong>新建工作区</strong></td><td>输入工作区名称（如「生产」「测试」），系统自动生成 ID 并创建</td></tr>
-<tr><td><strong>设为当前</strong></td><td>从已有工作区列表中选择一个设为当前活跃工作区</td></tr>
-</tbody>
-</table>
-</div>
-<p class="notice"><strong>提示</strong>：首次使用建议直接创建一个「默认」工作区即可。多工作区适合需要区分生产/测试/不同客户环境的场景。</p>
-</section>
-<section id="drawer-desktop-full-python">
-<h4>3.2 Python 环境</h4>
-<p>OpenAkita 需要 Python 3.11+ 运行环境。你有两种选择：</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="Python 环境配置页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-Python 环境配置页面.png"/><figcaption>Python 环境配置页面。</figcaption></figure>
-<h5>方式一：使用内置 Python（推荐）</h5>
-<p>点击 <strong>「安装内置 Python」</strong> 按钮，系统将自动下载并安装 Python 3.11 嵌入版到 <code>~/.openakita/runtime/</code> 目录。</p>
-<ul class="checklist">
-<li>完全隔离，不影响系统已有 Python</li>
-<li>由 OpenAkita 自动管理</li>
-</ul>
-<h5>方式二：使用系统 Python</h5>
-<p>如果你已经安装了 Python 3.11+，点击 <strong>「检测系统 Python」</strong>，系统会扫描可用的 Python 安装：</p>
-<ul class="checklist">
-<li>自动检测 PATH 中的 <code>python3</code>、<code>python</code> 命令</li>
-<li>显示版本号和可用性状态</li>
-<li>从下拉框选择你希望使用的 Python</li>
-</ul>
-<p class="notice"><strong>注意</strong>：请确保选择的 Python 版本 ≥ 3.11，低版本可能导致兼容性问题。</p>
-</section>
-<section id="drawer-desktop-full-install">
-<h4>3.3 安装</h4>
-<p>在此步骤中完成虚拟环境创建和 OpenAkita 包安装。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="安装页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-安装页面.png"/><figcaption>安装页面。</figcaption></figure>
-<h5>安装来源</h5>
-<div class="table-wrap">
-<table>
-<thead><tr><th>来源</th><th>说明</th><th>适用场景</th></tr></thead>
-<tbody>
-<tr><td><strong>PyPI</strong>（默认）</td><td>从 Python 官方包仓库安装</td><td>正式版本，推荐大多数用户</td></tr>
-<tr><td><strong>GitHub</strong></td><td>从 GitHub 仓库安装最新代码</td><td>需要最新功能或开发版本</td></tr>
-<tr><td><strong>本地</strong></td><td>从本地目录安装</td><td>开发者本地调试</td></tr>
-</tbody>
-</table>
-</div>
-<h5>pip 镜像源</h5>
-<div class="table-wrap">
-<table>
-<thead><tr><th>镜像</th><th>地址</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td><strong>官方</strong></td><td><code>https://pypi.org/simple</code></td><td>默认，海外服务器</td></tr>
-<tr><td><strong>清华</strong></td><td><code>https://pypi.tuna.tsinghua.edu.cn/simple</code></td><td>国内推荐</td></tr>
-<tr><td><strong>阿里云</strong></td><td><code>https://mirrors.aliyun.com/pypi/simple</code></td><td>国内备选</td></tr>
-<tr><td><strong>自定义</strong></td><td>用户指定</td><td>企业内网等场景</td></tr>
-</tbody>
-</table>
-</div>
-<h5>可选组件（extras）</h5>
-<div class="table-wrap">
-<table>
-<thead><tr><th>组件</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td><code>all</code></td><td>安装所有可选组件（推荐）</td></tr>
-<tr><td><code>windows</code></td><td>Windows 桌面自动化支持</td></tr>
-<tr><td><code>browser</code></td><td>浏览器自动化（Playwright）</td></tr>
-<tr><td><code>whisper</code></td><td>语音识别（Whisper）</td></tr>
-<tr><td><code>feishu</code></td><td>飞书 IM 接入</td></tr>
-<tr><td><code>dingtalk</code></td><td>钉钉 IM 接入</td></tr>
-<tr><td><code>wework</code></td><td>企业微信 IM 接入</td></tr>
-<tr><td><code>qq</code></td><td>QQ（OneBot）IM 接入</td></tr>
-</tbody>
-</table>
-</div>
-<p>安装过程中会显示实时日志和进度条：</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="安装进度和日志输出" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整安装-安装进度和日志输出.png"/><figcaption>安装进度和日志输出。</figcaption></figure>
-</section>
-<section id="drawer-desktop-full-llm">
-<h4>3.4 LLM 端点</h4>
-<p>LLM 端点是 OpenAkita 调用大语言模型的入口。你可以配置多个端点，系统会根据优先级和可用性自动选择。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="LLM 端点配置页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-LLM 端点配置页面.png"/><figcaption>LLM 端点配置页面。</figcaption></figure>
-<h5>添加主端点</h5>
-<p>点击 <strong>「+ 添加端点」</strong> 打开配置对话框：</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="端点配置对话框完整展开" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-端点配置对话框（完整展开）.png"/><figcaption>端点配置对话框（完整展开）。</figcaption></figure>
-<p><strong>基本配置：</strong></p>
-<div class="table-wrap">
-<table>
-<thead><tr><th>字段</th><th>必填</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td><strong>服务商</strong></td><td>是</td><td>选择预置服务商，或选「自定义」手动填写</td></tr>
-<tr><td><strong>Base URL</strong></td><td>是</td><td>API 接口地址，选择服务商后自动填充</td></tr>
-<tr><td><strong>API Key</strong></td><td>是</td><td>你的 API 密钥，输入后自动存入 .env</td></tr>
-<tr><td><strong>模型</strong></td><td>是</td><td>选择或手动输入模型 ID</td></tr>
-<tr><td><strong>端点名称</strong></td><td>是</td><td>自动生成（格式：<code>{provider}-{model}</code>），可修改</td></tr>
-<tr><td><strong>能力标签</strong></td><td>否</td><td>text / thinking / vision / video / tools</td></tr>
-</tbody>
-</table>
-</div>
-<p><strong>高级配置（点击展开）：</strong></p>
+<p><strong>高级参数：</strong></p>
 <div class="table-wrap">
 <table>
 <thead><tr><th>字段</th><th>默认值</th><th>说明</th></tr></thead>
@@ -430,18 +305,75 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 <p class="notice"><strong>建议</strong>：至少配置 2 个端点（不同服务商），以确保高可用性。</p>
 <h5>编译器端点（可选）</h5>
 <p>编译器端点用于代码编译、格式化等辅助任务。如果不配置，系统会使用主端点。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="编译器端点配置" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-LLM 端点配置页面.png"/><figcaption>编译器端点配置（与 LLM 端点在同页面）。</figcaption></figure>
+<h5>语音识别端点（可选）</h5>
+<p>用于在线语音识别，支持 OpenAI Whisper / DashScope Qwen-ASR / Groq / SiliconFlow 等。</p>
 </section>
 <section id="drawer-desktop-full-im">
-<h4>3.5 IM 通道</h4>
+<h4>4.2 IM 通道</h4>
 <p>IM 通道让你可以通过即时通讯工具与 OpenAkita 对话。所有通道均为<strong>可选</strong>配置。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="IM 通道配置页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-IM 通道配置页面.png"/><figcaption>IM 通道配置页面。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="IM 通道配置页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-IM 通道配置页面.png"/><figcaption>IM 通道配置页面。</figcaption></figure>
+<h5>微信</h5>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择微信</td></tr>
+<tr><td><strong>Token</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+</tbody>
+</table>
+</div>
+<h5>飞书</h5>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择飞书</td></tr>
+<tr><td><strong>App ID</strong></td><td>飞书开放平台自建应用的 App ID（扫码创建机器人，可以直接填入）</td></tr>
+<tr><td><strong>App Secret</strong></td><td>飞书开放平台自建应用的 App Secret（扫码创建机器人，可以直接填入）</td></tr>
+</tbody>
+</table>
+</div>
+<p class="notice"><strong>接入方式</strong>：自建应用，无需公网 IP。在<a href="https://open.feishu.cn/" rel="noopener" target="_blank">飞书开放平台</a>创建应用并获取凭证。</p>
+<h5>钉钉</h5>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择钉钉</td></tr>
+<tr><td><strong>Client ID</strong></td><td>钉钉开放平台企业内部应用的 Client ID</td></tr>
+<tr><td><strong>Client Secret</strong></td><td>钉钉开放平台企业内部应用的 Client Secret</td></tr>
+</tbody>
+</table>
+</div>
+<p class="notice"><strong>接入方式</strong>：企业内部应用，无需公网 IP。在<a href="https://open.dingtalk.com/" rel="noopener" target="_blank">钉钉开放平台</a>创建应用。</p>
+<h5>企业微信</h5>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择企业微信</td></tr>
+<tr><td><strong>Bot ID</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+<tr><td><strong>Secret</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+</tbody>
+</table>
+</div>
+<h5>QQ</h5>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择 QQ</td></tr>
+<tr><td><strong>App ID</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+<tr><td><strong>App Secret</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+</tbody>
+</table>
+</div>
 <h5>Telegram</h5>
 <div class="table-wrap">
 <table>
 <thead><tr><th>字段</th><th>说明</th></tr></thead>
 <tbody>
-<tr><td><strong>启用</strong></td><td>勾选以启用 Telegram 通道</td></tr>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择 Telegram</td></tr>
 <tr><td><strong>Bot Token</strong></td><td>从 <a href="https://t.me/BotFather" rel="noopener" target="_blank">@BotFather</a> 获取的 Bot Token</td></tr>
 <tr><td><strong>代理</strong></td><td>HTTP 代理地址（国内用户通常需要），如 <code>http://127.0.0.1:7890</code></td></tr>
 <tr><td><strong>配对验证</strong></td><td>是否要求用户输入配对码才能使用</td></tr>
@@ -450,61 +382,11 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 </tbody>
 </table>
 </div>
-<p class="notice"><strong>接入方式</strong>：Long Polling（默认），无需公网 IP。</p>
-<h5>飞书</h5>
-<div class="table-wrap">
-<table>
-<thead><tr><th>字段</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td><strong>启用</strong></td><td>勾选以启用飞书通道</td></tr>
-<tr><td><strong>App ID</strong></td><td>飞书开放平台自建应用的 App ID</td></tr>
-<tr><td><strong>App Secret</strong></td><td>飞书开放平台自建应用的 App Secret</td></tr>
-</tbody>
-</table>
-</div>
-<p class="notice"><strong>接入方式</strong>：自建应用，无需公网 IP。在<a href="https://open.feishu.cn/" rel="noopener" target="_blank">飞书开放平台</a>创建应用并获取凭证。</p>
-<h5>企业微信</h5>
-<div class="table-wrap">
-<table>
-<thead><tr><th>字段</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td><strong>启用</strong></td><td>勾选以启用企业微信通道</td></tr>
-<tr><td><strong>Corp ID</strong></td><td>企业微信的企业 ID</td></tr>
-<tr><td><strong>Callback Token</strong></td><td>回调配置中的 Token</td></tr>
-<tr><td><strong>EncodingAESKey</strong></td><td>回调配置中的 EncodingAESKey</td></tr>
-<tr><td><strong>Callback Port</strong></td><td>回调监听端口（默认 <code>9880</code>）</td></tr>
-</tbody>
-</table>
-</div>
-<p class="notice"><strong>接入方式</strong>：智能机器人，<strong>需要公网 IP</strong>。回调地址格式：<code>http://your-domain:9880/callback</code></p>
-<h5>钉钉</h5>
-<div class="table-wrap">
-<table>
-<thead><tr><th>字段</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td><strong>启用</strong></td><td>勾选以启用钉钉通道</td></tr>
-<tr><td><strong>Client ID</strong></td><td>钉钉开放平台企业内部应用的 Client ID</td></tr>
-<tr><td><strong>Client Secret</strong></td><td>钉钉开放平台企业内部应用的 Client Secret</td></tr>
-</tbody>
-</table>
-</div>
-<p class="notice"><strong>接入方式</strong>：企业内部应用，无需公网 IP。在<a href="https://open.dingtalk.com/" rel="noopener" target="_blank">钉钉开放平台</a>创建应用。</p>
-<h5>QQ（OneBot）</h5>
-<div class="table-wrap">
-<table>
-<thead><tr><th>字段</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td><strong>启用</strong></td><td>勾选以启用 QQ 通道</td></tr>
-<tr><td><strong>OneBot WebSocket URL</strong></td><td>OneBot 11 协议的 WebSocket 地址，如 <code>ws://127.0.0.1:8080</code></td></tr>
-</tbody>
-</table>
-</div>
-<p class="notice"><strong>接入方式</strong>：OneBot 11 协议，需要先部署 OneBot 实现端（如 go-cqhttp、NapCat 等）。</p>
 </section>
 <section id="drawer-desktop-full-tools">
-<h4>3.6 工具与技能</h4>
+<h4>4.3 工具与技能</h4>
 <p>此步骤配置 OpenAkita 可以使用的工具和技能扩展。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="工具与技能配置页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-工具与技能配置页面.png"/><figcaption>工具与技能配置页面。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="工具与技能配置页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-工具与技能配置页面.png"/><figcaption>工具与技能配置页面。</figcaption></figure>
 <h5>MCP 工具</h5>
 <p>MCP（Model Context Protocol）允许 OpenAkita 通过标准化协议调用外部工具。</p>
 <div class="table-wrap">
@@ -512,7 +394,6 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 <thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
 <tbody>
 <tr><td><strong>MCP 总开关</strong></td><td>开启</td><td>是否启用 MCP 工具</td></tr>
-<tr><td><strong>浏览器工具</strong></td><td>开启</td><td>Playwright 浏览器自动化</td></tr>
 <tr><td><strong>超时</strong></td><td><code>60</code> 秒</td><td>MCP 工具调用超时时间</td></tr>
 </tbody>
 </table>
@@ -527,6 +408,12 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 </tbody>
 </table>
 </div>
+<h5>Skills 管理</h5>
+<p>Skills 是可插拔的技能扩展，包括：</p>
+<ul class="checklist">
+<li><strong>系统技能</strong>：内置技能（只读）</li>
+<li><strong>外部技能</strong>：用户安装的第三方技能，可单独启用/禁用</li>
+</ul>
 <h5>桌面自动化</h5>
 <p>桌面自动化让 OpenAkita 可以操作你的电脑桌面（截图、点击、输入等）。</p>
 <div class="table-wrap">
@@ -554,44 +441,11 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 </tbody>
 </table>
 </div>
-<h5>模型下载与语音</h5>
-<div class="table-wrap">
-<table>
-<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td><strong>模型下载源</strong></td><td><code>auto</code></td><td><code>auto</code> / <code>hf-mirror</code> / <code>modelscope</code> / <code>huggingface</code></td></tr>
-<tr><td><strong>Whisper 语言</strong></td><td><code>zh</code></td><td>语音识别语言：<code>zh</code> / <code>en</code> / <code>auto</code></td></tr>
-<tr><td><strong>Whisper 模型</strong></td><td><code>base</code></td><td>语音识别模型大小：<code>tiny</code> / <code>base</code> / <code>small</code> / <code>medium</code> / <code>large</code></td></tr>
-<tr><td><strong>GitHub Token</strong></td><td>空</td><td>用于 GitHub 相关工具的个人访问令牌</td></tr>
-</tbody>
-</table>
-</div>
-<h5>网络与代理</h5>
-<div class="table-wrap">
-<table>
-<thead><tr><th>配置项</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td><strong>HTTP_PROXY</strong></td><td>HTTP 代理地址</td></tr>
-<tr><td><strong>HTTPS_PROXY</strong></td><td>HTTPS 代理地址</td></tr>
-<tr><td><strong>ALL_PROXY</strong></td><td>SOCKS 代理地址</td></tr>
-<tr><td><strong>FORCE_IPV4</strong></td><td>是否强制使用 IPv4</td></tr>
-</tbody>
-</table>
-</div>
-<h5>Skills 管理</h5>
-<figure class="tutorial-shot"><img data-i18n-img alt="Skills 管理面板" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-Skills 管理面板.png"/><figcaption>Skills 管理面板。</figcaption></figure>
-<p>Skills 是可插拔的技能扩展。包括：</p>
-<ul class="checklist">
-<li><strong>系统技能</strong>：内置技能（只读）</li>
-<li><strong>外部技能</strong>：用户安装的第三方技能，可单独启用/禁用</li>
-</ul>
 </section>
-<section id="drawer-desktop-full-agent">
-<h4>3.7 Agent 与系统</h4>
-<p>此步骤配置 Agent 行为、角色人格、记忆系统和调度器等核心参数。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="Agent 与系统配置页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-Agent 与系统配置页面.png"/><figcaption>Agent 与系统配置页面。</figcaption></figure>
-<h5>角色选择</h5>
-<p>OpenAkita 内置多种预设角色人格：</p>
+<section id="drawer-desktop-full-soul">
+<h4>4.4 灵魂与意志</h4>
+<h5>灵魂（Soul）</h5>
+<p><strong>人格选择：</strong>OpenAkita 内置多种预设角色人格</p>
 <div class="table-wrap">
 <table>
 <thead><tr><th>角色</th><th>风格</th><th>适用场景</th></tr></thead>
@@ -608,8 +462,7 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 </tbody>
 </table>
 </div>
-<figure class="tutorial-shot"><img data-i18n-img alt="角色选择卡片" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-角色选择卡片.png"/><figcaption>角色选择卡片。</figcaption></figure>
-<h5>核心参数</h5>
+<p><strong>自我认识：</strong></p>
 <div class="table-wrap">
 <table>
 <thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
@@ -621,65 +474,56 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 </tbody>
 </table>
 </div>
-<h5>活人感模式</h5>
-<p>活人感模式让 Agent 更像一个有温度的伙伴，会主动问候和关心用户。</p>
+<p><strong>记忆管理：</strong></p>
 <div class="table-wrap">
 <table>
 <thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
 <tbody>
-<tr><td><strong>主动消息</strong></td><td>开启</td><td>是否启用主动消息功能</td></tr>
-<tr><td><strong>表情包</strong></td><td>开启</td><td>是否在对话中使用表情包</td></tr>
-<tr><td><strong>每日最大主动消息数</strong></td><td><code>3</code></td><td>每天最多发送的主动消息数</td></tr>
-<tr><td><strong>安静时段开始</strong></td><td><code>23</code> 点</td><td>不发送主动消息的开始时间</td></tr>
-<tr><td><strong>安静时段结束</strong></td><td><code>7</code> 点</td><td>不发送主动消息的结束时间</td></tr>
+<tr><td><strong>记忆管理</strong></td><td>开启</td><td>Agent 会记住你说过的话和偏好</td></tr>
 </tbody>
 </table>
 </div>
-<h5>调度器</h5>
+<p class="notice">LLM 智能审查：将由大模型逐条审查所有记忆，删除垃圾、合并重复，此操作可能需要较长时间，请耐心等待。</p>
+<h5>意志（Will）</h5>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>主动任务</strong></td><td>启用</td><td>让 Agent 像真人一样主动找你聊天</td></tr>
+<tr><td><strong>每日最大消息</strong></td><td><code>3</code></td><td>每天主动消息数量上限</td></tr>
+<tr><td><strong>最短间隔时间</strong></td><td><code>120</code></td><td>两条主动消息之间的最短间隔（分钟）</td></tr>
+<tr><td><strong>空闲阈值</strong></td><td><code>24</code></td><td>用户空闲超过此时长后才触发主动消息</td></tr>
+<tr><td><strong>安静开始（时）</strong></td><td><code>23</code></td><td>不发送主动消息的开始时间</td></tr>
+<tr><td><strong>安静结束（时）</strong></td><td><code>7</code></td><td>免打扰时段结束（24h 制）</td></tr>
+<tr><td><strong>表情包</strong></td><td>关闭</td><td>是否在对话中使用表情包</td></tr>
+<tr><td><strong>表情包目录</strong></td><td><code>data/sticker</code></td><td>表情包数据存储路径</td></tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>计划任务</strong></td><td>启用</td><td>定时让 Agent 自动执行指定任务</td></tr>
+<tr><td><strong>时区</strong></td><td><code>Asia/Shanghai</code></td><td>计划任务使用的时区</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="drawer-desktop-full-advanced">
+<h4>4.5 高级配置</h4>
+<figure class="tutorial-shot"><img data-i18n-img alt="Agent 高级配置页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-Agent%20高级配置页面.png"/><figcaption>Agent 高级配置页面。</figcaption></figure>
+<p><strong>桌面通知配置：</strong></p>
 <div class="table-wrap">
 <table>
 <thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
 <tbody>
-<tr><td><strong>启用调度器</strong></td><td>开启</td><td>定时任务调度功能</td></tr>
-<tr><td><strong>时区</strong></td><td><code>Asia/Shanghai</code></td><td>调度器使用的时区</td></tr>
-<tr><td><strong>最大并发</strong></td><td><code>5</code></td><td>最多同时执行的任务数</td></tr>
+<tr><td>任务完成通知</td><td><code>OFF</code></td><td>任务完成时弹出系统桌面通知提醒</td></tr>
+<tr><td>通知提示音</td><td><code>OFF</code></td><td>桌面通知时播放系统提示音</td></tr>
 </tbody>
 </table>
 </div>
-<h5>高级设置</h5>
-<p>点击「高级设置」展开更多选项：</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="Agent 高级设置展开后" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-Agent 高级设置（展开后）.png"/><figcaption>Agent 高级设置（展开后）。</figcaption></figure>
-<p><strong>日志配置：</strong></p>
-<div class="table-wrap">
-<table>
-<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td>日志级别</td><td><code>INFO</code></td><td>DEBUG / INFO / WARNING / ERROR</td></tr>
-<tr><td>日志目录</td><td><code>logs</code></td><td>日志文件存储目录</td></tr>
-<tr><td>数据库路径</td><td><code>data/agent.db</code></td><td>SQLite 数据库路径</td></tr>
-<tr><td>单文件大小</td><td><code>10</code> MB</td><td>日志文件最大体积</td></tr>
-<tr><td>备份数量</td><td><code>30</code></td><td>保留的日志备份数</td></tr>
-<tr><td>保留天数</td><td><code>30</code></td><td>日志保留天数</td></tr>
-<tr><td>控制台输出</td><td>开启</td><td>是否输出日志到控制台</td></tr>
-<tr><td>文件输出</td><td>开启</td><td>是否写入日志文件</td></tr>
-</tbody>
-</table>
-</div>
-<p><strong>记忆与向量化：</strong></p>
-<div class="table-wrap">
-<table>
-<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
-<tbody>
-<tr><td>向量模型</td><td><code>shibing624/text2vec-base-chinese</code></td><td>文本向量化模型</td></tr>
-<tr><td>计算设备</td><td><code>cpu</code></td><td><code>cpu</code> 或 <code>cuda</code></td></tr>
-<tr><td>模型下载源</td><td><code>auto</code></td><td>模型下载镜像源</td></tr>
-<tr><td>记忆保留天数</td><td><code>30</code></td><td>聊天记忆保留时间</td></tr>
-<tr><td>最大历史文件</td><td><code>1000</code></td><td>历史文件数上限</td></tr>
-<tr><td>最大存储</td><td><code>500</code> MB</td><td>历史文件总大小上限</td></tr>
-</tbody>
-</table>
-</div>
-<p><strong>会话管理：</strong></p>
+<p><strong>会话配置：</strong></p>
 <div class="table-wrap">
 <table>
 <thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
@@ -690,39 +534,74 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 </tbody>
 </table>
 </div>
-<p><strong>主动消息高级：</strong></p>
+<p><strong>日志配置：</strong></p>
 <div class="table-wrap">
 <table>
 <thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
 <tbody>
-<tr><td>最小间隔</td><td><code>120</code> 分钟</td><td>两次主动消息的最短间隔</td></tr>
-<tr><td>空闲阈值</td><td><code>24</code> 小时</td><td>多久没互动后触发主动消息</td></tr>
-<tr><td>表情包目录</td><td><code>data/sticker</code></td><td>表情包数据存储路径</td></tr>
+<tr><td>日志级别</td><td><code>DEBUG</code></td><td>DEBUG / INFO / WARNING / ERROR</td></tr>
+<tr><td>日志目录</td><td><code>logs</code></td><td>日志文件存储目录</td></tr>
+<tr><td>数据库路径</td><td><code>data/agent.db</code></td><td>SQLite 数据库路径</td></tr>
+<tr><td>单文件大小</td><td><code>10</code> MB</td><td>日志文件最大体积</td></tr>
+<tr><td>备份数量</td><td><code>30</code></td><td>保留的日志备份数</td></tr>
+<tr><td>保留天数</td><td><code>30</code></td><td>日志保留天数</td></tr>
+<tr><td>控制台输出</td><td>关闭</td><td>是否输出日志到控制台</td></tr>
+<tr><td>文件输出</td><td>关闭</td><td>是否写入日志文件</td></tr>
 </tbody>
 </table>
 </div>
-<p><strong>多 Agent 编排（实验性）：</strong></p>
+<p><strong>网络与安全：</strong></p>
 <div class="table-wrap">
 <table>
 <thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
 <tbody>
-<tr><td>启用编排</td><td>关闭</td><td>多 Agent 协作模式</td></tr>
-<tr><td>编排模式</td><td><code>single</code></td><td><code>single</code> / <code>multi</code></td></tr>
+<tr><td>允许外部访问（局域网/公网）</td><td>关闭</td><td>开启后监听 0.0.0.0，允许其他设备通过 IP 访问 Web 端</td></tr>
+<tr><td>反向代理模式（Nginx/Caddy）</td><td>关闭</td><td>通过反向代理部署时必须开启，开启后读取 X-Forwarded-For 获取真实 IP</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>平台与云服务：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>平台连接（Agent Hub / Skill Store）</td><td><code>https://openakita.ai/api</code></td><td>配置 OpenAkita 远程平台地址</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>数据与备份：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>定时备份</td><td>关闭</td><td>配置自动备份的路径、频率和备份内容</td></tr>
+<tr><td>备份存储位置</td><td>/</td><td>配置备份存储的路径</td></tr>
+<tr><td>保留最近备份数</td><td><code>5</code></td><td>配置保留最近的备份数量</td></tr>
+<tr><td>包含用户数据（对话记忆、会话等）</td><td>开启</td><td>是否开启用户数据的备份</td></tr>
+<tr><td>包含媒体文件（图片、语音等）</td><td>关闭</td><td>是否开启媒体文件的备份</td></tr>
+</tbody>
+</table>
+</div>
+<ul class="checklist">
+<li><strong>手动备份与还原</strong>：可以立即创建备份或者从已有备份还原工作区数据</li>
+<li><strong>工作区迁移</strong>：将 <code>.openakita</code> 数据目录迁移到其他位置</li>
+</ul>
+</section>
+<section id="drawer-desktop-full-multi">
+<h4>4.6 多 Agent 模式</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>多 Agent 模式</td><td>关闭</td><td>多 Agent 协作模式</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 <section id="drawer-desktop-full-done">
-<h4>3.8 完成</h4>
-<p>配置全部填写完毕后进入完成页面。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="完成页面" loading="lazy" decoding="async" src="../../assets/img/tutorials/setup-install/desktop/zh/完整配置-完成页面.png"/><figcaption>完成页面。</figcaption></figure>
-<p><strong>完成页面提供：</strong></p>
-<ul class="checklist">
-<li><strong>配置文件检查</strong>：显示工作区目录路径和生成的配置文件列表</li>
-<li><strong>启动服务</strong>：点击按钮启动 OpenAkita 后端服务</li>
-<li><strong>卸载 / 清理</strong>（可选）：卸载 openakita 包或删除运行环境</li>
-</ul>
-<p class="notice">点击「启动服务」后，系统会自动跳转到状态面板，你可以在那里监控服务运行状态。</p>
+<h4>4.7 完成</h4>
+<p>配置完成后，点击<strong>「应用并重启」</strong>，即可启动服务。</p>
+<p class="notice">所有配置项均通过工作区的 <code>.env</code> 文件管理，路径：<code>~/.openakita/workspaces/{workspace_id}/.env</code></p>
 </section>
 </template>
 
@@ -813,6 +692,6 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 </footer>
 <script src="../../assets/js/tracker.js"></script>
 <script src="../../assets/js/motion.js"></script>
-<script src="../../assets/js/main.js?v=20260316-i18n-full"></script>
+<script src="../../assets/js/main.js?v=20260402-im-sidebar-fix"></script>
 </body>
 </html>
