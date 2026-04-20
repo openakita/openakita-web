@@ -127,7 +127,7 @@
 <p class="notice" data-i18n="im.0125">企业微信智能机器人通过 stream 被动回复文本和图片，不支持语音、文件、视频收发。</p>
 
 <h3 data-i18n="im.0126" style="margin-top: 14px;">快速安装</h3>
-<div class="code-block"><code># 安装全部 IM 依赖
+<div class="code-block"><code data-i18n-translate># 安装全部 IM 依赖
 pip install openakita[all]
 
 # 或按需安装单通道
@@ -157,7 +157,7 @@ pip install openakita[feishu,dingtalk,qq,wechat,whisper]</code></div>
 </article>
 <article class="tutorial-panel">
 <h4 data-i18n="im.0134">CLI 向导命令</h4>
-<div class="code-block"><code># 启动交互式配置向导
+<div class="code-block"><code data-i18n-translate># 启动交互式配置向导
 openakita setup</code></div>
 </article>
 </div>
@@ -239,13 +239,13 @@ openakita setup</code></div>
 </figure>
 
 <h4 data-i18n="im.0448" style="margin-top: 10px;">方式 B：CLI 交互式向导</h4>
-<div class="code-block"><code># 启动向导后在 Step 4 选择 Telegram
+<div class="code-block"><code data-i18n-translate># 启动向导后在 Step 4 选择 Telegram
 openakita setup
 
 # 按提示输入 Bot Token、是否启用配对码、代理地址等</code></div>
 
 <h4 data-i18n="im.0449" style="margin-top: 10px;">方式 C：手动编辑 .env 文件</h4>
-<div class="code-block"><code># --- Telegram ---
+<div class="code-block"><code data-i18n-translate># --- Telegram ---
 TELEGRAM_ENABLED=true
 TELEGRAM_BOT_TOKEN=your-bot-token
 TELEGRAM_PROXY=http://127.0.0.1:7890
@@ -304,7 +304,7 @@ TELEGRAM_PROXY=http://127.0.0.1:7890
 </ul>
 
 <h3 data-i18n="im.0456" style="margin-top: 14px;">依赖安装</h3>
-<div class="code-block"><code># OpenAkita Desktop 用户可跳过，依赖会自动安装
+<div class="code-block"><code data-i18n-translate># OpenAkita Desktop 用户可跳过，依赖会自动安装
 pip install openakita[feishu]</code></div>
 
 <h3 data-i18n="im.0200" style="margin-top: 14px;">OpenAkita 配置</h3>
@@ -343,11 +343,11 @@ pip install openakita[feishu]</code></div>
 </figure>
 
 <h4 data-i18n="im.0469" style="margin-top: 10px;">方式 B：CLI 交互式向导</h4>
-<div class="code-block"><code>openakita setup
+<div class="code-block"><code data-i18n-translate>openakita setup
 # 在 Step 4 选择 [2] Feishu (Lark)，按提示输入 App ID 和 App Secret</code></div>
 
 <h4 data-i18n="im.0470" style="margin-top: 10px;">方式 C：手动编辑 .env 文件</h4>
-<div class="code-block"><code># --- 飞书 ---
+<div class="code-block"><code data-i18n-translate># --- 飞书 ---
 FEISHU_ENABLED=true
 FEISHU_APP_ID=cli_a5xxxxxxxxxxxxx
 FEISHU_APP_SECRET=xxxxxxxxxxxxxxxxxx</code></div>
@@ -433,7 +433,7 @@ FEISHU_APP_SECRET=xxxxxxxxxxxxxxxxxx</code></div>
 </figure>
 
 <h3 data-i18n="im.0227" style="margin-top: 14px;">OpenAkita 配置</h3>
-<div class="code-block"><code># OpenAkita Desktop 用户可跳过，依赖会自动安装
+<div class="code-block"><code data-i18n-translate># OpenAkita Desktop 用户可跳过，依赖会自动安装
 pip install openakita[dingtalk]</code></div>
 
 <h4 data-i18n="im.0489" style="margin-top: 10px;">方式 A：OpenAkita Desktop（推荐）</h4>
@@ -465,11 +465,11 @@ pip install openakita[dingtalk]</code></div>
 </figure>
 
 <h4 data-i18n="im.0499" style="margin-top: 10px;">方式 B：CLI 交互式向导</h4>
-<div class="code-block"><code>openakita setup
+<div class="code-block"><code data-i18n-translate>openakita setup
 # 在 Step 4 选择 [4] DingTalk (钉钉)，按提示输入 App Key 和 App Secret</code></div>
 
 <h4 data-i18n="im.0500" style="margin-top: 10px;">方式 C：手动编辑 .env 文件</h4>
-<div class="code-block"><code># --- 钉钉 ---
+<div class="code-block"><code data-i18n-translate># --- 钉钉 ---
 DINGTALK_ENABLED=true
 DINGTALK_CLIENT_ID=dingxxxxxxxxxx
 DINGTALK_CLIENT_SECRET=xxxxxxxxxxxxxxxxxx</code></div>
@@ -507,7 +507,7 @@ DINGTALK_CLIENT_SECRET=xxxxxxxxxxxxxxxxxx</code></div>
 <p data-i18n="im.0506">企业微信通过 WebSocket 长连接接入，无需公网 IP。</p>
 
 <h3 data-i18n="im.0507" style="margin-top: 14px;">依赖安装</h3>
-<div class="code-block"><code># OpenAkita Desktop 用户可跳过，依赖会自动安装
+<div class="code-block"><code data-i18n-translate># OpenAkita Desktop 用户可跳过，依赖会自动安装
 pip install openakita[wework]</code></div>
 
 <h3 data-i18n="im.0508" style="margin-top: 14px;">OpenAkita 配置</h3>
@@ -547,11 +547,11 @@ pip install openakita[wework]</code></div>
 </figure>
 
 <h4 data-i18n="im.0522" style="margin-top: 10px;">方式 B：CLI 交互式向导</h4>
-<div class="code-block"><code>openakita setup
+<div class="code-block"><code data-i18n-translate>openakita setup
 # 在 Step 4 选择 [3] WeCom (企业微信)，按提示输入 Corp ID、Token、EncodingAESKey</code></div>
 
 <h4 data-i18n="im.0523" style="margin-top: 10px;">方式 C：手动编辑 .env 文件</h4>
-<div class="code-block"><code># --- 企业微信 ---
+<div class="code-block"><code data-i18n-translate># --- 企业微信 ---
 WEWORK_ENABLED=true
 WEWORK_CORP_ID=ww1234567890abcdef
 WEWORK_TOKEN=your-token-here
@@ -598,7 +598,7 @@ WEWORK_CALLBACK_PORT=9880</code></div>
 <p data-i18n="im.0532">QQ 通过 WebSocket 长连接接入，无需公网 IP。</p>
 
 <h3 data-i18n="im.0533" style="margin-top: 14px;">依赖安装</h3>
-<div class="code-block"><code># OpenAkita Desktop 用户可跳过，依赖会自动安装
+<div class="code-block"><code data-i18n-translate># OpenAkita Desktop 用户可跳过，依赖会自动安装
 pip install openakita[qq]</code></div>
 
 <h3 data-i18n="im.0534" style="margin-top: 14px;">OpenAkita 配置</h3>
@@ -665,7 +665,7 @@ pip install openakita[qq]</code></div>
 <p data-i18n="im.0560">微信通过 iLink Bot API 接入，无需公网 IP。</p>
 
 <h3 data-i18n="im.0561" style="margin-top: 14px;">依赖安装</h3>
-<div class="code-block"><code># OpenAkita Desktop 用户可跳过，依赖会自动安装
+<div class="code-block"><code data-i18n-translate># OpenAkita Desktop 用户可跳过，依赖会自动安装
 pip install openakita[wechat]</code></div>
 
 <h3 data-i18n="im.0562" style="margin-top: 14px;">OpenAkita 配置</h3>
@@ -715,9 +715,9 @@ pip install openakita[wechat]</code></div>
 <h2 data-i18n="im.0297" style="margin-top: 0;">七、语音识别（Whisper）配置</h2>
 <p data-i18n="im.0298">所有通道语音消息统一走 Whisper 转写。</p>
 <h3 data-i18n="im.0299" style="margin-top: 14px;">工作流程</h3>
-<div class="code-block"><code>用户发送语音 -&gt; IM 适配器接收 -&gt; Gateway 下载语音 -&gt; Whisper 转写 -&gt; 文本传给 Agent</code></div>
+<div class="code-block"><code data-i18n-translate>用户发送语音 -&gt; IM 适配器接收 -&gt; Gateway 下载语音 -&gt; Whisper 转写 -&gt; 文本传给 Agent</code></div>
 <h3 data-i18n="im.0300" style="margin-top: 14px;">安装 ffmpeg</h3>
-<div class="code-block"><code># Windows
+<div class="code-block"><code data-i18n-translate># Windows
 winget install FFmpeg
 
 # macOS
@@ -729,7 +729,7 @@ sudo apt install ffmpeg
 # Python 静态版
 pip install static-ffmpeg</code></div>
 <h3 data-i18n="im.0301" style="margin-top: 14px;">配置</h3>
-<div class="code-block"><code>WHISPER_MODEL=base
+<div class="code-block"><code data-i18n-translate>WHISPER_MODEL=base
 WHISPER_LANGUAGE=zh  # zh | en | auto</code></div>
 <h3 data-i18n="im.0302" style="margin-top: 14px;">模型选择参考</h3>
 <div class="table-wrap">
@@ -773,7 +773,7 @@ WHISPER_LANGUAGE=zh  # zh | en | auto</code></div>
 </div>
 
 <h3 data-i18n="im.0348" style="margin-top: 14px;">附录：完整 .env 模板</h3>
-<div class="code-block"><code># ========== IM 通道 ==========
+<div class="code-block"><code data-i18n-translate># ========== IM 通道 ==========
 
 # --- Telegram ---
 TELEGRAM_ENABLED=false
@@ -815,7 +815,7 @@ WHISPER_LANGUAGE=zh</code></div>
 <ul class="link-list">
 <li><a data-i18n="im.0349" href="https://github.com/openakita/openakita/blob/main/docs/im-channel-setup-tutorial.md" rel="noreferrer noopener" target="_blank">开源文档：docs/im-channel-setup-tutorial.md</a></li>
 <li><a data-i18n="im.0350" href="https://github.com/openakita/openakita/blob/main/docs/im-channels.md" rel="noreferrer noopener" target="_blank">参考文档：docs/im-channels.md</a></li>
-<li><a data-i18n="im.0351" href="/tutorials/llm-endpoints/">下一步：LLM 端点与 API Key 配置</a></li>
+<li><a data-i18n="im.0351" href="/tutorials/llm-endpoints/">下一步：LLM 端点配置</a></li>
 </ul>
 </div>
 </section>

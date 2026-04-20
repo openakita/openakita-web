@@ -883,6 +883,17 @@ body[data-page="home"] .hero-actions {
   box-shadow: 0 10px 26px rgba(14, 84, 145, 0.14);
 }
 
+body[data-page="about"] .about-preview-frame {
+  aspect-ratio: 16 / 10;
+}
+
+body[data-page="about"] .about-preview-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #f3f8fc;
+}
+
 .home-feature-grid .card {
   min-height: 210px;
 }
@@ -1679,6 +1690,9 @@ section[id] {
 .tutorial-shot--sm {
   max-width: 75%;
 }
+.tutorial-shot--dialog {
+  max-width: 58%;
+}
 .tutorial-shot--portrait {
   max-width: 38%;
 }
@@ -2118,6 +2132,10 @@ body[data-page="home"] .home-section .reveal.is-visible {
   .home-feature-grid .card,
   .home-link-grid .card {
     min-height: auto;
+  }
+
+  .tutorial-shot--dialog {
+    max-width: 82%;
   }
 }
 
