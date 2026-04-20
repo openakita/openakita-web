@@ -941,6 +941,42 @@
     });
   }
 
+  function initLocalizedVideos() {
+    const blocks = document.querySelectorAll("[data-video-block]");
+    if (!blocks.length) return;
+
+    const isChinese = currentLanguage === "zh";
+    blocks.forEach(function (block) {
+      const frame = block.querySelector("iframe[data-video-frame]");
+      if (!frame) return;
+
+      const zhSrc = (block.getAttribute("data-video-zh") || "").trim();
+      const enSrc = (block.getAttribute("data-video-en") || "").trim();
+      const targetSrc = isChinese ? zhSrc : enSrc;
+      const item = block.closest("[data-video-item]") || block.closest(".video-item") || block.closest(".video-block");
+
+      if (!targetSrc) {
+        block.hidden = true;
+        if (item) item.hidden = true;
+        return;
+      }
+
+      if (frame.getAttribute("src") !== targetSrc) {
+        frame.setAttribute("src", targetSrc);
+      }
+      block.hidden = false;
+      if (item) item.hidden = false;
+    });
+
+    document.querySelectorAll("[data-video-scope]").forEach(function (scope) {
+      const hasVisibleVideo = !!scope.querySelector("[data-video-block]:not([hidden])");
+      scope.hidden = !hasVisibleVideo;
+      scope.querySelectorAll("[data-video-heading]").forEach(function (heading) {
+        heading.hidden = !hasVisibleVideo;
+      });
+    });
+  }
+
   let homeHeroTypingRun = 0;
 
   function applyHomeRevealStagger() {
@@ -1200,6 +1236,7 @@
       applyMeta(pageKey);
       applyCommonTexts();
       applyPageTexts(pageKey);
+      initLocalizedVideos();
       applyHomeRevealStagger();
       enhanceCodeBlocks();
 
@@ -1350,6 +1387,7 @@
   applyMeta(pageKey);
   applyCommonTexts();
   applyPageTexts(pageKey);
+  initLocalizedVideos();
   applyHomeRevealStagger();
   injectLanguageSwitcher(pageKey);
   enhanceCodeBlocks();
