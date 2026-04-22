@@ -115,7 +115,7 @@
         meta: {
           title: "OpenAkita 教程中心 - 图文与视频",
           description:
-            "OpenAkita 官方教程中心：安装配置、IM 通道接入、QQ、微信、LLM 端点与 API Key 配置，包含图文和视频入口。",
+            "OpenAkita 官方教程中心：安装配置、IM 通道接入、QQ、微信、LLM 端点配置，包含图文和视频入口。",
         },
         hero: {
           title: "教程中心：图文 + 视频",
@@ -148,15 +148,14 @@
       },
       llm: {
         meta: {
-          title: "OpenAkita LLM 端点与 API Key 配置教程",
-          description:
-            "OpenAkita LLM 教程：API Key 申请、.env 配置、llm_endpoints.json 多端点与能力路由设置。",
+          title: "LLM 端点配置教程",
+          description: "OpenAkita Desktop 上的 LLM 端点添加、服务商选择、多端点容灾与可选编译器/语音识别端点。",
         },
         hero: {
-          title: "LLM 端点与 API Key 配置",
-          desc: "构建可容灾、可扩展的模型访问层。",
+          title: "LLM 端点配置",
+          desc: "在桌面端中管理 LLM 端点、服务商与多端点。",
         },
-        side: ["配置概览", "API Key 申请", ".env 配置", "llm_endpoints.json", "能力路由策略", "连通性验证", "视频教程"],
+        side: ["概述", "添加端点", "支持的服务商", "多端点与 Failover", "编译器端点", "语音识别端点"],
       },
       about: {
         meta: {
@@ -293,7 +292,7 @@
         meta: {
           title: "OpenAkita Tutorials - Text and Video",
           description:
-            "Official OpenAkita tutorials for setup, IM channels, QQ, WeChat, and LLM endpoint/API key configuration.",
+            "Official OpenAkita tutorials for setup, IM channels, QQ, WeChat, and LLM endpoint configuration.",
         },
         hero: {
           title: "Tutorial Center",
@@ -324,14 +323,14 @@
       },
       llm: {
         meta: {
-          title: "OpenAkita LLM Endpoints and API Key Guide",
-          description: "API key onboarding, `.env` setup, and `llm_endpoints.json` configuration.",
+          title: "LLM Endpoint Configuration Guide",
+          description: "Add LLM endpoints in OpenAkita Desktop, pick providers, enable failover, and optional compiler/speech endpoints.",
         },
         hero: {
-          title: "LLM Endpoints and API Key Configuration",
-          desc: "Build a resilient and scalable model access layer.",
+          title: "LLM Endpoint Configuration",
+          desc: "Manage LLM endpoints, providers, and multiple endpoints in OpenAkita Desktop.",
         },
-        side: ["Overview", "API Key", ".env", "llm_endpoints.json", "Capability Routing", "Validation", "Video"],
+        side: ["Overview", "Add endpoint", "Supported providers", "Multi-endpoint & Failover", "Compiler endpoint", "Speech recognition"],
       },
       about: {
         meta: {
@@ -413,8 +412,12 @@
         side: ["プラットフォーム概要", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "音声変換", "動画"],
       },
       llm: {
-        hero: { title: "LLM エンドポイント設定", desc: "API Key とエンドポイント構成を設定。" },
-        side: ["概要", "API Key", ".env", "llm_endpoints.json", "ルーティング", "検証", "動画"],
+        meta: {
+          title: "LLM エンドポイント設定チュートリアル",
+          description: "OpenAkita Desktop での LLM エンドポイント追加、プロバイダー選択、フェイルオーバー、オプションのコンパイラ/音声認識エンドポイント。",
+        },
+        hero: { title: "LLM エンドポイント設定", desc: "OpenAkita Desktop で LLM エンドポイント、プロバイダー、複数エンドポイントを管理。" },
+        side: ["概要", "エンドポイント追加", "対応プロバイダー", "複数エンドポイントとフェイルオーバー", "コンパイラエンドポイント", "音声認識エンドポイント"],
       },
       about: { hero: { title: "私たちについて", desc: "OpenAkita のビジョンとコミュニティ。" } },
       services: { hero: { title: "製品とサービス", desc: "オープンソースの汎用アシスタントからエンタープライズ向けカスタムソリューションまで。" } },
@@ -460,8 +463,13 @@
         side: ["플랫폼 개요", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "음성 전사", "영상"],
       },
       llm: {
-        hero: { title: "LLM 엔드포인트 설정", desc: "API Key 및 엔드포인트 구성." },
-        side: ["개요", "API Key", ".env", "llm_endpoints.json", "라우팅", "검증", "영상"],
+        meta: {
+          title: "LLM 엔드포인트 설정 가이드",
+          description:
+            "OpenAkita Desktop에서 LLM 엔드포인트 추가, 공급자 선택, 페일오버, 선택적 컴파일러·음성 인식 엔드포인트.",
+        },
+        hero: { title: "LLM 엔드포인트 설정", desc: "OpenAkita Desktop에서 LLM 엔드포인트, 공급자, 다중 엔드포인트를 관리합니다." },
+        side: ["개요", "엔드포인트 추가", "지원 공급자", "다중 엔드포인트 및 페일오버", "컴파일러 엔드포인트", "음성 인식 엔드포인트"],
       },
       about: { hero: { title: "소개", desc: "OpenAkita 비전과 커뮤니티." } },
       services: { hero: { title: "제품 및 서비스", desc: "오픈 소스 범용 어시스턴트부터 기업용 맞춤 솔루션까지." } },
@@ -507,8 +515,23 @@
         side: ["Обзор платформ", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Голос", "Видео"],
       },
       llm: {
-        hero: { title: "Настройка LLM endpoints", desc: "API Key и отказоустойчивые endpoints." },
-        side: ["Обзор", "API Key", ".env", "llm_endpoints.json", "Маршрутизация", "Проверка", "Видео"],
+        meta: {
+          title: "Руководство по настройке LLM-эндпоинтов",
+          description:
+            "Добавление LLM-эндпоинтов в OpenAkita Desktop, провайдеры, отказоустойчивость, опциональные компилятор и распознавание речи.",
+        },
+        hero: {
+          title: "Настройка LLM-эндпоинтов",
+          desc: "Управляйте LLM-эндпоинтами, провайдерами и несколькими эндпоинтами в OpenAkita Desktop.",
+        },
+        side: [
+          "Обзор",
+          "Добавление эндпоинта",
+          "Поддерживаемые провайдеры",
+          "Несколько эндпоинтов и Failover",
+          "Эндпоинт компилятора",
+          "Распознавание речи",
+        ],
       },
       about: { hero: { title: "О нас", desc: "Видение OpenAkita и сообщество." } },
       services: { hero: { title: "Продукты и услуги", desc: "От универсального помощника до корпоративных решений." } },
@@ -554,8 +577,23 @@
         side: ["Aperçu plateforme", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Voix", "Vidéo"],
       },
       llm: {
-        hero: { title: "Configuration des endpoints LLM", desc: "API Key et stratégie de bascule." },
-        side: ["Aperçu", "API Key", ".env", "llm_endpoints.json", "Routage", "Validation", "Vidéo"],
+        meta: {
+          title: "Guide de configuration des endpoints LLM",
+          description:
+            "Ajout d’endpoints LLM dans OpenAkita Desktop, fournisseurs, basculement, endpoints optionnels compilateur et reconnaissance vocale.",
+        },
+        hero: {
+          title: "Configuration des endpoints LLM",
+          desc: "Gérez les points de terminaison LLM, les fournisseurs et les endpoints multiples dans OpenAkita Desktop.",
+        },
+        side: [
+          "Vue d’ensemble",
+          "Ajouter un endpoint",
+          "Fournisseurs pris en charge",
+          "Multi-endpoints et basculement",
+          "Endpoint compilateur",
+          "Reconnaissance vocale",
+        ],
       },
       about: { hero: { title: "À propos", desc: "Vision OpenAkita et communauté." } },
       services: { hero: { title: "Produits et services", desc: "De l'assistant open source aux solutions d'entreprise sur mesure." } },
@@ -601,8 +639,23 @@
         side: ["Plattformüberblick", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Sprache", "Video"],
       },
       llm: {
-        hero: { title: "LLM-Endpoint-Konfiguration", desc: "API-Keys und Failover-Endpunkte." },
-        side: ["Überblick", "API Key", ".env", "llm_endpoints.json", "Routing", "Validierung", "Video"],
+        meta: {
+          title: "LLM-Endpunkt-Konfiguration",
+          description:
+            "LLM-Endpunkte in OpenAkita Desktop hinzufügen, Anbieter wählen, Failover sowie optionale Compiler- und Spracherkennungs-Endpunkte.",
+        },
+        hero: {
+          title: "LLM-Endpunkt-Konfiguration",
+          desc: "Verwalten Sie LLM-Endpunkte, Anbieter und mehrere Endpunkte in OpenAkita Desktop.",
+        },
+        side: [
+          "Überblick",
+          "Endpunkt hinzufügen",
+          "Unterstützte Anbieter",
+          "Mehrere Endpunkte und Failover",
+          "Compiler-Endpunkt",
+          "Spracherkennung",
+        ],
       },
       about: { hero: { title: "Über uns", desc: "Vision und Community von OpenAkita." } },
       services: { hero: { title: "Produkte und Dienste", desc: "Vom Open-Source-Universalassistenten bis zur maßgeschneiderten Unternehmenslösung." } },
@@ -721,7 +774,7 @@
     if (languagePacks[lang]) return Promise.resolve(languagePacks[lang]);
     if (loadingPacks[lang]) return loadingPacks[lang];
 
-    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260401-desktop-i18n")
+    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260420-llm-auto-generated-fix")
       .then(function (response) {
         if (!response.ok) throw new Error("i18n_load_failed");
         return response.json();
@@ -738,6 +791,40 @@
 
     loadingPacks[lang] = promise;
     return promise;
+  }
+
+  function collapseWhitespaceForI18nLookup(s) {
+    return (s || "").replace(/\s+/g, " ").trim();
+  }
+
+  var codeSampleOriginalTextMap = new WeakMap();
+
+  function lookupLanguagePackString(zhText, pack) {
+    if (!pack) return null;
+    if (pack[zhText]) return pack[zhText];
+    var collapsed = collapseWhitespaceForI18nLookup(zhText);
+    if (collapsed && pack[collapsed]) return pack[collapsed];
+    return null;
+  }
+
+  function applyCodeSampleTranslations() {
+    var pack = currentLanguage !== "zh" ? languagePacks[currentLanguage] : null;
+    document.querySelectorAll("code[data-i18n-translate]").forEach(function (code) {
+      if (!codeSampleOriginalTextMap.has(code)) {
+        codeSampleOriginalTextMap.set(code, code.textContent);
+      }
+      var zh = codeSampleOriginalTextMap.get(code);
+      if (currentLanguage === "zh") {
+        code.textContent = zh;
+        return;
+      }
+      if (!CONTENT_TRANSLATE_LANGS.has(currentLanguage) || !pack) {
+        code.textContent = zh;
+        return;
+      }
+      var translated = lookupLanguagePackString(zh, pack);
+      code.textContent = translated && translated.trim() ? translated : zh;
+    });
   }
 
   function applyContentTranslations() {
@@ -835,12 +922,58 @@
           return;
         }
         var probe = new Image();
-        probe.onload = function () { img.setAttribute("src", candidates[i]); };
-        probe.onerror = function () { tryNext(i + 1); };
+        probe.onload = function () {
+          window.setTimeout(function () {
+            if (probe.naturalWidth > 0 || probe.naturalHeight > 0) {
+              img.setAttribute("src", candidates[i]);
+            } else {
+              tryNext(i + 1);
+            }
+          }, 0);
+        };
+        probe.onerror = function () {
+          tryNext(i + 1);
+        };
         probe.src = candidates[i];
       }
 
       tryNext(0);
+    });
+  }
+
+  function initLocalizedVideos() {
+    const blocks = document.querySelectorAll("[data-video-block]");
+    if (!blocks.length) return;
+
+    const isChinese = currentLanguage === "zh";
+    blocks.forEach(function (block) {
+      const frame = block.querySelector("iframe[data-video-frame]");
+      if (!frame) return;
+
+      const zhSrc = (block.getAttribute("data-video-zh") || "").trim();
+      const enSrc = (block.getAttribute("data-video-en") || "").trim();
+      const targetSrc = isChinese ? zhSrc : enSrc;
+      const item = block.closest("[data-video-item]") || block.closest(".video-item") || block.closest(".video-block");
+
+      if (!targetSrc) {
+        block.hidden = true;
+        if (item) item.hidden = true;
+        return;
+      }
+
+      if (frame.getAttribute("src") !== targetSrc) {
+        frame.setAttribute("src", targetSrc);
+      }
+      block.hidden = false;
+      if (item) item.hidden = false;
+    });
+
+    document.querySelectorAll("[data-video-scope]").forEach(function (scope) {
+      const hasVisibleVideo = !!scope.querySelector("[data-video-block]:not([hidden])");
+      scope.hidden = !hasVisibleVideo;
+      scope.querySelectorAll("[data-video-heading]").forEach(function (heading) {
+        heading.hidden = !hasVisibleVideo;
+      });
     });
   }
 
@@ -1103,6 +1236,7 @@
       applyMeta(pageKey);
       applyCommonTexts();
       applyPageTexts(pageKey);
+      initLocalizedVideos();
       applyHomeRevealStagger();
       enhanceCodeBlocks();
 
@@ -1110,11 +1244,13 @@
 
       if (currentLanguage === "zh" || languagePacks[currentLanguage]) {
         applyContentTranslations();
+        applyCodeSampleTranslations();
         document.dispatchEvent(new CustomEvent("openakita:language-changed"));
       } else {
         loadLanguagePack(currentLanguage).then(function () {
           if (currentLanguage !== targetLang) return;
           applyContentTranslations();
+          applyCodeSampleTranslations();
           enhanceCodeBlocks();
           document.dispatchEvent(new CustomEvent("openakita:language-changed"));
         });
@@ -1251,6 +1387,7 @@
   applyMeta(pageKey);
   applyCommonTexts();
   applyPageTexts(pageKey);
+  initLocalizedVideos();
   applyHomeRevealStagger();
   injectLanguageSwitcher(pageKey);
   enhanceCodeBlocks();
@@ -1292,6 +1429,7 @@
   if (currentLanguage !== "zh" && CONTENT_TRANSLATE_LANGS.has(currentLanguage)) {
     loadLanguagePack(currentLanguage).then(function () {
       applyContentTranslations();
+      applyCodeSampleTranslations();
       enhanceCodeBlocks();
     });
   }
@@ -1400,8 +1538,9 @@
         navNode.appendChild(link);
       });
 
-      enhanceCodeBlocks();
       applyContentTranslations();
+      applyCodeSampleTranslations();
+      enhanceCodeBlocks();
       applyImageTranslations();
       drawer.classList.add("is-open");
       backdrop.classList.add("is-open");
