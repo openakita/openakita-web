@@ -774,7 +774,7 @@
     if (languagePacks[lang]) return Promise.resolve(languagePacks[lang]);
     if (loadingPacks[lang]) return loadingPacks[lang];
 
-    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260420-llm-auto-generated-fix")
+    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260424-install-snippet-multiline")
       .then(function (response) {
         if (!response.ok) throw new Error("i18n_load_failed");
         return response.json();
