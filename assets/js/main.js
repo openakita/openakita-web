@@ -774,7 +774,7 @@
     if (languagePacks[lang]) return Promise.resolve(languagePacks[lang]);
     if (loadingPacks[lang]) return loadingPacks[lang];
 
-    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260424-install-snippet-multiline")
+    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260424-i18n-fragment-fix")
       .then(function (response) {
         if (!response.ok) throw new Error("i18n_load_failed");
         return response.json();
@@ -880,7 +880,7 @@
           originalTextMap.set(node, source);
         }
 
-        var translated = pack ? pack[source] : null;
+        var translated = pack ? lookupLanguagePackString(source, pack) : null;
         if (translated && translated.trim()) {
           node.nodeValue = prefix + translated + suffix;
         } else {
