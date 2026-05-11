@@ -10,8 +10,18 @@
   // ── Config ──
   var OSS_BASE = "https://dl-openakita.fzstack.com";
   var GH_REPO = "openakita/openakita";
+  // Toggle download card layout:
+  // true  = show only the stable release card for each selected platform.
+  // false = restore the original stable / early access / dev channel cards.
+  var DESKTOP_RELEASE_ONLY = true;
   var CHANNELS = ["release", "pre-release", "dev"];
   var CHANNEL_IDS = { release: "release", "pre-release": "prerelease", dev: "dev" };
+  var PLATFORMS = ["windows", "macos", "linux", "android", "ios"];
+  var PLATFORM_ICONS = {};
+
+  function visibleChannels() {
+    return DESKTOP_RELEASE_ONLY ? ["release"] : CHANNELS;
+  }
 
   // ── Download page i18n ──
   var DL_MSGS = {
@@ -451,12 +461,64 @@
 
   // ── Platform Switching ──
   function initPlatformSelector() {
+    if (DESKTOP_RELEASE_ONLY) return;
     var btns = document.querySelectorAll(".platform-btn");
     btns.forEach(function (btn) {
       btn.addEventListener("click", function () {
         selectPlatform(btn.getAttribute("data-platform"));
       });
     });
+  }
+
+  function platformIcon(platform) {
+    if (PLATFORM_ICONS[platform]) return PLATFORM_ICONS[platform];
+    var btn = document.querySelector('.platform-btn[data-platform="' + platform + '"]');
+    var svg = btn ? btn.querySelector("svg") : null;
+    PLATFORM_ICONS[platform] = svg ? svg.outerHTML : "";
+    return PLATFORM_ICONS[platform];
+  }
+
+  function renderStablePlatformDownloads(manifest) {
+    var selector = document.getElementById("platformSelector");
+    if (!selector) return;
+
+    selector.classList.add("platform-downloads");
+
+    var html = "";
+    PLATFORMS.forEach(function (platform) {
+      var items = manifest && manifest.downloads ? manifest.downloads[platform] : null;
+      items = items || [];
+      var version = manifest && manifest.version ? "v" + manifest.version : "--";
+      var icon = platformIcon(platform);
+
+      html += '<article class="platform-download' + (items.length ? '' : ' platform-download-disabled') + '" data-platform="' + escapeHtml(platform) + '">';
+      html += '<div class="platform-download-main">';
+      html += '<span class="platform-download-icon">' + icon + '</span>';
+      html += '<span class="platform-download-copy">';
+      html += '<span class="platform-download-name">' + escapeHtml(platformLabel(platform)) + '</span>';
+      html += '<span class="platform-download-version">' + escapeHtml(version) + '</span>';
+      html += '</span>';
+      html += '</div>';
+
+      if (items.length) {
+        html += '<div class="platform-download-options">';
+        items.forEach(function (item) {
+          var sizeStr = formatSize(item.size);
+          var label = item.nickname || platformLabel(platform);
+          html += '<a class="platform-download-option" data-platform="' + escapeHtml(platform) + '" href="' + escapeHtml(item.url) + '" title="' + escapeHtml(item.name || label) + '">';
+          html += '<span class="platform-download-package">' + escapeHtml(label) + '</span>';
+          if (sizeStr) html += '<span class="platform-download-size">' + escapeHtml(sizeStr) + '</span>';
+          html += '</a>';
+        });
+        html += '</div>';
+      } else {
+        html += '<span class="platform-download-empty">' + escapeHtml(dt("channelUnavailable")) + '</span>';
+      }
+
+      html += '</article>';
+    });
+
+    selector.innerHTML = html;
   }
 
   function selectPlatform(platform) {
@@ -468,6 +530,18 @@
   }
 
   // ── Channel Card Rendering ──
+  function syncChannelLayoutMode() {
+    var cards = document.getElementById("channelCards");
+    if (!cards) return;
+    cards.classList.toggle("channel-cards-release-only", DESKTOP_RELEASE_ONLY);
+    cards.style.display = DESKTOP_RELEASE_ONLY ? "none" : "";
+
+    CHANNELS.forEach(function (ch) {
+      var card = cards.querySelector('.channel-card[data-channel="' + ch + '"]');
+      if (card) card.style.display = visibleChannels().indexOf(ch) >= 0 ? "" : "none";
+    });
+  }
+
   function renderChannelCard(channel, manifest) {
     var idPrefix = CHANNEL_IDS[channel];
     var versionEl = document.getElementById(idPrefix + "Version");
@@ -542,7 +616,14 @@
   }
 
   function renderAllChannels() {
-    CHANNELS.forEach(function (ch) {
+    syncChannelLayoutMode();
+    if (DESKTOP_RELEASE_ONLY) {
+      renderStablePlatformDownloads(state.manifests.release);
+      state.activeNotesChannel = "release";
+      renderReleaseNotes();
+      return;
+    }
+    visibleChannels().forEach(function (ch) {
       renderChannelCard(ch, state.manifests[ch]);
     });
     renderReleaseNotes();
@@ -657,7 +738,7 @@
 
     var manifest = state.manifests[state.activeNotesChannel];
     if (!hasNotes(manifest)) {
-      var fallback = CHANNELS.find(function (ch) {
+      var fallback = visibleChannels().find(function (ch) {
         return hasNotes(state.manifests[ch]);
       });
       manifest = fallback ? state.manifests[fallback] : null;
@@ -833,6 +914,7 @@
     initNotesModal();
     initChannelHover();
     initHistory();
+    syncChannelLayoutMode();
 
     state.platform = detectPlatform();
     selectPlatform(state.platform);
@@ -872,7 +954,7 @@
 
       state.manifests = manifests;
       // Set initial active notes channel to first channel with notes
-      var initialNotes = CHANNELS.find(function (ch) {
+      var initialNotes = visibleChannels().find(function (ch) {
         return hasNotes(manifests[ch]);
       });
       if (initialNotes) state.activeNotesChannel = initialNotes;
@@ -949,6 +1031,7 @@
   function parseDownloadInfo(href, el) {
     var filename = (href || "").split("/").pop().split("?")[0];
     var card = el.closest ? el.closest(".channel-card") : null;
+    var platformDownload = el.closest ? el.closest(".platform-download, .platform-download-option") : null;
     var historyItem = el.closest ? el.closest(".history-item") : null;
     var archPanel = el.closest ? el.closest(".arch-detail-panel") : null;
     var channel = "";
@@ -958,6 +1041,9 @@
       channel = card.getAttribute("data-channel") || "";
       var vEl = card.querySelector(".channel-card-version");
       version = vEl ? (vEl.textContent || "").replace(/^v/, "") : "";
+    } else if (platformDownload) {
+      channel = "release";
+      version = state.manifests.release && state.manifests.release.version ? state.manifests.release.version : "";
     } else if (historyItem) {
       version = historyItem.getAttribute("data-version") || "";
     } else if (archPanel) {
@@ -966,7 +1052,7 @@
       if (m) version = m[1];
     }
 
-    var platform = state.platform || "";
+    var platform = platformDownload ? platformDownload.getAttribute("data-platform") : (state.platform || "");
     if (/\.exe$/i.test(filename)) platform = "windows";
     else if (/\.dmg$/i.test(filename)) platform = "macos";
     else if (/\.deb$/i.test(filename)) platform = "linux";
@@ -983,7 +1069,7 @@
   }
 
   document.addEventListener("click", function (e) {
-    var a = e.target.closest ? e.target.closest("a.channel-dl-btn, a.arch-item") : null;
+    var a = e.target.closest ? e.target.closest("a.channel-dl-btn, a.arch-item, a.platform-download-option") : null;
     if (!a) return;
     var href = a.getAttribute("href") || "";
     if (!href.startsWith("http")) return;

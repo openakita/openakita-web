@@ -2357,11 +2357,134 @@ body[data-page="home"] .home-section .reveal.is-visible {
 }
 
 /* ── Channel cards grid ── */
+.platform-downloads {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin: 0 auto 28px;
+  padding: 16px;
+  border: 1px solid rgba(15, 111, 204, 0.16);
+  border-radius: var(--radius-lg, 14px);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 14px 36px rgba(15, 111, 204, 0.08);
+}
+.platform-download {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  min-height: 64px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.58);
+  color: var(--text, #1a1a1a);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.platform-download:hover {
+  border-color: rgba(15, 111, 204, 0.22);
+  background: #fff;
+}
+.platform-download-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.platform-download-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(15, 111, 204, 0.1);
+  color: var(--primary, #0f6fcc);
+}
+.platform-download-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.platform-download-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+.platform-download-name {
+  font-size: 15px;
+  font-weight: 800;
+}
+.platform-download-version {
+  color: var(--text-muted, #6b7d90);
+  font-size: 12px;
+  font-family: "JetBrains Mono", "Space Grotesk", monospace;
+  font-weight: 700;
+}
+.platform-download-options {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.platform-download-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 36px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(15, 111, 204, 0.07);
+  color: var(--text, #1a1a1a);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.platform-download-option:hover {
+  background: var(--primary, #0f6fcc);
+  color: #fff;
+}
+.platform-download-package {
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 220px;
+}
+.platform-download-size {
+  color: var(--primary, #0f6fcc);
+  font-family: "JetBrains Mono", "Space Grotesk", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.platform-download-option:hover .platform-download-size {
+  color: #fff;
+}
+.platform-download-empty {
+  color: var(--text-muted, #6b7d90);
+  font-size: 12px;
+  font-style: italic;
+}
+.platform-download-disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+.platform-download-disabled:hover {
+  border-color: rgba(15, 111, 204, 0.18);
+}
 .channel-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-bottom: 24px;
+}
+.channel-cards-release-only {
+  grid-template-columns: minmax(0, 720px);
+  justify-content: center;
 }
 .channel-card {
   padding: 24px;
@@ -2687,7 +2810,7 @@ body[data-page="home"] .home-section .reveal.is-visible {
   padding: 24px;
   border: 1px solid var(--border, #e0e0e0);
   border-radius: var(--radius-lg, 14px);
-  background: var(--bg-alt, #f8f9fa);
+  background: #FCFEFE;
 }
 .release-notes-title {
   font-size: 18px;
@@ -2854,6 +2977,19 @@ body[data-page="home"] .home-section .reveal.is-visible {
   }
   .channel-cards {
     grid-template-columns: 1fr;
+  }
+  .platform-downloads {
+    padding: 12px;
+  }
+  .platform-download {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  .platform-download-options {
+    align-items: stretch;
+  }
+  .platform-download-option {
+    width: 100%;
   }
   .platform-selector {
     gap: 6px;
