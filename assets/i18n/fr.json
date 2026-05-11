@@ -1474,7 +1474,7 @@
   "支持 Desktop 终端与 Telegram、飞书等 IM 通道。一处配置，多端同步使用。随时随地与你的 AI 助手对话。": " prend en charge les terminaux de bureau et les canaux de messagerie instantanée tels que Telegram et Feishu. Configurez-le en un seul endroit et utilisez-le simultanément sur plusieurs terminaux. Parlez à votre assistant IA à tout moment et en tout lieu. ",
   "开源版核心特性": "Fonctionnalités de base de la version open source",
   "完全免费开源": "Entièrement gratuit et open source",
-  "— 遵循 MIT 协议，个人和企业均可自由使用。": "—Grâce à la licence MIT, les particuliers et les entreprises peuvent l'utiliser librement. ",
+  "— 遵循 AGPL v3 协议，个人和企业均可自由使用。": "—Grâce à la licence AGPL v3, les particuliers et les entreprises peuvent l'utiliser librement. ",
   "CLI + Desktop 双模式": "CLI + Bureau double mode ",
   "— 提供命令行工具和图形化桌面应用两种使用方式。": " : propose deux manières d'utiliser les outils de ligne de commande et les applications de bureau graphiques. ",
   "技能热插拔": "Compétences remplaçables à chaud ",
