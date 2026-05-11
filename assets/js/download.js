@@ -757,6 +757,103 @@
   }
 
   // ── History ──
+  function releaseNotesImageName() {
+    var manifest = state.manifests[state.activeNotesChannel];
+    var version = manifest && manifest.version ? manifest.version : "latest";
+    return "OpenAkita-v" + version.replace(/^v/, "") + "-changelog.png";
+  }
+
+  function downloadDataUrl(dataUrl, filename) {
+    var a = document.createElement("a");
+    a.href = dataUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  function buildReleaseNotesExportNode() {
+    var section = document.getElementById("releaseNotesSection");
+    if (!section) return null;
+
+    var clone = section.cloneNode(true);
+    clone.removeAttribute("id");
+    clone.style.display = "";
+    clone.classList.add("release-notes-export-card");
+
+    var btn = clone.querySelector("#releaseNotesExportBtn");
+    if (btn) btn.remove();
+
+    var wrap = document.createElement("div");
+    wrap.style.position = "fixed";
+    wrap.style.left = "-10000px";
+    wrap.style.top = "0";
+    wrap.style.width = "750px";
+    wrap.style.zIndex = "-1";
+    wrap.appendChild(clone);
+    document.body.appendChild(wrap);
+    return { wrap: wrap, node: clone };
+  }
+
+  function exportReleaseNotesImage() {
+    var btn = document.getElementById("releaseNotesExportBtn");
+    if (!btn || btn.disabled) return;
+    if (!window.htmlToImage || !window.htmlToImage.toPng) {
+      alert("图片导出组件加载失败，请刷新页面后重试。");
+      return;
+    }
+
+    var built = buildReleaseNotesExportNode();
+    if (!built) return;
+
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = "导出中...";
+
+    var ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+    ready
+      .then(function () {
+        var height = built.node.scrollHeight;
+        var ratios = [2, 1.5, 1];
+
+        function tryRatio(index) {
+          return window.htmlToImage.toPng(built.node, {
+            cacheBust: true,
+            backgroundColor: "#FCFEFE",
+            width: 750,
+            height: height,
+            pixelRatio: ratios[index],
+            style: {
+              width: "750px",
+              maxWidth: "750px",
+            },
+          }).catch(function (err) {
+            if (index + 1 < ratios.length) return tryRatio(index + 1);
+            throw err;
+          });
+        }
+
+        return tryRatio(0);
+      })
+      .then(function (dataUrl) {
+        downloadDataUrl(dataUrl, releaseNotesImageName());
+      })
+      .catch(function () {
+        alert("导出图片失败，请稍后重试。");
+      })
+      .finally(function () {
+        built.wrap.remove();
+        btn.disabled = false;
+        btn.textContent = originalText;
+      });
+  }
+
+  function initReleaseNotesExport() {
+    var btn = document.getElementById("releaseNotesExportBtn");
+    if (!btn) return;
+    btn.addEventListener("click", exportReleaseNotesImage);
+  }
+
   function initHistory() {
     var details = document.getElementById("versionHistory");
     if (!details) return;
@@ -914,6 +1011,7 @@
     initNotesModal();
     initChannelHover();
     initHistory();
+    initReleaseNotesExport();
     syncChannelLayoutMode();
 
     state.platform = detectPlatform();

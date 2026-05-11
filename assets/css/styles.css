@@ -2812,10 +2812,86 @@ body[data-page="home"] .home-section .reveal.is-visible {
   border-radius: var(--radius-lg, 14px);
   background: #FCFEFE;
 }
+.release-notes-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
 .release-notes-title {
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 16px;
+  margin: 0;
+}
+.release-notes-export-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 7px 14px;
+  border: 1px solid rgba(15, 111, 204, 0.22);
+  border-radius: 999px;
+  background: rgba(15, 111, 204, 0.08);
+  color: var(--primary, #0f6fcc);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.release-notes-export-btn:hover {
+  border-color: var(--primary, #0f6fcc);
+  background: var(--primary, #0f6fcc);
+  color: #fff;
+}
+.release-notes-export-btn:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+.release-notes-export-card {
+  width: 750px;
+  margin: 0;
+  padding: 44px;
+  border: none;
+  border-radius: 0;
+  background: #FCFEFE;
+  box-sizing: border-box;
+}
+.release-notes-export-card .release-notes-head {
+  margin-bottom: 30px;
+}
+.release-notes-export-card .release-notes-title {
+  font-size: 32px;
+  line-height: 1.35;
+}
+.release-notes-export-card .release-notes-export-btn {
+  display: none;
+}
+.release-notes-export-card .release-notes-content {
+  font-size: 24px;
+  line-height: 1.78;
+}
+.release-notes-export-card .release-notes-content h1 {
+  font-size: 34px;
+  line-height: 1.36;
+}
+.release-notes-export-card .release-notes-content h2 {
+  font-size: 30px;
+  line-height: 1.38;
+}
+.release-notes-export-card .release-notes-content h3 {
+  font-size: 27px;
+  line-height: 1.4;
+}
+.release-notes-export-card .release-notes-content ul {
+  padding-left: 32px;
+}
+.release-notes-export-card .release-notes-content li {
+  margin-bottom: 10px;
+}
+.release-notes-export-card .release-notes-content code {
+  font-size: 22px;
+  padding: 4px 8px;
 }
 .release-notes-content {
   font-size: 14px;
