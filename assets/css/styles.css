@@ -947,6 +947,16 @@ th {
   font-weight: 800;
 }
 
+.table-wrap td code,
+.table-wrap th code {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
 .code-block {
   position: relative;
   border-radius: var(--radius-md);
