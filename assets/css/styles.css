@@ -2958,6 +2958,9 @@ body[data-page="home"] .home-section .reveal.is-visible {
 .tab-panel {
   animation: fadeInPanel 0.25s ease;
 }
+#panel-desktop::before {
+  background: transparent;
+}
 @keyframes fadeInPanel {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
