@@ -807,6 +807,14 @@
     return null;
   }
 
+  function translatePackString(zhText) {
+    if (currentLanguage === "zh") return zhText;
+    var pack = languagePacks[currentLanguage];
+    if (!pack) return zhText;
+    var translated = lookupLanguagePackString(zhText, pack);
+    return translated && translated.trim() ? translated : zhText;
+  }
+
   function applyCodeSampleTranslations() {
     var pack = currentLanguage !== "zh" ? languagePacks[currentLanguage] : null;
     document.querySelectorAll("code[data-i18n-translate]").forEach(function (code) {
@@ -1481,8 +1489,13 @@
         title: "方式二：PyPI CLI",
         templateId: "setup-drawer-template-pypi",
         chapters: [
-          { id: "drawer-pypi-install", label: "1. 安装步骤" },
-          { id: "drawer-pypi-verify", label: "2. 启动验证" },
+          { id: "drawer-pypi-prereq", label: "一、环境要求" },
+          { id: "drawer-pypi-install", label: "二、安装步骤" },
+          { id: "drawer-pypi-first-run", label: "三、首次运行" },
+          { id: "drawer-pypi-verify", label: "四、日常使用" },
+          { id: "drawer-pypi-script", label: "五、可选：官方一键脚本" },
+          { id: "drawer-pypi-faq", label: "六、常见问题" },
+          { id: "drawer-pypi-cheatsheet", label: "七、完整命令速查" },
         ],
       },
       source: {
@@ -1511,7 +1524,7 @@
       if (!template) return;
       activeMethod = method;
 
-      titleNode.textContent = config.title;
+      titleNode.textContent = translatePackString(config.title);
       navNode.innerHTML = "";
       contentNode.innerHTML = "";
       contentNode.appendChild(template.content.cloneNode(true));
@@ -1519,7 +1532,7 @@
       config.chapters.forEach(function (chapter) {
         const link = document.createElement("a");
         link.href = "#" + chapter.id;
-        link.textContent = chapter.label;
+        link.textContent = translatePackString(chapter.label);
         const match = chapter.label.match(/^(\d+)(?:\.(\d+))?(?:\.(\d+))?/);
         if (match) {
           if (match[3] !== undefined) link.classList.add("setup-nav-l3");

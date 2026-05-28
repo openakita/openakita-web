@@ -384,7 +384,6 @@ body[data-page="home"] .hero .container {
 }
 
 body[data-page="home"] .hero-title-typing {
-  max-width: none;
   width: 100%;
   max-width: min(1100px, 100%);
   display: flex;
@@ -1489,7 +1488,7 @@ section[id] {
 }
 
 .setup-drawer-content h4 {
-  margin: 0 0 8px;
+  margin: 14px 0 10px;
   font-size: 20px;
   line-height: 1.2;
   color: var(--primary-strong);
@@ -1504,6 +1503,18 @@ section[id] {
 
 .setup-drawer-content .tutorial-shot {
   margin: 14px 0 18px;
+}
+
+.setup-drawer-content p {
+  margin: 10px 0 12px;
+}
+
+.setup-drawer-content .code-block {
+  margin: 10px 0 16px;
+}
+
+.setup-drawer-content .table-wrap {
+  margin: 12px 0 18px;
 }
 
 .setup-drawer-open {
