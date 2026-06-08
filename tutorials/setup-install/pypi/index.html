@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>OpenAkita PyPI CLI 安装教程</title>
-<meta content="OpenAkita PyPI CLI 安装与启动验证教程。" name="description"/>
+<title>OpenAkita Linux 安装教程（CLI / Docker / GUI）</title>
+<meta content="在 Linux 上安装 OpenAkita：Ubuntu Server CLI、Docker Compose 与 Ubuntu Desktop GUI 完整步骤。" name="description"/>
 <link href="../../../assets/img/logo.png" rel="icon"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -16,33 +16,894 @@
         <a href="/scenarios/" data-nav="scenarios">应用场景</a>
 <a data-nav="tutorials" href="/tutorials/">教程</a><a data-nav="about" href="/about/">关于我们</a><a href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub</a></nav></div></header>
 <main>
-<section class="page-hero"><div class="container reveal"><div class="eyebrow">Tutorial / Setup / PyPI</div><h1>方式二：PyPI CLI 安装</h1><p>适合研发环境和自动化部署脚本，可作为 CI/CD 基础安装路径。</p></div></section>
-<section><div class="container"><div class="card reveal">
-<p class="notice"><strong>返回总览：</strong><a href="/tutorials/setup-install/">安装教程总览</a></p>
-<div class="code-block"><code data-i18n-translate># 1) 创建虚拟环境
-python -m venv venv
+<section class="page-hero"><div class="container reveal"><div class="eyebrow">Tutorial / Setup / Linux</div><h1>方式二：Linux</h1><p>适合脚本化部署、研发环境和自动化流水线；含 Server CLI、Docker 与 Desktop GUI 三种路径。</p></div></section>
+<section>
+<div class="container tutorial-shell">
+<aside class="side-nav reveal side-nav--grouped">
+<h3>目录</h3>
+<details class="setup-drawer-nav-group" open>
+<summary class="setup-drawer-nav-group-title">Linux CLI</summary>
+<div class="setup-drawer-nav-group-items">
+<a href="#prereq" class="setup-nav-l2">一、环境要求</a>
+<a href="#install" class="setup-nav-l2">二、安装步骤</a>
+<a href="#first-run" class="setup-nav-l2">三、首次运行</a>
+<a href="#verify" class="setup-nav-l2">四、日常使用</a>
+<a href="#script" class="setup-nav-l2">五、可选：官方一键脚本</a>
+<a href="#faq" class="setup-nav-l2">六、常见问题</a>
+<a href="#cheatsheet" class="setup-nav-l2">七、完整命令速查</a>
+</div>
+</details>
+<details class="setup-drawer-nav-group" open>
+<summary class="setup-drawer-nav-group-title">Linux Docker</summary>
+<div class="setup-drawer-nav-group-items">
+<a href="#docker-prereq" class="setup-nav-l2">一、环境要求</a>
+<a href="#docker-install" class="setup-nav-l2">二、安装步骤</a>
+<a href="#docker-deploy" class="setup-nav-l2">三、部署 OpenAkita</a>
+<a href="#docker-access" class="setup-nav-l2">四、访问 OpenAkita</a>
+<a href="#docker-commands" class="setup-nav-l2">五、常用管理命令</a>
+<a href="#docker-troubleshoot" class="setup-nav-l2">六、故障排查</a>
+</div>
+</details>
+<details class="setup-drawer-nav-group" open>
+<summary class="setup-drawer-nav-group-title">Linux GUI</summary>
+<div class="setup-drawer-nav-group-items">
+<a href="#gui-prereq" class="setup-nav-l1">1、前置条件</a>
+<a href="#gui-download" class="setup-nav-l1">2、下载安装包</a>
+<a href="#gui-install" class="setup-nav-l1">3、正式安装</a>
+<a href="#gui-start" class="setup-nav-l1">4、启动与配置</a>
+<a href="#gui-wizard" class="setup-nav-l2">4.1 初次配置（配置向导）</a>
+<a href="#gui-full-overview" class="setup-nav-l2">4.2 完整配置</a>
+<a href="#gui-full-llm" class="setup-nav-l3">4.2.1 LLM 端点配置（必填）</a>
+<a href="#gui-full-im" class="setup-nav-l3">4.2.2 IM 通道</a>
+<a href="#gui-full-tools" class="setup-nav-l3">4.2.3 工具与技能</a>
+<a href="#gui-full-soul" class="setup-nav-l3">4.2.4 灵魂与意志</a>
+<a href="#gui-full-advanced" class="setup-nav-l3">4.2.5 高级配置</a>
+<a href="#gui-full-multi" class="setup-nav-l3">4.2.6 多 Agent 模式</a>
+<a href="#gui-full-done" class="setup-nav-l3">4.2.7 完成</a>
+</div>
+</details>
+</aside><div class="reveal"><p class="notice reveal"><strong>返回总览：</strong><a href="/tutorials/setup-install/">安装教程总览</a></p>
+<div class="setup-tutorial-block reveal" id="pypi-cli">
+<h2 class="setup-tutorial-block-title">Linux CLI</h2>
 
-# 2) 激活环境（Linux/macOS）
-source venv/bin/activate
 
-# 3) 激活环境（Windows PowerShell）
-# .\\venv\\Scripts\\activate
-
-# 4) 安装 openakita 与常用扩展
-pip install openakita[all]
-
-# 5) 初始化配置文件
-openakita init
-
-# 6) 启动交互模式
-openakita</code></div>
-<p class="notice">按需安装可选包：<code>openakita[feishu]</code>、<code>openakita[whisper]</code>、<code>openakita[browser]</code> 等。</p>
-
-<h2>启动验证</h2>
-<div class="code-block"><code data-i18n-translate>openakita
-openakita serve
-openakita run "创建一个带测试的 Python 计算器"</code></div>
+<section class="tutorial-section" id="prereq"><div class="card">
+<h2 style="margin-top:0;">一、环境要求</h2>
+<p>在 Ubuntu 22.04 LTS Server 上通过 CLI 安装 OpenAkita：使用 Python 3.11 虚拟环境、阿里云 PyPI 镜像安装完整功能包，并完成初始化与首次运行。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>项目</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>系统</td><td>Ubuntu 22.04 LTS Server（已联网）</td></tr>
+<tr><td>权限</td><td>具备 <code>sudo</code> 的普通用户</td></tr>
+<tr><td>Python</td><td><strong>3.11+</strong>（本教程固定使用 3.11）</td></tr>
+<tr><td>API Key</td><td>至少配置一个 LLM 提供商密钥</td></tr>
+<tr><td>磁盘</td><td>推荐20 GB 及以上</td></tr>
+</tbody>
+</table>
+</div>
+<p class="notice">说明：openakita支持Python3.11及以上版本，例如Ubuntu 22.04 默认自带 Python 3.10，所以要重新安装Python3.11；而Ubuntu24.04 默认自带 Python 3.12，可以直接使用。</p>
+</div></section>
+<section class="tutorial-section" id="install"><div class="card">
+<h2 style="margin-top:0;">二、安装步骤</h2>
+<div class="tutorial-substep"><h3>1. 更新软件源并安装基础工具</h3>
+<div class="code-block"><code data-i18n-translate>sudo apt update</code></div>
+</div>
+<div class="tutorial-substep"><h3>2. 添加 deadsnakes PPA</h3>
+<p><code>software-properties-common</code> 提供 <code>add-apt-repository</code>，用于添加第三方 PPA</p>
+<p>Ubuntu 22.04 官方源里 Python 3.11 的可用版本为3.11.0~rc1，为不稳定版本，可用deadsnakes PPA装3.11.15等稳定的版本。</p>
+<div class="code-block"><code data-i18n-translate>sudo apt install -y software-properties-common
+sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt update</code></div>
+</div>
+<div class="tutorial-substep"><h3>3. 安装 Python 3.11 与编译依赖</h3>
+<div class="code-block"><code data-i18n-translate>sudo apt install -y \
+  python3.11 \
+  python3.11-venv \
+  python3.11-dev \
+  python3-pip \
+  build-essential \
+  git \
+  curl</code></div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>包名</th><th>作用</th></tr></thead>
+<tbody>
+<tr><td><code>python3.11</code></td><td>Python 3.11 解释器</td></tr>
+<tr><td><code>python3.11-venv</code></td><td>虚拟环境模块</td></tr>
+<tr><td><code>python3.11-dev</code></td><td>头文件与静态库（编译部分依赖时需要）</td></tr>
+<tr><td><code>build-essential</code></td><td>gcc/make 等编译工具链</td></tr>
+<tr><td><code>git</code> / <code>curl</code></td><td>克隆仓库、下载脚本等</td></tr>
+</tbody>
+</table>
+</div>
+<p>验证版本：</p>
+<div class="code-block"><code data-i18n-translate>python3.11 --version 
+# 应显示 Python 3.11.x</code></div>
+</div>
+<div class="tutorial-substep"><h3>4. 创建工作目录与虚拟环境</h3>
+<div class="code-block"><code data-i18n-translate>mkdir -p ~/openakita
+cd ~/openakita
+python3.11 -m venv venv
+source venv/bin/activate</code></div>
+<p>激活成功后，命令行提示符前会出现 <code>(venv)</code></p>
+</div>
+<div class="tutorial-substep"><h3>5. 安装 OpenAkita（含全部可选扩展）</h3>
+<p><strong>查看可安装的openakita版本</strong></p>
+<div class="code-block"><code data-i18n-translate>pip index versions openakita</code></div>
+<p><strong>安装对应的openakita版本</strong></p>
+<p>方式 A：安装最新版本</p>
+<div class="code-block"><code data-i18n-translate>pip install "openakita[all]"</code></div>
+<p>方式 B：安装指定版本</p>
+<div class="code-block"><code data-i18n-translate>pip install "openakita[all]==&lt;版本号&gt;"</code></div>
+<p>方式 C：使用阿里云镜像加速（国内服务器推荐）：</p>
+<div class="code-block"><code data-i18n-translate>pip install "openakita[all]" \
+-i https://mirrors.aliyun.com/pypi/simple/ \
+--trusted-host mirrors.aliyun.com</code></div>
+<p>验证安装：</p>
+<div class="code-block"><code data-i18n-translate>openakita --version
+# 或
+openakita --help</code></div>
+</div>
+<div class="tutorial-substep"><h3>6. 初始化配置</h3>
+<p>在 <strong>已激活 venv</strong> 且位于 <code>~/openakita</code> 目录下执行：</p>
+<div class="code-block"><code data-i18n-translate>#快速配置
+openakita init --quick
+#完整配置
+openakita init</code></div>
+<p>向导会引导配置 LLM 端点、API Key、工作区等。Server 上请确保终端可交互（SSH 直连一般没问题）。</p>
+<p class="notice">若提示不支持 <code>--quick</code>，改用 <code>openakita init</code>，或执行 <code>openakita init --help</code> 查看当前版本支持的参数。</p>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="Welcome to Openakita，点击Enter，进入下一步。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-欢迎页面.png"/><figcaption>Welcome to Openakita，点击"Enter"，进入下一步。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="使用风险须知，填写y,进入下一步。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-使用风险须知.png"/><figcaption>使用风险须知，填写"y",进入下一步。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="选择模型供应商，填写对应数字,进入下一步。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-选择模型供应商.png"/><figcaption>选择模型供应商，填写对应数字,进入下一步。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="确认模型供应商是否支持 Coding Plan, 按所需填写,进入下一步。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-是否支持Coding Plan.png"/><figcaption>确认模型供应商是否支持 Coding Plan, 按所需填写,进入下一步。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="填写API Key,进入下一步。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-填写API Key.png"/><figcaption>填写API Key,进入下一步。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="选择具体的模型,填写n翻页，填写对应的数字，进入下一步。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-选择具体的模型.png"/><figcaption>选择具体的模型,填写"n"翻页，填写对应的数字，进入下一步。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="确认是否还要添加其他的模型，填写n，进入下一步。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-确认是否还要添加其他的模型.png"/><figcaption>确认是否还要添加其他的模型，填写"n"，进入下一步。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="确认是否开启深度思考模式，填写n不开启，进入下一步。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-确认是否开启深度思考模式.png"/><figcaption>确认是否开启深度思考模式，填写"n"不开启，进入下一步。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="配置完成，进行测试连接，填写y，进行测试。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-配置完成.png"/><figcaption>配置完成，进行测试连接，填写"y"，进行测试。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="安装完成页面。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-安装完成页面.png"/><figcaption>安装完成页面。</figcaption></figure>
 </div></div></section>
+<section class="tutorial-section" id="first-run"><div class="card">
+<h2 style="margin-top:0;">三、首次运行</h2>
+<p><strong>方式一：进入交互式 CLI</strong></p>
+<div class="code-block"><code data-i18n-translate>openakita</code></div>
+<p>在 <code>You&gt;</code> 提示符下输入任务，回复如下：</p>
+<div class="code-block"><code data-i18n-translate>run "你好，介绍一下你自己"</code></div>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="openakita交互。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-交互页面.png"/><figcaption>openakita交互。</figcaption></figure>
+<p>退出交互模式一般使用/exit 或按界面提示操作。</p>
+<p><strong>方式二：浏览器访问</strong></p>
+<div class="code-block"><code data-i18n-translate>openakita serve</code></div>
+<p><strong>地址</strong>（默认端口）：</p>
+<div class="code-block"><code data-i18n-translate>http://&lt;本机IP&gt;:18900</code></div>
+<p>本机 IP：</p>
+<div class="code-block"><code data-i18n-translate>ip a</code></div>
+<p>例：192.168.xxx.xxx</p>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="首次访问设置密码。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-首次访问设置密码.png"/><figcaption>首次访问设置密码。</figcaption></figure>
+<p>若密码遗忘，可以重新设置密码</p>
+<div class="code-block"><code data-i18n-translate>export OPENAKITA_WEB_PASSWORD='&lt;你的新密码&gt;'</code></div>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="登录进行对话。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-登录进行对话.png"/><figcaption>登录进行对话。</figcaption></figure>
+</div></section>
+<section class="tutorial-section" id="verify"><div class="card">
+<h2 style="margin-top:0;">四、日常使用</h2>
+<p>每次新开会话后，需重新激活虚拟环境：</p>
+<div class="code-block"><code data-i18n-translate>cd ~/openakita
+source venv/bin/activate</code></div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>命令</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><code>openakita</code></td><td>交互模式</td></tr>
+<tr><td data-i18n-block><code>openakita run "任务描述"</code></td><td>单次执行任务</td></tr>
+<tr><td><code>openakita status</code></td><td>查看状态</td></tr>
+<tr><td><code>openakita selfcheck</code></td><td>自检</td></tr>
+<tr><td><code>openakita serve</code></td><td>服务模式（如 IM 通道等，需已配置）</td></tr>
+<tr><td><code>openakita --help</code></td><td>查看全部子命令</td></tr>
+</tbody>
+</table>
+</div>
+<p>退出虚拟环境：</p>
+<div class="code-block"><code data-i18n-translate>deactivate</code></div>
+</div></section>
+<section class="tutorial-section" id="script"><div class="card">
+<h2 style="margin-top:0;">五、可选：官方一键脚本</h2>
+<p>若希望减少手动步骤，可使用官方 quickstart（同样可指定镜像）：</p>
+<div class="code-block"><code data-i18n-translate>curl -fsSL -o quickstart.sh \
+  https://raw.githubusercontent.com/openakita/openakita/main/scripts/quickstart.sh
+bash quickstart.sh --extras all \
+  --index-url https://mirrors.aliyun.com/pypi/simple/</code></div>
+<p>默认目录多为 <code>~/.openakita</code>，与本文 <code>~/openakita</code> 路径不同，<strong>二选一</strong>即可。</p>
+</div></section>
+<section class="tutorial-section" id="faq"><div class="card">
+<h2 style="margin-top:0;">六、常见问题</h2>
+<div class="tutorial-substep"><h3>1. 无法使用 sudo</h3>
+<p>确认当前用户是否在 sudo 组，或由 root 执行 <code>apt</code> 相关命令。</p>
+</div>
+<div class="tutorial-substep"><h3>2. PPA 添加失败</h3>
+<p>检查网络与 DNS，重试 <code>sudo apt update</code> 后再执行 <code>add-apt-repository</code>。</p>
+</div>
+<div class="tutorial-substep"><h3>3. python3.11：找不到该命令</h3>
+<p>确认 deadsnakes PPA 已添加，且 <code>sudo apt install python3.11</code> 执行成功。</p>
+</div>
+<div class="tutorial-substep"><h3>4. pip 安装很慢或超时</h3>
+<p>继续使用阿里云镜像，或换清华源：</p>
+<div class="code-block"><code data-i18n-translate>pip install "openakita[all]" -i https://pypi.tuna.tsinghua.edu.cn/simple</code></div>
+</div>
+<div class="tutorial-substep"><h3>5. API Key / 连接错误</h3>
+<ul class="checklist">
+<li>确认 <code>openakita init</code> 已完成，且 <code>.env</code> 或配置中有有效 Key</li>
+<li>国内访问部分 API 可能需要代理或兼容端点，可在配置中设置 <code>ANTHROPIC_BASE_URL</code> 等</li>
+</ul>
+</div></div></section>
+<section class="tutorial-section" id="cheatsheet"><div class="card">
+<h2 style="margin-top:0;">七、完整命令速查</h2>
+<div class="code-block"><code data-i18n-translate># === 系统与 Python 3.11 ===
+sudo apt update
+sudo apt install -y software-properties-common
+sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install -y python3.11 python3.11-venv python3.11-dev python3-pip build-essential git curl
+
+# === 项目与虚拟环境 ===
+mkdir -p ~/openakita && cd ~/openakita
+python3.11 -m venv venv
+source venv/bin/activate
+pip install -U pip setuptools wheel
+
+# === 安装 OpenAkita ===
+pip install "openakita[all]" \
+  -i https://mirrors.aliyun.com/pypi/simple/ \
+  --trusted-host mirrors.aliyun.com
+
+# === 初始化与运行 ===
+openakita init --quick
+openakita 
+
+# === 测试 ===
+openakita run "你好，介绍一下你自己"</code></div>
+</div></section>
+</div>
+<div class="setup-tutorial-block reveal" id="pypi-docker">
+<h2 class="setup-tutorial-block-title">Linux Docker</h2>
+
+
+<section class="tutorial-section" id="docker-prereq"><div class="card">
+<h2 style="margin-top:0;">一、环境要求</h2>
+<p>在 Ubuntu 22.04 LTS Server 上通过 Docker Compose 标准模式一键安装 OpenAkita。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>项目</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>系统</td><td>Ubuntu 22.04 LTS Server（已联网）</td></tr>
+<tr><td>权限</td><td>具备 <code>sudo</code> 的普通用户</td></tr>
+<tr><td>API Key</td><td>至少配置一个 LLM 提供商密钥</td></tr>
+<tr><td>磁盘</td><td>推荐20 GB 及以上</td></tr>
+</tbody>
+</table>
+</div>
+</div></section>
+<section class="tutorial-section" id="docker-install"><div class="card">
+<h2 style="margin-top:0;">二、安装步骤</h2>
+<div class="tutorial-substep"><h3>1. 安装 Docker 和 Docker Compose</h3>
+<p data-i18n-block>国内访问 <code>download.docker.com</code> 较慢，建议使用阿里云 Docker CE 源。</p>
+<div class="code-block"><code data-i18n-translate># 1. 安装依赖
+sudo apt update
+sudo apt install -y ca-certificates curl gnupg lsb-release
+
+# 2. 添加 Docker GPG 密钥 (阿里云镜像)
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+# 3. 设置 Docker 稳定版仓库 (阿里云镜像)
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# 4. 安装 Docker Engine 和 Docker Compose Plugin
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# 5. 验证安装
+sudo docker run hello-world
+sudo docker compose version</code></div>
+</div>
+<div class="tutorial-substep"><h3>2. 配置 Docker 镜像加速 (可选但推荐)</h3>
+<p>若拉取镜像超时，建议配置国内镜像加速。</p>
+<div class="code-block"><code data-i18n-translate>sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &lt;&lt;-&#39;EOF&#39;
+{
+  "registry-mirrors": [
+    "https://docker.1ms.run",
+    "https://docker.m.daocloud.io"
+  ]
+}
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker</code></div>
+</div></div></section>
+<section class="tutorial-section" id="docker-deploy"><div class="card">
+<h2 style="margin-top:0;">三、部署 OpenAkita</h2>
+<div class="tutorial-substep"><h3>3.1 克隆项目</h3>
+<div class="code-block"><code data-i18n-translate>cd ~
+# 完整克隆
+git clone https://github.com/OpenAkita/OpenAkita.git
+# 或：浅克隆（更快，只要最新版）
+git clone --depth 1 https://github.com/openakita/openakita.git
+cd OpenAkita</code></div>
+</div>
+<div class="tutorial-substep"><h3>3.2 配置环境变量</h3>
+<p>复制示例配置文件并根据需要修改：</p>
+<div class="code-block"><code data-i18n-translate>cp examples/.env.example .env
+# 使用 nano 或 vim 编辑 .env 文件
+nano .env</code></div>
+<p class="notice" data-i18n-block>注意：请至少配置 <code>LLM_API_KEY</code> 或其他必要的模型提供商密钥。</p>
+<div class="code-block"><code data-i18n-translate>DASHSCOPE_API_KEY=sk-你的密钥</code></div>
+<p>复制大模型端点配置文件并根据需要修改:</p>
+<div class="code-block"><code data-i18n-translate>cp data/llm_endpoints.json.example data/llm_endpoints.json
+nano data/llm_endpoints.json</code></div>
+<p>通义千问示例（主端点）：</p>
+<p data-i18n-block>在 <code>endpoints</code> 数组中加入或修改为类似配置：</p>
+<div class="code-block"><code data-i18n-translate>"endpoints": [
+    {
+      "name": "dashscope-qwen3.5-plus",
+      "provider": "dashscope",
+      "api_type": "openai",
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "model": "qwen3.5-plus",
+      "priority": 10,
+      "max_tokens": 0,
+      "context_window": 200000,
+      "timeout": 180,
+      "rpm_limit": 0,
+      "capabilities": [
+        "text",
+        "vision",
+        "video",
+        "tools",
+        "thinking"
+      ]
+    }
+  ]</code></div>
+</div>
+<div class="tutorial-substep"><h3>3.3 启动服务</h3>
+<p>同步最新代码</p>
+<div class="code-block"><code data-i18n-translate>git pull --rebase</code></div>
+<p>使用 Docker Compose 后台启动所有服务（前端、后端、数据库、向量库等）：</p>
+<div class="code-block"><code data-i18n-translate># 首次构建（不要用 --no-cache，否则会重复慢速 apt/npm，耗时很长）
+sudo docker compose build
+# 启动
+sudo docker compose up -d</code></div>
+<p data-i18n-block><strong>补充：</strong>当前版本在 <code>docker compose build</code> 时，如果出现报错，可以构建前自动打补丁：</p>
+<div class="code-block"><code data-i18n-translate>cd ~/openakita
+
+grep -q 'providers.json /app/src/openakita/llm/registries/providers.json' Dockerfile || \
+sed -i '/RUN npm ci/a COPY src/openakita/llm/registries/providers.json /app/src/openakita/llm/registries/providers.json' Dockerfile
+
+# 确认补丁已写入
+grep -n 'providers.json' Dockerfile</code></div>
+<p>应看到类似:</p>
+<div class="code-block"><code data-i18n-translate>7:COPY src/openakita/llm/registries/providers.json /app/src/openakita/llm/registries/providers.json</code></div>
+<p>然后再执行:</p>
+<div class="code-block"><code data-i18n-translate>sudo docker compose build
+sudo docker compose up -d</code></div>
+</div>
+<div class="tutorial-substep"><h3>3.4 查看日志</h3>
+<p>确认服务启动正常：</p>
+<div class="code-block"><code data-i18n-translate>sudo docker compose logs -f</code></div>
+<p data-i18n-block>按 <code>Ctrl+C</code> 退出日志查看。</p>
+<p data-i18n-block><strong>补充：</strong>构建成功后，若容器状态为 <strong>Restarting</strong>，日志出现：</p>
+<div class="code-block"><code data-i18n-translate>Error: No such option: --host</code></div>
+<p data-i18n-block>原因：镜像默认 <code>CMD</code> 为 <code>openakita serve --host 0.0.0.0 --port 18900</code>，但当前版本（如 1.27.12）的 <code>serve</code> 子命令<strong>不支持</strong> <code>--host</code> / <code>--port</code>，应通过环境变量 <code>API_HOST</code>、<code>API_PORT</code> 配置（<code>docker-compose.yml</code> 已包含）。</p>
+</div>
+<div class="tutorial-substep"><h3>方案 A：修改 docker-compose.yml（推荐，无需重新 build）</h3>
+<p data-i18n-block>编辑 <code>docker-compose.yml</code>，在 <code>openakita:</code> 服务下、<code>container_name:</code> 附近增加：</p>
+<div class="code-block"><code data-i18n-translate>command: ["serve"]</code></div>
+<p>或使用命令自动插入：</p>
+<div class="code-block"><code data-i18n-translate>cd ~/openakita
+grep -q 'command: \["serve"\]' docker-compose.yml || \
+sed -i '/container_name: openakita/a\    command: ["serve"]' docker-compose.yml 
+sudo docker compose up -d</code></div>
+</div>
+<div class="tutorial-substep"><h3>方案 B：修改 Dockerfile（长期）</h3>
+<div class="code-block"><code data-i18n-translate>sed -i 's/CMD \["serve", "--host", "0.0.0.0", "--port", "18900"\]/CMD ["serve"]/' Dockerfile
+# 然后需要重新 build
+sudo docker compose build</code></div>
+</div>
+<div class="tutorial-substep"><h3>3.5 验证与健康检查</h3>
+<div class="code-block"><code data-i18n-translate># 容器状态
+sudo docker compose ps
+
+# 健康检查（两个路径都试一下）
+sudo curl http://127.0.0.1:18900/health
+sudo curl http://127.0.0.1:18900/api/health</code></div>
+</div></div></section>
+<section class="tutorial-section" id="docker-access"><div class="card">
+<h2 style="margin-top:0;">四、访问 OpenAkita</h2>
+<p>部署完成后，在浏览器中访问：</p>
+<ul class="checklist">
+<li data-i18n-block><strong>地址</strong>：<code>http://&lt;虚拟机IP&gt;:18900</code>（默认端口，具体见 <code>.env</code> 中的 <code>FRONTEND_PORT</code>）</li>
+</ul>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="首次访问设置密码。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-首次访问设置密码.png"/><figcaption>首次访问设置密码。</figcaption></figure>
+<p>若密码遗忘，可以重新设置密码</p>
+<div class="code-block"><code data-i18n-translate>export OPENAKITA_WEB_PASSWORD='&lt;你的新密码&gt;'</code></div>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="登录进行对话。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-登录进行对话.png"/><figcaption>登录进行对话。</figcaption></figure>
+</div></section>
+<section class="tutorial-section" id="docker-commands"><div class="card">
+<h2 style="margin-top:0;">五、常用管理命令</h2>
+<div class="tutorial-substep"><h3>停止服务</h3>
+<div class="code-block"><code data-i18n-translate>sudo docker compose down</code></div>
+</div>
+<div class="tutorial-substep"><h3>重启服务</h3>
+<div class="code-block"><code data-i18n-translate>sudo docker compose restart</code></div>
+</div>
+<div class="tutorial-substep"><h3>更新版本</h3>
+<div class="code-block"><code data-i18n-translate>git pull
+sudo docker compose up -d --build</code></div>
+</div>
+<div class="tutorial-substep"><h3>查看容器状态</h3>
+<div class="code-block"><code data-i18n-translate>sudo docker compose ps</code></div>
+</div></div></section>
+<section class="tutorial-section" id="docker-troubleshoot"><div class="card">
+<h2 style="margin-top:0;">六、故障排查</h2>
+<div class="tutorial-substep"><h3>端口冲突</h3>
+<p data-i18n-block>如果对应端口被占用，请在 <code>.env</code> 中修改 <code>FRONTEND_PORT</code> 和 <code>BACKEND_PORT</code>，然后重启。</p>
+</div>
+<div class="tutorial-substep"><h3>权限问题</h3>
+<p data-i18n-block>如果遇到 <code>Permission denied</code>，请确保当前用户在 <code>docker</code> 组中：</p>
+<div class="code-block"><code data-i18n-translate>sudo usermod -aG docker $USER
+newgrp docker</code></div>
+</div>
+<div class="tutorial-substep"><h3>内存不足</h3>
+<p>OpenAkita 包含多个组件，建议服务器至少拥有 4GB+ 内存。</p>
+</div></div></section>
+</div>
+<div class="setup-tutorial-block reveal" id="pypi-gui">
+<h2 class="setup-tutorial-block-title">Linux GUI</h2>
+
+
+<section class="tutorial-section" id="gui-prereq"><div class="card">
+<h2 style="margin-top:0;">1、前置条件</h2>
+<ul class="checklist">
+<li><strong>官网地址</strong>：<a href="https://openakita.ai/download/" rel="noopener" target="_blank">openakita.ai/download</a></li>
+<li><strong>LLM API Key</strong>：OpenAkita 本身是一个框架，需要连接大模型才能思考。如果没有 API Key，可以前往对应官网注册（如阿里云、DeepSeek、Anthropic 等）</li>
+</ul>
+</div></section>
+<section class="tutorial-section" id="gui-download"><div class="card">
+<h2 style="margin-top:0;">2、下载安装包</h2>
+<p>根据你的操作系统下载对应的安装包，教程以 Ubuntu 22.04 Desktop、OpenAkita v1.27.12 版本为例。</p>
+<p><strong>下载步骤：</strong></p>
+<ol>
+<li>打开浏览器，访问 <a href="https://openakita.ai/download/" rel="noopener" target="_blank">OpenAkita 官网下载地址</a></li>
+<li>根据你的操作系统下载对应的安装包，点击下载</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="OpenAkita Desktop 官网下载界面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-desktop-官网下载界面.png"/><figcaption>OpenAkita Desktop 官网下载界面。</figcaption></figure>
+</div></section>
+<section class="tutorial-section" id="gui-install"><div class="card">
+<h2 style="margin-top:0;">3、正式安装</h2>
+<p><strong>安装步骤：</strong></p>
+<p><strong>方式 A：图形化安装（推荐新手）</strong></p>
+<ol>
+<li>找到刚刚下载的 <strong>.deb 文件</strong></li>
+<li>双击文件，系统会自动打开「软件安装」窗口</li>
+<li>点击<strong>「安装」</strong>按钮，输入你的用户密码即可</li>
+</ol>
+<p><strong>方式 B：命令行安装（更稳定）</strong></p>
+<ol>
+<li>打开终端（Terminal），进入下载目录（通常是 <code>~/Downloads</code>）</li>
+<li>执行以下命令：</li>
+</ol>
+<div class="code-block"><code data-i18n-translate>cd ~/Downloads
+sudo apt install ./OpenAkitaDesktop_1.27.12_ubuntu22-amd64.deb</code></div>
+</div></section>
+<section class="tutorial-section" id="gui-start"><div class="card">
+<h2 style="margin-top:0;">4、启动与配置</h2>
+<ol>
+<li>在应用菜单中搜索 <strong>OpenAkita</strong> 并启动</li>
+<li>首次启动会弹出配置向导，按照提示配置你的 <strong>LLM API Key</strong>（如 DeepSeek、Anthropic、OpenAI 等）</li>
+<li>配置完成后，即可开始使用桌面版 OpenAkita</li>
+</ol>
+<div class="tutorial-substep"><h3 id="gui-wizard">4.1 初次配置（配置向导）</h3>
+<p><strong>配置步骤：</strong></p>
+<ol>
+<li>欢迎使用 OpenAkita 页面，点击<strong>「开始配置」</strong></li>
+<li>确认使用风险，输入"<strong>我已知晓</strong>"</li>
+<li>配置 LLM 端点：你至少需要添加 <strong>1 个 LLM 端点</strong> 才能开始使用。
+<ul>
+<li>点击 LLM 中的<strong>「添加端点」</strong></li>
+<li>选择服务商，填写 API Key</li>
+<li>点击<strong>「重新拉取」</strong>，选择模型</li>
+<li>点击<strong>「添加端点」</strong></li>
+</ul>
+</li>
+<li>配置 IM 通道：暂时可不填，直接跳过</li>
+<li>终端命令与系统设置：根据需求设置，点击<strong>「下一步」</strong></li>
+<li>配置完成，进入 OpenAkita 会自动启动服务</li>
+<li>切换到聊天页面，即可开始使用</li>
+</ol>
+<p class="notice"><strong>注意</strong>：可在配置向导页面选择暂不配置 LLM 和 IM 通道，进入 OpenAkita 后再进行配置。</p>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="OpenAkita Desktop 配置向导 - 欢迎使用页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-desktop-欢迎使用界面.png"/><figcaption>配置向导 - 欢迎使用页面。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="OpenAkita Desktop 配置向导 - 使用风险须知页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-desktop-使用风险须知界面.png"/><figcaption>配置向导 - 使用风险须知。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="OpenAkita Desktop 添加端点页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-desktop-添加端点界面.png"/><figcaption>添加端点 - 填写 API Key 和选择模型。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="OpenAkita Desktop IM 通道页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-desktop-IM通道界面.png"/><figcaption>IM 通道配置页面。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="OpenAkita Desktop 终端命令与系统设置页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-desktop-终端命令与系统设置界面.png"/><figcaption>终端命令与系统设置。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="OpenAkita Desktop 配置完成页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-desktop-配置完成界面.png"/><figcaption>配置向导 - 配置完成。</figcaption></figure>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="OpenAkita Desktop 聊天页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-desktop-聊天界面.png"/><figcaption>聊天界面。</figcaption></figure>
+</div></div></section>
+<section class="tutorial-section" id="gui-full-overview"><div class="card">
+<h2 style="margin-top:0;">4.2 完整配置</h2>
+<p>完整配置提供对各功能模块的精细控制，适合需要自定义 LLM 端点、接入 IM 通道、调整 Agent 行为等的用户。</p>
+</div></section>
+<section class="tutorial-section" id="gui-full-llm"><div class="card">
+<div class="tutorial-substep"><h3>4.2.1 LLM 端点配置（必填）</h3>
+<p>LLM 端点是 OpenAkita 调用大语言模型的入口。你可以配置多个端点，系统会根据优先级和可用性自动选择。</p>
+<p><strong>添加主端点：</strong>点击<strong>「+ 添加端点」</strong>按钮，打开端点配置对话框</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th><th>示例</th></tr></thead>
+<tbody>
+<tr><td><strong>服务商</strong></td><td>选择 LLM 服务提供商</td><td>通义千问、OpenAI、Anthropic 等</td></tr>
+<tr><td><strong>Base URL</strong></td><td>API 接口地址（选择服务商后自动填充）</td><td><code>https://dashscope.aliyuncs.com/compatible-mode/v1</code></td></tr>
+<tr><td><strong>API Key</strong></td><td>你的 API 密钥</td><td><code>sk-xxxxx</code></td></tr>
+<tr><td><strong>模型</strong></td><td>选择或输入模型名称（支持在线拉取模型列表）</td><td><code>qwen-max</code>、<code>gpt-4o</code></td></tr>
+<tr><td><strong>端点名称</strong></td><td>自动生成，也可自定义</td><td><code>dashscope-qwen-max</code></td></tr>
+<tr><td><strong>能力标签</strong></td><td>勾选该模型支持的能力</td><td>text、thinking、vision、tools</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>高级参数：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>API Type</strong></td><td><code>openai</code></td><td>接口类型，openai 或 anthropic</td></tr>
+<tr><td><strong>Key 环境变量名</strong></td><td>自动生成</td><td>API Key 在 .env 中的变量名</td></tr>
+<tr><td><strong>优先级</strong></td><td><code>0</code></td><td>数值越小优先级越高</td></tr>
+</tbody>
+</table>
+</div>
+<h4>支持的服务商</h4>
+<p><strong>国内服务商：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>服务商</th><th>API 类型</th><th>默认 Base URL</th></tr></thead>
+<tbody>
+<tr><td>通义千问（DashScope）</td><td>openai</td><td><code>https://dashscope.aliyuncs.com/compatible-mode/v1</code></td></tr>
+<tr><td>智谱 AI</td><td>openai</td><td><code>https://open.bigmodel.cn/api/paas/v4</code></td></tr>
+<tr><td>百度千帆</td><td>openai</td><td><code>https://qianfan.baidubce.com/v2</code></td></tr>
+<tr><td>DeepSeek</td><td>openai</td><td><code>https://api.deepseek.com/v1</code></td></tr>
+<tr><td>月之暗面（Kimi）</td><td>openai</td><td><code>https://api.moonshot.cn/v1</code></td></tr>
+<tr><td>零一万物</td><td>openai</td><td><code>https://api.lingyiwanwu.com/v1</code></td></tr>
+<tr><td>字节豆包（火山引擎）</td><td>openai</td><td><code>https://ark.cn-beijing.volces.com/api/v3</code></td></tr>
+<tr><td>SiliconFlow</td><td>openai</td><td><code>https://api.siliconflow.cn/v1</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>国际服务商：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>服务商</th><th>API 类型</th><th>默认 Base URL</th></tr></thead>
+<tbody>
+<tr><td>OpenAI</td><td>openai</td><td><code>https://api.openai.com/v1</code></td></tr>
+<tr><td>Anthropic</td><td>anthropic</td><td><code>https://api.anthropic.com</code></td></tr>
+<tr><td>Google Gemini</td><td>openai</td><td><code>https://generativelanguage.googleapis.com/v1beta/openai</code></td></tr>
+<tr><td>Groq</td><td>openai</td><td><code>https://api.groq.com/openai/v1</code></td></tr>
+<tr><td>Mistral</td><td>openai</td><td><code>https://api.mistral.ai/v1</code></td></tr>
+<tr><td>OpenRouter</td><td>openai</td><td><code>https://openrouter.ai/api/v1</code></td></tr>
+</tbody>
+</table>
+</div>
+<h4>多端点与 Failover</h4>
+<p>OpenAkita 支持配置多个端点，提供自动故障转移能力：</p>
+<ul class="checklist">
+<li><strong>优先级调度</strong>：优先使用 Priority 值最小的端点</li>
+<li><strong>自动降级</strong>：主端点不可用时自动切换到备用端点</li>
+<li><strong>健康检查</strong>：后台定期检测端点可用性</li>
+<li><strong>冷却机制</strong>：连续失败的端点会被临时冷却，避免反复重试</li>
+</ul>
+<p class="notice"><strong>建议</strong>：至少配置 2 个端点（不同服务商），以确保高可用性。</p>
+<h4>编译器端点（可选）</h4>
+<p>编译器端点用于代码编译、格式化等辅助任务。如果不配置，系统会使用主端点。</p>
+<h4>语音识别端点（可选）</h4>
+<p>用于在线语音识别，支持 OpenAI Whisper / DashScope Qwen-ASR / Groq / SiliconFlow 等。</p>
+</div></div></section>
+<section class="tutorial-section" id="gui-full-im"><div class="card">
+<div class="tutorial-substep"><h3>4.2.2 IM 通道</h3>
+<p>IM 通道让你可以通过即时通讯工具与 OpenAkita 对话。所有通道均为<strong>可选</strong>配置。</p>
+<h4>微信</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择微信</td></tr>
+<tr><td><strong>Token</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+</tbody>
+</table>
+</div>
+<h4>飞书</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择飞书</td></tr>
+<tr><td><strong>App ID</strong></td><td>飞书开放平台自建应用的 App ID（扫码创建机器人，可以直接填入）</td></tr>
+<tr><td><strong>App Secret</strong></td><td>飞书开放平台自建应用的 App Secret（扫码创建机器人，可以直接填入）</td></tr>
+</tbody>
+</table>
+</div>
+<p class="notice"><strong>接入方式</strong>：自建应用，无需公网 IP。在<a href="https://open.feishu.cn/" rel="noopener" target="_blank">飞书开放平台</a>创建应用并获取凭证。</p>
+<h4>钉钉</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择钉钉</td></tr>
+<tr><td><strong>Client ID</strong></td><td>钉钉开放平台企业内部应用的 Client ID</td></tr>
+<tr><td><strong>Client Secret</strong></td><td>钉钉开放平台企业内部应用的 Client Secret</td></tr>
+</tbody>
+</table>
+</div>
+<p class="notice"><strong>接入方式</strong>：企业内部应用，无需公网 IP。在<a href="https://open.dingtalk.com/" rel="noopener" target="_blank">钉钉开放平台</a>创建应用。</p>
+<h4>企业微信</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择企业微信</td></tr>
+<tr><td><strong>Bot ID</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+<tr><td><strong>Secret</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+</tbody>
+</table>
+</div>
+<h4>QQ</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择 QQ</td></tr>
+<tr><td><strong>App ID</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+<tr><td><strong>App Secret</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+</tbody>
+</table>
+</div>
+<h4>Telegram</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择 Telegram</td></tr>
+<tr><td><strong>Bot Token</strong></td><td>从 <a href="https://t.me/BotFather" rel="noopener" target="_blank">@BotFather</a> 获取的 Bot Token</td></tr>
+<tr><td><strong>代理</strong></td><td>HTTP 代理地址（国内用户通常需要），如 <code>http://127.0.0.1:7890</code></td></tr>
+<tr><td><strong>配对验证</strong></td><td>是否要求用户输入配对码才能使用</td></tr>
+<tr><td><strong>配对码</strong></td><td>自定义的配对验证码</td></tr>
+<tr><td><strong>Webhook URL</strong></td><td>使用 Webhook 模式时填写，留空则使用 Long Polling</td></tr>
+</tbody>
+</table>
+</div>
+</div></div></section>
+<section class="tutorial-section" id="gui-full-tools"><div class="card">
+<div class="tutorial-substep"><h3>4.2.3 工具与技能</h3>
+<p>此步骤配置 OpenAkita 可以使用的工具和技能扩展。</p>
+<h4>MCP 工具</h4>
+<p>MCP（Model Context Protocol）允许 OpenAkita 通过标准化协议调用外部工具。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>MCP 总开关</strong></td><td>开启</td><td>是否启用 MCP 工具</td></tr>
+<tr><td><strong>超时</strong></td><td><code>60</code> 秒</td><td>MCP 工具调用超时时间</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>数据库工具（可选）：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>MySQL</strong></td><td>启用后配置 Host、User、Password、Database</td></tr>
+<tr><td><strong>PostgreSQL</strong></td><td>启用后配置连接 URL</td></tr>
+</tbody>
+</table>
+</div>
+<h4>Skills 管理</h4>
+<p>Skills 是可插拔的技能扩展，包括：</p>
+<ul class="checklist">
+<li><strong>系统技能</strong>：内置技能（只读）</li>
+<li><strong>外部技能</strong>：用户安装的第三方技能，可单独启用/禁用</li>
+</ul>
+<h4>桌面自动化</h4>
+<p>桌面自动化让 OpenAkita 可以操作你的电脑桌面（截图、点击、输入等）。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>桌面自动化</strong></td><td>开启</td><td>总开关</td></tr>
+<tr><td><strong>默认显示器</strong></td><td><code>0</code></td><td>多显示器时指定主屏幕</td></tr>
+<tr><td><strong>最大宽度</strong></td><td><code>1920</code></td><td>截图最大宽度</td></tr>
+<tr><td><strong>最大高度</strong></td><td><code>1080</code></td><td>截图最大高度</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>高级选项：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>压缩质量</td><td><code>85</code></td><td>截图 JPEG 质量</td></tr>
+<tr><td>视觉识别</td><td>开启</td><td>使用视觉模型辅助桌面操作</td></tr>
+<tr><td>视觉模型</td><td><code>qwen3-vl-plus</code></td><td>视觉识别使用的模型</td></tr>
+<tr><td>OCR 模型</td><td><code>qwen-vl-ocr</code></td><td>OCR 使用的模型</td></tr>
+<tr><td>点击延迟</td><td><code>0.1</code> 秒</td><td>每次点击后的等待时间</td></tr>
+<tr><td>输入间隔</td><td><code>0.03</code> 秒</td><td>逐字输入的间隔</td></tr>
+</tbody>
+</table>
+</div>
+</div></div></section>
+<section class="tutorial-section" id="gui-full-soul"><div class="card">
+<div class="tutorial-substep"><h3>4.2.4 灵魂与意志</h3>
+<h4>灵魂（Soul）</h4>
+<p><strong>人格选择：</strong>OpenAkita 内置多种预设角色人格</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>角色</th><th>风格</th><th>适用场景</th></tr></thead>
+<tbody>
+<tr><td><strong>默认助手</strong></td><td>专业友好、平衡得体</td><td>日常使用，万能型</td></tr>
+<tr><td><strong>商务顾问</strong></td><td>正式专业、数据驱动</td><td>工作场景，正式汇报</td></tr>
+<tr><td><strong>技术专家</strong></td><td>简洁精准、代码导向</td><td>编程开发，技术问答</td></tr>
+<tr><td><strong>私人管家</strong></td><td>周到细致、礼貌正式</td><td>生活服务，日程安排</td></tr>
+<tr><td><strong>虚拟女友</strong></td><td>温柔体贴、情感丰富</td><td>情感陪伴，倾听关怀</td></tr>
+<tr><td><strong>虚拟男友</strong></td><td>阳光开朗、幽默风趣</td><td>情感陪伴，轻松有趣</td></tr>
+<tr><td><strong>家人</strong></td><td>亲切关怀、唠叨温暖</td><td>家庭场景，长辈式关怀</td></tr>
+<tr><td><strong>贾维斯</strong></td><td>冷静睿智、英式幽默</td><td>科技极客，AI 管家</td></tr>
+<tr><td><strong>自定义</strong></td><td>用户自定义角色 ID</td><td>进阶用户，DIY 人格</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>自我认识：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>Agent 名称</strong></td><td><code>OpenAkita</code></td><td>Agent 的显示名称</td></tr>
+<tr><td><strong>最大迭代次数</strong></td><td><code>300</code></td><td>单次任务的最大执行步数</td></tr>
+<tr><td><strong>思考模式</strong></td><td><code>auto</code></td><td><code>auto</code>（自动）/ <code>always</code>（总是）/ <code>never</code>（关闭）</td></tr>
+<tr><td><strong>自动确认</strong></td><td><code>false</code></td><td>是否跳过用户确认直接执行工具</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>记忆管理：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>记忆管理</strong></td><td>开启</td><td>Agent 会记住你说过的话和偏好</td></tr>
+</tbody>
+</table>
+</div>
+<p class="notice">LLM 智能审查：将由大模型逐条审查所有记忆，删除垃圾、合并重复，此操作可能需要较长时间，请耐心等待。</p>
+<h4>意志（Will）</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>主动任务</strong></td><td>启用</td><td>让 Agent 像真人一样主动找你聊天</td></tr>
+<tr><td><strong>每日最大消息</strong></td><td><code>3</code></td><td>每天主动消息数量上限</td></tr>
+<tr><td><strong>最短间隔时间</strong></td><td><code>120</code></td><td>两条主动消息之间的最短间隔（分钟）</td></tr>
+<tr><td><strong>空闲阈值</strong></td><td><code>24</code></td><td>用户空闲超过此时长后才触发主动消息</td></tr>
+<tr><td><strong>安静开始（时）</strong></td><td><code>23</code></td><td>不发送主动消息的开始时间</td></tr>
+<tr><td><strong>安静结束（时）</strong></td><td><code>7</code></td><td>免打扰时段结束（24h 制）</td></tr>
+<tr><td><strong>表情包</strong></td><td>关闭</td><td>是否在对话中使用表情包</td></tr>
+<tr><td><strong>表情包目录</strong></td><td><code>data/sticker</code></td><td>表情包数据存储路径</td></tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>计划任务</strong></td><td>启用</td><td>定时让 Agent 自动执行指定任务</td></tr>
+<tr><td><strong>时区</strong></td><td><code>Asia/Shanghai</code></td><td>计划任务使用的时区</td></tr>
+</tbody>
+</table>
+</div>
+</div></div></section>
+<section class="tutorial-section" id="gui-full-advanced"><div class="card">
+<div class="tutorial-substep"><h3>4.2.5 高级配置</h3>
+<p><strong>桌面通知配置：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>任务完成通知</td><td><code>OFF</code></td><td>任务完成时弹出系统桌面通知提醒</td></tr>
+<tr><td>通知提示音</td><td><code>OFF</code></td><td>桌面通知时播放系统提示音</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>会话配置：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>会话超时</td><td><code>30</code> 分钟</td><td>无活动后自动结束会话</td></tr>
+<tr><td>最大历史</td><td><code>50</code> 条</td><td>单个会话保留的消息数</td></tr>
+<tr><td>存储路径</td><td><code>data/sessions</code></td><td>会话数据存储目录</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>日志配置：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>日志级别</td><td><code>DEBUG</code></td><td>DEBUG / INFO / WARNING / ERROR</td></tr>
+<tr><td>日志目录</td><td><code>logs</code></td><td>日志文件存储目录</td></tr>
+<tr><td>数据库路径</td><td><code>data/agent.db</code></td><td>SQLite 数据库路径</td></tr>
+<tr><td>单文件大小</td><td><code>10</code> MB</td><td>日志文件最大体积</td></tr>
+<tr><td>备份数量</td><td><code>30</code></td><td>保留的日志备份数</td></tr>
+<tr><td>保留天数</td><td><code>30</code></td><td>日志保留天数</td></tr>
+<tr><td>控制台输出</td><td>关闭</td><td>是否输出日志到控制台</td></tr>
+<tr><td>文件输出</td><td>关闭</td><td>是否写入日志文件</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>网络与安全：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>允许外部访问（局域网/公网）</td><td>关闭</td><td>开启后监听 0.0.0.0，允许其他设备通过 IP 访问 Web 端</td></tr>
+<tr><td>反向代理模式（Nginx/Caddy）</td><td>关闭</td><td>通过反向代理部署时必须开启，开启后读取 X-Forwarded-For 获取真实 IP</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>平台与云服务：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>平台连接（Agent Hub / Skill Store）</td><td><code>https://openakita.ai/api</code></td><td>配置 OpenAkita 远程平台地址</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>数据与备份：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>定时备份</td><td>关闭</td><td>配置自动备份的路径、频率和备份内容</td></tr>
+<tr><td>备份存储位置</td><td>/</td><td>配置备份存储的路径</td></tr>
+<tr><td>保留最近备份数</td><td><code>5</code></td><td>配置保留最近的备份数量</td></tr>
+<tr><td>包含用户数据（对话记忆、会话等）</td><td>开启</td><td>是否开启用户数据的备份</td></tr>
+<tr><td>包含媒体文件（图片、语音等）</td><td>关闭</td><td>是否开启媒体文件的备份</td></tr>
+</tbody>
+</table>
+</div>
+<ul class="checklist">
+<li><strong>手动备份与还原</strong>：可以立即创建备份或者从已有备份还原工作区数据</li>
+<li><strong>工作区迁移</strong>：将 <code>.openakita</code> 数据目录迁移到其他位置</li>
+</ul>
+</div></div></section>
+<section class="tutorial-section" id="gui-full-multi"><div class="card">
+<div class="tutorial-substep"><h3>4.2.6 多 Agent 模式</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>多 Agent 模式</td><td>关闭</td><td>多 Agent 协作模式</td></tr>
+</tbody>
+</table>
+</div>
+</div></div></section>
+<section class="tutorial-section" id="gui-full-done"><div class="card">
+<div class="tutorial-substep"><h3>4.2.7 完成</h3>
+<p>配置完成后，点击<strong>「应用并重启」</strong>，即可启动服务。</p>
+<p class="notice">所有配置项均通过工作区的 <code>.env</code> 文件管理，路径：<code>~/.openakita/workspaces/{workspace_id}/.env</code></p>
+</section>
+</div></div></div></section>
+</div>
+</div></div>
+</div>
+</section>
 </main>
 <footer class="site-footer">
 <div class="container footer-grid">
@@ -86,6 +947,6 @@ openakita run "创建一个带测试的 Python 计算器"</code></div>
 </div>
 </footer>
 <script src="../../../assets/js/tracker.js"></script>
-<script src="../../../assets/js/motion.js"></script><script src="../../../assets/js/main.js?v=20260402-im-sidebar-fix"></script>
+<script src="../../../assets/js/motion.js"></script><script src="../../../assets/js/main.js?v=20260608-linux-docker-nav"></script>
 </body>
 </html>

@@ -768,13 +768,38 @@
   var languagePacks = {};
   var loadingPacks = {};
   var originalTextMap = new WeakMap();
+  var blockOriginalMap = new WeakMap();
+  var blockOriginalHtmlMap = new WeakMap();
+
+  function applyBlockTranslations() {
+    document.querySelectorAll("[data-i18n-block]").forEach(function (el) {
+      if (!blockOriginalHtmlMap.has(el)) {
+        blockOriginalHtmlMap.set(el, el.innerHTML);
+        var source = el.getAttribute("data-i18n-block") || collapseWhitespaceForI18nLookup(el.textContent);
+        blockOriginalMap.set(el, source);
+      }
+
+      if (currentLanguage === "zh") {
+        el.innerHTML = blockOriginalHtmlMap.get(el);
+        return;
+      }
+
+      var pack = languagePacks[currentLanguage];
+      if (!pack || !CONTENT_TRANSLATE_LANGS.has(currentLanguage)) return;
+
+      var translated = lookupLanguagePackString(blockOriginalMap.get(el), pack);
+      if (translated && translated.trim()) {
+        el.textContent = translated;
+      }
+    });
+  }
 
   function loadLanguagePack(lang) {
     if (lang === "zh") return Promise.resolve(null);
     if (languagePacks[lang]) return Promise.resolve(languagePacks[lang]);
     if (loadingPacks[lang]) return loadingPacks[lang];
 
-    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260424-i18n-fragment-fix")
+    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260608-i18n-footer-table")
       .then(function (response) {
         if (!response.ok) throw new Error("i18n_load_failed");
         return response.json();
@@ -836,6 +861,7 @@
   }
 
   function applyContentTranslations() {
+    applyBlockTranslations();
     var pack = currentLanguage !== "zh" ? languagePacks[currentLanguage] : null;
 
     var roots = [];
@@ -858,7 +884,7 @@
         var parent = node.parentElement;
         if (!parent) { node = walker.nextNode(); continue; }
 
-        if (parent.closest("script,style,noscript,textarea,code,pre,.code-block,[data-i18n-managed]")) {
+        if (parent.closest("script,style,noscript,textarea,code,pre,.code-block,[data-i18n-managed],[data-i18n-block]")) {
           node = walker.nextNode();
           continue;
         }
@@ -904,6 +930,12 @@
   var originalImgSrcMap = new WeakMap();
 
   function applyImageTranslations() {
+    function setImageVisible(img, visible) {
+      img.hidden = !visible;
+      var figure = img.closest("figure");
+      if (figure) figure.hidden = !visible;
+    }
+
     var imgs = document.querySelectorAll("[data-i18n-img]");
     imgs.forEach(function (img) {
       if (!originalImgSrcMap.has(img)) {
@@ -913,39 +945,26 @@
 
       if (currentLanguage === "zh") {
         img.setAttribute("src", zhSrc);
+        setImageVisible(img, true);
         return;
       }
 
       var langSrc = zhSrc.replace("/zh/", "/" + currentLanguage + "/");
-      var enSrc = zhSrc.replace("/zh/", "/en/");
-
-      var candidates = [langSrc];
-      if (currentLanguage !== "en") {
-        candidates.push(enSrc);
-      }
-
-      function tryNext(i) {
-        if (i >= candidates.length) {
-          img.setAttribute("src", zhSrc);
-          return;
-        }
-        var probe = new Image();
-        probe.onload = function () {
-          window.setTimeout(function () {
-            if (probe.naturalWidth > 0 || probe.naturalHeight > 0) {
-              img.setAttribute("src", candidates[i]);
-            } else {
-              tryNext(i + 1);
-            }
-          }, 0);
-        };
-        probe.onerror = function () {
-          tryNext(i + 1);
-        };
-        probe.src = candidates[i];
-      }
-
-      tryNext(0);
+      var probe = new Image();
+      probe.onload = function () {
+        window.setTimeout(function () {
+          if (probe.naturalWidth > 0 || probe.naturalHeight > 0) {
+            img.setAttribute("src", langSrc);
+            setImageVisible(img, true);
+          } else {
+            setImageVisible(img, false);
+          }
+        }, 0);
+      };
+      probe.onerror = function () {
+        setImageVisible(img, false);
+      };
+      probe.src = langSrc;
     });
   }
 
@@ -1151,7 +1170,16 @@
     setText(".page-hero p", t("tutorials.hero.desc"));
   }
 
+  function isSetupOverviewPage() {
+    const path = (window.location.pathname || "").replace(/\/+$/, "").toLowerCase();
+    return (
+      path.endsWith("/tutorials/setup-install") ||
+      path.endsWith("/tutorials/setup-install/index.html")
+    );
+  }
+
   function applySetupTexts() {
+    if (!isSetupOverviewPage()) return;
     setText(".page-hero h1", t("setup.hero.title"));
     setText(".page-hero p", t("setup.hero.desc"));
     setList(".side-nav a", tArray("setup.side"));
@@ -1486,16 +1514,50 @@
         ],
       },
       pypi: {
-        title: "方式二：PyPI CLI",
+        title: "方式二：Linux",
         templateId: "setup-drawer-template-pypi",
         chapters: [
-          { id: "drawer-pypi-prereq", label: "一、环境要求" },
-          { id: "drawer-pypi-install", label: "二、安装步骤" },
-          { id: "drawer-pypi-first-run", label: "三、首次运行" },
-          { id: "drawer-pypi-verify", label: "四、日常使用" },
-          { id: "drawer-pypi-script", label: "五、可选：官方一键脚本" },
-          { id: "drawer-pypi-faq", label: "六、常见问题" },
-          { id: "drawer-pypi-cheatsheet", label: "七、完整命令速查" },
+          {
+            label: "Linux CLI",
+            children: [
+              { id: "drawer-pypi-prereq", label: "一、环境要求" },
+              { id: "drawer-pypi-install", label: "二、安装步骤" },
+              { id: "drawer-pypi-first-run", label: "三、首次运行" },
+              { id: "drawer-pypi-verify", label: "四、日常使用" },
+              { id: "drawer-pypi-script", label: "五、可选：官方一键脚本" },
+              { id: "drawer-pypi-faq", label: "六、常见问题" },
+              { id: "drawer-pypi-cheatsheet", label: "七、完整命令速查" },
+            ],
+          },
+          {
+            label: "Linux Docker",
+            children: [
+              { id: "drawer-pypi-docker-prereq", label: "一、环境要求" },
+              { id: "drawer-pypi-docker-install", label: "二、安装步骤" },
+              { id: "drawer-pypi-docker-deploy", label: "三、部署 OpenAkita" },
+              { id: "drawer-pypi-docker-access", label: "四、访问 OpenAkita" },
+              { id: "drawer-pypi-docker-commands", label: "五、常用管理命令" },
+              { id: "drawer-pypi-docker-troubleshoot", label: "六、故障排查" },
+            ],
+          },
+          {
+            label: "Linux GUI",
+            children: [
+              { id: "drawer-pypi-gui-prereq", label: "1、前置条件" },
+              { id: "drawer-pypi-gui-download", label: "2、下载安装包" },
+              { id: "drawer-pypi-gui-install", label: "3、正式安装" },
+              { id: "drawer-pypi-gui-start", label: "4、启动与配置" },
+              { id: "drawer-pypi-gui-wizard", label: "4.1 初次配置（配置向导）" },
+              { id: "drawer-pypi-gui-full-overview", label: "4.2 完整配置" },
+              { id: "drawer-pypi-gui-full-llm", label: "4.2.1 LLM 端点配置" },
+              { id: "drawer-pypi-gui-full-im", label: "4.2.2 IM 通道" },
+              { id: "drawer-pypi-gui-full-tools", label: "4.2.3 工具与技能" },
+              { id: "drawer-pypi-gui-full-soul", label: "4.2.4 灵魂与意志" },
+              { id: "drawer-pypi-gui-full-advanced", label: "4.2.5 高级配置" },
+              { id: "drawer-pypi-gui-full-multi", label: "4.2.6 多 Agent 模式" },
+              { id: "drawer-pypi-gui-full-done", label: "4.2.7 完成" },
+            ],
+          },
         ],
       },
       source: {
@@ -1529,7 +1591,20 @@
       contentNode.innerHTML = "";
       contentNode.appendChild(template.content.cloneNode(true));
 
-      config.chapters.forEach(function (chapter) {
+      function bindNavScrollLinks(root) {
+        root.querySelectorAll("a[href^='#']").forEach(function (link) {
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+            const id = link.getAttribute("href").slice(1);
+            const target = contentNode.querySelector("#" + id);
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          });
+        });
+      }
+
+      function appendChapterLink(chapter, container) {
         const link = document.createElement("a");
         link.href = "#" + chapter.id;
         link.textContent = translatePackString(chapter.label);
@@ -1538,6 +1613,8 @@
           if (match[3] !== undefined) link.classList.add("setup-nav-l3");
           else if (match[2] !== undefined) link.classList.add("setup-nav-l2");
           else link.classList.add("setup-nav-l1");
+        } else if (/^[一二三四五六七八九十]+、/.test(chapter.label)) {
+          link.classList.add("setup-nav-l2");
         } else {
           link.classList.add("setup-nav-l1");
         }
@@ -1548,8 +1625,37 @@
             target.scrollIntoView({ behavior: "smooth", block: "start" });
           }
         });
-        navNode.appendChild(link);
+        container.appendChild(link);
+      }
+
+      const navTemplate = document.getElementById("setup-drawer-nav-" + method);
+      if (navTemplate) {
+        navNode.appendChild(navTemplate.content.cloneNode(true));
+        bindNavScrollLinks(navNode);
+      } else {
+      config.chapters.forEach(function (chapter) {
+        if (chapter.children && chapter.children.length) {
+          const group = document.createElement("details");
+          group.className = "setup-drawer-nav-group";
+
+          const summary = document.createElement("summary");
+          summary.className = "setup-drawer-nav-group-title";
+          summary.textContent = translatePackString(chapter.label);
+          group.appendChild(summary);
+
+          const items = document.createElement("div");
+          items.className = "setup-drawer-nav-group-items";
+          chapter.children.forEach(function (child) {
+            appendChapterLink(child, items);
+          });
+          group.appendChild(items);
+          navNode.appendChild(group);
+          return;
+        }
+
+        appendChapterLink(chapter, navNode);
       });
+      }
 
       applyContentTranslations();
       applyCodeSampleTranslations();
