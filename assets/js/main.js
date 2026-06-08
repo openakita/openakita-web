@@ -84,12 +84,12 @@
       },
       download: {
         meta: {
-          title: "下载 OpenAkita - Desktop / CLI / Source",
-          description: "OpenAkita 下载页面：Desktop 安装包、PyPI CLI 安装、源码部署和一键脚本。",
+          title: "下载 OpenAkita - Desktop / CLI / Docker / Source",
+          description: "OpenAkita 下载页面：Desktop 安装包、PyPI CLI、Docker Compose 容器部署与源码安装。",
         },
         hero: {
           title: "下载与安装 OpenAkita",
-          desc: "官方支持 Desktop、CLI、源码部署三种方式。你可以从简单到深入逐步切换。",
+          desc: "官方支持 Desktop、CLI、Docker、源码部署四种方式。你可以从简单到深入逐步切换。",
         },
         buttons: {
           latest: "查看全部安装包",
@@ -101,9 +101,9 @@
             desc: "只保留三端最新安装包入口，按你的系统直接下载即可。",
           },
           cli: {
-            title: "PyPI CLI 安装",
+            title: "CLI 安装",
             desc: "适合命令行用户与自动化部署，步骤最短。",
-            btn: "查看安装教程",
+            btn: "查看完整安装教程",
           },
           source: {
             title: "源码安装",
@@ -261,12 +261,12 @@
       },
       download: {
         meta: {
-          title: "Download OpenAkita - Desktop / CLI / Source",
-          description: "OpenAkita downloads: Desktop packages, PyPI CLI install, source deployment, and quick scripts.",
+          title: "Download OpenAkita - Desktop / CLI / Docker / Source",
+          description: "OpenAkita downloads: Desktop packages, PyPI CLI, Docker Compose deployment, and source installation.",
         },
         hero: {
           title: "Download and Install OpenAkita",
-          desc: "Choose Desktop, CLI, or source deployment based on your team workflow.",
+          desc: "Officially supports Desktop, CLI, Docker, and source deployment. Switch gradually from simple to advanced.",
         },
         buttons: {
           latest: "All Packages",
@@ -278,9 +278,9 @@
             desc: "Only the latest packages for three platforms are shown.",
           },
           cli: {
-            title: "PyPI CLI Install",
-            desc: "Best for CLI workflows and automation.",
-            btn: "View Setup Guide",
+            title: "CLI Installation",
+            desc: "Best for command-line users and automated deployment—the shortest path.",
+            btn: "View Full Installation Guide",
           },
           source: {
             title: "Source Installation",
@@ -401,7 +401,7 @@
           desc: "API Key を 1 つ入れるだけ。あとは OpenAkita が実行します。",
         },
       },
-      download: { hero: { title: "OpenAkita をダウンロード", desc: "Desktop / CLI / Source の 3 つの導入方法を提供します。" } },
+      download: { hero: { title: "OpenAkita をダウンロード", desc: "Desktop / CLI / Docker / ソースコードの 4 つの導入方法を提供します。" } },
       tutorials: { hero: { title: "チュートリアルセンター", desc: "インストール、IM 連携、LLM 設定を網羅。" } },
       setup: {
         hero: { title: "初期セットアップ", desc: "Desktop と CLI の導入手順。" },
@@ -452,7 +452,7 @@
           desc: "API Key 하나면 시작됩니다. 나머지는 OpenAkita가 처리합니다.",
         },
       },
-      download: { hero: { title: "OpenAkita 다운로드", desc: "Desktop / CLI / Source 3가지 설치 경로를 지원합니다." } },
+      download: { hero: { title: "OpenAkita 다운로드", desc: "Desktop / CLI / Docker / 소스 코드 4가지 설치 경로를 지원합니다." } },
       tutorials: { hero: { title: "튜토리얼 센터", desc: "설치, IM 연동, LLM 설정을 다룹니다." } },
       setup: {
         hero: { title: "초기 설정", desc: "Desktop 및 CLI 설치 가이드." },
@@ -504,7 +504,7 @@
           desc: "Нужен только API Key. Остальное OpenAkita сделает сам.",
         },
       },
-      download: { hero: { title: "Скачать OpenAkita", desc: "Доступны Desktop, CLI и исходная установка." } },
+      download: { hero: { title: "Скачать OpenAkita", desc: "Доступны Desktop, CLI, Docker и установка из исходного кода." } },
       tutorials: { hero: { title: "Центр руководств", desc: "Установка, IM-каналы и настройка LLM." } },
       setup: {
         hero: { title: "Начальная установка", desc: "Пошаговый гайд для Desktop и CLI." },
@@ -566,7 +566,7 @@
           desc: "Ajoutez une clé API. OpenAkita gère le reste.",
         },
       },
-      download: { hero: { title: "Télécharger OpenAkita", desc: "Installation Desktop, CLI et source." } },
+      download: { hero: { title: "Télécharger OpenAkita", desc: "Installation Desktop, CLI, Docker et depuis les sources." } },
       tutorials: { hero: { title: "Centre de tutoriels", desc: "Installation, canaux IM et configuration LLM." } },
       setup: {
         hero: { title: "Installation initiale", desc: "Guide Desktop et CLI étape par étape." },
@@ -628,7 +628,7 @@
           desc: "Ein API Key reicht. Den Rest erledigt OpenAkita.",
         },
       },
-      download: { hero: { title: "OpenAkita herunterladen", desc: "Desktop-, CLI- und Source-Installation verfügbar." } },
+      download: { hero: { title: "OpenAkita herunterladen", desc: "Desktop-, CLI-, Docker- und Source-Installation verfügbar." } },
       tutorials: { hero: { title: "Tutorial-Zentrum", desc: "Installation, IM-Kanäle und LLM-Konfiguration." } },
       setup: {
         hero: { title: "Ersteinrichtung", desc: "Schritt-für-Schritt für Desktop und CLI." },

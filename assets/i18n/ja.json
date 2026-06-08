@@ -343,6 +343,7 @@
   "完成配置后建议做三类验证：交互验证、任务验证、故障模拟验证。": "設定完了後は、対話型検証、タスク検証、故障シミュレーション検証の 3 種類の検証を行うことをお勧めします。",
   "完整配置": "完全な構成",
   "完整配置适合生产场景，适合需要自定义运行环境、安装源、工具能力和 Agent 行为策略的团队。": "完全な構成は運用シナリオに適しており、実行環境、インストール ソース、ツール機能、エージェントの動作戦略をカスタマイズする必要があるチームに適しています。",
+  "官方支持 Desktop、CLI、Docker、源码部署四种方式。你可以从简单到深入逐步切换。": "デスクトップ、CLI、Docker、ソースコード展開の 4 つの方法を正式にサポートします。簡単な内容から詳細な内容に徐々に切り替えることができます。",
   "官方支持 Desktop、CLI、源码部署三种方式。你可以从简单到深入逐步切换。": "デスクトップ、CLI、ソースコード展開の 3 つの方法を正式にサポートします。簡単な内容から詳細な内容に徐々に切り替えることができます。",
   "官方脚本来自项目仓库 `scripts/quickstart.*`。": "公式スクリプトはプロジェクト リポジトリ `scripts/quickstart.*` から取得されます。",
   "密钥泄露后立即吊销并更新部署环境。": "キーが侵害された後は、すぐにデプロイメント環境を取り消して更新します。",
@@ -2258,5 +2259,11 @@
   "sudo usermod -aG docker $USER\nnewgrp docker": "sudo usermod -aG docker $USER\nnewgrp docker",
   "三、部署 OpenAkita": "三、OpenAkita をデプロイ ",
   "地址：http://<虚拟机IP>:18900（默认端口，具体见 .env 中的 FRONTEND_PORT）": "アドレス: http://<VM IP>:18900（デフォルトポート。.env の FRONTEND_PORT を参照） ",
-  "Linux 安装（CLI / Docker / GUI）": "Linux インストール（CLI / Docker / GUI） "
+  "Linux 安装（CLI / Docker / GUI）": "Linux インストール（CLI / Docker / GUI） ",
+  "CLI 安装": "CLI インストール",
+  "查看完整安装教程": "完全なインストールチュートリアルを見る",
+  "适合 Server 容器化部署，克隆项目、配置 API Key 后一键构建启动。": "サーバー向けコンテナデプロイに最適。リポジトリをクローンし、API Key を設定してワンコマンドでビルド・起動。",
+  "Docker 安装": "Docker インストール",
+  "查看完整 Docker 教程": "Docker 完全ガイドを見る",
+  "# === 克隆项目 ===\ngit clone https://github.com/openakita-io/openakita.git && cd openakita\n\n# === 配置环境变量 ===\ncp .env.example .env\nnano .env\n# === 只需修改这一行 ===\nDASHSCOPE_API_KEY=sk-你的密钥\n\n# === 启动服务 ===\nsudo docker compose build\nsudo docker compose up -d\n\n# === 验证运行 ===\nsudo docker compose ps\n\n# === 访问 OpenAkita ===\n# 浏览器打开：http://<本机IP>:18900": "# === リポジトリをクローン ===\ngit clone https://github.com/openakita-io/openakita.git && cd openakita\n\n# === 環境変数の設定 ===\ncp .env.example .env\nnano .env\n# === この行のみ変更 ===\nDASHSCOPE_API_KEY=sk-あなたのキー\n\n# === サービス起動 ===\nsudo docker compose build\nsudo docker compose up -d\n\n# === 動作確認 ===\nsudo docker compose ps\n\n# === OpenAkita にアクセス ===\n# ブラウザで開く：http://<本机IP>:18900"
 }

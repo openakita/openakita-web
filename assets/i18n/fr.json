@@ -343,6 +343,7 @@
   "完成配置后建议做三类验证：交互验证、任务验证、故障模拟验证。": "Une fois la configuration terminée, il est recommandé d'effectuer trois types de vérification : vérification interactive, vérification des tâches et vérification par simulation de panne.",
   "完整配置": "Configuration complète",
   "完整配置适合生产场景，适合需要自定义运行环境、安装源、工具能力和 Agent 行为策略的团队。": "La configuration complète est adaptée aux scénarios de production et convient aux équipes qui doivent personnaliser l'environnement d'exécution, les sources d'installation, les capacités des outils et les stratégies de comportement des agents.",
+  "官方支持 Desktop、CLI、Docker、源码部署四种方式。你可以从简单到深入逐步切换。": "Prend officiellement en charge Desktop, CLI, Docker et le déploiement depuis les sources. Passez progressivement du simple au avancé.",
   "官方支持 Desktop、CLI、源码部署三种方式。你可以从简单到深入逐步切换。": "Prend officiellement en charge trois méthodes de déploiement de bureau, de CLI et de code source. Vous pouvez passer progressivement du simple au approfondi.",
   "官方脚本来自项目仓库 `scripts/quickstart.*`。": "Le script officiel provient du référentiel du projet `scripts/quickstart.*`.",
   "密钥泄露后立即吊销并更新部署环境。": "Révoquer et mettre à jour immédiatement l'environnement de déploiement une fois la clé compromise.",
@@ -2262,5 +2263,11 @@
   "：首次使用优先 Desktop，生产脚本优先 Linux，研发团队优先源码。": " : donner la priorité à Desktop pour la première utilisation, à Linux pour les scripts de production et au code source pour l'équipe R&D. ",
   "三、部署 OpenAkita": "III. Déployer OpenAkita ",
   "地址：http://<虚拟机IP>:18900（默认端口，具体见 .env 中的 FRONTEND_PORT）": "Adresse : http://<IP-VM>:18900 (port par défaut ; voir FRONTEND_PORT dans .env) ",
-  "Linux 安装（CLI / Docker / GUI）": "Installation Linux (CLI / Docker / GUI) "
+  "Linux 安装（CLI / Docker / GUI）": "Installation Linux (CLI / Docker / GUI) ",
+  "CLI 安装": "Installation CLI",
+  "查看完整安装教程": "Voir le guide d'installation complet",
+  "适合 Server 容器化部署，克隆项目、配置 API Key 后一键构建启动。": "Idéal pour le déploiement conteneurisé sur serveur. Clonez le dépôt, configurez la clé API, puis build et démarrage en une commande.",
+  "Docker 安装": "Installation Docker",
+  "查看完整 Docker 教程": "Voir le guide Docker complet",
+  "# === 克隆项目 ===\ngit clone https://github.com/openakita-io/openakita.git && cd openakita\n\n# === 配置环境变量 ===\ncp .env.example .env\nnano .env\n# === 只需修改这一行 ===\nDASHSCOPE_API_KEY=sk-你的密钥\n\n# === 启动服务 ===\nsudo docker compose build\nsudo docker compose up -d\n\n# === 验证运行 ===\nsudo docker compose ps\n\n# === 访问 OpenAkita ===\n# 浏览器打开：http://<本机IP>:18900": "# === Cloner le dépôt ===\ngit clone https://github.com/openakita-io/openakita.git && cd openakita\n\n# === Configurer les variables d'environnement ===\ncp .env.example .env\nnano .env\n# === Modifier uniquement cette ligne ===\nDASHSCOPE_API_KEY=sk-votre-clé\n\n# === Démarrer les services ===\nsudo docker compose build\nsudo docker compose up -d\n\n# === Vérifier ===\nsudo docker compose ps\n\n# === Accéder à OpenAkita ===\n# Ouvrir dans le navigateur : http://<IP-du-serveur>:18900"
 }

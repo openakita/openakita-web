@@ -4,15 +4,15 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>下载 OpenAkita - Desktop / CLI / Source</title>
-<meta content="OpenAkita 下载页面：Desktop 安装包、PyPI CLI 安装、源码部署和一键脚本。" name="description"/>
-<meta content="OpenAkita,下载,Desktop,CLI,PyPI,源码安装" name="keywords"/>
+<title>下载 OpenAkita - Desktop / CLI / Docker / Source</title>
+<meta content="OpenAkita 下载页面：Desktop 安装包、PyPI CLI、Docker Compose 容器部署与源码安装。" name="description"/>
+<meta content="OpenAkita,下载,Desktop,CLI,Docker,PyPI,源码安装" name="keywords"/>
 <meta content="index,follow,max-image-preview:large" name="robots"/>
 <meta content="OpenAkita Contributors" name="author"/>
 <meta content="website" property="og:type"/>
 <meta content="OpenAkita" property="og:site_name"/>
-<meta content="下载 OpenAkita - Desktop / CLI / Source" property="og:title"/>
-<meta content="官方安装包、命令行安装与源码安装完整入口。" property="og:description"/>
+<meta content="下载 OpenAkita - Desktop / CLI / Docker / Source" property="og:title"/>
+<meta content="官方安装包、CLI、Docker 容器部署与源码安装完整入口。" property="og:description"/>
 <meta content="https://openakita.ai/download/" property="og:url"/>
 <meta content="https://openakita.ai/assets/img/zh/desktop_terminal.png" property="og:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
@@ -51,7 +51,7 @@
 <div class="container reveal">
 <div class="eyebrow" data-i18n="download.0001">Download</div>
 <h1 data-i18n="download.0002">下载与安装 OpenAkita</h1>
-<p data-i18n="download.0003">官方支持 Desktop、CLI、源码部署三种方式。你可以从简单到深入逐步切换。</p>
+<p data-i18n="download.0003">官方支持 Desktop、CLI、Docker、源码部署四种方式。你可以从简单到深入逐步切换。</p>
 </div>
 </section>
 
@@ -66,6 +66,10 @@
     <button class="install-tab" role="tab" aria-selected="false" data-tab="cli">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
       <span>CLI</span>
+    </button>
+    <button class="install-tab" role="tab" aria-selected="false" data-tab="docker">
+      <svg class="install-tab-icon install-tab-icon--docker" width="26" height="26" viewBox="0 4 22 15" fill="currentColor" aria-hidden="true"><path d="M13.3 11.4h2.2v-2.2h-2.2v2.2zm-3.3 0h2.2v-2.2h-2.2v2.2zm-3.3 0h2.2v-2.2H6.7v2.2zm-3.3 0h2.2V7h-2.2v4.4zm13.3 0H18v-2.2h-2.2v2.2zM10 7H7.8V4.8H10V7zm3.3 6.6h2.2v-2.2h-2.2v2.2zm-3.3 0h2.2v-2.2h-2.2v2.2zm-3.3 0h2.2v-2.2H6.7v2.2zm10-3.3H18V7h-2.2v3.3zM2.2 12.5c-.1 0-.2.1-.2.2 0 3.2 2.6 5.8 5.8 5.8h.5c3.2 0 5.8-2.6 5.8-5.8 0-.1-.1-.2-.2-.2H2.2zm16.5 1.5c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5 1.5-.7 1.5-1.5-.7-1.5-1.5-1.5z"/></svg>
+      <span data-i18n-dl="dockerInstall">Docker</span>
     </button>
     <button class="install-tab" role="tab" aria-selected="false" data-tab="source">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -194,40 +198,104 @@
 <div class="container card-stack">
 <article class="card reveal">
 <img alt="cli" class="card-icon" src="../assets/img/icons/book.svg"/>
-<h3 data-i18n="download.0011">PyPI CLI 安装</h3>
-<p data-i18n="download.0012">适合命令行用户与自动化部署，步骤最短。</p>
-<div class="code-block"><code data-i18n-translate># 1) 创建虚拟环境
-python -m venv venv
+<h3>CLI 安装</h3>
+<p>适合命令行用户与自动化部署，步骤最短。</p>
+<div class="code-block"><code data-i18n-translate># === 系统与 Python 3.11 ===
+sudo apt update
+sudo apt install -y software-properties-common
+sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install -y python3.11 python3.11-venv python3.11-dev python3-pip build-essential git curl
 
-# 2) 激活环境（Linux/macOS）
+# === 项目与虚拟环境 ===
+mkdir -p ~/openakita && cd ~/openakita
+python3.11 -m venv venv
 source venv/bin/activate
+pip install -U pip setuptools wheel
 
-# 3) 激活环境（Windows PowerShell）
-# .\\venv\\Scripts\\activate
+# === 安装 OpenAkita ===
+pip install "openakita[all]" \
+  -i https://mirrors.aliyun.com/pypi/simple/ \
+  --trusted-host mirrors.aliyun.com
 
-# 4) 安装 openakita 与常用扩展
-pip install openakita[all]
+# === 初始化与运行 ===
+openakita init --quick
+openakita 
 
-# 5) 初始化配置文件
-openakita init
-
-# 6) 启动交互模式
-openakita</code></div>
+# === 测试 ===
+openakita run "你好，介绍一下你自己"</code></div>
 <div class="actions">
-<a class="btn btn-secondary" data-i18n="download.0013" href="/tutorials/setup-install/">查看安装教程</a>
+<a class="btn btn-secondary" href="/tutorials/setup-install/pypi/">查看完整安装教程</a>
 </div>
 </article>
 
 <article class="card reveal">
-<h3 data-i18n="download.0018">一键脚本安装</h3>
-<p data-i18n="download.0017">官方脚本来自项目仓库 `scripts/quickstart.*`。</p>
-<div style="margin-top: 12px;">
-<h4 data-i18n="download.0018">Linux / macOS</h4>
-<div class="code-block"><code>curl -fsSL https://raw.githubusercontent.com/openakita/openakita/main/scripts/quickstart.sh | bash</code></div>
-<h4 style="margin-top: 18px;" data-i18n="download.0019">Windows PowerShell</h4>
-<div class="code-block"><code>irm https://raw.githubusercontent.com/openakita/openakita/main/scripts/quickstart.ps1 | iex</code></div>
+<h3>系统要求</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>项目</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>系统</td><td>Ubuntu 22.04 LTS Server（已联网）</td></tr>
+<tr><td>权限</td><td>具备 <code>sudo</code> 的普通用户</td></tr>
+<tr><td>Python</td><td><strong>3.11+</strong>（本教程固定使用 3.11）</td></tr>
+<tr><td>API Key</td><td>至少配置一个 LLM 提供商密钥</td></tr>
+<tr><td>磁盘</td><td>推荐 20 GB 及以上</td></tr>
+</tbody>
+</table>
 </div>
-<p class="notice" style="margin-top: 24px;" data-i18n="download.0020">脚本会自动准备虚拟环境与基础配置，适合第一次落地。</p>
+</article>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- Docker Tab -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="panel-docker" role="tabpanel" style="display:none">
+<div class="container card-stack">
+<article class="card reveal">
+<img alt="docker" class="card-icon" src="../assets/img/icons/docker.svg"/>
+<h3 data-i18n-dl="dockerTitle">Docker 安装</h3>
+<p data-i18n-dl="dockerDesc">适合 Server 容器化部署，克隆项目、配置 API Key 后一键构建启动。</p>
+<div class="code-block"><code data-i18n-translate># === 克隆项目 ===
+git clone https://github.com/openakita-io/openakita.git &amp;&amp; cd openakita
+
+# === 配置环境变量 ===
+cp .env.example .env
+nano .env
+# === 只需修改这一行 ===
+DASHSCOPE_API_KEY=sk-你的密钥
+
+# === 启动服务 ===
+sudo docker compose build
+sudo docker compose up -d
+
+# === 验证运行 ===
+sudo docker compose ps
+
+# === 访问 OpenAkita ===
+# 浏览器打开：http://&lt;本机IP&gt;:18900</code></div>
+<div class="actions">
+<a class="btn btn-secondary" href="/tutorials/setup-install/pypi/#docker-prereq">查看完整 Docker 教程</a>
+</div>
+</article>
+
+<article class="card reveal">
+<h3 data-i18n-dl="dockerReqTitle">系统要求</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th data-i18n-dl="reqItem">项目</th><th data-i18n-dl="reqDesc">说明</th></tr>
+</thead>
+<tbody>
+<tr><td data-i18n-dl="reqOs">系统</td><td>Ubuntu 22.04 LTS Server（已联网）</td></tr>
+<tr><td data-i18n-dl="reqPerm">权限</td><td>具备 <code>sudo</code> 的普通用户</td></tr>
+<tr><td data-i18n-dl="reqApi">API Key</td><td>至少配置一个 LLM 提供商密钥</td></tr>
+<tr><td data-i18n-dl="reqDisk">磁盘</td><td data-i18n-dl="reqDiskVal">推荐 20 GB 及以上</td></tr>
+</tbody>
+</table>
+</div>
 </article>
 </div>
 </section>
@@ -259,32 +327,6 @@ cp data/llm_endpoints.json.example data/llm_endpoints.json
 # 5) 初始化并生成目录
 openakita init</code></div>
 </article>
-</div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════ -->
-<!-- 系统要求 -->
-<!-- ══════════════════════════════════════════════════════ -->
-<section>
-<div class="container reveal">
-<div class="section-head">
-<h2 data-i18n="download.0021">系统要求</h2>
-<p data-i18n="download.0022">建议按生产部署标准准备运行环境。</p>
-</div>
-<div class="table-wrap">
-<table>
-<thead>
-<tr><th data-i18n="download.0023">项目</th><th data-i18n="download.0024">最低配置</th><th data-i18n="download.0025">推荐配置</th></tr>
-</thead>
-<tbody>
-<tr><td data-i18n="download.0026">CPU</td><td data-i18n="download.0027">2 核</td><td data-i18n="download.0028">4 核及以上</td></tr>
-<tr><td data-i18n="download.0029">内存</td><td data-i18n="download.0030">2 GB</td><td data-i18n="download.0031">4 GB 及以上</td></tr>
-<tr><td data-i18n="download.0032">磁盘</td><td data-i18n="download.0033">5 GB</td><td data-i18n="download.0034">20 GB 及以上</td></tr>
-
-<tr><td data-i18n="download.0037">系统</td><td data-i18n="download.0038">Windows / Linux / macOS</td><td data-i18n="download.0039">新版本系统 + 稳定网络</td></tr>
-</tbody>
-</table>
-</div>
 </div>
 </section>
 </main>
@@ -336,6 +378,6 @@ openakita init</code></div>
 <script src="../assets/js/motion.js"></script>
 <script src="../assets/js/main.js?v=20260608-linux-docker-nav"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked@15/marked.min.js"></script>
-<script src="../assets/js/download.js?v=20260311-dl-i18n"></script>
+<script src="../assets/js/download.js?v=20260608-docker-tab"></script>
 </body>
 </html>

@@ -2631,6 +2631,10 @@ body[data-page="home"] .home-section .reveal.is-visible {
 .install-tab svg {
   flex-shrink: 0;
 }
+.install-tab-icon--docker {
+  width: 26px;
+  height: 26px;
+}
 
 /* ── Platform selector ── */
 .platform-selector {

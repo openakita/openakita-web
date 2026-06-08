@@ -343,6 +343,7 @@
   "完成配置后建议做三类验证：交互验证、任务验证、故障模拟验证。": "구성을 완료한 후 대화형 검증, 작업 검증, 오류 시뮬레이션 검증의 세 가지 유형의 검증을 수행하는 것이 좋습니다.",
   "完整配置": "전체 구성",
   "完整配置适合生产场景，适合需要自定义运行环境、安装源、工具能力和 Agent 行为策略的团队。": "전체 구성은 프로덕션 시나리오에 적합하며 실행 환경, 설치 소스, 도구 기능 및 에이전트 동작 전략을 사용자 정의해야 하는 팀에 적합합니다.",
+  "官方支持 Desktop、CLI、Docker、源码部署四种方式。你可以从简单到深入逐步切换。": "데스크톱, CLI, Docker, 소스 코드 배포의 네 가지 방법을 공식적으로 지원합니다. 간단한 것부터 심층적인 것까지 점진적으로 전환할 수 있습니다.",
   "官方支持 Desktop、CLI、源码部署三种方式。你可以从简单到深入逐步切换。": "데스크톱, CLI, 소스 코드 배포의 세 가지 방법을 공식적으로 지원합니다. 간단한 것부터 심층적인 것까지 점진적으로 전환할 수 있습니다.",
   "官方脚本来自项目仓库 `scripts/quickstart.*`。": "공식 스크립트는 프로젝트 저장소 `scripts/quickstart.*`에서 제공됩니다.",
   "密钥泄露后立即吊销并更新部署环境。": "키가 손상된 후 배포 환경을 즉시 취소하고 업데이트합니다.",
@@ -2261,5 +2262,11 @@
   "sudo usermod -aG docker $USER\nnewgrp docker": "sudo usermod -aG docker $USER\nnewgrp docker",
   "三、部署 OpenAkita": "III. OpenAkita 배포 ",
   "地址：http://<虚拟机IP>:18900（默认端口，具体见 .env 中的 FRONTEND_PORT）": "주소: http://<VM IP>:18900 (기본 포트; .env의 FRONTEND_PORT 참조) ",
-  "Linux 安装（CLI / Docker / GUI）": "Linux 설치 (CLI / Docker / GUI) "
+  "Linux 安装（CLI / Docker / GUI）": "Linux 설치 (CLI / Docker / GUI) ",
+  "CLI 安装": "CLI 설치",
+  "查看完整安装教程": "전체 설치 튜토리얼 보기",
+  "适合 Server 容器化部署，克隆项目、配置 API Key 后一键构建启动。": "서버 컨테이너 배포에 적합합니다. 저장소를 클론하고 API Key를 설정한 뒤 한 번에 빌드 및 시작합니다.",
+  "Docker 安装": "Docker 설치",
+  "查看完整 Docker 教程": "전체 Docker 가이드 보기",
+  "# === 克隆项目 ===\ngit clone https://github.com/openakita-io/openakita.git && cd openakita\n\n# === 配置环境变量 ===\ncp .env.example .env\nnano .env\n# === 只需修改这一行 ===\nDASHSCOPE_API_KEY=sk-你的密钥\n\n# === 启动服务 ===\nsudo docker compose build\nsudo docker compose up -d\n\n# === 验证运行 ===\nsudo docker compose ps\n\n# === 访问 OpenAkita ===\n# 浏览器打开：http://<本机IP>:18900": "# === 저장소 클론 ===\ngit clone https://github.com/openakita-io/openakita.git && cd openakita\n\n# === 환경 변수 설정 ===\ncp .env.example .env\nnano .env\n# === 이 줄만 수정 ===\nDASHSCOPE_API_KEY=sk-본인키\n\n# === 서비스 시작 ===\nsudo docker compose build\nsudo docker compose up -d\n\n# === 실행 확인 ===\nsudo docker compose ps\n\n# === OpenAkita 접속 ===\n# 브라우저에서 열기: http://<서버 IP>:18900"
 }
