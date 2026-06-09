@@ -9,47 +9,51 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="../../../assets/css/styles.css?v=bb1a1fd6958e" rel="stylesheet"/>
+<link href="../../../assets/css/styles.css?v=25f02cec2983" rel="stylesheet"/>
 </head>
 <body data-page="tutorials">
 <header class="site-header"><div class="container nav-inner"><a class="brand" href="/"><img alt="OpenAkita" src="../../../assets/img/logo.png"/><span>OpenAkita</span></a><button aria-expanded="false" aria-label="打开导航" class="nav-toggle"><img alt="menu" src="../../../assets/img/icons/menu.svg"/></button><nav aria-label="主导航" class="main-nav"><a data-nav="home" href="/">首页</a><a data-nav="download" href="/download/">下载</a><a data-nav="services" href="/services/">服务</a>
         <a href="/scenarios/" data-nav="scenarios">应用场景</a>
 <a data-nav="tutorials" href="/tutorials/">教程</a><a data-nav="about" href="/about/">关于我们</a><a href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub</a></nav></div></header>
 <main>
-<section class="page-hero"><div class="container reveal"><div class="eyebrow">Tutorial / Setup / Desktop</div><h1>OpenAkita Desktop 安装与配置指南</h1><p>覆盖下载安装、初次配置向导与完整配置全流程。</p></div></section>
+<section class="page-hero"><div class="container reveal"><div class="eyebrow">Tutorial / Setup / Desktop</div><h1>方式一：Windows（Desktop）</h1><p>图形化配置向导，支持快速配置与完整配置，适合大多数用户。</p></div></section>
 <section>
 <div class="container tutorial-shell">
 <aside class="side-nav reveal">
 <h3>目录</h3>
-<a href="#prereq">前置条件</a>
-<a href="#download">1. 下载安装包</a>
-<a href="#install-steps">2. 正式安装</a>
-<a href="#wizard">3. 配置向导（初次配置）</a>
-<a href="#full-overview">4. 完整配置</a>
-<a href="#full-llm">4.1 LLM 端点配置</a>
-<a href="#full-im">4.2 IM 通道</a>
-<a href="#full-tools">4.3 工具与技能</a>
-<a href="#full-soul">4.4 灵魂与意志</a>
-<a href="#full-advanced">4.5 高级配置</a>
-<a href="#full-multi">4.6 多 Agent 模式</a>
-<a href="#full-done">4.7 完成</a>
-</aside>
-<div class="reveal">
-<section class="tutorial-section" id="prereq"><div class="card"><h2 style="margin-top:0;">前置条件</h2>
+<a href="#prereq" class="setup-nav-l1">前置条件</a>
+<a href="#download" class="setup-nav-l1">1. 下载安装包</a>
+<a href="#install-steps" class="setup-nav-l1">2. 正式安装</a>
+<a href="#wizard" class="setup-nav-l1">3. 配置向导（初次配置）</a>
+<a href="#full-overview" class="setup-nav-l1">4. 完整配置</a>
+<a href="#full-llm" class="setup-nav-l2">4.1 LLM 端点配置（必填）</a>
+<a href="#full-im" class="setup-nav-l2">4.2 IM 通道</a>
+<a href="#full-tools" class="setup-nav-l2">4.3 工具与技能</a>
+<a href="#full-soul" class="setup-nav-l2">4.4 灵魂与意志</a>
+<a href="#full-advanced" class="setup-nav-l2">4.5 高级配置</a>
+<a href="#full-multi" class="setup-nav-l2">4.6 多 Agent 模式</a>
+<a href="#full-done" class="setup-nav-l2">4.7 完成</a>
+</aside><div class="reveal"><p class="notice reveal"><strong>返回总览：</strong><a href="/tutorials/setup-install/">安装教程总览</a></p>
+<section class="tutorial-section" id="prereq"><div class="card">
+<h2 style="margin-top:0;">前置条件</h2>
 <ul class="checklist">
 <li><strong>官网地址</strong>：<a href="https://openakita.ai/download/" rel="noopener" target="_blank">openakita.ai/download</a></li>
 <li><strong>LLM API Key</strong>：OpenAkita 本身是一个框架，需要连接大模型才能思考。如果没有 API Key，可以前往对应官网注册（如阿里云、DeepSeek、Anthropic 等）</li>
 </ul>
 </div></section>
-<section class="tutorial-section" id="download"><div class="card"><h2 style="margin-top:0;">1. 下载安装包</h2>
+<section class="tutorial-section" id="download"><div class="card">
+<h2 style="margin-top:0;">1. 下载安装包</h2>
 <p>根据你的操作系统下载对应的安装包，教程以 Windows 11、v1.24.16 版本为例。</p>
+<p><strong>下载步骤：</strong></p>
 <ol>
 <li>打开浏览器，访问 <a href="https://openakita.ai/download/" rel="noopener" target="_blank">OpenAkita 官网下载地址</a></li>
 <li>根据你的操作系统下载对应的安装包，点击下载</li>
 </ol>
-<figure class="tutorial-shot"><img data-i18n-img alt="OpenAkita 官网下载页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita官网下载页面.png"/><figcaption>OpenAkita 官网下载页面。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="OpenAkita 官网下载页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-官网-下载页面.png"/><figcaption>OpenAkita 官网下载页面。</figcaption></figure>
 </div></section>
-<section class="tutorial-section" id="install-steps"><div class="card"><h2 style="margin-top:0;">2. 正式安装</h2>
+<section class="tutorial-section" id="install-steps"><div class="card">
+<h2 style="margin-top:0;">2. 正式安装</h2>
+<p><strong>安装步骤：</strong></p>
 <ol>
 <li>找到刚刚下载的 <strong>.exe 文件</strong>，双击打开</li>
 <li>根据安装向导指引，点击<strong>「下一步」</strong></li>
@@ -64,11 +68,13 @@
 <figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="安装向导 - 正在安装" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-安装向导_正在安装.png"/><figcaption>安装向导 - 正在安装。</figcaption></figure>
 <figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="安装向导 - 安装结束" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-安装向导_安装结束.png"/><figcaption>安装结束，勾选「运行 OpenAkita Desktop」和「创建桌面快捷方式」。</figcaption></figure>
 </div></section>
-<section class="tutorial-section" id="wizard"><div class="card"><h2 style="margin-top:0;">3. 配置向导（初次配置）</h2>
+<section class="tutorial-section" id="wizard"><div class="card">
+<h2 style="margin-top:0;">3. 配置向导（初次配置）</h2>
+<p><strong>配置步骤：</strong></p>
 <ol>
 <li>欢迎使用 OpenAkita 页面，点击<strong>「开始配置」</strong></li>
 <li>确认使用风险，输入"<strong>我已知晓</strong>"</li>
-<li>配置 LLM 端点：至少添加 <strong>1 个 LLM 端点</strong> 才能开始使用
+<li>配置 LLM 端点：你至少需要添加 <strong>1 个 LLM 端点</strong> 才能开始使用。
 <ul>
 <li>点击 LLM 中的<strong>「添加端点」</strong></li>
 <li>选择服务商，填写 API Key</li>
@@ -85,48 +91,80 @@
 <figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 欢迎使用页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-欢迎使用页面.png"/><figcaption>配置向导 - 欢迎使用页面。</figcaption></figure>
 <figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 使用风险须知" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-使用风险须知页面.jpg"/><figcaption>配置向导 - 使用风险须知。</figcaption></figure>
 <figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 配置 AI 模型" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-配置AI模型页面.png"/><figcaption>配置向导 - 配置 AI 模型。</figcaption></figure>
-<figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 添加端点" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-添加端点，填写API Key和选择模型.png"/><figcaption>添加端点 - 填写 API Key 和选择模型。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 添加端点，填写 API Key 和选择模型" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-添加端点，填写API Key和选择模型.png"/><figcaption>添加端点 - 填写 API Key 和选择模型。</figcaption></figure>
 <figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 配置系统选项" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-配置系统选项.png"/><figcaption>配置向导 - 配置系统选项。</figcaption></figure>
 <figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 正在配置" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-正在配置页面.png"/><figcaption>配置向导 - 正在配置...</figcaption></figure>
 <figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 配置完成" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-配置完成页面.png"/><figcaption>配置向导 - 配置完成。</figcaption></figure>
 <figure class="tutorial-shot"><img data-i18n-img alt="OpenAkita 状态页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-状态页面.png"/><figcaption>OpenAkita 状态页面。</figcaption></figure>
 <figure class="tutorial-shot"><img data-i18n-img alt="OpenAkita 聊天页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-聊天页面.png"/><figcaption>聊天界面</figcaption></figure>
 </div></section>
-<section class="tutorial-section" id="full-overview"><div class="card"><h2 style="margin-top:0;">4. 完整配置</h2>
+<section class="tutorial-section" id="full-overview"><div class="card">
+<h2 style="margin-top:0;">4. 完整配置</h2>
 <p>完整配置提供对各功能模块的精细控制，适合需要自定义 LLM 端点、接入 IM 通道、调整 Agent 行为等的用户。</p>
 </div></section>
-<section class="tutorial-section" id="full-llm"><div class="card"><h2 style="margin-top:0;">4.1 LLM 端点配置（必填）</h2>
+<section class="tutorial-section" id="full-llm"><div class="card">
+<div class="tutorial-substep"><h3>4.1 LLM 端点配置（必填）</h3>
 <p>LLM 端点是 OpenAkita 调用大语言模型的入口。你可以配置多个端点，系统会根据优先级和可用性自动选择。</p>
 <figure class="tutorial-shot"><img data-i18n-img alt="LLM 端点配置页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-LLM 端点配置页面.png"/><figcaption>LLM 端点配置页面。</figcaption></figure>
-<div class="table-wrap"><table><thead><tr><th>字段</th><th>说明</th><th>示例</th></tr></thead><tbody>
+<p><strong>添加主端点：</strong>点击<strong>「+ 添加端点」</strong>按钮，打开端点配置对话框</p>
+<figure class="tutorial-shot"><img data-i18n-img alt="添加 LLM 端点页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-添加 LLM 端点页面.png"/><figcaption>添加 LLM 端点对话框。</figcaption></figure>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th><th>示例</th></tr></thead>
+<tbody>
 <tr><td><strong>服务商</strong></td><td>选择 LLM 服务提供商</td><td>通义千问、OpenAI、Anthropic 等</td></tr>
 <tr><td><strong>Base URL</strong></td><td>API 接口地址（选择服务商后自动填充）</td><td><code>https://dashscope.aliyuncs.com/compatible-mode/v1</code></td></tr>
 <tr><td><strong>API Key</strong></td><td>你的 API 密钥</td><td><code>sk-xxxxx</code></td></tr>
 <tr><td><strong>模型</strong></td><td>选择或输入模型名称（支持在线拉取模型列表）</td><td><code>qwen-max</code>、<code>gpt-4o</code></td></tr>
 <tr><td><strong>端点名称</strong></td><td>自动生成，也可自定义</td><td><code>dashscope-qwen-max</code></td></tr>
 <tr><td><strong>能力标签</strong></td><td>勾选该模型支持的能力</td><td>text、thinking、vision、tools</td></tr>
-</tbody></table></div>
-<h3>支持的服务商</h3>
+</tbody>
+</table>
+</div>
+<p><strong>高级参数：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>API Type</strong></td><td><code>openai</code></td><td>接口类型，openai 或 anthropic</td></tr>
+<tr><td><strong>Key 环境变量名</strong></td><td>自动生成</td><td>API Key 在 .env 中的变量名</td></tr>
+<tr><td><strong>优先级</strong></td><td><code>0</code></td><td>数值越小优先级越高</td></tr>
+</tbody>
+</table>
+</div>
+<h4>支持的服务商</h4>
 <p><strong>国内服务商：</strong></p>
-<div class="table-wrap"><table><thead><tr><th>服务商</th><th>API 类型</th><th>默认 Base URL</th></tr></thead><tbody>
+<div class="table-wrap">
+<table>
+<thead><tr><th>服务商</th><th>API 类型</th><th>默认 Base URL</th></tr></thead>
+<tbody>
 <tr><td>通义千问（DashScope）</td><td>openai</td><td><code>https://dashscope.aliyuncs.com/compatible-mode/v1</code></td></tr>
 <tr><td>智谱 AI</td><td>openai</td><td><code>https://open.bigmodel.cn/api/paas/v4</code></td></tr>
 <tr><td>百度千帆</td><td>openai</td><td><code>https://qianfan.baidubce.com/v2</code></td></tr>
 <tr><td>DeepSeek</td><td>openai</td><td><code>https://api.deepseek.com/v1</code></td></tr>
 <tr><td>月之暗面（Kimi）</td><td>openai</td><td><code>https://api.moonshot.cn/v1</code></td></tr>
+<tr><td>零一万物</td><td>openai</td><td><code>https://api.lingyiwanwu.com/v1</code></td></tr>
 <tr><td>字节豆包（火山引擎）</td><td>openai</td><td><code>https://ark.cn-beijing.volces.com/api/v3</code></td></tr>
 <tr><td>SiliconFlow</td><td>openai</td><td><code>https://api.siliconflow.cn/v1</code></td></tr>
-</tbody></table></div>
+</tbody>
+</table>
+</div>
 <p><strong>国际服务商：</strong></p>
-<div class="table-wrap"><table><thead><tr><th>服务商</th><th>API 类型</th><th>默认 Base URL</th></tr></thead><tbody>
+<div class="table-wrap">
+<table>
+<thead><tr><th>服务商</th><th>API 类型</th><th>默认 Base URL</th></tr></thead>
+<tbody>
 <tr><td>OpenAI</td><td>openai</td><td><code>https://api.openai.com/v1</code></td></tr>
 <tr><td>Anthropic</td><td>anthropic</td><td><code>https://api.anthropic.com</code></td></tr>
 <tr><td>Google Gemini</td><td>openai</td><td><code>https://generativelanguage.googleapis.com/v1beta/openai</code></td></tr>
 <tr><td>Groq</td><td>openai</td><td><code>https://api.groq.com/openai/v1</code></td></tr>
 <tr><td>Mistral</td><td>openai</td><td><code>https://api.mistral.ai/v1</code></td></tr>
 <tr><td>OpenRouter</td><td>openai</td><td><code>https://openrouter.ai/api/v1</code></td></tr>
-</tbody></table></div>
-<h3>多端点与 Failover</h3>
+</tbody>
+</table>
+</div>
+<h4>多端点与 Failover</h4>
+<p>OpenAkita 支持配置多个端点，提供自动故障转移能力：</p>
 <ul class="checklist">
 <li><strong>优先级调度</strong>：优先使用 Priority 值最小的端点</li>
 <li><strong>自动降级</strong>：主端点不可用时自动切换到备用端点</li>
@@ -134,66 +172,307 @@
 <li><strong>冷却机制</strong>：连续失败的端点会被临时冷却，避免反复重试</li>
 </ul>
 <p class="notice"><strong>建议</strong>：至少配置 2 个端点（不同服务商），以确保高可用性。</p>
-</div></section>
-<section class="tutorial-section" id="full-im"><div class="card"><h2 style="margin-top:0;">4.2 IM 通道</h2>
+<h4>编译器端点（可选）</h4>
+<p>编译器端点用于代码编译、格式化等辅助任务。如果不配置，系统会使用主端点。</p>
+<h4>语音识别端点（可选）</h4>
+<p>用于在线语音识别，支持 OpenAI Whisper / DashScope Qwen-ASR / Groq / SiliconFlow 等。</p>
+</div></div></section>
+<section class="tutorial-section" id="full-im"><div class="card">
+<div class="tutorial-substep"><h3>4.2 IM 通道</h3>
 <p>IM 通道让你可以通过即时通讯工具与 OpenAkita 对话。所有通道均为<strong>可选</strong>配置。</p>
 <figure class="tutorial-shot"><img data-i18n-img alt="IM 通道配置页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-IM 通道配置页面.png"/><figcaption>IM 通道配置页面。</figcaption></figure>
-<div class="table-wrap"><table><thead><tr><th>通道</th><th>关键字段</th></tr></thead><tbody>
-<tr><td>微信</td><td>Token（扫码后直接填入）</td></tr>
-<tr><td>飞书</td><td>App ID、App Secret（开放平台自建应用）</td></tr>
-<tr><td>钉钉</td><td>Client ID、Client Secret（企业内部应用）</td></tr>
-<tr><td>企业微信</td><td>Bot ID、Secret</td></tr>
-<tr><td>QQ</td><td>App ID、App Secret</td></tr>
-<tr><td>Telegram</td><td>Bot Token、代理（国内需要）</td></tr>
-</tbody></table></div>
-</div></section>
-<section class="tutorial-section" id="full-tools"><div class="card"><h2 style="margin-top:0;">4.3 工具与技能</h2>
-<p>配置 OpenAkita 可以使用的工具和技能扩展，包括 MCP 工具、Skills 管理和桌面自动化。</p>
+<h4>微信</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择微信</td></tr>
+<tr><td><strong>Token</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+</tbody>
+</table>
+</div>
+<h4>飞书</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择飞书</td></tr>
+<tr><td><strong>App ID</strong></td><td>飞书开放平台自建应用的 App ID（扫码创建机器人，可以直接填入）</td></tr>
+<tr><td><strong>App Secret</strong></td><td>飞书开放平台自建应用的 App Secret（扫码创建机器人，可以直接填入）</td></tr>
+</tbody>
+</table>
+</div>
+<p class="notice"><strong>接入方式</strong>：自建应用，无需公网 IP。在<a href="https://open.feishu.cn/" rel="noopener" target="_blank">飞书开放平台</a>创建应用并获取凭证。</p>
+<h4>钉钉</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择钉钉</td></tr>
+<tr><td><strong>Client ID</strong></td><td>钉钉开放平台企业内部应用的 Client ID</td></tr>
+<tr><td><strong>Client Secret</strong></td><td>钉钉开放平台企业内部应用的 Client Secret</td></tr>
+</tbody>
+</table>
+</div>
+<p class="notice"><strong>接入方式</strong>：企业内部应用，无需公网 IP。在<a href="https://open.dingtalk.com/" rel="noopener" target="_blank">钉钉开放平台</a>创建应用。</p>
+<h4>企业微信</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择企业微信</td></tr>
+<tr><td><strong>Bot ID</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+<tr><td><strong>Secret</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+</tbody>
+</table>
+</div>
+<h4>QQ</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择 QQ</td></tr>
+<tr><td><strong>App ID</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+<tr><td><strong>App Secret</strong></td><td>扫码创建机器人，可以直接填入</td></tr>
+</tbody>
+</table>
+</div>
+<h4>Telegram</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>启用</strong></td><td>引导创建 Bot——选择 Telegram</td></tr>
+<tr><td><strong>Bot Token</strong></td><td>从 <a href="https://t.me/BotFather" rel="noopener" target="_blank">@BotFather</a> 获取的 Bot Token</td></tr>
+<tr><td><strong>代理</strong></td><td>HTTP 代理地址（国内用户通常需要），如 <code>http://127.0.0.1:7890</code></td></tr>
+<tr><td><strong>配对验证</strong></td><td>是否要求用户输入配对码才能使用</td></tr>
+<tr><td><strong>配对码</strong></td><td>自定义的配对验证码</td></tr>
+<tr><td><strong>Webhook URL</strong></td><td>使用 Webhook 模式时填写，留空则使用 Long Polling</td></tr>
+</tbody>
+</table>
+</div>
+</div></div></section>
+<section class="tutorial-section" id="full-tools"><div class="card">
+<div class="tutorial-substep"><h3>4.3 工具与技能</h3>
+<p>此步骤配置 OpenAkita 可以使用的工具和技能扩展。</p>
 <figure class="tutorial-shot"><img data-i18n-img alt="工具与技能配置页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-工具与技能配置页面.png"/><figcaption>工具与技能配置页面。</figcaption></figure>
-<h3>桌面自动化</h3>
-<div class="table-wrap"><table><thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead><tbody>
-<tr><td>桌面自动化</td><td>开启</td><td>总开关</td></tr>
-<tr><td>默认显示器</td><td><code>0</code></td><td>多显示器时指定主屏幕</td></tr>
-<tr><td>最大宽度 / 高度</td><td><code>1920 / 1080</code></td><td>截图最大尺寸</td></tr>
+<h4>MCP 工具</h4>
+<p>MCP（Model Context Protocol）允许 OpenAkita 通过标准化协议调用外部工具。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>MCP 总开关</strong></td><td>开启</td><td>是否启用 MCP 工具</td></tr>
+<tr><td><strong>超时</strong></td><td><code>60</code> 秒</td><td>MCP 工具调用超时时间</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>数据库工具（可选）：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>MySQL</strong></td><td>启用后配置 Host、User、Password、Database</td></tr>
+<tr><td><strong>PostgreSQL</strong></td><td>启用后配置连接 URL</td></tr>
+</tbody>
+</table>
+</div>
+<h4>Skills 管理</h4>
+<p>Skills 是可插拔的技能扩展，包括：</p>
+<ul class="checklist">
+<li><strong>系统技能</strong>：内置技能（只读）</li>
+<li><strong>外部技能</strong>：用户安装的第三方技能，可单独启用/禁用</li>
+</ul>
+<h4>桌面自动化</h4>
+<p>桌面自动化让 OpenAkita 可以操作你的电脑桌面（截图、点击、输入等）。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>桌面自动化</strong></td><td>开启</td><td>总开关</td></tr>
+<tr><td><strong>默认显示器</strong></td><td><code>0</code></td><td>多显示器时指定主屏幕</td></tr>
+<tr><td><strong>最大宽度</strong></td><td><code>1920</code></td><td>截图最大宽度</td></tr>
+<tr><td><strong>最大高度</strong></td><td><code>1080</code></td><td>截图最大高度</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>高级选项：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>压缩质量</td><td><code>85</code></td><td>截图 JPEG 质量</td></tr>
 <tr><td>视觉识别</td><td>开启</td><td>使用视觉模型辅助桌面操作</td></tr>
-</tbody></table></div>
-</div></section>
-<section class="tutorial-section" id="full-soul"><div class="card"><h2 style="margin-top:0;">4.4 灵魂与意志</h2>
-<h3>灵魂（Soul）</h3>
-<p>内置多种预设角色人格，包括：默认助手、商务顾问、技术专家、私人管家、虚拟女友 / 男友、家人、贾维斯及自定义。</p>
-<div class="table-wrap"><table><thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead><tbody>
-<tr><td>Agent 名称</td><td><code>OpenAkita</code></td><td>Agent 的显示名称</td></tr>
-<tr><td>最大迭代次数</td><td><code>300</code></td><td>单次任务的最大执行步数</td></tr>
-<tr><td>思考模式</td><td><code>auto</code></td><td>auto / always / never</td></tr>
-<tr><td>自动确认</td><td><code>false</code></td><td>是否跳过用户确认直接执行工具</td></tr>
-<tr><td>记忆管理</td><td>开启</td><td>Agent 会记住你说过的话和偏好</td></tr>
-</tbody></table></div>
-<h3>意志（Will）</h3>
-<div class="table-wrap"><table><thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead><tbody>
-<tr><td>主动任务</td><td>启用</td><td>让 Agent 主动找你聊天</td></tr>
-<tr><td>每日最大消息</td><td><code>3</code></td><td>每天主动消息数量上限</td></tr>
-<tr><td>安静时段</td><td>23:00 - 07:00</td><td>不发送主动消息的时间段</td></tr>
-<tr><td>计划任务</td><td>启用</td><td>定时让 Agent 自动执行指定任务</td></tr>
-<tr><td>时区</td><td><code>Asia/Shanghai</code></td><td>计划任务使用的时区</td></tr>
-</tbody></table></div>
-</div></section>
-<section class="tutorial-section" id="full-advanced"><div class="card"><h2 style="margin-top:0;">4.5 高级配置</h2>
+<tr><td>视觉模型</td><td><code>qwen3-vl-plus</code></td><td>视觉识别使用的模型</td></tr>
+<tr><td>OCR 模型</td><td><code>qwen-vl-ocr</code></td><td>OCR 使用的模型</td></tr>
+<tr><td>点击延迟</td><td><code>0.1</code> 秒</td><td>每次点击后的等待时间</td></tr>
+<tr><td>输入间隔</td><td><code>0.03</code> 秒</td><td>逐字输入的间隔</td></tr>
+</tbody>
+</table>
+</div>
+</div></div></section>
+<section class="tutorial-section" id="full-soul"><div class="card">
+<div class="tutorial-substep"><h3>4.4 灵魂与意志</h3>
+<h4>灵魂（Soul）</h4>
+<p><strong>人格选择：</strong>OpenAkita 内置多种预设角色人格</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>角色</th><th>风格</th><th>适用场景</th></tr></thead>
+<tbody>
+<tr><td><strong>默认助手</strong></td><td>专业友好、平衡得体</td><td>日常使用，万能型</td></tr>
+<tr><td><strong>商务顾问</strong></td><td>正式专业、数据驱动</td><td>工作场景，正式汇报</td></tr>
+<tr><td><strong>技术专家</strong></td><td>简洁精准、代码导向</td><td>编程开发，技术问答</td></tr>
+<tr><td><strong>私人管家</strong></td><td>周到细致、礼貌正式</td><td>生活服务，日程安排</td></tr>
+<tr><td><strong>虚拟女友</strong></td><td>温柔体贴、情感丰富</td><td>情感陪伴，倾听关怀</td></tr>
+<tr><td><strong>虚拟男友</strong></td><td>阳光开朗、幽默风趣</td><td>情感陪伴，轻松有趣</td></tr>
+<tr><td><strong>家人</strong></td><td>亲切关怀、唠叨温暖</td><td>家庭场景，长辈式关怀</td></tr>
+<tr><td><strong>贾维斯</strong></td><td>冷静睿智、英式幽默</td><td>科技极客，AI 管家</td></tr>
+<tr><td><strong>自定义</strong></td><td>用户自定义角色 ID</td><td>进阶用户，DIY 人格</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>自我认识：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>Agent 名称</strong></td><td><code>OpenAkita</code></td><td>Agent 的显示名称</td></tr>
+<tr><td><strong>最大迭代次数</strong></td><td><code>300</code></td><td>单次任务的最大执行步数</td></tr>
+<tr><td><strong>思考模式</strong></td><td><code>auto</code></td><td><code>auto</code>（自动）/ <code>always</code>（总是）/ <code>never</code>（关闭）</td></tr>
+<tr><td><strong>自动确认</strong></td><td><code>false</code></td><td>是否跳过用户确认直接执行工具</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>记忆管理：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>记忆管理</strong></td><td>开启</td><td>Agent 会记住你说过的话和偏好</td></tr>
+</tbody>
+</table>
+</div>
+<p class="notice">LLM 智能审查：将由大模型逐条审查所有记忆，删除垃圾、合并重复，此操作可能需要较长时间，请耐心等待。</p>
+<h4>意志（Will）</h4>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>主动任务</strong></td><td>启用</td><td>让 Agent 像真人一样主动找你聊天</td></tr>
+<tr><td><strong>每日最大消息</strong></td><td><code>3</code></td><td>每天主动消息数量上限</td></tr>
+<tr><td><strong>最短间隔时间</strong></td><td><code>120</code></td><td>两条主动消息之间的最短间隔（分钟）</td></tr>
+<tr><td><strong>空闲阈值</strong></td><td><code>24</code></td><td>用户空闲超过此时长后才触发主动消息</td></tr>
+<tr><td><strong>安静开始（时）</strong></td><td><code>23</code></td><td>不发送主动消息的开始时间</td></tr>
+<tr><td><strong>安静结束（时）</strong></td><td><code>7</code></td><td>免打扰时段结束（24h 制）</td></tr>
+<tr><td><strong>表情包</strong></td><td>关闭</td><td>是否在对话中使用表情包</td></tr>
+<tr><td><strong>表情包目录</strong></td><td><code>data/sticker</code></td><td>表情包数据存储路径</td></tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>字段</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>计划任务</strong></td><td>启用</td><td>定时让 Agent 自动执行指定任务</td></tr>
+<tr><td><strong>时区</strong></td><td><code>Asia/Shanghai</code></td><td>计划任务使用的时区</td></tr>
+</tbody>
+</table>
+</div>
+</div></div></section>
+<section class="tutorial-section" id="full-advanced"><div class="card">
+<div class="tutorial-substep"><h3>4.5 高级配置</h3>
 <figure class="tutorial-shot"><img data-i18n-img alt="Agent 高级配置页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-Agent%20高级配置页面.png"/><figcaption>Agent 高级配置页面。</figcaption></figure>
-<div class="table-wrap"><table><thead><tr><th>类别</th><th>配置项</th><th>说明</th></tr></thead><tbody>
-<tr><td>桌面通知</td><td>任务完成通知、提示音</td><td>任务完成时弹出系统通知</td></tr>
-<tr><td>会话</td><td>超时、最大历史</td><td>默认 30 分钟超时，保留 50 条消息</td></tr>
-<tr><td>网络</td><td>允许外部访问、反向代理模式</td><td>局域网/公网访问及 Nginx/Caddy 支持</td></tr>
-<tr><td>数据</td><td>定时备份、迁移工作区</td><td>自动备份配置、对话记忆等</td></tr>
-</tbody></table></div>
-</div></section>
-<section class="tutorial-section" id="full-multi"><div class="card"><h2 style="margin-top:0;">4.6 多 Agent 模式</h2>
-<p>多 Agent 模式默认关闭，启用后支持多个 Agent 协作执行任务。</p>
-</div></section>
-<section class="tutorial-section" id="full-done"><div class="card"><h2 style="margin-top:0;">4.7 完成</h2>
+<p><strong>桌面通知配置：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>任务完成通知</td><td><code>OFF</code></td><td>任务完成时弹出系统桌面通知提醒</td></tr>
+<tr><td>通知提示音</td><td><code>OFF</code></td><td>桌面通知时播放系统提示音</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>会话配置：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>会话超时</td><td><code>30</code> 分钟</td><td>无活动后自动结束会话</td></tr>
+<tr><td>最大历史</td><td><code>50</code> 条</td><td>单个会话保留的消息数</td></tr>
+<tr><td>存储路径</td><td><code>data/sessions</code></td><td>会话数据存储目录</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>日志配置：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>日志级别</td><td><code>DEBUG</code></td><td>DEBUG / INFO / WARNING / ERROR</td></tr>
+<tr><td>日志目录</td><td><code>logs</code></td><td>日志文件存储目录</td></tr>
+<tr><td>数据库路径</td><td><code>data/agent.db</code></td><td>SQLite 数据库路径</td></tr>
+<tr><td>单文件大小</td><td><code>10</code> MB</td><td>日志文件最大体积</td></tr>
+<tr><td>备份数量</td><td><code>30</code></td><td>保留的日志备份数</td></tr>
+<tr><td>保留天数</td><td><code>30</code></td><td>日志保留天数</td></tr>
+<tr><td>控制台输出</td><td>关闭</td><td>是否输出日志到控制台</td></tr>
+<tr><td>文件输出</td><td>关闭</td><td>是否写入日志文件</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>网络与安全：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>允许外部访问（局域网/公网）</td><td>关闭</td><td>开启后监听 0.0.0.0，允许其他设备通过 IP 访问 Web 端</td></tr>
+<tr><td>反向代理模式（Nginx/Caddy）</td><td>关闭</td><td>通过反向代理部署时必须开启，开启后读取 X-Forwarded-For 获取真实 IP</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>平台与云服务：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>平台连接（Agent Hub / Skill Store）</td><td><code>https://openakita.ai/api</code></td><td>配置 OpenAkita 远程平台地址</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>数据与备份：</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>定时备份</td><td>关闭</td><td>配置自动备份的路径、频率和备份内容</td></tr>
+<tr><td>备份存储位置</td><td>/</td><td>配置备份存储的路径</td></tr>
+<tr><td>保留最近备份数</td><td><code>5</code></td><td>配置保留最近的备份数量</td></tr>
+<tr><td>包含用户数据（对话记忆、会话等）</td><td>开启</td><td>是否开启用户数据的备份</td></tr>
+<tr><td>包含媒体文件（图片、语音等）</td><td>关闭</td><td>是否开启媒体文件的备份</td></tr>
+</tbody>
+</table>
+</div>
+<ul class="checklist">
+<li><strong>手动备份与还原</strong>：可以立即创建备份或者从已有备份还原工作区数据</li>
+<li><strong>工作区迁移</strong>：将 <code>.openakita</code> 数据目录迁移到其他位置</li>
+</ul>
+</div></div></section>
+<section class="tutorial-section" id="full-multi"><div class="card">
+<div class="tutorial-substep"><h3>4.6 多 Agent 模式</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>多 Agent 模式</td><td>关闭</td><td>多 Agent 协作模式</td></tr>
+</tbody>
+</table>
+</div>
+</div></div></section>
+<section class="tutorial-section" id="full-done"><div class="card">
+<div class="tutorial-substep"><h3>4.7 完成</h3>
 <p>配置完成后，点击<strong>「应用并重启」</strong>，即可启动服务。</p>
 <p class="notice">所有配置项均通过工作区的 <code>.env</code> 文件管理，路径：<code>~/.openakita/workspaces/{workspace_id}/.env</code></p>
-</div></section>
-</div>
+</div></div></section>
+</div></div>
 </div>
 </section>
 </main>
@@ -238,7 +517,7 @@
 <span style="margin: 0 8px;">|</span><a href="/privacy/" style="color: var(--text-dim);">隐私政策</a>
 </div>
 </footer>
-<script src="../../../assets/js/tracker.js?v=bb1a1fd6958e"></script>
-<script src="../../../assets/js/motion.js?v=bb1a1fd6958e"></script><script src="../../../assets/js/main.js?v=bb1a1fd6958e"></script>
+<script src="../../../assets/js/tracker.js?v=25f02cec2983"></script>
+<script src="../../../assets/js/motion.js?v=25f02cec2983"></script><script src="../../../assets/js/main.js?v=25f02cec2983"></script>
 </body>
 </html>

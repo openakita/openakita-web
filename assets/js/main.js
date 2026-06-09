@@ -84,12 +84,12 @@
       },
       download: {
         meta: {
-          title: "下载 OpenAkita - Desktop / CLI / Source",
-          description: "OpenAkita 下载页面：Desktop 安装包、PyPI CLI 安装、源码部署和一键脚本。",
+          title: "下载 OpenAkita - Desktop / CLI / Docker / Source",
+          description: "OpenAkita 下载页面：Desktop 安装包、PyPI CLI、Docker Compose 容器部署与源码安装。",
         },
         hero: {
           title: "下载与安装 OpenAkita",
-          desc: "官方支持 Desktop、CLI、源码部署三种方式。你可以从简单到深入逐步切换。",
+          desc: "官方支持 Desktop、CLI、Docker、源码部署四种方式。你可以从简单到深入逐步切换。",
         },
         buttons: {
           latest: "查看全部安装包",
@@ -101,9 +101,9 @@
             desc: "只保留三端最新安装包入口，按你的系统直接下载即可。",
           },
           cli: {
-            title: "PyPI CLI 安装",
+            title: "CLI 安装",
             desc: "适合命令行用户与自动化部署，步骤最短。",
-            btn: "查看安装教程",
+            btn: "查看完整安装教程",
           },
           source: {
             title: "源码安装",
@@ -261,12 +261,12 @@
       },
       download: {
         meta: {
-          title: "Download OpenAkita - Desktop / CLI / Source",
-          description: "OpenAkita downloads: Desktop packages, PyPI CLI install, source deployment, and quick scripts.",
+          title: "Download OpenAkita - Desktop / CLI / Docker / Source",
+          description: "OpenAkita downloads: Desktop packages, PyPI CLI, Docker Compose deployment, and source installation.",
         },
         hero: {
           title: "Download and Install OpenAkita",
-          desc: "Choose Desktop, CLI, or source deployment based on your team workflow.",
+          desc: "Officially supports Desktop, CLI, Docker, and source deployment. Switch gradually from simple to advanced.",
         },
         buttons: {
           latest: "All Packages",
@@ -278,9 +278,9 @@
             desc: "Only the latest packages for three platforms are shown.",
           },
           cli: {
-            title: "PyPI CLI Install",
-            desc: "Best for CLI workflows and automation.",
-            btn: "View Setup Guide",
+            title: "CLI Installation",
+            desc: "Best for command-line users and automated deployment—the shortest path.",
+            btn: "View Full Installation Guide",
           },
           source: {
             title: "Source Installation",
@@ -401,7 +401,7 @@
           desc: "API Key を 1 つ入れるだけ。あとは OpenAkita が実行します。",
         },
       },
-      download: { hero: { title: "OpenAkita をダウンロード", desc: "Desktop / CLI / Source の 3 つの導入方法を提供します。" } },
+      download: { hero: { title: "OpenAkita をダウンロード", desc: "Desktop / CLI / Docker / ソースコードの 4 つの導入方法を提供します。" } },
       tutorials: { hero: { title: "チュートリアルセンター", desc: "インストール、IM 連携、LLM 設定を網羅。" } },
       setup: {
         hero: { title: "初期セットアップ", desc: "Desktop と CLI の導入手順。" },
@@ -452,7 +452,7 @@
           desc: "API Key 하나면 시작됩니다. 나머지는 OpenAkita가 처리합니다.",
         },
       },
-      download: { hero: { title: "OpenAkita 다운로드", desc: "Desktop / CLI / Source 3가지 설치 경로를 지원합니다." } },
+      download: { hero: { title: "OpenAkita 다운로드", desc: "Desktop / CLI / Docker / 소스 코드 4가지 설치 경로를 지원합니다." } },
       tutorials: { hero: { title: "튜토리얼 센터", desc: "설치, IM 연동, LLM 설정을 다룹니다." } },
       setup: {
         hero: { title: "초기 설정", desc: "Desktop 및 CLI 설치 가이드." },
@@ -504,7 +504,7 @@
           desc: "Нужен только API Key. Остальное OpenAkita сделает сам.",
         },
       },
-      download: { hero: { title: "Скачать OpenAkita", desc: "Доступны Desktop, CLI и исходная установка." } },
+      download: { hero: { title: "Скачать OpenAkita", desc: "Доступны Desktop, CLI, Docker и установка из исходного кода." } },
       tutorials: { hero: { title: "Центр руководств", desc: "Установка, IM-каналы и настройка LLM." } },
       setup: {
         hero: { title: "Начальная установка", desc: "Пошаговый гайд для Desktop и CLI." },
@@ -566,7 +566,7 @@
           desc: "Ajoutez une clé API. OpenAkita gère le reste.",
         },
       },
-      download: { hero: { title: "Télécharger OpenAkita", desc: "Installation Desktop, CLI et source." } },
+      download: { hero: { title: "Télécharger OpenAkita", desc: "Installation Desktop, CLI, Docker et depuis les sources." } },
       tutorials: { hero: { title: "Centre de tutoriels", desc: "Installation, canaux IM et configuration LLM." } },
       setup: {
         hero: { title: "Installation initiale", desc: "Guide Desktop et CLI étape par étape." },
@@ -628,7 +628,7 @@
           desc: "Ein API Key reicht. Den Rest erledigt OpenAkita.",
         },
       },
-      download: { hero: { title: "OpenAkita herunterladen", desc: "Desktop-, CLI- und Source-Installation verfügbar." } },
+      download: { hero: { title: "OpenAkita herunterladen", desc: "Desktop-, CLI-, Docker- und Source-Installation verfügbar." } },
       tutorials: { hero: { title: "Tutorial-Zentrum", desc: "Installation, IM-Kanäle und LLM-Konfiguration." } },
       setup: {
         hero: { title: "Ersteinrichtung", desc: "Schritt-für-Schritt für Desktop und CLI." },
@@ -768,13 +768,38 @@
   var languagePacks = {};
   var loadingPacks = {};
   var originalTextMap = new WeakMap();
+  var blockOriginalMap = new WeakMap();
+  var blockOriginalHtmlMap = new WeakMap();
+
+  function applyBlockTranslations() {
+    document.querySelectorAll("[data-i18n-block]").forEach(function (el) {
+      if (!blockOriginalHtmlMap.has(el)) {
+        blockOriginalHtmlMap.set(el, el.innerHTML);
+        var source = el.getAttribute("data-i18n-block") || collapseWhitespaceForI18nLookup(el.textContent);
+        blockOriginalMap.set(el, source);
+      }
+
+      if (currentLanguage === "zh") {
+        el.innerHTML = blockOriginalHtmlMap.get(el);
+        return;
+      }
+
+      var pack = languagePacks[currentLanguage];
+      if (!pack || !CONTENT_TRANSLATE_LANGS.has(currentLanguage)) return;
+
+      var translated = lookupLanguagePackString(blockOriginalMap.get(el), pack);
+      if (translated && translated.trim()) {
+        el.textContent = translated;
+      }
+    });
+  }
 
   function loadLanguagePack(lang) {
     if (lang === "zh") return Promise.resolve(null);
     if (languagePacks[lang]) return Promise.resolve(languagePacks[lang]);
     if (loadingPacks[lang]) return loadingPacks[lang];
 
-    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260424-i18n-fragment-fix")
+    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260608-i18n-footer-table")
       .then(function (response) {
         if (!response.ok) throw new Error("i18n_load_failed");
         return response.json();
@@ -807,6 +832,14 @@
     return null;
   }
 
+  function translatePackString(zhText) {
+    if (currentLanguage === "zh") return zhText;
+    var pack = languagePacks[currentLanguage];
+    if (!pack) return zhText;
+    var translated = lookupLanguagePackString(zhText, pack);
+    return translated && translated.trim() ? translated : zhText;
+  }
+
   function applyCodeSampleTranslations() {
     var pack = currentLanguage !== "zh" ? languagePacks[currentLanguage] : null;
     document.querySelectorAll("code[data-i18n-translate]").forEach(function (code) {
@@ -828,6 +861,7 @@
   }
 
   function applyContentTranslations() {
+    applyBlockTranslations();
     var pack = currentLanguage !== "zh" ? languagePacks[currentLanguage] : null;
 
     var roots = [];
@@ -850,7 +884,7 @@
         var parent = node.parentElement;
         if (!parent) { node = walker.nextNode(); continue; }
 
-        if (parent.closest("script,style,noscript,textarea,code,pre,.code-block,[data-i18n-managed]")) {
+        if (parent.closest("script,style,noscript,textarea,code,pre,.code-block,[data-i18n-managed],[data-i18n-block]")) {
           node = walker.nextNode();
           continue;
         }
@@ -896,6 +930,12 @@
   var originalImgSrcMap = new WeakMap();
 
   function applyImageTranslations() {
+    function setImageVisible(img, visible) {
+      img.hidden = !visible;
+      var figure = img.closest("figure");
+      if (figure) figure.hidden = !visible;
+    }
+
     var imgs = document.querySelectorAll("[data-i18n-img]");
     imgs.forEach(function (img) {
       if (!originalImgSrcMap.has(img)) {
@@ -905,39 +945,26 @@
 
       if (currentLanguage === "zh") {
         img.setAttribute("src", zhSrc);
+        setImageVisible(img, true);
         return;
       }
 
       var langSrc = zhSrc.replace("/zh/", "/" + currentLanguage + "/");
-      var enSrc = zhSrc.replace("/zh/", "/en/");
-
-      var candidates = [langSrc];
-      if (currentLanguage !== "en") {
-        candidates.push(enSrc);
-      }
-
-      function tryNext(i) {
-        if (i >= candidates.length) {
-          img.setAttribute("src", zhSrc);
-          return;
-        }
-        var probe = new Image();
-        probe.onload = function () {
-          window.setTimeout(function () {
-            if (probe.naturalWidth > 0 || probe.naturalHeight > 0) {
-              img.setAttribute("src", candidates[i]);
-            } else {
-              tryNext(i + 1);
-            }
-          }, 0);
-        };
-        probe.onerror = function () {
-          tryNext(i + 1);
-        };
-        probe.src = candidates[i];
-      }
-
-      tryNext(0);
+      var probe = new Image();
+      probe.onload = function () {
+        window.setTimeout(function () {
+          if (probe.naturalWidth > 0 || probe.naturalHeight > 0) {
+            img.setAttribute("src", langSrc);
+            setImageVisible(img, true);
+          } else {
+            setImageVisible(img, false);
+          }
+        }, 0);
+      };
+      probe.onerror = function () {
+        setImageVisible(img, false);
+      };
+      probe.src = langSrc;
     });
   }
 
@@ -1143,7 +1170,16 @@
     setText(".page-hero p", t("tutorials.hero.desc"));
   }
 
+  function isSetupOverviewPage() {
+    const path = (window.location.pathname || "").replace(/\/+$/, "").toLowerCase();
+    return (
+      path.endsWith("/tutorials/setup-install") ||
+      path.endsWith("/tutorials/setup-install/index.html")
+    );
+  }
+
   function applySetupTexts() {
+    if (!isSetupOverviewPage()) return;
     setText(".page-hero h1", t("setup.hero.title"));
     setText(".page-hero p", t("setup.hero.desc"));
     setList(".side-nav a", tArray("setup.side"));
@@ -1478,11 +1514,50 @@
         ],
       },
       pypi: {
-        title: "方式二：PyPI CLI",
+        title: "方式二：Linux",
         templateId: "setup-drawer-template-pypi",
         chapters: [
-          { id: "drawer-pypi-install", label: "1. 安装步骤" },
-          { id: "drawer-pypi-verify", label: "2. 启动验证" },
+          {
+            label: "Linux CLI",
+            children: [
+              { id: "drawer-pypi-prereq", label: "一、环境要求" },
+              { id: "drawer-pypi-install", label: "二、安装步骤" },
+              { id: "drawer-pypi-first-run", label: "三、首次运行" },
+              { id: "drawer-pypi-verify", label: "四、日常使用" },
+              { id: "drawer-pypi-script", label: "五、可选：官方一键脚本" },
+              { id: "drawer-pypi-faq", label: "六、常见问题" },
+              { id: "drawer-pypi-cheatsheet", label: "七、完整命令速查" },
+            ],
+          },
+          {
+            label: "Linux Docker",
+            children: [
+              { id: "drawer-pypi-docker-prereq", label: "一、环境要求" },
+              { id: "drawer-pypi-docker-install", label: "二、安装步骤" },
+              { id: "drawer-pypi-docker-deploy", label: "三、部署 OpenAkita" },
+              { id: "drawer-pypi-docker-access", label: "四、访问 OpenAkita" },
+              { id: "drawer-pypi-docker-commands", label: "五、常用管理命令" },
+              { id: "drawer-pypi-docker-troubleshoot", label: "六、故障排查" },
+            ],
+          },
+          {
+            label: "Linux GUI",
+            children: [
+              { id: "drawer-pypi-gui-prereq", label: "1、前置条件" },
+              { id: "drawer-pypi-gui-download", label: "2、下载安装包" },
+              { id: "drawer-pypi-gui-install", label: "3、正式安装" },
+              { id: "drawer-pypi-gui-start", label: "4、启动与配置" },
+              { id: "drawer-pypi-gui-wizard", label: "4.1 初次配置（配置向导）" },
+              { id: "drawer-pypi-gui-full-overview", label: "4.2 完整配置" },
+              { id: "drawer-pypi-gui-full-llm", label: "4.2.1 LLM 端点配置" },
+              { id: "drawer-pypi-gui-full-im", label: "4.2.2 IM 通道" },
+              { id: "drawer-pypi-gui-full-tools", label: "4.2.3 工具与技能" },
+              { id: "drawer-pypi-gui-full-soul", label: "4.2.4 灵魂与意志" },
+              { id: "drawer-pypi-gui-full-advanced", label: "4.2.5 高级配置" },
+              { id: "drawer-pypi-gui-full-multi", label: "4.2.6 多 Agent 模式" },
+              { id: "drawer-pypi-gui-full-done", label: "4.2.7 完成" },
+            ],
+          },
         ],
       },
       source: {
@@ -1511,20 +1586,35 @@
       if (!template) return;
       activeMethod = method;
 
-      titleNode.textContent = config.title;
+      titleNode.textContent = translatePackString(config.title);
       navNode.innerHTML = "";
       contentNode.innerHTML = "";
       contentNode.appendChild(template.content.cloneNode(true));
 
-      config.chapters.forEach(function (chapter) {
+      function bindNavScrollLinks(root) {
+        root.querySelectorAll("a[href^='#']").forEach(function (link) {
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+            const id = link.getAttribute("href").slice(1);
+            const target = contentNode.querySelector("#" + id);
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          });
+        });
+      }
+
+      function appendChapterLink(chapter, container) {
         const link = document.createElement("a");
         link.href = "#" + chapter.id;
-        link.textContent = chapter.label;
+        link.textContent = translatePackString(chapter.label);
         const match = chapter.label.match(/^(\d+)(?:\.(\d+))?(?:\.(\d+))?/);
         if (match) {
           if (match[3] !== undefined) link.classList.add("setup-nav-l3");
           else if (match[2] !== undefined) link.classList.add("setup-nav-l2");
           else link.classList.add("setup-nav-l1");
+        } else if (/^[一二三四五六七八九十]+、/.test(chapter.label)) {
+          link.classList.add("setup-nav-l2");
         } else {
           link.classList.add("setup-nav-l1");
         }
@@ -1535,8 +1625,37 @@
             target.scrollIntoView({ behavior: "smooth", block: "start" });
           }
         });
-        navNode.appendChild(link);
+        container.appendChild(link);
+      }
+
+      const navTemplate = document.getElementById("setup-drawer-nav-" + method);
+      if (navTemplate) {
+        navNode.appendChild(navTemplate.content.cloneNode(true));
+        bindNavScrollLinks(navNode);
+      } else {
+      config.chapters.forEach(function (chapter) {
+        if (chapter.children && chapter.children.length) {
+          const group = document.createElement("details");
+          group.className = "setup-drawer-nav-group";
+
+          const summary = document.createElement("summary");
+          summary.className = "setup-drawer-nav-group-title";
+          summary.textContent = translatePackString(chapter.label);
+          group.appendChild(summary);
+
+          const items = document.createElement("div");
+          items.className = "setup-drawer-nav-group-items";
+          chapter.children.forEach(function (child) {
+            appendChapterLink(child, items);
+          });
+          group.appendChild(items);
+          navNode.appendChild(group);
+          return;
+        }
+
+        appendChapterLink(chapter, navNode);
       });
+      }
 
       applyContentTranslations();
       applyCodeSampleTranslations();
