@@ -1240,6 +1240,18 @@
   document.addEventListener("openakita:language-changed", onLanguageChanged);
 
   // ── Download Click Tracking ──
+  var DOWNLOAD_TRACK_SELECTOR = "a.channel-dl-btn, a.arch-item, a.platform-download-option";
+  var movedDownloadButtons = new WeakSet();
+  var countedDownloadButtons = new Set();
+
+  function closestDownloadButton(target) {
+    return target && target.closest ? target.closest(DOWNLOAD_TRACK_SELECTOR) : null;
+  }
+
+  function downloadButtonKey(href) {
+    return (href || "").split("#")[0];
+  }
+
   function parseDownloadInfo(href, el) {
     var filename = (href || "").split("/").pop().split("?")[0];
     var card = el.closest ? el.closest(".channel-card") : null;
@@ -1280,16 +1292,27 @@
     };
   }
 
-  document.addEventListener("click", function (e) {
-    var a = e.target.closest ? e.target.closest("a.channel-dl-btn, a.arch-item, a.platform-download-option") : null;
+  document.addEventListener("mousemove", function (e) {
+    var a = closestDownloadButton(e.target);
     if (!a) return;
     var href = a.getAttribute("href") || "";
     if (!href.startsWith("http")) return;
+    movedDownloadButtons.add(a);
+  }, { passive: true });
+
+  document.addEventListener("click", function (e) {
+    var a = closestDownloadButton(e.target);
+    if (!a) return;
+    var href = a.getAttribute("href") || "";
+    if (!href.startsWith("http")) return;
+    if (!movedDownloadButtons.has(a)) return;
+    var key = downloadButtonKey(href);
+    if (countedDownloadButtons.has(key)) return;
+    if (typeof window.__oa_track !== "function") return;
 
     var info = parseDownloadInfo(href, a);
-    if (typeof window.__oa_track === "function") {
-      window.__oa_track("dl", info);
-    }
+    countedDownloadButtons.add(key);
+    window.__oa_track("dl", info);
   });
 
   if (document.readyState === "loading") {
