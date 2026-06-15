@@ -4,20 +4,20 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>LLM 端点配置教程</title>
-<meta content="OpenAkita Desktop 上的 LLM 端点添加、服务商选择、多端点容灾与可选编译器/语音识别端点配置。" name="description"/>
-<meta content="OpenAkita,LLM 端点,Desktop,Failover,教程" name="keywords"/>
+<title>大模型端点配置教程</title>
+<meta content="OpenAkita Desktop 上的大模型端点添加、服务商选择、多端点容灾与可选编译器/语音识别端点配置。" name="description"/>
+<meta content="OpenAkita,大模型端点,Desktop,Failover,教程" name="keywords"/>
 <meta content="index,follow,max-image-preview:large" name="robots"/>
 <meta content="Fuzhou Stack Technology Co., Ltd. All rights reserved." name="author"/>
 <meta content="article" property="og:type"/>
 <meta content="OpenAkita" property="og:site_name"/>
-<meta content="LLM 端点配置教程" property="og:title"/>
-<meta content="在桌面端中管理 LLM 端点、服务商与多端点。" property="og:description"/>
+<meta content="大模型端点配置教程" property="og:title"/>
+<meta content="在桌面端中管理大模型端点、服务商与多端点。" property="og:description"/>
 <meta content="https://openakita.ai/tutorials/llm-endpoints/" property="og:url"/>
 <meta content="https://openakita.ai/assets/img/tutorials/llm-endpoints/zh/OpenAkita%20Desktop-LLM端点配置页面.png" property="og:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="LLM Endpoint Guide" name="twitter:title"/>
-<meta content="Configure LLM endpoints in OpenAkita Desktop." name="twitter:description"/>
+<meta content="大模型端点配置指南" name="twitter:title"/>
+<meta content="在 OpenAkita Desktop 中配置大模型端点。" name="twitter:description"/>
 <link href="https://openakita.ai/tutorials/llm-endpoints/" rel="canonical"/>
 <link href="../../assets/img/logo.png" rel="icon"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -49,9 +49,15 @@
 <main>
 <section class="page-hero">
 <div class="container reveal">
-<div class="eyebrow">教程 / LLM 端点</div>
-<h1>LLM 端点配置</h1>
-<p>LLM 端点是 OpenAkita 调用大语言模型的入口。你可以配置多个端点，系统会根据优先级和可用性自动选择。</p>
+<div class="page-hero-top">
+<a class="page-hero-back" href="/tutorials/">
+<img alt="" class="page-hero-back-icon" src="../../assets/img/icons/arrow-right.svg"/>
+<span>返回教程中心</span>
+</a>
+<div class="eyebrow">教程 / 大模型端点</div>
+</div>
+<h1>大模型端点配置</h1>
+<p>大模型端点是 OpenAkita 调用大语言模型的入口。你可以配置多个端点，系统会根据优先级和可用性自动选择。</p>
 </div>
 </section>
 <section>
@@ -68,19 +74,19 @@
 <div class="reveal">
 <section class="tutorial-section" id="overview">
 <div class="card">
-<h2 style="margin-top: 0;">一、LLM 端点配置</h2>
-<p>本节介绍在 OpenAkita Desktop 中查看与管理 LLM 端点入口。</p>
+<h2 style="margin-top: 0;">一、大模型端点配置</h2>
+<p>本节介绍在 OpenAkita Desktop 中查看与管理大模型端点入口。</p>
 <figure class="tutorial-shot tutorial-shot--sm">
-<img src="../../assets/img/tutorials/llm-endpoints/zh/OpenAkita%20Desktop-LLM端点配置页面.png" data-i18n-img alt="LLM 端点配置页面" />
-<figcaption>LLM 端点配置页面</figcaption>
+<img src="../../assets/img/tutorials/llm-endpoints/zh/OpenAkita%20Desktop-LLM端点配置页面.png" data-i18n-img alt="大模型端点配置页面" />
+<figcaption>大模型端点配置页面</figcaption>
 </figure>
 </div>
 </section>
 
 <section class="tutorial-section" id="add-endpoint">
 <div class="card">
-<h2 style="margin-top: 0;">添加 LLM 端点</h2>
-<p><strong>1. 添加 LLM 端点：</strong></p>
+<h2 style="margin-top: 0;">添加大模型端点</h2>
+<p><strong>1. 添加大模型端点：</strong></p>
 <ul class="checklist">
 <li>点击「+ 添加端点」按钮，打开端点配置对话框</li>
 <li>选择服务商</li>
@@ -90,14 +96,14 @@
 <li>点击「添加端点」</li>
 </ul>
 <figure class="tutorial-shot tutorial-shot--sm tutorial-shot--dialog">
-<img src="../../assets/img/tutorials/llm-endpoints/zh/OpenAkita%20Desktop-添加LLM端点对话框.png" data-i18n-img alt="添加 LLM 端点对话框" />
-<figcaption>添加 LLM 端点对话框</figcaption>
+<img src="../../assets/img/tutorials/llm-endpoints/zh/OpenAkita%20Desktop-添加LLM端点对话框.png" data-i18n-img alt="添加大模型端点对话框" />
+<figcaption>添加大模型端点对话框</figcaption>
 </figure>
 <div class="table-wrap" style="margin-top: 14px;">
 <table>
 <thead><tr><th>字段</th><th>说明</th><th>示例</th></tr></thead>
 <tbody>
-<tr><td><strong>服务商</strong></td><td>选择 LLM 服务提供商</td><td>通义千问、OpenAI、Anthropic 等</td></tr>
+<tr><td><strong>服务商</strong></td><td>选择大模型服务提供商</td><td>通义千问、OpenAI、Anthropic 等</td></tr>
 <tr><td><strong>Base URL</strong></td><td>API 接口地址（选择服务商后自动填充）</td><td>https://dashscope.aliyuncs.com/compatible-mode/v1</td></tr>
 <tr><td><strong>API Key</strong></td><td>你的 API 密钥</td><td>sk-xxxxx</td></tr>
 <tr><td><strong>模型</strong></td><td>选择或输入模型名称（支持在线拉取模型列表）</td><td>qwen-max、gpt-4o</td></tr>
@@ -198,7 +204,7 @@
 <footer class="site-footer">
 <div class="container footer-grid">
 <div>
-<h4>LLM 教程</h4>
+<h4>大模型教程</h4>
 <p>基于 OpenAkita Desktop 的端点、服务商与多端点说明。</p>
 <div class="footer-brand-icons">
 <a href="https://github.com/openakita/openakita" target="_blank" rel="noreferrer noopener" aria-label="GitHub"><img src="../../assets/img/icons/github.svg" alt="" /></a>
@@ -210,7 +216,7 @@
 <div>
 <h4>继续学习</h4>
 <ul>
-<li><a href="/tutorials/setup-install/">安装教程</a></li>
+<li><a href="/tutorials/">安装教程</a></li>
 <li><a href="/tutorials/im-channels/">IM 通道教程</a></li>
 </ul>
 </div>

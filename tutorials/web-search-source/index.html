@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>网页搜索源配置教程</title>
+<meta content="OpenAkita 网页搜索源配置教程：博查 Bocha、Tavily、SearXNG、Jina 与 DuckDuckGo 的对比与配置步骤。" name="description"/>
+<meta content="OpenAkita,网页搜索,博查,Tavily,SearXNG,Jina,DuckDuckGo,教程" name="keywords"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+<meta content="Fuzhou Stack Technology Co., Ltd. All rights reserved." name="author"/>
+<meta content="article" property="og:type"/>
+<meta content="OpenAkita" property="og:site_name"/>
+<meta content="网页搜索源配置教程" property="og:title"/>
+<meta content="配置博查、Tavily、SearXNG、Jina 等网页搜索源，让 AI 助手获取实时信息。" property="og:description"/>
+<meta content="https://openakita.ai/tutorials/web-search-source/" property="og:url"/>
+<meta content="https://openakita.ai/assets/img/tutorials/web-search-source/zh/%E5%8D%9A%E6%9F%A5-OpenAkita%E6%B5%8B%E8%AF%95%E8%BF%9E%E6%8E%A5.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Web Search Source Guide" name="twitter:title"/>
+<meta content="Configure web search sources in OpenAkita Desktop." name="twitter:description"/>
+<link href="https://openakita.ai/tutorials/web-search-source/" rel="canonical"/>
+<link href="../../assets/img/logo.png" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="../../assets/css/styles.css" rel="stylesheet"/>
+</head>
+<body data-page="tutorials">
+<header class="site-header">
+<div class="container nav-inner">
+<a class="brand" href="/">
+<img alt="OpenAkita" src="../../assets/img/logo.png"/>
+<span>OpenAkita</span>
+</a>
+<button aria-expanded="false" aria-label="打开导航" class="nav-toggle">
+<img alt="menu" src="../../assets/img/icons/menu.svg"/>
+</button>
+<nav aria-label="主导航" class="main-nav">
+<a data-nav="home" href="/">首页</a>
+<a data-nav="download" href="/download/">下载</a>
+<a data-nav="services" href="/services/">服务</a>
+<a href="/scenarios/" data-nav="scenarios">应用场景</a>
+<a data-nav="tutorials" href="/tutorials/">教程</a>
+<a data-nav="about" href="/about/">关于我们</a>
+<a href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub</a>
+</nav>
+</div>
+</header>
+<main>
+<section class="page-hero">
+<div class="container reveal">
+<div class="page-hero-top">
+<a class="page-hero-back" href="/tutorials/">
+<img alt="" class="page-hero-back-icon" src="../../assets/img/icons/arrow-right.svg"/>
+<span>返回教程中心</span>
+</a>
+<div class="eyebrow">教程 / 网页搜索源</div>
+</div>
+<h1>网页搜索源配置</h1>
+</div>
+</section>
+<section>
+<div class="container tutorial-shell">
+<aside class="side-nav reveal">
+<h3>目录</h3>
+<a href="#overview">搜索源对比</a>
+<a href="#bocha">博查 Bocha</a>
+<a href="#tavily">Tavily</a>
+<a href="#searxng">SearXNG</a>
+<a href="#jina">Jina</a>
+</aside>
+<div class="reveal">
+
+<section class="tutorial-section" id="overview">
+<div class="card">
+<h2 style="margin-top: 0;">搜索源对比</h2>
+<p>默认网页搜索源为 DuckDuckGo（国内可用性较差），支持配置多个搜索源。</p>
+<p>本教程基于 OpenAkita v1.27.20。</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>特性</th><th><strong>博查 Bocha</strong></th><th><strong>Tavily</strong></th><th><strong>SearXNG</strong></th><th><strong>Jina</strong></th><th><strong>DuckDuckGo</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>适用地区</strong></td><td>🇨🇳 国内首选</td><td>🌍 国际</td><td>🌍 国际（需本地部署）</td><td>🌍 国际</td><td>🌍 国际</td></tr>
+<tr><td><strong>API Key</strong></td><td>✅ 需要（注册获取）</td><td>✅ 需要（注册获取）</td><td>❌ 不需要</td><td>✅ 需要（官网获取）</td><td>❌ 不需要</td></tr>
+<tr><td><strong>免费额度</strong></td><td>✅ 有免费试用资源包</td><td>✅ 有免费额度</td><td>✅ 完全免费（自托管）</td><td>✅ 有免费额度</td><td>✅ 完全免费</td></tr>
+<tr><td><strong>配置难度</strong></td><td>⭐ 简单（直接填 Key）</td><td>⭐ 简单（直接填 Key）</td><td>⭐⭐⭐ 复杂（需 Docker + WSL2）</td><td>⭐ 简单（直接填 Key）</td><td>⭐ 无需配置（默认）</td></tr>
+<tr><td><strong>网络要求</strong></td><td>国内直连可用</td><td>需代理</td><td>本地部署，无网络依赖</td><td>需代理</td><td>需代理</td></tr>
+<tr><td><strong>推荐场景</strong></td><td>国内用户首选</td><td>海外用户/英文搜索</td><td>隐私保护/自建需求</td><td>网页内容抓取</td><td>默认搜索源</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section class="tutorial-section" id="bocha">
+<div class="card">
+<h2 style="margin-top: 0;">一、博查 Bocha</h2>
+
+<h3>第一步：获取博查 API Key</h3>
+<ol class="checklist">
+<li>访问 <strong>博查 AI 开放平台</strong>（<a href="https://open.bocha.cn" rel="noreferrer noopener" target="_blank">https://open.bocha.cn</a>）注册并登录账号。</li>
+<li>进入「API KEY 管理」页面，创建一个新的 API Key（格式通常为 <code>sk-...</code>）。</li>
+<li>复制并妥善保存该 Key（注意：API Key 只会在新建后显示一次）。</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/博查-获取API Key.png" data-i18n-img alt="博查 AI 开放平台 - 获取 API Key" loading="lazy" decoding="async"/>
+<figcaption>博查 AI 开放平台 - 获取 API Key</figcaption>
+</figure>
+
+<h3>第二步：获取免费资源包</h3>
+<ol class="checklist">
+<li>进入「资源包管理」页面</li>
+<li>点击「购买资源包」</li>
+<li>购买免费试用资源包（注意：每个账号限一次）</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/博查-获取免费资源包.png" data-i18n-img alt="博查 AI 开放平台 - 获取免费资源包" loading="lazy" decoding="async"/>
+<figcaption>博查 AI 开放平台 - 获取免费资源包</figcaption>
+</figure>
+
+<h3>第三步：在 OpenAkita 桌面端配置</h3>
+<ol class="checklist">
+<li>启动 OpenAkita 桌面应用程序。</li>
+<li>在左侧导航栏中，找到并点击 <strong>「配置」</strong> 面板。</li>
+<li>在配置界面中找到 <strong>「工具与技能」</strong> 选项，选择网页搜索源。</li>
+<li>激活搜索源，选择 <strong>「博查 bocha」</strong>。</li>
+<li>将刚才复制的博查 API Key 粘贴到对应的密钥输入框中。</li>
+<li>点击 <strong>「测试连接」</strong>。如果连接成功，即可保存配置，应用并重启。</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm tutorial-shot--dialog">
+<img src="../../assets/img/tutorials/web-search-source/zh/博查-OpenAkita测试连接.png" data-i18n-img alt="博查 - 配置 API Key、测试连接" loading="lazy" decoding="async"/>
+<figcaption>博查 - 配置 API Key、测试连接</figcaption>
+</figure>
+
+<h3>第四步：验证与使用</h3>
+<p>配置完成后，在 OpenAkita 的聊天界面中输入需要实时信息的问题（如「今天的科技新闻」）。如果 AI 智能助手能够成功返回带有网页链接和摘要的回答，说明配置已成功生效。</p>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/博查-OpenAkita对话验证与使用.png" data-i18n-img alt="博查 - 在对话中验证与使用" loading="lazy" decoding="async"/>
+<figcaption>博查 - 在对话中验证与使用</figcaption>
+</figure>
+</div>
+</section>
+
+<section class="tutorial-section" id="tavily">
+<div class="card">
+<h2 style="margin-top: 0;">二、Tavily</h2>
+
+<h3>第一步：获取 Tavily API Key</h3>
+<ol class="checklist">
+<li>访问官网：打开 Tavily 官方网站（<a href="https://tavily.com" rel="noreferrer noopener" target="_blank">https://tavily.com</a> 或 <a href="https://app.tavily.com" rel="noreferrer noopener" target="_blank">https://app.tavily.com</a>）。</li>
+<li>注册账号。</li>
+<li>切换到 Overview，找到 API Keys，复制你的专属 API Key（通常以 <code>tvly-</code> 开头）。</li>
+</ol>
+<p class="notice"><strong>提示</strong>：Tavily 注册门槛较低，<strong>不需要绑定国外信用卡</strong>，每月提供 1000 次的免费调用额度。如果普通邮箱注册遇到问题，建议直接使用 <strong>GitHub 账号授权登录</strong>，这样可以顺利拿到 API Key。</p>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/Tavily-获取API Key.png" data-i18n-img alt="Tavily - 获取 API Key" loading="lazy" decoding="async"/>
+<figcaption>Tavily - 获取 API Key</figcaption>
+</figure>
+
+<h3>第二步：在 OpenAkita 桌面端配置</h3>
+<ol class="checklist">
+<li><strong>打开配置面板</strong>：启动 OpenAkita 桌面应用程序，在界面中找到并进入「配置」或「工具/技能管理」面板。</li>
+<li><strong>定位搜索配置</strong>：在工具列表中找到 <strong>「Web Search Source（网络搜索源）」</strong> 模块。</li>
+<li><strong>切换搜索引擎</strong>：在搜索引擎的下拉选项或配置项中，将默认的搜索引擎切换为 <strong>Tavily</strong>。</li>
+<li><strong>填入 API Key</strong>：将刚才复制的 Tavily API Key 粘贴到对应的密钥输入框中。</li>
+<li><strong>保存并测试</strong>：点击保存配置，建议使用界面上的「测试连接」功能验证是否成功。</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm tutorial-shot--dialog">
+<img src="../../assets/img/tutorials/web-search-source/zh/Tavily-OpenAkita测试连接.png" data-i18n-img alt="Tavily - 配置 API Key、测试连接" loading="lazy" decoding="async"/>
+<figcaption>Tavily - 配置 API Key、测试连接</figcaption>
+</figure>
+
+<h3>第三步：验证与使用</h3>
+<p>应用并重启后，在 OpenAkita 的对话界面中，直接向 AI 提问需要获取最新信息的问题（例如：「今天的科技新闻」）。如果 AI 能够成功调用 Tavily 并返回带有网页链接和摘要的结构化回答，说明配置已成功生效。</p>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/Tavily-OpenAkita对话验证与使用.png" data-i18n-img alt="Tavily - 在对话中验证与使用" loading="lazy" decoding="async"/>
+<figcaption>Tavily - 在对话中验证与使用</figcaption>
+</figure>
+</div>
+</section>
+
+<section class="tutorial-section" id="searxng">
+<div class="card">
+<h2 style="margin-top: 0;">三、SearXNG</h2>
+
+<h3>第一步：安装前环境检查</h3>
+<ol class="checklist">
+<li><strong>系统要求</strong>：确保你的系统是 Windows 10（21H2 及以上版本）或 Windows 11。CPU 至少 2 核 4G 内存（推荐 8G 以上）。</li>
+<li><strong>开启 CPU 虚拟化</strong>：按 <code>Ctrl + Shift + Esc</code> 打开任务管理器，切换到「性能」→「CPU」选项卡。查看右下角是否显示「虚拟化：已启用」。如果显示「已禁用」，需要重启电脑进入 BIOS，找到 <code>VT-x</code>、<code>Virtualization Technology</code> 或 <code>SVM Mode</code> 选项并设置为 Enabled。</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/SearXNG-开启CPU虚拟化.png" data-i18n-img alt="SearXNG - 开启 CPU 虚拟化" loading="lazy" decoding="async"/>
+<figcaption>SearXNG - 开启 CPU 虚拟化</figcaption>
+</figure>
+<ol class="checklist" start="3">
+<li><strong>开启 WSL2 功能</strong>：按 <code>Win + X</code> 键，选择「Windows 终端 (管理员)」或「PowerShell (管理员)」。输入命令 <code>wsl --install</code> 并回车。这会自动开启 WSL 相关功能并安装默认的 Ubuntu 发行版。完成后根据提示重启电脑。重启后会自动弹出 Ubuntu 终端，按提示设置用户名和密码即可。</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/SearXNG-开启WSL2功能.png" data-i18n-img alt="SearXNG - 开启 WSL2 功能" loading="lazy" decoding="async"/>
+<figcaption>SearXNG - 开启 WSL2 功能</figcaption>
+</figure>
+
+<h3>第二步：下载并安装 Docker Desktop</h3>
+<ol class="checklist">
+<li><strong>获取安装包</strong>：访问 Docker Desktop 官方下载页面：<a href="https://www.docker.com/products/docker-desktop/" rel="noreferrer noopener" target="_blank">https://www.docker.com/products/docker-desktop/</a>，点击「Download for Windows」下载最新版安装包（约 600MB）。</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/SearXNG-DockerDesktop官方下载页面.png" data-i18n-img alt="SearXNG - Docker Desktop 官方下载页面" loading="lazy" decoding="async"/>
+<figcaption>SearXNG - Docker Desktop 官方下载页面</figcaption>
+</figure>
+<ol class="checklist" start="2">
+<li><strong>运行安装程序</strong>：双击下载好的 <code>Docker Desktop Installer.exe</code>。</li>
+<li><strong>完成安装并重启</strong>：等待安装进度条完成。建议勾选「Start Docker Desktop when you log in」（开机自启），然后点击「Close and restart」重启电脑。</li>
+</ol>
+
+<h3>第三步：首次启动与验证</h3>
+<ol class="checklist">
+<li><strong>接受协议</strong>：电脑重启后，Docker Desktop 会自动启动。首次运行会弹出服务协议（个人非商业使用完全免费），点击「Accept」接受。</li>
+<li><strong>等待就绪</strong>：启动需要 1-2 分钟，请观察桌面右下角的鲸鱼图标，当图标变绿且不再提示「Engine starting」时，说明 Docker 已正常运行。</li>
+<li><strong>验证安装</strong>：打开普通的 PowerShell 或命令提示符（CMD）。输入命令 <code>docker --version</code>，如果正常输出版本号（如 <code>Docker version 29.x.x</code>），说明安装成功。进一步测试，输入 <code>docker run hello-world</code>，如果输出了 <code>Hello from Docker!</code> 的欢迎信息，说明你的 Docker 环境已经完全配置成功，可以开始使用了。</li>
+</ol>
+<p class="notice"><strong>注意</strong>：如果无法连接到 Docker Hub 官方仓库拉取镜像，可以配置可用的 Docker 镜像源。</p>
+<ul class="checklist">
+<li>打开 Docker Desktop → 点击右上角齿轮图标进入 Settings。</li>
+<li>选择左侧菜单中的「Docker Engine」。</li>
+<li>在右侧 JSON 配置中添加以下内容（以 DaoCloud、1Panel、hub.rat.dev 为例）：</li>
+</ul>
+<div class="code-block"><code>{
+  "registry-mirrors": [
+    "https://docker.m.daocloud.io",
+    "https://docker.1panel.live",
+    "https://hub.rat.dev"
+  ]
+}</code></div>
+<ul class="checklist">
+<li>点击「Apply &amp; Restart」重启 Docker 服务。</li>
+<li>重新执行 <code>docker run hello-world</code>，此时应从国内镜像源拉取，速度会显著提升。</li>
+</ul>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/SearXNG-DockerDesktop配置镜像源.png" data-i18n-img alt="SearXNG - Docker Desktop 配置镜像源" loading="lazy" decoding="async"/>
+<figcaption>SearXNG - Docker Desktop 配置镜像源</figcaption>
+</figure>
+
+<h3>第四步：本地部署 SearXNG 服务</h3>
+<ol class="checklist">
+<li><strong>安装 Docker</strong>：确保你的电脑已安装并启动 Docker Desktop。</li>
+<li><strong>运行容器</strong>：打开终端或命令行工具，执行以下命令：</li>
+</ol>
+<div class="code-block"><code>docker run -d --name searxng -p 8080:8080 searxng/searxng</code></div>
+<ol class="checklist" start="3">
+<li><strong>验证服务</strong>：打开浏览器，访问 <code>http://localhost:8080</code>。如果能看到 SearXNG 的搜索界面，说明部署成功。</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/SearXNG-本地部署SearXNG服务-浏览器访问.png" data-i18n-img alt="SearXNG - 本地部署服务 - 浏览器访问" loading="lazy" decoding="async"/>
+<figcaption>SearXNG - 本地部署服务 - 浏览器访问</figcaption>
+</figure>
+
+<h3>第五步：在 OpenAkita 中配置 SearXNG</h3>
+<ol class="checklist">
+<li><strong>打开配置</strong>：启动 OpenAkita 桌面应用，进入「配置」或「搜索源管理」面板。</li>
+<li><strong>选择 SearXNG</strong>：在搜索源列表中，找到并选中 <strong>SearXNG</strong>。</li>
+<li><strong>填写地址</strong>：在对应的输入框中，填入你本地 SearXNG 服务的地址：</li>
+</ol>
+<div class="code-block"><code>http://localhost:8080</code></div>
+<ol class="checklist" start="4">
+<li><strong>保存并测试</strong>：点击保存，然后使用「测试连接」功能。如果返回成功，说明 OpenAkita 已成功连接到你的本地 SearXNG 服务。</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm tutorial-shot--dialog">
+<img src="../../assets/img/tutorials/web-search-source/zh/SearXNG-OpenAkita测试连接.png" data-i18n-img alt="SearXNG - 配置地址、测试连接" loading="lazy" decoding="async"/>
+<figcaption>SearXNG - 配置地址、测试连接</figcaption>
+</figure>
+
+<h3>第六步：验证与使用</h3>
+<p>在 OpenAkita 的对话界面中，直接向 AI 提问需要获取最新信息的问题（例如：「今天的科技新闻」）。如果 AI 能够成功调用 <strong>SearXNG</strong> 并返回带有网页链接和摘要的结构化回答，说明配置已成功生效。</p>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/SearXNG-OpenAkita对话验证与使用.png" data-i18n-img alt="SearXNG - 在对话中验证与使用" loading="lazy" decoding="async"/>
+<figcaption>SearXNG - 在对话中验证与使用</figcaption>
+</figure>
+</div>
+</section>
+
+<section class="tutorial-section" id="jina">
+<div class="card">
+<h2 style="margin-top: 0;">四、Jina</h2>
+
+<h3>第一步：获取 Jina API Key</h3>
+<ol class="checklist">
+<li>访问 Jina 官网（<a href="https://jina.ai/reader/" rel="noreferrer noopener" target="_blank">https://jina.ai/reader/</a>）</li>
+<li>进入「密钥和计费」页面，复制 API Key</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/Jina-获取API Key.png" data-i18n-img alt="Jina 官网 - 获取 API Key" loading="lazy" decoding="async"/>
+<figcaption>Jina 官网 - 获取 API Key</figcaption>
+</figure>
+
+<h3>第二步：在 OpenAkita 桌面端配置</h3>
+<ol class="checklist">
+<li><strong>打开配置面板</strong>：启动 OpenAkita 桌面应用程序，在界面中找到并进入「配置」或「工具/技能管理」面板。</li>
+<li><strong>定位搜索配置</strong>：在工具列表中找到 <strong>「Web Search Source（网络搜索源）」</strong> 模块。</li>
+<li><strong>切换搜索引擎</strong>：将激活搜索源的默认搜索引擎切换为 <strong>Jina</strong>。</li>
+<li><strong>填入 API Key</strong>：将刚才复制的 Jina API Key 粘贴到对应的密钥输入框中。</li>
+<li><strong>保存并测试</strong>：点击保存配置，建议使用界面上的「测试连接」功能验证是否成功。</li>
+</ol>
+<figure class="tutorial-shot tutorial-shot--sm tutorial-shot--dialog">
+<img src="../../assets/img/tutorials/web-search-source/zh/Jina-OpenAkita测试连接.png" data-i18n-img alt="Jina - 配置 API Key、测试连接" loading="lazy" decoding="async"/>
+<figcaption>Jina - 配置 API Key、测试连接</figcaption>
+</figure>
+
+<h3>第三步：验证与使用</h3>
+<p>应用并重启后，在 OpenAkita 的对话界面中，直接向 AI 提问需要获取最新信息的问题（例如：「今天的科技新闻」）。如果 AI 能够成功调用 Jina 并返回带有网页链接和摘要的结构化回答，说明配置已成功生效。</p>
+<figure class="tutorial-shot tutorial-shot--sm">
+<img src="../../assets/img/tutorials/web-search-source/zh/Jina-OpenAkita对话验证与使用.png" data-i18n-img alt="Jina - 在对话中验证与使用" loading="lazy" decoding="async"/>
+<figcaption>Jina - 在对话中验证与使用</figcaption>
+</figure>
+</div>
+</section>
+
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="container footer-grid">
+<div>
+<h4>网页搜索源教程</h4>
+<p>基于 OpenAkita Desktop 的搜索源配置与验证说明。</p>
+<div class="footer-brand-icons">
+<a href="https://github.com/openakita/openakita" target="_blank" rel="noreferrer noopener" aria-label="GitHub"><img src="../../assets/img/icons/github.svg" alt="" /></a>
+<a href="https://gitee.com/openakita/openakita" target="_blank" rel="noreferrer noopener" aria-label="Gitee"><img src="../../assets/img/icons/gitee.svg" alt="" /></a>
+<a href="https://x.com/openakita" target="_blank" rel="noreferrer noopener" aria-label="X"><img src="../../assets/img/icons/x.svg" alt="" /></a>
+<a href="https://discord.gg/vFwxNVNH" target="_blank" rel="noreferrer noopener" aria-label="Discord"><img src="../../assets/img/icons/discord.svg" alt="" /></a>
+</div>
+</div>
+<div>
+<h4>继续学习</h4>
+<ul>
+<li><a href="/tutorials/">教程中心</a></li>
+<li><a href="/tutorials/llm-endpoints/">大模型端点教程</a></li>
+<li><a href="/tutorials/im-channels/">IM 通道教程</a></li>
+</ul>
+</div>
+<div>
+<h4>关注我们</h4>
+<ul class="social-list footer-qr-list">
+<li class="footer-qr"><img src="../../assets/img/wx_fficial_accounts.jpg" alt="微信公众号" class="footer-qr-img" /><span>微信公众号</span></li>
+<li class="footer-qr"><img src="../../assets/img/bilibili.png" alt="Bilibili" class="footer-qr-img" /><span>Bilibili</span></li>
+</ul>
+</div>
+<div>
+<h4>联系我们</h4>
+<ul class="social-list">
+<li><a class="social-link" href="mailto:openakita@fzstack.com"><img src="../../assets/img/icons/mail.svg" alt="Email" />openakita@fzstack.com</a></li>
+<li><a class="social-link" href="mailto:simyng@fzstack.com"><img src="../../assets/img/icons/mail.svg" alt="Email" />simyng@fzstack.com</a></li>
+</ul>
+</div>
+</div>
+<div class="container" style="margin-top: 16px; color: var(--text-muted); font-size: 13px;">
+      © <span data-current-year=""></span> Fuzhou Stack Technology Co., Ltd. All rights reserved.
+    </div>
+</footer>
+<script src="../../assets/js/tracker.js"></script>
+<script src="../../assets/js/motion.js"></script>
+<script src="../../assets/js/main.js?v=20260611-web-search-i18n"></script>
+</body>
+</html>

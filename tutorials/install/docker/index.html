@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>OpenAkita Docker 安装教程</title>
+<meta content="OpenAkita Docker Compose 容器部署与运维教程。" name="description"/>
+<link href="../../../assets/img/logo.png" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="../../../assets/css/styles.css" rel="stylesheet"/>
+</head>
+<body data-page="tutorials">
+<header class="site-header"><div class="container nav-inner"><a class="brand" href="/"><img alt="OpenAkita" src="../../../assets/img/logo.png"/><span>OpenAkita</span></a><button aria-expanded="false" aria-label="打开导航" class="nav-toggle"><img alt="menu" src="../../../assets/img/icons/menu.svg"/></button><nav aria-label="主导航" class="main-nav"><a data-nav="home" href="/">首页</a><a data-nav="download" href="/download/">下载</a><a data-nav="services" href="/services/">服务</a>
+        <a href="/scenarios/" data-nav="scenarios">应用场景</a>
+<a data-nav="tutorials" href="/tutorials/">教程</a><a data-nav="about" href="/about/">关于我们</a><a href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub</a></nav></div></header>
+<main>
+<section class="page-hero"><div class="container reveal"><div class="page-hero-top"><a class="page-hero-back" href="/tutorials/"><img alt="" class="page-hero-back-icon" src="../../../assets/img/icons/arrow-right.svg"/><span>返回教程中心</span></a><div class="eyebrow">教程 / 安装 / Docker</div></div><h1>方式三：Docker 安装</h1><p>适合容器化部署、一键启动与生产环境运维。</p></div></section>
+<section>
+<div class="container tutorial-shell">
+<aside class="side-nav reveal side-nav--grouped">
+<h3>目录</h3>
+<a href="#docker-prereq" class="setup-nav-l2">一、环境要求</a>
+<a href="#docker-install" class="setup-nav-l2">二、安装步骤</a>
+<a href="#docker-deploy" class="setup-nav-l2">三、部署 OpenAkita</a>
+<a href="#docker-access" class="setup-nav-l2">四、访问 OpenAkita</a>
+<a href="#docker-commands" class="setup-nav-l2">五、常用管理命令</a>
+<a href="#docker-troubleshoot" class="setup-nav-l2">六、故障排查</a>
+</aside>
+<div class="reveal"><section class="tutorial-section" id="docker-prereq"><div class="card">
+<h2 style="margin-top:0;">一、环境要求</h2>
+<p>在 Ubuntu 22.04 LTS Server 上通过 Docker Compose 标准模式一键安装 OpenAkita。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>项目</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>系统</td><td>Ubuntu 22.04 LTS Server（已联网）</td></tr>
+<tr><td>权限</td><td>具备 <code>sudo</code> 的普通用户</td></tr>
+<tr><td>API Key</td><td>至少配置一个大模型提供商密钥</td></tr>
+<tr><td>磁盘</td><td>推荐20 GB 及以上</td></tr>
+</tbody>
+</table>
+</div>
+</div></section>
+
+<section class="tutorial-section" id="docker-install"><div class="card">
+<h2 style="margin-top:0;">二、安装步骤</h2>
+<div class="tutorial-substep"><h3>1. 安装 Docker 和 Docker Compose</h3>
+<p data-i18n-block>国内访问 <code>download.docker.com</code> 较慢，建议使用阿里云 Docker CE 源。</p>
+<div class="code-block"><code data-i18n-translate># 1. 安装依赖
+sudo apt update
+sudo apt install -y ca-certificates curl gnupg lsb-release
+
+# 2. 添加 Docker GPG 密钥 (阿里云镜像)
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+# 3. 设置 Docker 稳定版仓库 (阿里云镜像)
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# 4. 安装 Docker Engine 和 Docker Compose Plugin
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# 5. 验证安装
+sudo docker run hello-world
+sudo docker compose version</code></div>
+</div>
+<div class="tutorial-substep"><h3>2. 配置 Docker 镜像加速 (可选但推荐)</h3>
+<p>若拉取镜像超时，建议配置国内镜像加速。</p>
+<div class="code-block"><code data-i18n-translate>sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &lt;&lt;-&#39;EOF&#39;
+{
+  "registry-mirrors": [
+    "https://docker.1ms.run",
+    "https://docker.m.daocloud.io"
+  ]
+}
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker</code></div>
+</div></div></section>
+
+<section class="tutorial-section" id="docker-deploy"><div class="card">
+<h2 style="margin-top:0;">三、部署 OpenAkita</h2>
+<div class="tutorial-substep"><h3>3.1 克隆项目</h3>
+<div class="code-block"><code data-i18n-translate>cd ~
+# 完整克隆
+git clone https://github.com/OpenAkita/OpenAkita.git
+# 或：浅克隆（更快，只要最新版）
+git clone --depth 1 https://github.com/openakita/openakita.git
+cd OpenAkita</code></div>
+</div>
+<div class="tutorial-substep"><h3>3.2 配置环境变量</h3>
+<p>复制示例配置文件并根据需要修改：</p>
+<div class="code-block"><code data-i18n-translate>cp examples/.env.example .env
+# 使用 nano 或 vim 编辑 .env 文件
+nano .env</code></div>
+<p class="notice" data-i18n-block>注意：请至少配置 <code>LLM_API_KEY</code> 或其他必要的模型提供商密钥。</p>
+<div class="code-block"><code data-i18n-translate>DASHSCOPE_API_KEY=sk-你的密钥</code></div>
+<p>复制大模型端点配置文件并根据需要修改:</p>
+<div class="code-block"><code data-i18n-translate>cp data/llm_endpoints.json.example data/llm_endpoints.json
+nano data/llm_endpoints.json</code></div>
+<p>通义千问示例（主端点）：</p>
+<p data-i18n-block>在 <code>endpoints</code> 数组中加入或修改为类似配置：</p>
+<div class="code-block"><code data-i18n-translate>"endpoints": [
+    {
+      "name": "dashscope-qwen3.5-plus",
+      "provider": "dashscope",
+      "api_type": "openai",
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "model": "qwen3.5-plus",
+      "priority": 10,
+      "max_tokens": 0,
+      "context_window": 200000,
+      "timeout": 180,
+      "rpm_limit": 0,
+      "capabilities": [
+        "text",
+        "vision",
+        "video",
+        "tools",
+        "thinking"
+      ]
+    }
+  ]</code></div>
+</div>
+<div class="tutorial-substep"><h3>3.3 启动服务</h3>
+<p>同步最新代码</p>
+<div class="code-block"><code data-i18n-translate>git pull --rebase</code></div>
+<p>使用 Docker Compose 后台启动所有服务（前端、后端、数据库、向量库等）：</p>
+<div class="code-block"><code data-i18n-translate># 首次构建（不要用 --no-cache，否则会重复慢速 apt/npm，耗时很长）
+sudo docker compose build
+# 启动
+sudo docker compose up -d</code></div>
+<p data-i18n-block><strong>补充：</strong>当前版本在 <code>docker compose build</code> 时，如果出现报错，可以构建前自动打补丁：</p>
+<div class="code-block"><code data-i18n-translate>cd ~/openakita
+
+grep -q 'providers.json /app/src/openakita/llm/registries/providers.json' Dockerfile || \
+sed -i '/RUN npm ci/a COPY src/openakita/llm/registries/providers.json /app/src/openakita/llm/registries/providers.json' Dockerfile
+
+# 确认补丁已写入
+grep -n 'providers.json' Dockerfile</code></div>
+<p>应看到类似:</p>
+<div class="code-block"><code data-i18n-translate>7:COPY src/openakita/llm/registries/providers.json /app/src/openakita/llm/registries/providers.json</code></div>
+<p>然后再执行:</p>
+<div class="code-block"><code data-i18n-translate>sudo docker compose build
+sudo docker compose up -d</code></div>
+</div>
+<div class="tutorial-substep"><h3>3.4 查看日志</h3>
+<p>确认服务启动正常：</p>
+<div class="code-block"><code data-i18n-translate>sudo docker compose logs -f</code></div>
+<p data-i18n-block>按 <code>Ctrl+C</code> 退出日志查看。</p>
+<p data-i18n-block><strong>补充：</strong>构建成功后，若容器状态为 <strong>Restarting</strong>，日志出现：</p>
+<div class="code-block"><code data-i18n-translate>Error: No such option: --host</code></div>
+<p data-i18n-block>原因：镜像默认 <code>CMD</code> 为 <code>openakita serve --host 0.0.0.0 --port 18900</code>，但当前版本（如 1.27.12）的 <code>serve</code> 子命令<strong>不支持</strong> <code>--host</code> / <code>--port</code>，应通过环境变量 <code>API_HOST</code>、<code>API_PORT</code> 配置（<code>docker-compose.yml</code> 已包含）。</p>
+</div>
+<div class="tutorial-substep"><h3>方案 A：修改 docker-compose.yml（推荐，无需重新 build）</h3>
+<p data-i18n-block>编辑 <code>docker-compose.yml</code>，在 <code>openakita:</code> 服务下、<code>container_name:</code> 附近增加：</p>
+<div class="code-block"><code data-i18n-translate>command: ["serve"]</code></div>
+<p>或使用命令自动插入：</p>
+<div class="code-block"><code data-i18n-translate>cd ~/openakita
+grep -q 'command: \["serve"\]' docker-compose.yml || \
+sed -i '/container_name: openakita/a\    command: ["serve"]' docker-compose.yml 
+sudo docker compose up -d</code></div>
+</div>
+<div class="tutorial-substep"><h3>方案 B：修改 Dockerfile（长期）</h3>
+<div class="code-block"><code data-i18n-translate>sed -i 's/CMD \["serve", "--host", "0.0.0.0", "--port", "18900"\]/CMD ["serve"]/' Dockerfile
+# 然后需要重新 build
+sudo docker compose build</code></div>
+</div>
+<div class="tutorial-substep"><h3>3.5 验证与健康检查</h3>
+<div class="code-block"><code data-i18n-translate># 容器状态
+sudo docker compose ps
+
+# 健康检查（两个路径都试一下）
+sudo curl http://127.0.0.1:18900/health
+sudo curl http://127.0.0.1:18900/api/health</code></div>
+</div></div></section>
+
+<section class="tutorial-section" id="docker-access"><div class="card">
+<h2 style="margin-top:0;">四、访问 OpenAkita</h2>
+<p>部署完成后，在浏览器中访问：</p>
+<ul class="checklist">
+<li data-i18n-block><strong>地址</strong>：<code>http://&lt;虚拟机IP&gt;:18900</code>（默认端口，具体见 <code>.env</code> 中的 <code>FRONTEND_PORT</code>）</li>
+</ul>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="首次访问设置密码。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-首次访问设置密码.png"/><figcaption>首次访问设置密码。</figcaption></figure>
+<p>若密码遗忘，可以重新设置密码</p>
+<div class="code-block"><code data-i18n-translate>export OPENAKITA_WEB_PASSWORD='&lt;你的新密码&gt;'</code></div>
+<figure class="tutorial-shot tutorial-shot--sm"><img data-i18n-img alt="登录进行对话。" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/pypi-cli/zh/Ubuntu-server-cli-登录进行对话.png"/><figcaption>登录进行对话。</figcaption></figure>
+</div></section>
+
+<section class="tutorial-section" id="docker-commands"><div class="card">
+<h2 style="margin-top:0;">五、常用管理命令</h2>
+<div class="tutorial-substep"><h3>停止服务</h3>
+<div class="code-block"><code data-i18n-translate>sudo docker compose down</code></div>
+</div>
+<div class="tutorial-substep"><h3>重启服务</h3>
+<div class="code-block"><code data-i18n-translate>sudo docker compose restart</code></div>
+</div>
+<div class="tutorial-substep"><h3>更新版本</h3>
+<div class="code-block"><code data-i18n-translate>git pull
+sudo docker compose up -d --build</code></div>
+</div>
+<div class="tutorial-substep"><h3>查看容器状态</h3>
+<div class="code-block"><code data-i18n-translate>sudo docker compose ps</code></div>
+</div></div></section>
+
+<section class="tutorial-section" id="docker-troubleshoot"><div class="card">
+<h2 style="margin-top:0;">六、故障排查</h2>
+<div class="tutorial-substep"><h3>端口冲突</h3>
+<p data-i18n-block>如果对应端口被占用，请在 <code>.env</code> 中修改 <code>FRONTEND_PORT</code> 和 <code>BACKEND_PORT</code>，然后重启。</p>
+</div>
+<div class="tutorial-substep"><h3>权限问题</h3>
+<p data-i18n-block>如果遇到 <code>Permission denied</code>，请确保当前用户在 <code>docker</code> 组中：</p>
+<div class="code-block"><code data-i18n-translate>sudo usermod -aG docker $USER
+newgrp docker</code></div>
+</div>
+<div class="tutorial-substep"><h3>内存不足</h3>
+<p>OpenAkita 包含多个组件，建议服务器至少拥有 4GB+ 内存。</p>
+</div></div></section>
+
+</div></div></section>
+</main>
+<footer class="site-footer">
+<div class="container footer-grid">
+<div>
+<h4>OpenAkita</h4>
+<p class="footer-tagline">Self-Evolving AI Agent：自主学习，永不放弃。</p>
+<div class="footer-brand-icons">
+<a href="https://github.com/openakita/openakita" target="_blank" rel="noreferrer noopener" aria-label="GitHub"><img src="../../../assets/img/icons/github.svg" alt="" /></a>
+<a href="https://gitee.com/openakita/openakita" target="_blank" rel="noreferrer noopener" aria-label="Gitee"><img src="../../../assets/img/icons/gitee.svg" alt="" /></a>
+<a href="https://x.com/openakita" target="_blank" rel="noreferrer noopener" aria-label="X"><img src="../../../assets/img/icons/x.svg" alt="" /></a>
+<a href="https://discord.gg/vFwxNVNH" target="_blank" rel="noreferrer noopener" aria-label="Discord"><img src="../../../assets/img/icons/discord.svg" alt="" /></a>
+</div>
+</div>
+<div>
+<h4>快速链接</h4>
+<ul>
+<li><a href="/download/">下载</a></li>
+<li><a href="/services/">服务</a></li>
+<li><a href="/tutorials/">教程</a></li>
+<li><a href="/about/">关于我们</a></li>
+</ul>
+</div>
+<div>
+<h4>关注我们</h4>
+<ul class="social-list footer-qr-list">
+<li class="footer-qr"><img src="../../../assets/img/wx_fficial_accounts.jpg" alt="微信公众号" class="footer-qr-img" /><span>微信公众号</span></li>
+<li class="footer-qr"><img src="../../../assets/img/bilibili.png" alt="Bilibili" class="footer-qr-img" /><span>Bilibili</span></li>
+</ul>
+</div>
+<div>
+<h4>联系我们</h4>
+<ul class="social-list">
+<li><a class="social-link" href="mailto:openakita@fzstack.com"><img src="../../../assets/img/icons/mail.svg" alt="Email" />openakita@fzstack.com</a></li>
+<li><a class="social-link" href="mailto:simyng@fzstack.com"><img src="../../../assets/img/icons/mail.svg" alt="Email" />simyng@fzstack.com</a></li>
+</ul>
+</div>
+</div>
+<div class="container" style="margin-top: 16px; color: var(--text-muted); font-size: 13px;">© <span data-current-year=""></span> Fuzhou Stack Technology Co., Ltd. All rights reserved.
+<span style="margin: 0 8px;">|</span><a href="/terms/" style="color: var(--text-dim);">服务条款</a>
+<span style="margin: 0 8px;">|</span><a href="/privacy/" style="color: var(--text-dim);">隐私政策</a>
+</div>
+</footer>
+<script src="../../../assets/js/tracker.js"></script>
+<script src="../../../assets/js/motion.js"></script><script src="../../../assets/js/main.js?v=20260612-tutorial-pagekey"></script>
+</body>
+</html>

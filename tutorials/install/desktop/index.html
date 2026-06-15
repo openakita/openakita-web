@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>OpenAkita Desktop 安装与配置指南</title>
-<meta content="OpenAkita Desktop 安装与配置指南：下载安装、初次配置向导、LLM 端点、IM 通道、工具与技能、灵魂与意志、高级配置全流程。" name="description"/>
+<meta content="OpenAkita Desktop 安装与配置指南：下载安装、初次配置向导、大模型端点、IM 通道、工具与技能、灵魂与意志、高级配置全流程。" name="description"/>
 <link href="../../../assets/img/logo.png" rel="icon"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -16,7 +16,7 @@
         <a href="/scenarios/" data-nav="scenarios">应用场景</a>
 <a data-nav="tutorials" href="/tutorials/">教程</a><a data-nav="about" href="/about/">关于我们</a><a href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub</a></nav></div></header>
 <main>
-<section class="page-hero"><div class="container reveal"><div class="eyebrow">Tutorial / Setup / Desktop</div><h1>方式一：Windows（Desktop）</h1><p>图形化配置向导，支持快速配置与完整配置，适合大多数用户。</p></div></section>
+<section class="page-hero"><div class="container reveal"><div class="page-hero-top"><a class="page-hero-back" href="/tutorials/"><img alt="" class="page-hero-back-icon" src="../../../assets/img/icons/arrow-right.svg"/><span>返回教程中心</span></a><div class="eyebrow">教程 / 安装 / Windows 桌面端</div></div><h1>方式一：Windows（桌面端）</h1><p>图形化配置向导，支持快速配置与完整配置，适合大多数用户。</p></div></section>
 <section>
 <div class="container tutorial-shell">
 <aside class="side-nav reveal">
@@ -26,19 +26,19 @@
 <a href="#install-steps" class="setup-nav-l1">2. 正式安装</a>
 <a href="#wizard" class="setup-nav-l1">3. 配置向导（初次配置）</a>
 <a href="#full-overview" class="setup-nav-l1">4. 完整配置</a>
-<a href="#full-llm" class="setup-nav-l2">4.1 LLM 端点配置（必填）</a>
+<a href="#full-llm" class="setup-nav-l2">4.1 大模型端点配置（必填）</a>
 <a href="#full-im" class="setup-nav-l2">4.2 IM 通道</a>
 <a href="#full-tools" class="setup-nav-l2">4.3 工具与技能</a>
 <a href="#full-soul" class="setup-nav-l2">4.4 灵魂与意志</a>
 <a href="#full-advanced" class="setup-nav-l2">4.5 高级配置</a>
 <a href="#full-multi" class="setup-nav-l2">4.6 多 Agent 模式</a>
 <a href="#full-done" class="setup-nav-l2">4.7 完成</a>
-</aside><div class="reveal"><p class="notice reveal"><strong>返回总览：</strong><a href="/tutorials/setup-install/">安装教程总览</a></p>
+</aside><div class="reveal">
 <section class="tutorial-section" id="prereq"><div class="card">
 <h2 style="margin-top:0;">前置条件</h2>
 <ul class="checklist">
 <li><strong>官网地址</strong>：<a href="https://openakita.ai/download/" rel="noopener" target="_blank">openakita.ai/download</a></li>
-<li><strong>LLM API Key</strong>：OpenAkita 本身是一个框架，需要连接大模型才能思考。如果没有 API Key，可以前往对应官网注册（如阿里云、DeepSeek、Anthropic 等）</li>
+<li><strong>大模型API Key</strong>：OpenAkita 本身是一个框架，需要连接大模型才能思考。如果没有 API Key，可以前往对应官网注册（如阿里云、DeepSeek、Anthropic 等）</li>
 </ul>
 </div></section>
 <section class="tutorial-section" id="download"><div class="card">
@@ -74,9 +74,9 @@
 <ol>
 <li>欢迎使用 OpenAkita 页面，点击<strong>「开始配置」</strong></li>
 <li>确认使用风险，输入"<strong>我已知晓</strong>"</li>
-<li>配置 LLM 端点：你至少需要添加 <strong>1 个 LLM 端点</strong> 才能开始使用。
+<li>配置大模型端点：你至少需要添加 <strong>1 个大模型端点</strong> 才能开始使用。
 <ul>
-<li>点击 LLM 中的<strong>「添加端点」</strong></li>
+<li>点击大模型中的<strong>「添加端点」</strong></li>
 <li>选择服务商，填写 API Key</li>
 <li>点击<strong>「重新拉取」</strong>，选择模型</li>
 <li>点击<strong>「添加端点」</strong></li>
@@ -87,7 +87,7 @@
 <li>配置完成，进入 OpenAkita 会自动启动服务</li>
 <li>切换到聊天页面，即可开始使用</li>
 </ol>
-<p class="notice"><strong>注意</strong>：可在配置向导页面选择暂不配置 LLM 和 IM 通道，进入 OpenAkita 后再进行配置。</p>
+<p class="notice"><strong>注意</strong>：可在配置向导页面选择暂不配置大模型和 IM 通道，进入 OpenAkita 后再进行配置。</p>
 <figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 欢迎使用页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-欢迎使用页面.png"/><figcaption>配置向导 - 欢迎使用页面。</figcaption></figure>
 <figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 使用风险须知" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-使用风险须知页面.jpg"/><figcaption>配置向导 - 使用风险须知。</figcaption></figure>
 <figure class="tutorial-shot"><img data-i18n-img alt="配置向导 - 配置 AI 模型" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-配置向导-配置AI模型页面.png"/><figcaption>配置向导 - 配置 AI 模型。</figcaption></figure>
@@ -100,19 +100,19 @@
 </div></section>
 <section class="tutorial-section" id="full-overview"><div class="card">
 <h2 style="margin-top:0;">4. 完整配置</h2>
-<p>完整配置提供对各功能模块的精细控制，适合需要自定义 LLM 端点、接入 IM 通道、调整 Agent 行为等的用户。</p>
+<p>完整配置提供对各功能模块的精细控制，适合需要自定义大模型端点、接入 IM 通道、调整 Agent 行为等的用户。</p>
 </div></section>
 <section class="tutorial-section" id="full-llm"><div class="card">
-<div class="tutorial-substep"><h3>4.1 LLM 端点配置（必填）</h3>
-<p>LLM 端点是 OpenAkita 调用大语言模型的入口。你可以配置多个端点，系统会根据优先级和可用性自动选择。</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="LLM 端点配置页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-LLM 端点配置页面.png"/><figcaption>LLM 端点配置页面。</figcaption></figure>
+<div class="tutorial-substep"><h3>4.1 大模型端点配置（必填）</h3>
+<p>大模型端点是 OpenAkita 调用大语言模型的入口。你可以配置多个端点，系统会根据优先级和可用性自动选择。</p>
+<figure class="tutorial-shot"><img data-i18n-img alt="大模型端点配置页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-LLM 端点配置页面.png"/><figcaption>大模型端点配置页面。</figcaption></figure>
 <p><strong>添加主端点：</strong>点击<strong>「+ 添加端点」</strong>按钮，打开端点配置对话框</p>
-<figure class="tutorial-shot"><img data-i18n-img alt="添加 LLM 端点页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-添加 LLM 端点页面.png"/><figcaption>添加 LLM 端点对话框。</figcaption></figure>
+<figure class="tutorial-shot"><img data-i18n-img alt="添加大模型端点页面" loading="lazy" decoding="async" src="../../../assets/img/tutorials/setup-install/desktop/zh/OpenAkita-添加 LLM 端点页面.png"/><figcaption>添加大模型端点对话框。</figcaption></figure>
 <div class="table-wrap">
 <table>
 <thead><tr><th>字段</th><th>说明</th><th>示例</th></tr></thead>
 <tbody>
-<tr><td><strong>服务商</strong></td><td>选择 LLM 服务提供商</td><td>通义千问、OpenAI、Anthropic 等</td></tr>
+<tr><td><strong>服务商</strong></td><td>选择大模型服务提供商</td><td>通义千问、OpenAI、Anthropic 等</td></tr>
 <tr><td><strong>Base URL</strong></td><td>API 接口地址（选择服务商后自动填充）</td><td><code>https://dashscope.aliyuncs.com/compatible-mode/v1</code></td></tr>
 <tr><td><strong>API Key</strong></td><td>你的 API 密钥</td><td><code>sk-xxxxx</code></td></tr>
 <tr><td><strong>模型</strong></td><td>选择或输入模型名称（支持在线拉取模型列表）</td><td><code>qwen-max</code>、<code>gpt-4o</code></td></tr>
@@ -352,7 +352,7 @@
 </tbody>
 </table>
 </div>
-<p class="notice">LLM 智能审查：将由大模型逐条审查所有记忆，删除垃圾、合并重复，此操作可能需要较长时间，请耐心等待。</p>
+<p class="notice">大模型智能审查：将由大模型逐条审查所有记忆，删除垃圾、合并重复，此操作可能需要较长时间，请耐心等待。</p>
 <h4>意志（Will）</h4>
 <div class="table-wrap">
 <table>
@@ -518,6 +518,6 @@
 </div>
 </footer>
 <script src="../../../assets/js/tracker.js"></script>
-<script src="../../../assets/js/motion.js"></script><script src="../../../assets/js/main.js?v=20260608-linux-docker-nav"></script>
+<script src="../../../assets/js/motion.js"></script><script src="../../../assets/js/main.js?v=20260612-tutorial-pagekey"></script>
 </body>
 </html>
