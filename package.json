@@ -8,6 +8,7 @@
     "build:motion": "esbuild assets/ts/motion.ts --bundle --target=es2019 --format=iife --outfile=assets/js/motion.js --minify",
     "watch:motion": "esbuild assets/ts/motion.ts --bundle --target=es2019 --format=iife --outfile=assets/js/motion.js --watch",
     "typecheck": "tsc --noEmit",
+    "build:setup-subpages": "node scripts/build-setup-subpages.js",
     "build": "npm run build:motion && npm run typecheck && vite build",
     "preview": "vite preview"
   },
