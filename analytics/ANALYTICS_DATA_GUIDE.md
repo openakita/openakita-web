@@ -11,6 +11,8 @@
 | --------------------------------------- | -------------------- |
 | `analytics/events/YYYY/MM/DD/*.json`    | 原始事件文件，每个 JSON 是一条事件 |
 | `analytics/stats/latest.json`           | 最新聚合统计（由定时云函数生成）     |
+| `analytics/stats/all_time.json`         | 累计统计（由聚合函数增量更新）       |
+| `analytics/stats/all_time_state.json`   | 累计统计内部状态（不要作为报表读取）   |
 | `analytics/stats/daily/YYYY-MM-DD.json` | 每日统计快照               |
 
 
@@ -114,6 +116,22 @@
   "utm_sources": {"github": 3200, "twitter": 800, "wechat": 500}
 }
 ```
+
+### 3.1 累计统计结构 (all_time.json)
+
+`analytics/stats/all_time.json` 与 `latest.json` 的主体结构一致，但表示从历史第一条事件到当前的累计统计，并额外包含：
+
+```json
+{
+  "scope": "all_time",
+  "period_days": null,
+  "processed_events": 123456,
+  "last_event_key": "analytics/events/2026/06/26/1719390000000_abcd1234.json",
+  "last_error_key": ""
+}
+```
+
+累计统计通过 `analytics/stats/all_time_state.json` 做增量更新。首次运行会扫描全部历史事件；之后每次只读取 `last_event_key` 之后的新事件。`all_time_state.json` 保存累计 UV/session 去重所需的二次哈希标识、页面 UV 集合、每日 UV 集合和聚合计数，属于内部状态文件，报表和前端只应读取 `all_time.json`。
 
 ## 4. 常用分析任务
 
@@ -387,6 +405,7 @@ for h in sorted(hourly_dl.keys()):
   | `OSS_AK`       | 你的 AccessKey ID                                                                                | 阿里云 AK            |
   | `OSS_SK`       | 你的 AccessKey Secret                                                                            | 阿里云 SK（注意保密）      |
   | `STATS_DAYS`   | `90`                                                                                           | 聚合最近多少天的数据（默认 90） |
+  | `ANALYTICS_STATE_SALT` | 随机长字符串                                                                                     | 可选，累计状态中 visitor/session 二次哈希用 |
 
   > ⚠️ 前 4 项（OSS 配置）必须与追踪函数 (track.py) 保持一致，缺少任何一项都会导致 `TypeError: can only concatenate str (not "NoneType") to str` 错误。`IP_SALT` 仅 track.py 使用，此处无需配置。
 4. 创建 **定时触发器**：
@@ -400,6 +419,8 @@ for h in sorted(hourly_dl.keys()):
 **执行结果：** 聚合完成后，OSS 中会生成：
 
 - `analytics/stats/latest.json` — 最新聚合结果（前端可直接 fetch）
+- `analytics/stats/all_time.json` — 累计聚合结果（前端或报表可直接 fetch）
+- `analytics/stats/all_time_state.json` — 累计聚合内部状态（不要公开使用）
 - `analytics/stats/daily/YYYY-MM-DD.json` — 当日快照
 
 ### 7.3 依赖说明
@@ -447,7 +468,10 @@ cd package && zip -r ../track.zip .
 
 #### 聚合函数 (aggregate.py) — 低频重计算
 
-每次执行需要：列出 N 天的事件文件 → 逐个读取 → 内存聚合 → 写入结果 JSON。
+每次执行需要：
+
+- 最近窗口统计：列出 N 天的事件文件 → 逐个读取 → 内存聚合 → 写入 `latest.json`
+- 累计统计：首次列出并读取全部历史事件；之后只读取 `all_time_state.json` 记录的 `last_event_key` 之后的新事件 → 更新 `all_time.json`
 
 
 | 配置项         | 推荐值                 | 说明                 |
@@ -462,9 +486,7 @@ cd package && zip -r ../track.zip .
 | **Handler** | `aggregate.handler` | 事件函数入口             |
 
 
-> **内存估算**：每条事件 ~500 字节，90 天 × 300 事件/天 = 27,000 条 ≈ 13.5 MB。
-> 512 MB 内存可支撑日均 ~30,000 条事件（约相当于日 PV 10,000+），远超当前需求。
-> 如果未来日均事件超过 50,000 条，建议将内存提升至 1024 MB。
+> **内存估算**：最近窗口统计已改为边读边聚合，不再把 90 天事件全部放入列表。累计统计会在 `all_time_state.json` 中保存 UV/session 去重集合，状态大小会随独立访客数、会话数、页面数和每日 UV 增长。当前小流量下 512 MB 足够；如果累计 UV/session 达到百万级，建议将内存提升至 1024 MB，并考虑把累计去重改为数据库或近似去重结构。
 
 #### 费用估算（按当前流量）
 
@@ -498,5 +520,3 @@ cd package && zip -r ../track.zip .
 | **启动命令**    | `python3 track.py`  | 不需要                 |
 | **公网访问**    | 是（前端需要调用）           | 否（内部定时触发）           |
 | **认证**      | 无需认证                | 不适用                 |
-
-
