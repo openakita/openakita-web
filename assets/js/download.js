@@ -1,17 +1,29 @@
 /**
  * download.js — Download page logic for OpenAkita
  *
- * Handles: data fetching, platform detection, channel rendering,
- * historical version browsing, and release notes display.
+ * Handles: data fetching, platform downloads, historical version browsing,
+ * and release notes display.
  */
 (function () {
   "use strict";
 
   // ── Config ──
-  var OSS_BASE = "https://dl-openakita.fzstack.com";
+  function isLocalDev() {
+    var h = location.hostname;
+    var port = location.port;
+    // 非标准 HTTP(S) 端口视为本地开发（Vite 等）
+    if (port && port !== "80" && port !== "443") return true;
+    if (h === "localhost" || h === "127.0.0.1" || /^192\.168\./.test(h) || /^10\./.test(h) || /\.local$/i.test(h)) {
+      return true;
+    }
+    var isProdHost = h === "openakita.ai" || h === "www.openakita.ai";
+    return !(isProdHost && location.protocol === "https:");
+  }
+  var OSS_BASE = isLocalDev() ? "/dl-api" : "https://dl-openakita.fzstack.com";
+  var GH_API_BASE = isLocalDev() ? "/gh-api" : "https://api.github.com";
   var GH_REPO = "openakita/openakita";
-  var CHANNELS = ["release", "pre-release", "dev"];
-  var CHANNEL_IDS = { release: "release", "pre-release": "prerelease", dev: "dev" };
+  var PLATFORMS = ["windows", "macos", "linux", "android", "ios"];
+  var PLATFORM_ICONS = {};
 
   // ── Download page i18n ──
   var DL_MSGS = {
@@ -336,11 +348,10 @@
   // ── State ──
   var state = {
     platform: null,
-    manifests: {},       // { release: {...}, "pre-release": {...}, dev: {...} }
+    releaseManifest: null,
     versionsIndex: null,  // versions.json content
     versionCache: {},     // { "v1.25.9": manifest }
     historyLoaded: false,
-    activeNotesChannel: "release",
   };
 
   // ── Platform Detection ──
@@ -387,7 +398,7 @@
   // ── Fallback: build manifest from GitHub API ──
   function fetchGHLatest() {
     return fetchJSON(
-      "https://api.github.com/repos/" + GH_REPO + "/releases/latest", 8000
+      GH_API_BASE + "/repos/" + GH_REPO + "/releases/latest", 8000
     );
   }
 
@@ -451,17 +462,15 @@
     } catch (e) { return iso.slice(0, 10); }
   }
 
-  function pickPlatformDownload(downloads, platform) {
-    if (!downloads) return null;
-    var items = downloads[platform];
-    if (!items || items.length === 0) return null;
-    return items[0];
-  }
-
-  function shortArchLabel(nickname) {
-    if (/arm64|aarch64|apple.silicon/i.test(nickname)) return dt("archApple");
-    if (/x64|x86_64|intel/i.test(nickname)) return dt("archIntel");
-    return nickname;
+  function platformIcon(platform) {
+    if (PLATFORM_ICONS[platform]) return PLATFORM_ICONS[platform];
+    var tmpl = document.getElementById("platformIconTemplate");
+    if (tmpl && tmpl.content) {
+      var host = tmpl.content.querySelector('[data-platform="' + platform + '"]');
+      var svg = host ? host.querySelector("svg") : null;
+      if (svg) PLATFORM_ICONS[platform] = svg.outerHTML;
+    }
+    return PLATFORM_ICONS[platform] || "";
   }
 
   function renderMarkdown(md) {
@@ -554,116 +563,53 @@
     });
   }
 
-  // ── Platform Switching ──
-  function initPlatformSelector() {
-    var btns = document.querySelectorAll(".platform-btn");
-    btns.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        selectPlatform(btn.getAttribute("data-platform"));
-      });
-    });
-  }
+  function renderDesktopDownloads(manifest) {
+    var selector = document.getElementById("platformSelector");
+    if (!selector) return;
 
-  function selectPlatform(platform) {
-    state.platform = platform;
-    document.querySelectorAll(".platform-btn").forEach(function (btn) {
-      btn.classList.toggle("active", btn.getAttribute("data-platform") === platform);
-    });
-    renderAllChannels();
-  }
+    selector.classList.add("platform-downloads");
 
-  // ── Channel Card Rendering ──
-  function renderChannelCard(channel, manifest) {
-    var idPrefix = CHANNEL_IDS[channel];
-    var versionEl = document.getElementById(idPrefix + "Version");
-    var dateEl = document.getElementById(idPrefix + "Date");
-    var actionsEl = document.getElementById(idPrefix + "Actions");
-    var allArchEl = document.getElementById(idPrefix + "AllArch");
-    var card = actionsEl ? actionsEl.closest(".channel-card") : null;
+    var html = "";
+    PLATFORMS.forEach(function (platform) {
+      var items = manifest && manifest.downloads ? manifest.downloads[platform] : null;
+      items = items || [];
+      var version = manifest && manifest.version ? "v" + manifest.version : "--";
+      var icon = platformIcon(platform);
 
-    if (!manifest || !manifest.version) {
-      if (versionEl) versionEl.textContent = "--";
-      if (dateEl) dateEl.textContent = "";
-      if (actionsEl) actionsEl.innerHTML = '<span class="channel-unavailable">' + escapeHtml(dt("channelUnavailable")) + '</span>';
-      if (allArchEl) allArchEl.style.display = "none";
-      if (card) card.classList.add("channel-card-empty");
-      return;
-    }
+      html += '<article class="platform-download' + (items.length ? '' : ' platform-download-disabled') + '" data-platform="' + escapeHtml(platform) + '">';
+      html += '<div class="platform-download-main">';
+      html += '<span class="platform-download-icon">' + icon + '</span>';
+      html += '<span class="platform-download-copy">';
+      html += '<span class="platform-download-name">' + escapeHtml(platformLabel(platform)) + '</span>';
+      html += '<span class="platform-download-version">' + escapeHtml(version) + '</span>';
+      html += '</span>';
+      html += '</div>';
 
-    if (card) card.classList.remove("channel-card-empty");
-    if (versionEl) versionEl.textContent = "v" + manifest.version;
-    if (dateEl) dateEl.textContent = formatDate(manifest.pub_date);
-
-    var platform = state.platform;
-    var platformItems = manifest.downloads ? manifest.downloads[platform] : null;
-    var dl = platformItems && platformItems.length > 0 ? platformItems[0] : null;
-
-    if (actionsEl) {
-      if (platform === "ios" && (!dl || !dl.url)) {
-        actionsEl.innerHTML = '<span class="channel-ios-hint">' + escapeHtml(dt("iosHint")) + '</span>';
-      } else if (platform === "macos" && platformItems && platformItems.length > 1) {
-        var html = '<div class="macos-arch-buttons">';
-        platformItems.forEach(function (item) {
+      if (items.length) {
+        html += '<div class="platform-download-options">';
+        items.forEach(function (item) {
           var sizeStr = formatSize(item.size);
-          var label = shortArchLabel(item.nickname);
-          html +=
-            '<a class="btn btn-primary channel-dl-btn" href="' + escapeHtml(item.url) + '">' +
-            escapeHtml(dt("download")) + ' ' + escapeHtml(label) +
-            (sizeStr ? ' <span class="dl-size">' + sizeStr + '</span>' : '') +
-            '</a>';
+          var label = item.nickname || platformLabel(platform);
+          html += '<a class="platform-download-option" data-platform="' + escapeHtml(platform) + '" href="' + escapeHtml(item.url) + '" title="' + escapeHtml(item.name || label) + '">';
+          html += '<span class="platform-download-package">' + escapeHtml(label) + '</span>';
+          if (sizeStr) html += '<span class="platform-download-size">' + escapeHtml(sizeStr) + '</span>';
+          html += '</a>';
         });
         html += '</div>';
-        actionsEl.innerHTML = html;
-      } else if (dl) {
-        var sizeStr = formatSize(dl.size);
-        actionsEl.innerHTML =
-          '<a class="btn btn-primary channel-dl-btn" href="' + escapeHtml(dl.url) + '">' +
-          escapeHtml(dt("download")) + ' ' + escapeHtml(dl.nickname) +
-          (sizeStr ? ' <span class="dl-size">' + sizeStr + '</span>' : '') +
-          '</a>';
       } else {
-        actionsEl.innerHTML =
-          '<a class="btn btn-secondary channel-dl-btn" href="#versionHistory" onclick="document.getElementById(\'versionHistory\').open=true;document.getElementById(\'versionHistory\').scrollIntoView({behavior:\'smooth\'});return false;">' +
-          escapeHtml(dt("noPlatformPkg").replace("{p}", platformLabel(platform))) + '</a>';
+        var emptyMsg = platform === "ios" ? dt("iosHint") : dt("channelUnavailable");
+        html += '<span class="platform-download-empty">' + escapeHtml(emptyMsg) + '</span>';
       }
-    }
 
-    // "All architectures" link (hidden for macOS since both are already shown)
-    if (allArchEl) {
-      if (platformItems && platformItems.length > 1 && platform !== "macos") {
-        allArchEl.style.display = "";
-        allArchEl.onclick = function (e) {
-          e.preventDefault();
-          showArchDetail(channel, manifest, platform);
-        };
-      } else {
-        allArchEl.style.display = "none";
-      }
-    }
+      html += '</article>';
+    });
 
-    if (card) {
-      card.classList.toggle("channel-card-active", channel === state.activeNotesChannel);
-    }
+    selector.innerHTML = html;
   }
 
-  function renderAllChannels() {
-    CHANNELS.forEach(function (ch) {
-      renderChannelCard(ch, state.manifests[ch]);
-    });
+  function renderDesktopPanel() {
+    renderDesktopDownloads(state.releaseManifest);
     renderReleaseNotes();
-  }
-
-  // ── Channel card hover → switch release notes ──
-  function initChannelHover() {
-    document.querySelectorAll(".channel-card").forEach(function (card) {
-      card.addEventListener("mouseenter", function () {
-        var ch = card.getAttribute("data-channel");
-        var m = state.manifests[ch];
-        if (hasNotes(m)) {
-          switchNotesChannel(ch);
-        }
-      });
-    });
   }
 
   // ── Arch Detail Overlay ──
@@ -745,38 +691,20 @@
   }
 
   // ── Release Notes ──
-  function switchNotesChannel(channel) {
-    state.activeNotesChannel = channel;
-    renderReleaseNotes();
-    document.querySelectorAll(".channel-card").forEach(function (card) {
-      var ch = card.getAttribute("data-channel");
-      card.classList.toggle("channel-card-active", ch === channel);
-    });
-  }
-
   function renderReleaseNotes() {
     var section = document.getElementById("releaseNotesSection");
     var titleEl = document.getElementById("releaseNotesTitle");
     var contentEl = document.getElementById("releaseNotesContent");
     if (!section || !contentEl) return;
 
-    var manifest = state.manifests[state.activeNotesChannel];
-    if (!hasNotes(manifest)) {
-      var fallback = CHANNELS.find(function (ch) {
-        return hasNotes(state.manifests[ch]);
-      });
-      manifest = fallback ? state.manifests[fallback] : null;
-      if (fallback) state.activeNotesChannel = fallback;
-    }
-
+    var manifest = state.releaseManifest;
     if (!hasNotes(manifest)) {
       section.style.display = "none";
       return;
     }
 
-    var label = channelLabel(state.activeNotesChannel);
     section.style.display = "";
-    if (titleEl) titleEl.textContent = label + " v" + manifest.version + " " + dt("changelog");
+    if (titleEl) titleEl.textContent = channelLabel("release") + " v" + manifest.version + " " + dt("changelog");
     contentEl.innerHTML = renderMarkdown(getLocalizedNotes(manifest));
   }
 
@@ -933,70 +861,31 @@
   // ── Initialization ──
   function init() {
     initTabs();
-    initPlatformSelector();
     initArchOverlay();
     initNotesModal();
-    initChannelHover();
     initHistory();
 
     state.platform = detectPlatform();
-    selectPlatform(state.platform);
 
-    // Load all three channel manifests in parallel
-    Promise.allSettled([
-      fetchChannelManifest("release"),
-      fetchChannelManifest("pre-release"),
-      fetchChannelManifest("dev"),
-    ]).then(function (results) {
-      var release = results[0].status === "fulfilled" ? results[0].value : null;
-      var preRelease = results[1].status === "fulfilled" ? results[1].value : null;
-      var dev = results[2].status === "fulfilled" ? results[2].value : null;
-
-      // Fallback to GitHub API if no release manifest found
+    fetchChannelManifest("release").then(function (release) {
       if (!release || !release.version) {
         return fetchGHLatest().then(function (ghRelease) {
-          var ghManifest = ghAssetToDownloads(ghRelease);
-          if (ghManifest) release = ghManifest;
-          return { release: release, "pre-release": preRelease, dev: dev };
+          return ghAssetToDownloads(ghRelease);
         });
       }
-      return { release: release, "pre-release": preRelease, dev: dev };
-    }).then(function (manifests) {
-      // Deduplicate: if two channels have the same version, hide the lower-priority one
-      var versions = {};
-      CHANNELS.forEach(function (ch) {
-        var m = manifests[ch];
-        if (m && m.version) {
-          if (versions[m.version]) {
-            manifests[ch] = null;
-          } else {
-            versions[m.version] = true;
-          }
-        }
-      });
+      return release;
+    }).then(function (release) {
+      state.releaseManifest = release;
+      renderDesktopPanel();
 
-      state.manifests = manifests;
-      // Set initial active notes channel to first channel with notes
-      var initialNotes = CHANNELS.find(function (ch) {
-        return hasNotes(manifests[ch]);
-      });
-      if (initialNotes) state.activeNotesChannel = initialNotes;
-      renderAllChannels();
+      if (release && release.version) {
+        state.versionCache["v" + release.version] = release;
+      }
 
-      // Cache manifests in version cache for history
-      CHANNELS.forEach(function (ch) {
-        var m = manifests[ch];
-        if (m && m.version) {
-          state.versionCache["v" + m.version] = m;
-        }
-      });
-
-      // Update legacy home page version badge if present
       var verBadge = document.getElementById("latestReleaseVersion");
       var dateBadge = document.getElementById("latestReleaseDate");
-      var displayM = manifests.release || manifests["pre-release"] || manifests.dev;
-      if (verBadge && displayM) verBadge.textContent = "v" + displayM.version;
-      if (dateBadge && displayM) dateBadge.textContent = formatDate(displayM.pub_date);
+      if (verBadge && release) verBadge.textContent = "v" + release.version;
+      if (dateBadge && release) dateBadge.textContent = formatDate(release.pub_date);
     });
   }
 
@@ -1008,21 +897,6 @@
 
   function translateStaticHTML() {
     var q = function (sel) { return document.querySelector(sel); };
-    var qa = function (sel) { return document.querySelectorAll(sel); };
-
-    setDlText(q('.channel-card[data-channel="release"] .badge-release'), dt("channelRelease"));
-    setDlText(q('.channel-card[data-channel="release"] .channel-recommend'), dt("recommend"));
-    setDlText(q('.channel-card[data-channel="pre-release"] .badge-prerelease'), dt("channelPreRelease"));
-    setDlText(q('.channel-card[data-channel="dev"] .badge-dev'), dt("channelDev"));
-
-    var descMap = { release: "descRelease", "pre-release": "descPreRelease", dev: "descDev" };
-    qa(".channel-card").forEach(function (card) {
-      var ch = card.getAttribute("data-channel");
-      var desc = card.querySelector(".channel-card-desc");
-      if (desc && descMap[ch]) setDlText(desc, dt(descMap[ch]));
-    });
-
-    qa(".channel-card-all-arch").forEach(function (a) { setDlText(a, dt("viewAllArch")); });
 
     var archTitle = q("#archDetailTitle");
     if (archTitle && !archTitle.textContent.match(/^v?\d/)) setDlText(archTitle, dt("downloadOptions"));
@@ -1032,14 +906,13 @@
     var historyHint = q("#versionHistoryContent > .channel-loading");
     if (historyHint && !state.historyLoaded) setDlText(historyHint, dt("historyHint"));
 
-    qa(".channel-card-actions .channel-loading").forEach(function (el) {
-      setDlText(el, dt("loading"));
-    });
+    var desktopLoading = q("#platformSelector > .channel-loading");
+    if (desktopLoading) setDlText(desktopLoading, dt("loading"));
 
     setDlText(q('.install-tab[data-tab="source"] span'), dt("sourceInstall"));
     setDlText(q('.install-tab[data-tab="docker"] span'), dt("dockerInstall"));
 
-    qa("[data-i18n-dl]").forEach(function (el) {
+    document.querySelectorAll("[data-i18n-dl]").forEach(function (el) {
       var key = el.getAttribute("data-i18n-dl");
       if (key) setDlText(el, dt(key));
     });
@@ -1050,7 +923,7 @@
 
   function onLanguageChanged() {
     translateStaticHTML();
-    renderAllChannels();
+    renderDesktopPanel();
     if (state.historyLoaded && state.versionsIndex) {
       var container = document.getElementById("versionHistoryContent");
       if (container) renderHistory(state.versionsIndex, container);
@@ -1062,16 +935,15 @@
   // ── Download Click Tracking ──
   function parseDownloadInfo(href, el) {
     var filename = (href || "").split("/").pop().split("?")[0];
-    var card = el.closest ? el.closest(".channel-card") : null;
+    var platformDownload = el.closest ? el.closest(".platform-download, .platform-download-option") : null;
     var historyItem = el.closest ? el.closest(".history-item") : null;
     var archPanel = el.closest ? el.closest(".arch-detail-panel") : null;
     var channel = "";
     var version = "";
 
-    if (card) {
-      channel = card.getAttribute("data-channel") || "";
-      var vEl = card.querySelector(".channel-card-version");
-      version = vEl ? (vEl.textContent || "").replace(/^v/, "") : "";
+    if (platformDownload) {
+      channel = "release";
+      version = state.releaseManifest && state.releaseManifest.version ? state.releaseManifest.version : "";
     } else if (historyItem) {
       version = historyItem.getAttribute("data-version") || "";
     } else if (archPanel) {
@@ -1080,7 +952,7 @@
       if (m) version = m[1];
     }
 
-    var platform = state.platform || "";
+    var platform = platformDownload ? platformDownload.getAttribute("data-platform") : (state.platform || "");
     if (/\.exe$/i.test(filename)) platform = "windows";
     else if (/\.dmg$/i.test(filename)) platform = "macos";
     else if (/\.deb$/i.test(filename)) platform = "linux";
@@ -1097,7 +969,7 @@
   }
 
   document.addEventListener("click", function (e) {
-    var a = e.target.closest ? e.target.closest("a.channel-dl-btn, a.arch-item") : null;
+    var a = e.target.closest ? e.target.closest("a.arch-item, a.platform-download-option") : null;
     if (!a) return;
     var href = a.getAttribute("href") || "";
     if (!href.startsWith("http")) return;

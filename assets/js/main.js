@@ -2028,6 +2028,14 @@
   // ── GitHub Stars ──
   (function () {
     var REPO = "openakita/openakita";
+    var GH_API_BASE = (function () {
+      var h = location.hostname;
+      var port = location.port;
+      if (port && port !== "80" && port !== "443") return "/gh-api";
+      if (h === "localhost" || h === "127.0.0.1" || /^192\.168\./.test(h) || /^10\./.test(h) || /\.local$/i.test(h)) return "/gh-api";
+      var isProdHost = h === "openakita.ai" || h === "www.openakita.ai";
+      return isProdHost && location.protocol === "https:" ? "https://api.github.com" : "/gh-api";
+    })();
     var CACHE_KEY = "oa_gh_stars";
     var CACHE_TTL = 3600000; // 1 hour
 
@@ -2073,7 +2081,7 @@
       }
     } catch (_) {}
 
-    fetch("https://api.github.com/repos/" + REPO)
+    fetch(GH_API_BASE + "/repos/" + REPO)
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var count = data.stargazers_count;
