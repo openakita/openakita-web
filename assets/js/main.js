@@ -122,6 +122,11 @@
           title: "教程中心",
           desc: "按分类浏览安装与功能配置教程，快速找到你需要的内容。",
         },
+        search: {
+          placeholder: "搜索教程…",
+          empty: "未找到匹配的教程",
+          label: "搜索教程",
+        },
       },
       setup: {
         meta: {
@@ -482,7 +487,14 @@
         },
       },
       download: { hero: { title: "OpenAkita をダウンロード", desc: "Desktop / CLI / Docker / ソースコードの 4 つの導入方法を提供します。" } },
-      tutorials: { hero: { title: "チュートリアルセンター", desc: "カテゴリ別にインストールと機能設定のチュートリアルを閲覧。" } },
+      tutorials: {
+        hero: { title: "チュートリアルセンター", desc: "カテゴリ別にインストールと機能設定のチュートリアルを閲覧。" },
+        search: {
+          placeholder: "チュートリアルを検索…",
+          empty: "一致するチュートリアルが見つかりません",
+          label: "チュートリアルを検索",
+        },
+      },
       setup: {
         hero: { title: "初期セットアップ", desc: "Desktop と CLI の導入手順。" },
         side: ["概要", "要件", "OpenAkita のインストール", "起動検証"],
@@ -566,7 +578,14 @@
         },
       },
       download: { hero: { title: "OpenAkita 다운로드", desc: "Desktop / CLI / Docker / 소스 코드 4가지 설치 경로를 지원합니다." } },
-      tutorials: { hero: { title: "튜토리얼 센터", desc: "카테고리별로 설치 및 기능 설정 튜토리얼을 둘러보세요." } },
+      tutorials: {
+        hero: { title: "튜토리얼 센터", desc: "카테고리별로 설치 및 기능 설정 튜토리얼을 둘러보세요." },
+        search: {
+          placeholder: "튜토리얼 검색…",
+          empty: "일치하는 튜토리얼을 찾을 수 없습니다",
+          label: "튜토리얼 검색",
+        },
+      },
       setup: {
         hero: { title: "초기 설정", desc: "Desktop 및 CLI 설치 가이드." },
         side: ["개요", "요구 사항", "OpenAkita 설치", "시작 검증"],
@@ -651,7 +670,14 @@
         },
       },
       download: { hero: { title: "Скачать OpenAkita", desc: "Доступны Desktop, CLI, Docker и установка из исходного кода." } },
-      tutorials: { hero: { title: "Центр руководств", desc: "Просматривайте руководства по установке и настройке по категориям." } },
+      tutorials: {
+        hero: { title: "Центр руководств", desc: "Просматривайте руководства по установке и настройке по категориям." },
+        search: {
+          placeholder: "Поиск руководств…",
+          empty: "Подходящие руководства не найдены",
+          label: "Поиск руководств",
+        },
+      },
       setup: {
         hero: { title: "Начальная установка", desc: "Пошаговый гайд для Desktop и CLI." },
         side: ["Обзор", "Требования", "Установка OpenAkita", "Проверка запуска"],
@@ -743,7 +769,14 @@
         },
       },
       download: { hero: { title: "Télécharger OpenAkita", desc: "Installation Desktop, CLI, Docker et depuis les sources." } },
-      tutorials: { hero: { title: "Centre de tutoriels", desc: "Parcourez les tutoriels d'installation et de configuration par catégorie." } },
+      tutorials: {
+        hero: { title: "Centre de tutoriels", desc: "Parcourez les tutoriels d'installation et de configuration par catégorie." },
+        search: {
+          placeholder: "Rechercher des tutoriels…",
+          empty: "Aucun tutoriel correspondant trouvé",
+          label: "Rechercher des tutoriels",
+        },
+      },
       setup: {
         hero: { title: "Installation initiale", desc: "Guide Desktop et CLI étape par étape." },
         side: ["Aperçu", "Prérequis", "Installer OpenAkita", "Vérification du démarrage"],
@@ -835,7 +868,14 @@
         },
       },
       download: { hero: { title: "OpenAkita herunterladen", desc: "Desktop-, CLI-, Docker- und Source-Installation verfügbar." } },
-      tutorials: { hero: { title: "Tutorial-Zentrum", desc: "Installations- und Konfigurationstutorials nach Kategorie durchsuchen." } },
+      tutorials: {
+        hero: { title: "Tutorial-Zentrum", desc: "Installations- und Konfigurationstutorials nach Kategorie durchsuchen." },
+        search: {
+          placeholder: "Tutorials suchen…",
+          empty: "Keine passenden Tutorials gefunden",
+          label: "Tutorials suchen",
+        },
+      },
       setup: {
         hero: { title: "Ersteinrichtung", desc: "Schritt-für-Schritt für Desktop und CLI." },
         side: ["Überblick", "Voraussetzungen", "OpenAkita installieren", "Startprüfung"],
