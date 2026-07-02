@@ -23,7 +23,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="../assets/css/styles.css?v=7da8300a564d" rel="stylesheet"/>
+<link href="../assets/css/styles.css?v=22802da5cc7c" rel="stylesheet"/>
 </head>
 <body data-page="download">
 <header class="site-header">
@@ -85,72 +85,18 @@
 <section class="tab-panel active" id="panel-desktop" role="tabpanel">
 <div class="container">
 
-  <!-- 平台选择器 -->
+  <!-- 稳定版下载列表 -->
   <div class="platform-selector" id="platformSelector">
-    <button class="platform-btn" data-platform="windows">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.849"/></svg>
-      <span>Windows</span>
-    </button>
-    <button class="platform-btn" data-platform="macos">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      <span>macOS</span>
-    </button>
-    <button class="platform-btn" data-platform="linux">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M14.62,8.35C14.2,8.63 12.87,9.39 12.67,9.54C12.28,9.85 11.92,9.83 11.53,9.53C11.33,9.37 10,8.61 9.58,8.34C9.1,8.03 9.13,7.64 9.66,7.42C11.3,6.73 12.94,6.78 14.57,7.45C15.06,7.66 15.08,8.05 14.62,8.35M21.84,15.63C20.91,13.54 19.64,11.64 18,9.97C17.47,9.42 17.14,8.8 16.94,8.09C16.84,7.76 16.77,7.42 16.7,7.08C16.5,6.2 16.41,5.3 16,4.47C15.27,2.89 14,2.07 12.16,2C10.35,2.05 9,2.81 8.21,4.4C8,4.83 7.85,5.28 7.75,5.74C7.58,6.5 7.43,7.29 7.25,8.06C7.1,8.71 6.8,9.27 6.29,9.77C4.68,11.34 3.39,13.14 2.41,15.12C2.27,15.41 2.13,15.7 2.04,16C1.85,16.66 2.33,17.12 3.03,16.96C3.47,16.87 3.91,16.78 4.33,16.65C4.74,16.5 4.9,16.6 5,17C5.65,19.15 7.07,20.66 9.24,21.5C13.36,23.06 18.17,20.84 19.21,16.92C19.28,16.65 19.38,16.55 19.68,16.65C20.14,16.79 20.61,16.89 21.08,17C21.57,17.09 21.93,16.84 22,16.36C22.03,16.1 21.94,15.87 21.84,15.63"/></svg>
-      <span>Linux</span>
-    </button>
-    <button class="platform-btn" data-platform="android">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341a.996.996 0 010-1.994.996.996 0 010 1.994m-11.046 0a.996.996 0 010-1.994.996.996 0 010 1.994m11.405-6.02l1.997-3.46a.416.416 0 00-.152-.566.416.416 0 00-.566.152l-2.024 3.505a12.2 12.2 0 00-5.274-1.174c-1.903 0-3.674.44-5.274 1.174L4.614 5.447a.416.416 0 00-.566-.152.416.416 0 00-.152.566l1.997 3.46C2.688 11.196.343 14.476 0 18.3h24c-.344-3.824-2.688-7.104-5.882-8.979"/></svg>
-      <span>Android</span>
-    </button>
-    <button class="platform-btn" data-platform="ios">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      <span>iOS</span>
-    </button>
+    <p class="channel-loading">加载中...</p>
   </div>
 
-  <!-- 三渠道卡片 -->
-  <div class="channel-cards" id="channelCards">
-    <div class="channel-card" data-channel="release">
-      <div class="channel-card-header">
-        <span class="channel-badge badge-release">稳定版</span>
-        <span class="channel-recommend">推荐</span>
-      </div>
-      <div class="channel-card-version" id="releaseVersion">--</div>
-      <div class="channel-card-date" id="releaseDate"></div>
-      <p class="channel-card-desc">推荐日常使用。经过充分测试，基本无 bug，适合追求稳定体验的用户。</p>
-      <div class="channel-card-actions" id="releaseActions">
-        <span class="channel-loading">加载中...</span>
-      </div>
-      <a class="channel-card-all-arch" id="releaseAllArch" href="#" style="display:none">查看全部架构</a>
-    </div>
-
-    <div class="channel-card" data-channel="pre-release">
-      <div class="channel-card-header">
-        <span class="channel-badge badge-prerelease">抢先版</span>
-      </div>
-      <div class="channel-card-version" id="prereleaseVersion">--</div>
-      <div class="channel-card-date" id="prereleaseDate"></div>
-      <p class="channel-card-desc">抢先体验新功能。包含最新已完成的功能特性，可能存在少量 bug，适合愿意尝鲜的用户。</p>
-      <div class="channel-card-actions" id="prereleaseActions">
-        <span class="channel-loading">加载中...</span>
-      </div>
-      <a class="channel-card-all-arch" id="prereleaseAllArch" href="#" style="display:none">查看全部架构</a>
-    </div>
-
-    <div class="channel-card" data-channel="dev">
-      <div class="channel-card-header">
-        <span class="channel-badge badge-dev">开发版</span>
-      </div>
-      <div class="channel-card-version" id="devVersion">--</div>
-      <div class="channel-card-date" id="devDate"></div>
-      <p class="channel-card-desc">最新开发版本。包含正在开发中的功能，存在较多 bug，仅建议开发者或高级用户使用。</p>
-      <div class="channel-card-actions" id="devActions">
-        <span class="channel-loading">加载中...</span>
-      </div>
-      <a class="channel-card-all-arch" id="devAllArch" href="#" style="display:none">查看全部架构</a>
-    </div>
-  </div>
+  <template id="platformIconTemplate">
+    <span data-platform="windows"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.849"/></svg></span>
+    <span data-platform="macos"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg></span>
+    <span data-platform="linux"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M14.62,8.35C14.2,8.63 12.87,9.39 12.67,9.54C12.28,9.85 11.92,9.83 11.53,9.53C11.33,9.37 10,8.61 9.58,8.34C9.1,8.03 9.13,7.64 9.66,7.42C11.3,6.73 12.94,6.78 14.57,7.45C15.06,7.66 15.08,8.05 14.62,8.35M21.84,15.63C20.91,13.54 19.64,11.64 18,9.97C17.47,9.42 17.14,8.8 16.94,8.09C16.84,7.76 16.77,7.42 16.7,7.08C16.5,6.2 16.41,5.3 16,4.47C15.27,2.89 14,2.07 12.16,2C10.35,2.05 9,2.81 8.21,4.4C8,4.83 7.85,5.28 7.75,5.74C7.58,6.5 7.43,7.29 7.25,8.06C7.1,8.71 6.8,9.27 6.29,9.77C4.68,11.34 3.39,13.14 2.41,15.12C2.27,15.41 2.13,15.7 2.04,16C1.85,16.66 2.33,17.12 3.03,16.96C3.47,16.87 3.91,16.78 4.33,16.65C4.74,16.5 4.9,16.6 5,17C5.65,19.15 7.07,20.66 9.24,21.5C13.36,23.06 18.17,20.84 19.21,16.92C19.28,16.65 19.38,16.55 19.68,16.65C20.14,16.79 20.61,16.89 21.08,17C21.57,17.09 21.93,16.84 22,16.36C22.03,16.1 21.94,15.87 21.84,15.63"/></svg></span>
+    <span data-platform="android"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341a.996.996 0 010-1.994.996.996 0 010 1.994m-11.046 0a.996.996 0 010-1.994.996.996 0 010 1.994m11.405-6.02l1.997-3.46a.416.416 0 00-.152-.566.416.416 0 00-.566.152l-2.024 3.505a12.2 12.2 0 00-5.274-1.174c-1.903 0-3.674.44-5.274 1.174L4.614 5.447a.416.416 0 00-.566-.152.416.416 0 00-.152.566l1.997 3.46C2.688 11.196.343 14.476 0 18.3h24c-.344-3.824-2.688-7.104-5.882-8.979"/></svg></span>
+    <span data-platform="ios"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg></span>
+  </template>
 
   <!-- 架构详情弹层 -->
   <div class="arch-detail-overlay" id="archDetailOverlay" style="display:none">
@@ -165,10 +111,7 @@
 
   <!-- 更新日志 -->
   <div class="release-notes-section" id="releaseNotesSection" style="display:none">
-    <div class="release-notes-head">
-      <h3 class="release-notes-title" id="releaseNotesTitle">更新日志</h3>
-      <button class="release-notes-export-btn" id="releaseNotesExportBtn" type="button">导出图片</button>
-    </div>
+    <h3 class="release-notes-title" id="releaseNotesTitle">更新日志</h3>
     <div class="release-notes-content" id="releaseNotesContent"></div>
   </div>
 
@@ -228,7 +171,7 @@ openakita
 # === 测试 ===
 openakita run "你好，介绍一下你自己"</code></div>
 <div class="actions">
-<a class="btn btn-secondary" href="/tutorials/setup-install/pypi/">查看完整安装教程</a>
+<a class="btn btn-secondary" href="/tutorials/install/pypi/">查看完整安装教程</a>
 </div>
 </article>
 
@@ -243,7 +186,7 @@ openakita run "你好，介绍一下你自己"</code></div>
 <tr><td>系统</td><td>Ubuntu 22.04 LTS Server（已联网）</td></tr>
 <tr><td>权限</td><td>具备 <code>sudo</code> 的普通用户</td></tr>
 <tr><td>Python</td><td><strong>3.11+</strong>（本教程固定使用 3.11）</td></tr>
-<tr><td>API Key</td><td>至少配置一个 LLM 提供商密钥</td></tr>
+<tr><td>API Key</td><td>至少配置一个大模型提供商密钥</td></tr>
 <tr><td>磁盘</td><td>推荐 20 GB 及以上</td></tr>
 </tbody>
 </table>
@@ -280,7 +223,7 @@ sudo docker compose ps
 # === 访问 OpenAkita ===
 # 浏览器打开：http://&lt;本机IP&gt;:18900</code></div>
 <div class="actions">
-<a class="btn btn-secondary" href="/tutorials/setup-install/pypi/#docker-prereq">查看完整 Docker 教程</a>
+<a class="btn btn-secondary" href="/tutorials/install/docker/#docker-prereq">查看完整 Docker 教程</a>
 </div>
 </article>
 
@@ -294,7 +237,7 @@ sudo docker compose ps
 <tbody>
 <tr><td data-i18n-dl="reqOs">系统</td><td>Ubuntu 22.04 LTS Server（已联网）</td></tr>
 <tr><td data-i18n-dl="reqPerm">权限</td><td>具备 <code>sudo</code> 的普通用户</td></tr>
-<tr><td data-i18n-dl="reqApi">API Key</td><td>至少配置一个 LLM 提供商密钥</td></tr>
+<tr><td data-i18n-dl="reqApi">API Key</td><td>至少配置一个大模型提供商密钥</td></tr>
 <tr><td data-i18n-dl="reqDisk">磁盘</td><td data-i18n-dl="reqDiskVal">推荐 20 GB 及以上</td></tr>
 </tbody>
 </table>
@@ -377,11 +320,10 @@ openakita init</code></div>
       <a href="/privacy/" style="color: var(--text-dim);">隐私政策</a>
     </div>
 </footer>
-<script src="../assets/js/tracker.js?v=7da8300a564d"></script>
-<script src="../assets/js/motion.js?v=7da8300a564d"></script>
-<script src="../assets/js/main.js?v=7da8300a564d"></script>
+<script src="../assets/js/tracker.js?v=22802da5cc7c"></script>
+<script src="../assets/js/motion.js?v=22802da5cc7c"></script>
+<script src="../assets/js/main.js?v=22802da5cc7c"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked@15/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.min.js"></script>
-<script src="../assets/js/download.js?v=7da8300a564d"></script>
+<script src="../assets/js/download.js?v=22802da5cc7c"></script>
 </body>
 </html>

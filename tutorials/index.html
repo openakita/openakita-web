@@ -4,26 +4,26 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>OpenAkita 教程中心 - 图文与视频</title>
-<meta content="OpenAkita 官方教程中心：安装配置、IM 通道接入、LLM 端点配置，包含图文和视频入口。" name="description"/>
-<meta content="OpenAkita,教程,IM 通道,QQ,微信,LLM,端点" name="keywords"/>
+<title>OpenAkita 教程中心</title>
+<meta content="OpenAkita 官方教程中心：安装 OpenAkita 与功能配置两大分类，图文与视频教程入口。" name="description"/>
+<meta content="OpenAkita,教程,安装,功能配置" name="keywords"/>
 <meta content="index,follow,max-image-preview:large" name="robots"/>
 <meta content="Fuzhou Stack Technology Co., Ltd. All rights reserved." name="author"/>
 <meta content="website" property="og:type"/>
 <meta content="OpenAkita" property="og:site_name"/>
-<meta content="OpenAkita 教程中心 - 图文与视频" property="og:title"/>
-<meta content="安装、IM 通道、LLM 端点配置的完整教程入口。" property="og:description"/>
+<meta content="OpenAkita 教程中心" property="og:title"/>
+<meta content="安装 OpenAkita 与功能配置教程的分类入口。" property="og:description"/>
 <meta content="https://openakita.ai/tutorials/" property="og:url"/>
 <meta content="https://openakita.ai/assets/img/zh/desktop_terminal.png" property="og:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="OpenAkita Tutorials" name="twitter:title"/>
-<meta content="Setup, IM channels, and LLM endpoint configuration guides." name="twitter:description"/>
+<meta content="OpenAkita Tutorial Center" name="twitter:title"/>
+<meta content="Installation and configuration tutorial categories." name="twitter:description"/>
 <link href="https://openakita.ai/tutorials/" rel="canonical"/>
 <link href="../assets/img/logo.png" rel="icon"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="../assets/css/styles.css?v=7da8300a564d" rel="stylesheet"/>
+<link href="../assets/css/styles.css?v=22802da5cc7c" rel="stylesheet"/>
 </head>
 <body data-page="tutorials">
 <header class="site-header">
@@ -39,7 +39,7 @@
 <a data-nav="home" href="/">首页</a>
 <a data-nav="download" href="/download/">下载</a>
 <a data-nav="services" href="/services/">服务</a>
-        <a href="/scenarios/" data-nav="scenarios">应用场景</a>
+<a href="/scenarios/" data-nav="scenarios">应用场景</a>
 <a data-nav="tutorials" href="/tutorials/">教程</a>
 <a data-nav="about" href="/about/">关于我们</a>
 <a href="https://github.com/openakita/openakita" rel="noreferrer noopener" target="_blank">GitHub</a>
@@ -50,64 +50,148 @@
 <section class="page-hero">
 <div class="container reveal">
 <div class="eyebrow" data-i18n="tutorials.0001">Tutorial Center</div>
-<h1 data-i18n="tutorials.0002">教程中心：图文 + 视频</h1>
-<p data-i18n="tutorials.0003">聚焦你提到的三块核心内容：安装配置、IM 通道接入、LLM 端点配置。</p>
+<h1 data-i18n="tutorials.0002">教程中心</h1>
+<p class="hero-lead" data-i18n="tutorials.0003">按分类浏览安装与功能配置教程，快速找到你需要的内容。</p>
 </div>
 </section>
-<section>
-<div class="container card-grid">
+
+<section class="tutorial-category-section">
+<div class="container">
+<div class="tutorial-category-panel reveal" data-tutorial-search-panel>
+<div class="tutorial-category-head">
+<div class="scene-category-head">
+<div class="scene-category-icon">
+<img alt="" src="../assets/img/icons/book.svg"/>
+</div>
+<div>
+<h2 data-i18n="tutorials.0004">安装 OpenAkita</h2>
+<p data-i18n="tutorials.0005">Windows、Linux CLI / GUI 与 Docker 安装路径。</p>
+</div>
+</div>
+<div class="tutorial-category-search" role="search">
+<img alt="" class="tutorial-category-search-icon" src="../assets/img/icons/search.svg"/>
+<input type="search" class="tutorial-category-search-input" autocomplete="off" placeholder="搜索教程…"/>
+</div>
+</div>
+<p class="tutorial-quick-jump" data-i18n="tutorials.0035">快速跳转</p>
+<div class="card-grid">
 <article class="card reveal">
-<img alt="setup" class="card-icon" src="../assets/img/icons/book.svg"/>
-<h3 data-i18n="tutorials.0004">AI 助手安装与初始配置</h3>
-<p data-i18n="tutorials.0005">Desktop 与 CLI 双路径，包含环境准备与首次启动检查。</p>
+<img alt="desktop" class="card-icon" src="../assets/img/icons/book.svg"/>
+<h3 data-i18n="tutorials.0007">Windows 桌面端</h3>
+<p data-i18n="tutorials.0008">图形化配置向导，适合大多数 Windows 用户。</p>
 <div class="actions">
-<a class="btn btn-primary" data-i18n="tutorials.0006" href="/tutorials/setup-install/">进入教程</a>
+<a class="btn btn-primary" data-i18n="tutorials.0009" href="/tutorials/install/desktop/">进入教程</a>
+</div>
+</article>
+<article class="card reveal">
+<img alt="linux" class="card-icon" src="../assets/img/icons/book.svg"/>
+<h3 data-i18n="tutorials.0010">Linux CLI / GUI</h3>
+<p data-i18n="tutorials.0011">适合脚本化部署、研发环境和自动化流水线。</p>
+<div class="actions">
+<a class="btn btn-primary" data-i18n="tutorials.0012" href="/tutorials/install/pypi/">进入教程</a>
+</div>
+</article>
+<article class="card reveal">
+<img alt="docker" class="card-icon" src="../assets/img/icons/github.svg"/>
+<h3 data-i18n="tutorials.0013">Docker 安装</h3>
+<p data-i18n="tutorials.0014">Docker Compose 一键部署，适合容器化与生产环境运维。</p>
+<div class="actions">
+<a class="btn btn-primary" data-i18n="tutorials.0015" href="/tutorials/install/docker/">进入教程</a>
+</div>
+</article>
+</div>
+<div class="tutorial-empty-state tutorial-search-empty" hidden>
+<p>未找到匹配的教程</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="tutorial-category-section">
+<div class="container">
+<div class="tutorial-category-panel reveal" data-tutorial-search-panel>
+<div class="tutorial-category-head">
+<div class="scene-category-head">
+<div class="scene-category-icon">
+<img alt="" src="../assets/img/icons/im.svg"/>
+</div>
+<div>
+<h2 data-i18n="tutorials.0016">功能配置</h2>
+<p data-i18n="tutorials.0017">IM 通道、大模型端点等高级配置教程。</p>
+</div>
+</div>
+<div class="tutorial-category-search" role="search">
+<img alt="" class="tutorial-category-search-icon" src="../assets/img/icons/search.svg"/>
+<input type="search" class="tutorial-category-search-input" autocomplete="off" placeholder="搜索教程…"/>
+</div>
+</div>
+<p class="tutorial-quick-jump" data-i18n="tutorials.0036">快速跳转</p>
+<div class="card-grid">
+<article class="card reveal">
+<img alt="llm" class="card-icon" src="../assets/img/icons/llm.svg"/>
+<h3>大模型端点配置</h3>
+<p>在桌面端中管理大模型端点、服务商与多端点。</p>
+<div class="actions">
+<a class="btn btn-primary" href="/tutorials/llm-endpoints/">进入教程</a>
 </div>
 </article>
 <article class="card reveal">
 <img alt="im" class="card-icon" src="../assets/img/icons/im.svg"/>
-<h3 data-i18n="tutorials.0007">IM 通道配置与平台申请</h3>
-<p data-i18n="tutorials.0008">包含 Telegram、飞书、钉钉、企业微信、QQ、微信的平台端申请、配置与排障流程。</p>
+<h3>IM 通道配置与平台申请</h3>
+<p>包含 Telegram、飞书、钉钉、企业微信、QQ、微信的平台端申请、配置与排障流程。</p>
 <div class="actions">
-<a class="btn btn-primary" data-i18n="tutorials.0009" href="/tutorials/im-channels/">进入教程</a>
+<a class="btn btn-primary" href="/tutorials/im-channels/">进入教程</a>
 </div>
 </article>
 <article class="card reveal">
-<img alt="llm" class="card-icon" src="../assets/img/icons/llm.svg"/>
-<h3 data-i18n="tutorials.0010">LLM 端点配置</h3>
-<p data-i18n="tutorials.0011">在桌面端中管理 LLM 端点、服务商与多端点。</p>
+<img alt="search" class="card-icon" src="../assets/img/icons/search.svg"/>
+<h3>网页搜索源配置</h3>
+<p>配置博查、Tavily、SearXNG、Jina 等搜索源，让 AI 获取实时网页信息。</p>
 <div class="actions">
-<a class="btn btn-primary" data-i18n="tutorials.0012" href="/tutorials/llm-endpoints/">进入教程</a>
+<a class="btn btn-primary" href="/tutorials/web-search-source/">进入教程</a>
 </div>
 </article>
 </div>
+<div class="tutorial-empty-state tutorial-search-empty" hidden>
+<p>未找到匹配的教程</p>
+</div>
+</div>
+</div>
 </section>
+
 <section>
 <div class="container reveal">
 <div class="section-head">
-<h2 data-i18n="tutorials.0013">建议学习顺序</h2>
-<p data-i18n="tutorials.0014">先跑通基础环境，再做平台整合。</p>
+<h2 data-i18n="tutorials.0037">建议学习顺序</h2>
+<p data-i18n="tutorials.0038">先跑通基础环境，再做平台整合。</p>
 </div>
 <div class="step-list">
 <article class="step">
 <div class="index">1</div>
 <div>
-<h4 data-i18n="tutorials.0015">安装并启动</h4>
-<p data-i18n="tutorials.0016">确认 `openakita` 能正常执行任务，避免后续排查混淆。</p>
+<h4 data-i18n="tutorials.0039">安装应用程序</h4>
+<p data-i18n="tutorials.0040">下载安装包，根据向导指引完成安装。</p>
 </div>
 </article>
 <article class="step">
 <div class="index">2</div>
 <div>
-<h4 data-i18n="tutorials.0017">配置 LLM 端点</h4>
-<p data-i18n="tutorials.0018">先单端点验证，再增加备用端点和能力路由。</p>
+<h4 data-i18n="tutorials.0041">配置大模型端点</h4>
+<p data-i18n="tutorials.0042">先单端点验证，再增加备用端点和能力路由。</p>
 </div>
 </article>
 <article class="step">
 <div class="index">3</div>
 <div>
-<h4 data-i18n="tutorials.0019">接入 IM 通道</h4>
-<p data-i18n="tutorials.0020">完成平台端申请和回调/长连接设置，再切换 `openakita serve` 运行。</p>
+<h4 data-i18n="tutorials.0043">接入 IM 通道</h4>
+<p data-i18n="tutorials.0044">根据配置连接IM通道，实现与即时通讯软件的双向通信。</p>
+</div>
+</article>
+<article class="step">
+<div class="index">4</div>
+<div>
+<h4 data-i18n="tutorials.0047">完成其它的功能配置</h4>
+<p data-i18n="tutorials.0048">获取更好的使用体验。</p>
 </div>
 </article>
 </div>
@@ -116,11 +200,11 @@
 <section>
 <div class="container reveal" data-video-scope>
 <div class="section-head">
-<h2 data-i18n="tutorials.0021" data-video-heading>视频教程</h2>
+<h2 data-i18n="tutorials.0045" data-video-heading>视频教程</h2>
 </div>
 <div class="video-list">
 <article class="video-item" data-video-item>
-<h3 data-i18n="tutorials.0023" data-video-heading>安装与启动</h3>
+<h3 data-i18n="tutorials.0046" data-video-heading>安装与启动</h3>
 <div class="video-embed" data-video-block data-video-zh="//player.bilibili.com/player.html?bvid=BV1Lzw1z3ELk&page=1&autoplay=0&high_quality=1&danmaku=0" data-video-en="">
 <iframe data-video-frame src="//player.bilibili.com/player.html?bvid=BV1Lzw1z3ELk&page=1&autoplay=0&high_quality=1&danmaku=0" allowfullscreen="true" scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>
 </div>
@@ -144,9 +228,10 @@
 <div>
 <h4 data-i18n="tutorials.0031">教程导航</h4>
 <ul>
-<li><a data-i18n="tutorials.0032" href="/tutorials/setup-install/">安装与配置</a></li>
-<li><a data-i18n="tutorials.0033" href="/tutorials/im-channels/">IM 通道</a></li>
-<li><a data-i18n="tutorials.0034" href="/tutorials/llm-endpoints/">LLM 端点</a></li>
+<li><a data-i18n="tutorials.0032" href="/tutorials/">教程中心</a></li>
+<li><a href="/tutorials/llm-endpoints/">大模型端点配置</a></li>
+<li><a href="/tutorials/im-channels/">IM 通道配置与平台申请</a></li>
+<li><a href="/tutorials/web-search-source/">网页搜索源配置</a></li>
 </ul>
 </div>
 <div>
@@ -168,9 +253,8 @@
       © <span data-current-year=""></span> Fuzhou Stack Technology Co., Ltd. All rights reserved.
     </div>
 </footer>
-<script src="../assets/js/tracker.js?v=7da8300a564d"></script>
-<script src="../assets/js/motion.js?v=7da8300a564d"></script>
-  <script src="../assets/js/main.js?v=7da8300a564d"></script>
+<script src="../assets/js/tracker.js?v=22802da5cc7c"></script>
+<script src="../assets/js/motion.js?v=22802da5cc7c"></script>
+<script src="../assets/js/main.js?v=22802da5cc7c"></script>
 </body>
 </html>
-
