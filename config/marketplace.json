@@ -1,0 +1,173 @@
+{
+  "targets": {
+    "home": {
+      "target_id": "marketplace:home",
+      "path": ""
+    },
+    "catalog": {
+      "target_id": "catalog:all",
+      "category_id": "catalog:all",
+      "path": "catalog"
+    },
+    "plugin": {
+      "target_id": "resource-type:plugin",
+      "category_id": "resource-type:plugin",
+      "path": "catalog?type=plugin"
+    },
+    "skill": {
+      "target_id": "resource-type:skill",
+      "category_id": "resource-type:skill",
+      "path": "catalog?type=skill"
+    },
+    "mcp": {
+      "target_id": "resource-type:mcp",
+      "category_id": "resource-type:mcp",
+      "path": "catalog?type=mcp"
+    },
+    "library": {
+      "target_id": "marketplace:library",
+      "path": "library"
+    }
+  },
+  "featured_resources": [
+    {
+      "resource_id": "res_github_helper",
+      "slug": "github-assistant",
+      "name_key": "featured.github.name",
+      "purpose_key": "featured.github.purpose",
+      "scenario_key": "featured.github.scenario",
+      "availability": "unavailable"
+    },
+    {
+      "resource_id": "res_web_research",
+      "slug": "web-research-skill",
+      "name_key": "featured.web.name",
+      "purpose_key": "featured.web.purpose",
+      "scenario_key": "featured.web.scenario",
+      "availability": "unavailable"
+    },
+    {
+      "resource_id": null,
+      "slug": null,
+      "name_key": "featured.im.name",
+      "purpose_key": "featured.im.purpose",
+      "scenario_key": "featured.im.scenario",
+      "availability": "planned"
+    }
+  ],
+  "related_sections": {
+    "download": {
+      "title_key": "related.download.title",
+      "description_key": "related.download.description",
+      "targets": [
+        { "target": "catalog", "label_key": "common.explore" },
+        { "target": "library", "label_key": "common.library" }
+      ]
+    },
+    "services": {
+      "title_key": "related.services.title",
+      "description_key": "related.services.description",
+      "targets": [
+        { "target": "plugin", "label_key": "common.plugin" },
+        { "target": "skill", "label_key": "common.skill" },
+        { "target": "mcp", "label_key": "common.mcp" }
+      ]
+    },
+    "scenarios": {
+      "title_key": "related.scenarios.title",
+      "description_key": "related.scenarios.description",
+      "targets": [
+        { "target": "mcp", "label_key": "common.mcp" },
+        { "target": "skill", "label_key": "common.skill" },
+        { "target": "plugin", "label_key": "common.plugin" }
+      ]
+    },
+    "tutorials": {
+      "title_key": "related.tutorials.title",
+      "description_key": "related.tutorials.description",
+      "targets": [
+        { "target": "skill", "label_key": "common.skill" },
+        { "target": "mcp", "label_key": "common.mcp" },
+        { "target": "plugin", "label_key": "common.plugin" }
+      ]
+    }
+  },
+  "copy": {
+    "zh": {
+      "common.explore": "探索 Marketplace",
+      "common.library": "查看已获取资源",
+      "common.plugin": "从市场获取 Plugin",
+      "common.skill": "从市场获取 Skill",
+      "common.mcp": "从市场获取 MCP",
+      "common.official": "官方",
+      "common.view": "查看并获取",
+      "common.scenario": "适用场景",
+      "home.hero": "探索市场",
+      "home.title": "扩展你的 OpenAkita",
+      "home.description": "从官方精选开始，把新的能力安全地带进你的日常工作。",
+      "home.journey.download": "下载 OpenAkita",
+      "home.journey.extend": "从市场扩展能力",
+      "home.journey.install": "桌面端一键安装",
+      "home.journey.manage": "已获取资源统一管理",
+      "home.launch.badge": "资源准备中",
+      "home.launch.title": "官方精选正在上架",
+      "home.launch.description": "Marketplace 已开放浏览；精选资源将在审核与发布完成后自动展示。",
+      "home.launch.action": "浏览全部资源",
+      "related.download.title": "下载不设门槛，资源可以随后同步",
+      "related.download.description": "先完成安装即可；登录后，你从 Marketplace 获取的资源会在资源库中统一管理。",
+      "related.services.title": "从 Marketplace 扩展能力",
+      "related.services.description": "按资源类型浏览可安装的 Plugin、Skill 与 MCP；本页继续专注于产品和服务说明。",
+      "related.scenarios.title": "为这些场景补充能力",
+      "related.scenarios.description": "从对应资源类型进入 Marketplace，选择与你的工作流匹配的扩展。",
+      "related.tutorials.title": "与本教程相关的资源",
+      "related.tutorials.description": "继续在 Marketplace 浏览可安装的 Skill、MCP 与 Plugin。",
+      "featured.github.name": "GitHub 协作助手",
+      "featured.github.purpose": "连接代码仓库、议题与协作流程。",
+      "featured.github.scenario": "代码与项目协作",
+      "featured.web.name": "网页搜索与信息检索",
+      "featured.web.purpose": "为任务补充实时网页信息与研究能力。",
+      "featured.web.scenario": "实时信息检索",
+      "featured.im.name": "IM 通道连接",
+      "featured.im.purpose": "把 OpenAkita 接入常用沟通渠道。",
+      "featured.im.scenario": "团队与个人通信"
+    },
+    "en": {
+      "common.explore": "Explore Marketplace",
+      "common.library": "View your library",
+      "common.plugin": "Get Plugins",
+      "common.skill": "Get Skills",
+      "common.mcp": "Get MCPs",
+      "common.official": "Official",
+      "common.view": "View and get",
+      "common.scenario": "Best for",
+      "home.hero": "Explore Marketplace",
+      "home.title": "Extend your OpenAkita",
+      "home.description": "Start with official picks and safely add new capabilities to your daily work.",
+      "home.journey.download": "Download OpenAkita",
+      "home.journey.extend": "Extend it in Marketplace",
+      "home.journey.install": "Install in one click",
+      "home.journey.manage": "Manage acquired resources",
+      "home.launch.badge": "Coming soon",
+      "home.launch.title": "Official picks are being prepared",
+      "home.launch.description": "Marketplace is open for browsing. Curated resources will appear after review and publishing.",
+      "home.launch.action": "Browse all resources",
+      "related.download.title": "Download first, sync resources later",
+      "related.download.description": "No sign-in is required to install. Once signed in, Marketplace resources are managed in your library.",
+      "related.services.title": "Extend capabilities in Marketplace",
+      "related.services.description": "Browse installable Plugins, Skills, and MCPs by resource type while this page stays focused on products and services.",
+      "related.scenarios.title": "Add capabilities for these scenarios",
+      "related.scenarios.description": "Open the relevant Marketplace resource type and choose extensions that fit your workflow.",
+      "related.tutorials.title": "Resources related to this tutorial",
+      "related.tutorials.description": "Continue in Marketplace to browse installable Skills, MCPs, and Plugins.",
+      "featured.github.name": "GitHub Collaboration Assistant",
+      "featured.github.purpose": "Connect repositories, issues, and collaboration workflows.",
+      "featured.github.scenario": "Code and project collaboration",
+      "featured.web.name": "Web Search and Research",
+      "featured.web.purpose": "Add live web information and research capabilities to tasks.",
+      "featured.web.scenario": "Live information research",
+      "featured.im.name": "IM Channel Connector",
+      "featured.im.purpose": "Connect OpenAkita to common communication channels.",
+      "featured.im.scenario": "Team and personal communication"
+    }
+  }
+}

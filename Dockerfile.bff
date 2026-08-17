@@ -1,0 +1,24 @@
+FROM node:22-alpine AS web-build
+WORKDIR /src
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM golang:1.26-alpine AS go-build
+WORKDIR /src/bff
+COPY bff/go.mod bff/go.sum ./
+RUN /usr/local/go/bin/go mod download
+COPY bff .
+RUN CGO_ENABLED=0 /usr/local/go/bin/go build -trimpath -ldflags="-s -w" -o /out/openakita-web-bff ./cmd/openakita-web-bff
+
+FROM alpine:3.22
+RUN apk add --no-cache ca-certificates \
+    && addgroup -S openakita \
+    && adduser -S -G openakita openakita
+WORKDIR /app/bff
+COPY --from=go-build /out/openakita-web-bff ./openakita-web-bff
+COPY --from=web-build /src/dist/account/index.html /app/dist/account/index.html
+USER openakita
+EXPOSE 8080
+ENTRYPOINT ["/app/bff/openakita-web-bff"]

@@ -1,0 +1,7 @@
+{
+  "status": 401,
+  "body": {
+    "error": "authentication_required",
+    "login_url": "/auth/login?return_to=%2Faccount"
+  }
+}

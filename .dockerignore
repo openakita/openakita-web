@@ -1,0 +1,7 @@
+.git
+.idea
+.vite
+dist
+node_modules
+bff/bin
+openakita

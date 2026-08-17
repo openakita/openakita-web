@@ -1,0 +1,58 @@
+<a class="skip-link" href="#main-content">跳至主要内容</a>
+<header class="site-header">
+  <div class="container nav-inner">
+    <a class="brand" href="/" aria-label="OpenAkita 首页">
+      <img src="/assets/img/logo.png" alt="" />
+      <span>OpenAkita</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="primary-navigation">
+      <img src="/assets/img/icons/menu.svg" alt="" />
+    </button>
+    <nav class="main-nav" id="primary-navigation" aria-label="主导航">
+      <div class="product-nav">
+        <a href="/" data-nav="home">首页</a>
+        <a href="/download/" data-nav="download">下载</a>
+        <a href="{{MARKETPLACE_URL}}" data-nav="marketplace">Marketplace</a>
+        <a href="/services/" data-nav="services">服务</a>
+        <a href="/scenarios/" data-nav="scenarios">应用场景</a>
+        <a href="/tutorials/" data-nav="tutorials">教程</a>
+        <a href="/about/" data-nav="about">关于</a>
+      </div>
+      <div class="nav-utilities">
+        <div class="lang-switch">
+          <label class="lang-label" for="languageSelect">语言</label>
+          <select class="lang-select" id="languageSelect" aria-label="选择语言">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="ru">Русский</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+          </select>
+        </div>
+        <div class="account-shell" data-account-shell data-state="anonymous">
+          <a class="account-login" data-account-login href="/auth/login?return_to=%2F">登录/注册</a>
+          <div class="account-menu" data-account-menu hidden>
+            <button class="account-trigger" data-account-trigger type="button" aria-expanded="false" aria-haspopup="menu" aria-controls="account-popover">
+              <span class="account-avatar-fallback" data-account-avatar-fallback aria-hidden="true">OA</span>
+              <img class="account-avatar" data-account-avatar src="/assets/img/logo.png" alt="" referrerpolicy="no-referrer" hidden />
+              <span class="account-identity">
+                <strong data-account-name>OpenAkita</strong>
+                <span data-account-label>账户</span>
+              </span>
+            </button>
+            <div class="account-popover" id="account-popover" data-account-popover role="menu" hidden>
+              <a href="/account" role="menuitem" data-account-link="hub">我的 OpenAkita</a>
+              <a href="{{MARKETPLACE_URL}}library" role="menuitem" data-account-link="marketplace_library">Marketplace：已获取资源</a>
+              <a href="/account" role="menuitem" data-account-link="account_security">登录与安全</a>
+              <a href="/account" role="menuitem" data-account-link="account_entitlements">权益与 License</a>
+              <button type="button" role="menuitem" data-account-logout>退出登录</button>
+            </div>
+          </div>
+          <span class="visually-hidden" data-account-status aria-live="polite"></span>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>

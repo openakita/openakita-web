@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-08-17T08:00:00Z",
+  "account": {
+    "status": "ok",
+    "data": {
+      "sub": "usr_empty",
+      "display_name": "New User",
+      "email_label": "n***@example.com",
+      "email_verified": false,
+      "requires_email_binding": true,
+      "avatar_url": null
+    }
+  },
+  "marketplace": {
+    "status": "ok",
+    "data": {
+      "acquired_count": 0,
+      "update_available_count": 0,
+      "recent": []
+    }
+  },
+  "entitlements": {
+    "status": "ok",
+    "data": {
+      "active_count": 0,
+      "products": [],
+      "updated_at": "2026-08-17T07:59:58Z"
+    }
+  },
+  "links": {
+    "marketplace_explore": "https://marketplace.fzstack.com/catalog",
+    "marketplace_library": "https://marketplace.fzstack.com/library",
+    "account_security": "https://account.example/portal?view=security",
+    "account_entitlements": "https://account.example/portal?view=entitlements"
+  }
+}

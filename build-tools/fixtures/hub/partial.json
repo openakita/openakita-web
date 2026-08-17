@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-08-17T08:00:00Z",
+  "account": {
+    "status": "ok",
+    "data": {
+      "sub": "usr_partial",
+      "display_name": "Partial User",
+      "email_label": "p***@example.com",
+      "email_verified": true,
+      "requires_email_binding": false,
+      "avatar_url": null
+    }
+  },
+  "marketplace": {
+    "status": "unavailable",
+    "error": {
+      "code": "temporarily_unavailable",
+      "retryable": true
+    }
+  },
+  "entitlements": {
+    "status": "ok",
+    "data": {
+      "active_count": 1,
+      "products": [
+        {
+          "product_code": "desktop",
+          "active_count": 1,
+          "expires_at": null
+        }
+      ],
+      "updated_at": "2026-08-17T07:59:58Z"
+    }
+  },
+  "links": {
+    "marketplace_explore": "https://marketplace.fzstack.com/catalog",
+    "marketplace_library": "https://marketplace.fzstack.com/library",
+    "account_security": "https://account.example/portal?view=security",
+    "account_entitlements": "https://account.example/portal?view=entitlements"
+  }
+}

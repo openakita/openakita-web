@@ -10,9 +10,13 @@
     "typecheck": "tsc --noEmit",
     "prebuild": "npm run typecheck",
     "build": "vite build",
-    "postbuild": "node build-tools/verify-dist.mjs",
+    "postbuild": "npm run verify:dist",
     "hash:dist": "node build-tools/hash-dist.mjs",
-    "verify:dist": "node build-tools/verify-dist.mjs",
+    "verify:dist": "node build-tools/verify-dist.mjs && node build-tools/verify-shell.mjs && node build-tools/verify-marketplace.mjs && node build-tools/verify-hub.mjs",
+    "verify:shell": "node build-tools/verify-shell.mjs",
+    "verify:marketplace": "node build-tools/verify-marketplace.mjs",
+    "verify:hub": "node build-tools/verify-hub.mjs",
+    "preview:hub-fixtures": "node build-tools/serve-hub-fixtures.mjs",
     "preview": "vite preview"
   },
   "devDependencies": {

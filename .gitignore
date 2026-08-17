@@ -9,7 +9,7 @@ openakita/
 node_modules/
 dist/
 .vite/
+bff/bin/
 
 # build scripts
 scripts/
-

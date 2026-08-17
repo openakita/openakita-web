@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = fileURLToPath(new URL("..", import.meta.url));
 const outputDirectory = resolve(projectRoot, "dist");
-const ignoredDirectories = new Set([".git", ".idea", ".vite", "dist", "node_modules"]);
+const ignoredDirectories = new Set([".git", ".idea", ".vite", "dist", "node_modules", "partials"]);
 const excludedHtmlFiles = new Set(["memu_reference.html"]);
 
 function filesRecursively(directory, accept, ignored = new Set()) {
@@ -49,6 +49,8 @@ function localReferencePath(htmlPath, value) {
     return "__invalid_uri__";
   }
 
+  if (decoded === "/account" || decoded.startsWith("/auth/")) return undefined;
+
   const target = decoded.startsWith("/")
     ? resolve(outputDirectory, `.${decoded}`)
     : resolve(dirname(htmlPath), decoded);
@@ -82,6 +84,7 @@ if (!existsSync(outputDirectory)) {
     "CNAME",
     "api/latest-dev.json",
     "assets/js/main.js",
+    "assets/js/account.js",
     "assets/js/motion.js",
     "assets/js/tracker.js",
     "assets/js/download.js",
