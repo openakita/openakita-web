@@ -5,11 +5,14 @@
   "description": "OpenAkita official website frontend",
   "scripts": {
     "dev": "vite",
-    "bump:assets": "node build-tools/bump-assets.mjs",
     "build:motion": "esbuild assets/ts/motion.ts --bundle --target=es2019 --format=iife --outfile=assets/js/motion.js --minify",
     "watch:motion": "esbuild assets/ts/motion.ts --bundle --target=es2019 --format=iife --outfile=assets/js/motion.js --watch",
     "typecheck": "tsc --noEmit",
-    "build": "npm run bump:assets && npm run build:motion && npm run typecheck && vite build",
+    "prebuild": "npm run typecheck",
+    "build": "vite build",
+    "postbuild": "node build-tools/verify-dist.mjs",
+    "hash:dist": "node build-tools/hash-dist.mjs",
+    "verify:dist": "node build-tools/verify-dist.mjs",
     "preview": "vite preview"
   },
   "devDependencies": {
