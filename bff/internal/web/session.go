@@ -122,6 +122,7 @@ func (s *Server) sessionForRequest(ctx context.Context, request *http.Request) (
 		return nil, key, errAnonymous
 	}
 	if err != nil {
+		s.metrics.RedisError("get_session")
 		return nil, key, errSessionUnavailable
 	}
 	if session.AccessExpires.After(s.now().Add(30 * time.Second)) {
@@ -131,8 +132,11 @@ func (s *Server) sessionForRequest(ctx context.Context, request *http.Request) (
 }
 
 func (s *Server) refreshSession(ctx context.Context, key string) (*webSession, string, error) {
+	result := "unavailable"
+	defer func() { s.metrics.Session("refresh", result) }()
 	lockToken, acquired, err := s.store.AcquireRefreshLock(ctx, key, 10*time.Second)
 	if err != nil {
+		s.metrics.RedisError("acquire_refresh_lock")
 		return nil, key, errSessionUnavailable
 	}
 	if !acquired {
@@ -144,6 +148,7 @@ func (s *Server) refreshSession(ctx context.Context, key string) (*webSession, s
 			}
 			session, loadErr := s.getStoredSession(ctx, key)
 			if loadErr == nil && session.AccessExpires.After(s.now().Add(30*time.Second)) {
+				result = "shared"
 				return session, key, nil
 			}
 		}
@@ -159,6 +164,7 @@ func (s *Server) refreshSession(ctx context.Context, key string) (*webSession, s
 		return nil, key, errSessionUnavailable
 	}
 	if session.AccessExpires.After(s.now().Add(30 * time.Second)) {
+		result = "shared"
 		return session, key, nil
 	}
 	refreshCtx, cancel := context.WithTimeout(ctx, 3*time.Second)
@@ -167,6 +173,7 @@ func (s *Server) refreshSession(ctx context.Context, key string) (*webSession, s
 	if err != nil {
 		if oidc.IsRefreshRejected(err) || oidc.IsAuthenticationError(err) {
 			_ = s.store.DeleteSession(ctx, key)
+			result = "rejected"
 			return nil, key, errAnonymous
 		}
 		return nil, key, errSessionUnavailable
@@ -179,6 +186,7 @@ func (s *Server) refreshSession(ctx context.Context, key string) (*webSession, s
 	if err := s.putSession(ctx, key, session); err != nil {
 		return nil, key, errSessionUnavailable
 	}
+	result = "ok"
 	return session, key, nil
 }
 

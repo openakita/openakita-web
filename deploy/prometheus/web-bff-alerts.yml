@@ -1,0 +1,44 @@
+groups:
+  - name: openakita-web-bff
+    rules:
+      - alert: OpenAkitaWebBFFDown
+        expr: up{job="openakita-web-bff"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: OpenAkita website BFF is unavailable
+
+      - alert: OpenAkitaWebBFFHighServerErrorRate
+        expr: |
+          sum(rate(openakita_web_bff_http_requests_total{status=~"5.."}[5m]))
+          / clamp_min(sum(rate(openakita_web_bff_http_requests_total[5m])), 0.001) > 0.05
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Website BFF 5xx rate is above 5 percent
+
+      - alert: OpenAkitaWebBFFOIDCFailures
+        expr: sum(increase(openakita_web_bff_oidc_events_total{operation="callback",result!="success"}[10m])) > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Website OIDC callbacks are failing
+
+      - alert: OpenAkitaWebBFFHubDegraded
+        expr: sum by (module) (increase(openakita_web_bff_hub_module_degraded_total[10m])) > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Website Hub module is repeatedly degraded
+
+      - alert: OpenAkitaWebBFFRedisErrors
+        expr: sum(increase(openakita_web_bff_redis_errors_total[5m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Website BFF is experiencing Redis errors

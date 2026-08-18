@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"net/netip"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -25,6 +26,10 @@ type Config struct {
 	MarketplaceMachineID      string
 	MarketplaceMachineSecret  string
 	MarketplaceAssetOrigins   map[string]bool
+	PassBaseURL               *url.URL
+	PassPublicURL             *url.URL
+	PassMachineID             string
+	PassMachineSecret         string
 	RedisURL                  string
 	SessionEncryptionKeys     string
 	SessionTTL                time.Duration
@@ -37,6 +42,9 @@ type Config struct {
 	AccountEntitlementTimeout time.Duration
 	HubTimeout                time.Duration
 	MarketplaceTimeout        time.Duration
+	PassTimeout               time.Duration
+	AuthRateLimitPerMinute    int
+	APIRateLimitPerMinute     int
 }
 
 func Load() (Config, error) {
@@ -52,6 +60,14 @@ func Load() (Config, error) {
 	marketplaceURL, err := parseURL(env("WEB_BFF_MARKETPLACE_BASE_URL", "https://marketplace.fzstack.com/"))
 	if err != nil {
 		return Config{}, fmt.Errorf("WEB_BFF_MARKETPLACE_BASE_URL: %w", err)
+	}
+	passBaseURL, err := parseURL(env("WEB_BFF_PASS_BASE_URL", "https://token-center.fzstack.com/"))
+	if err != nil {
+		return Config{}, fmt.Errorf("WEB_BFF_PASS_BASE_URL: %w", err)
+	}
+	passPublicURL, err := parseURL(env("WEB_BFF_PASS_PUBLIC_URL", passBaseURL.String()))
+	if err != nil {
+		return Config{}, fmt.Errorf("WEB_BFF_PASS_PUBLIC_URL: %w", err)
 	}
 	ttl, err := time.ParseDuration(env("WEB_BFF_SESSION_TTL", "720h"))
 	if err != nil {
@@ -86,12 +102,18 @@ func Load() (Config, error) {
 		MarketplaceMachineID:     strings.TrimSpace(os.Getenv("WEB_BFF_MARKETPLACE_MACHINE_ID")),
 		MarketplaceMachineSecret: strings.TrimSpace(os.Getenv("WEB_BFF_MARKETPLACE_MACHINE_SECRET")),
 		MarketplaceAssetOrigins:  marketplaceAssetOrigins,
+		PassBaseURL:              passBaseURL,
+		PassPublicURL:            passPublicURL,
+		PassMachineID:            strings.TrimSpace(os.Getenv("WEB_BFF_PASS_MACHINE_ID")),
+		PassMachineSecret:        strings.TrimSpace(os.Getenv("WEB_BFF_PASS_MACHINE_SECRET")),
 		RedisURL:                 strings.TrimSpace(os.Getenv("WEB_BFF_REDIS_URL")),
 		SessionEncryptionKeys:    strings.TrimSpace(os.Getenv("WEB_BFF_SESSION_ENCRYPTION_KEYS")),
 		SessionTTL:               ttl, AccountPagePath: pagePath, AvatarAllowedOrigins: avatarOrigins,
 		TrustedProxies: splitCSV(os.Getenv("WEB_BFF_TRUSTED_PROXIES")),
 		CookieSecure:   environment == "production", AccountUserInfoTimeout: 1500 * time.Millisecond,
-		AccountEntitlementTimeout: 2 * time.Second, MarketplaceTimeout: 2 * time.Second, HubTimeout: 2500 * time.Millisecond,
+		AccountEntitlementTimeout: 2 * time.Second, MarketplaceTimeout: 2 * time.Second, PassTimeout: 2 * time.Second, HubTimeout: 2500 * time.Millisecond,
+		AuthRateLimitPerMinute: intEnv("WEB_BFF_AUTH_RATE_LIMIT_PER_MINUTE", 30),
+		APIRateLimitPerMinute:  intEnv("WEB_BFF_API_RATE_LIMIT_PER_MINUTE", 240),
 	}
 	if cfg.CookieSecure {
 		cfg.CookieName = "__Host-oa_web_session"
@@ -102,8 +124,8 @@ func Load() (Config, error) {
 }
 
 func (c Config) Validate() error {
-	if c.PublicURL == nil || c.AccountIssuer == nil || c.MarketplaceBaseURL == nil {
-		return errors.New("public, Account, and Marketplace URLs are required")
+	if c.PublicURL == nil || c.AccountIssuer == nil || c.MarketplaceBaseURL == nil || c.PassBaseURL == nil || c.PassPublicURL == nil {
+		return errors.New("public, Account, Marketplace, and Pass URLs are required")
 	}
 	if c.AccountClientID == "" || len(c.AccountClientSecret) < 16 {
 		return errors.New("Account confidential client ID and a client secret of at least 16 characters are required")
@@ -117,8 +139,17 @@ func (c Config) Validate() error {
 	if c.MarketplaceMachineID != "openakita-web-bff" || len(c.MarketplaceMachineSecret) < 16 {
 		return errors.New("dedicated Marketplace machine credentials are required")
 	}
+	if c.PassMachineID != "openakita-web-bff" || len(c.PassMachineSecret) < 16 {
+		return errors.New("dedicated Pass machine credentials are required")
+	}
+	if c.PassMachineSecret == c.MarketplaceMachineSecret || c.PassMachineSecret == c.AccountClientSecret {
+		return errors.New("Pass machine secret must not be reused by Account or Marketplace")
+	}
 	if c.SessionTTL <= 0 || c.SessionTTL > 30*24*time.Hour {
 		return errors.New("session TTL must be greater than zero and at most 30 days")
+	}
+	if c.AuthRateLimitPerMinute < 1 || c.APIRateLimitPerMinute < 1 {
+		return errors.New("BFF rate limits must be positive")
 	}
 	if err := validateCallback(c.AccountRedirectURI, c.PublicURL); err != nil {
 		return fmt.Errorf("Account redirect URI: %w", err)
@@ -129,11 +160,14 @@ func (c Config) Validate() error {
 	if !strings.HasSuffix(c.MarketplaceBaseURL.Path, "/") {
 		return errors.New("Marketplace base URL must end with /")
 	}
+	if !strings.HasSuffix(c.PassBaseURL.Path, "/") || !strings.HasSuffix(c.PassPublicURL.Path, "/") {
+		return errors.New("Pass base and public URLs must end with /")
+	}
 	if c.Environment == "production" {
-		if len(c.MarketplaceMachineSecret) < 32 {
-			return errors.New("production Marketplace machine secret must contain at least 32 characters")
+		if len(c.MarketplaceMachineSecret) < 32 || len(c.PassMachineSecret) < 32 {
+			return errors.New("production Marketplace and Pass machine secrets must each contain at least 32 characters")
 		}
-		for name, endpoint := range map[string]*url.URL{"public": c.PublicURL, "Account": c.AccountIssuer, "Marketplace": c.MarketplaceBaseURL} {
+		for name, endpoint := range map[string]*url.URL{"public": c.PublicURL, "Account": c.AccountIssuer, "Marketplace": c.MarketplaceBaseURL, "Pass": c.PassBaseURL, "Pass public": c.PassPublicURL} {
 			if endpoint.Scheme != "https" {
 				return fmt.Errorf("production %s URL must use HTTPS", name)
 			}
@@ -148,8 +182,15 @@ func (c Config) Validate() error {
 		if len(c.TrustedProxies) == 0 {
 			return errors.New("production trusted proxies must be configured")
 		}
+		for _, proxy := range c.TrustedProxies {
+			if _, err := netip.ParsePrefix(proxy); err != nil {
+				if address, addressErr := netip.ParseAddr(proxy); addressErr != nil || !address.IsValid() {
+					return fmt.Errorf("invalid trusted proxy %q", proxy)
+				}
+			}
+		}
 	} else {
-		for _, endpoint := range []*url.URL{c.PublicURL, c.AccountIssuer, c.MarketplaceBaseURL} {
+		for _, endpoint := range []*url.URL{c.PublicURL, c.AccountIssuer, c.MarketplaceBaseURL, c.PassBaseURL, c.PassPublicURL} {
 			if endpoint.Scheme != "https" && !isLoopback(endpoint.Hostname()) {
 				return errors.New("plain HTTP is allowed only for loopback development URLs")
 			}
@@ -212,4 +253,16 @@ func BoolEnv(name string, fallback bool) bool {
 	}
 	value, err := strconv.ParseBool(raw)
 	return err == nil && value
+}
+
+func intEnv(name string, fallback int) int {
+	raw := strings.TrimSpace(os.Getenv(name))
+	if raw == "" {
+		return fallback
+	}
+	value, err := strconv.Atoi(raw)
+	if err != nil {
+		return 0
+	}
+	return value
 }

@@ -1,22 +1,23 @@
 # OpenAkita 官网与 Go BFF 技术设计
 
-- 状态：一期实施基线已冻结
+- 状态：一期实施基线已冻结；二期 P2.1 Pass 摘要已落地
 - 日期：2026-08-17
-- 关联决策：`docs/adr/0001-static-site-go-bff.md`
+- 关联决策：`docs/adr/0001-static-site-go-bff.md`、`docs/adr/0002-pass-summary-integration.md`
 - 接口契约：`docs/contracts/hub-api-v1.md`
 
 ## 1. 目标
 
-一期官网同时承担三项职责：
+官网当前承担三项职责：
 
 1. 持续提供不依赖登录的品牌与教程静态内容；
 2. 作为独立 OIDC Client 提供统一登录和账户菜单；
-3. 提供只读的“我的 OpenAkita”Hub，聚合 Account 与 Marketplace 摘要。
+3. 提供只读的“我的 OpenAkita”Hub，聚合 Account、Marketplace 与 Pass 摘要。
 
 设计必须保证：
 
 - Account 是身份、会话链和统一权益权威；
 - Marketplace 是资源领取、资源库和安装状态权威；
+- Pass 是额度、当期用量和显示换算规则权威；
 - 官网 BFF 不写入身份、权益或市场资产；
 - 任一下游摘要失败只降级对应模块；
 - BFF 故障不影响首页、下载和教程等静态页面。
@@ -25,7 +26,7 @@
 
 - 不在官网实现注册、改密、身份绑定或 License 激活；
 - 不在官网实现资源领取、安装和完整资源库；
-- 不接入 Pass、余额、充值、API Key、调用用量或支付；
+- 不在官网执行 Pass 充值、余额变更、钱包扣款、API Key 创建或支付；
 - 不共享 Account、Marketplace 的 Cookie、数据库或内部代码；
 - 不新增官网业务数据库；
 - 不在一期迁移 Next.js。
@@ -40,6 +41,7 @@ flowchart LR
   BFF --> Redis["Redis / OIDC state + 官网会话"]
   BFF -->|"用户 access token"| Account["OpenAkita Account"]
   BFF -->|"机器身份 + Account sub"| Marketplace["OpenAkita Marketplace"]
+  BFF -->|"专用机器身份 + Account sub"| Pass["OpenAkita Pass"]
 ```
 
 静态站和 BFF 是两个独立健康域。边缘代理不得把静态页面的可用性绑定到 BFF 健康检查。
@@ -64,6 +66,7 @@ openakita-web/
     internal/session/
     internal/accountclient/
     internal/marketplaceclient/
+    internal/passclient/
     internal/hub/
     internal/observability/
   Dockerfile.static
@@ -80,6 +83,7 @@ Go 包职责：
 | `session` | Redis会话、OIDC state、token加密、撤销 |
 | `accountclient` | userinfo与权益读取 |
 | `marketplaceclient` | Marketplace只读摘要读取 |
+| `passclient` | Pass只读额度与本月用量摘要读取及契约校验 |
 | `hub` | 并发聚合、字段裁剪、模块级降级 |
 | `observability` | 日志、指标、追踪和请求关联ID |
 
@@ -200,13 +204,26 @@ X-Request-ID: <correlation id>
 
 该接口只读、最小字段、按Account `sub`查询，不创建Marketplace浏览器会话。正式字段和统计口径见 `docs/contracts/hub-api-v1.md`。
 
+### 8.3 Pass
+
+Pass 提供专用的只读机器接口：
+
+```text
+GET /api/internal/openakita/users/{account_sub}/summary
+Authorization: Basic openakita-web-bff:<dedicated-secret>
+X-Request-ID: <correlation id>
+```
+
+该接口只按 Account OIDC `sub` 查询，返回原始整数 quota、UTC 当月用量、Pass 自有显示规则和稳定提醒码。未创建本地投影是正常的 `not_provisioned` 状态。详细契约见 `docs/contracts/hub-api-v1.md` 和 Pass 仓库 `contracts/web-summary/v1`。
+
 ## 9. Hub聚合策略
 
-BFF并发读取三个逻辑模块：
+BFF并发读取四个逻辑模块：
 
 1. Account资料；
 2. Account权益；
 3. Marketplace资源摘要。
+4. Pass 额度与本月用量摘要。
 
 单次请求时间预算：
 
@@ -215,6 +232,7 @@ BFF并发读取三个逻辑模块：
 | Account userinfo | 1.5秒 | 不重试 |
 | Account entitlements | 2秒 | 不重试 |
 | Marketplace summary | 2秒 | 不重试 |
+| Pass summary | 2秒 | 不重试 |
 | Hub总预算 | 2.5秒 | 到期即返回已完成模块 |
 
 GET请求可以使用短时熔断保护下游，但不得因熔断把整个Hub返回为500。模块失败时返回`status=unavailable`和稳定错误码，不能透传下游正文、URL、堆栈或敏感字段。
@@ -228,7 +246,7 @@ GET请求可以使用短时熔断保护下游，但不得因熔断把整个Hub�
 
 ## 10. 可观测性
 
-每个请求生成或接受合法的 `X-Request-ID`，并传递给Account与Marketplace。日志不得包含Cookie、Authorization、token、OIDC code、state和完整用户邮箱。
+每个请求生成或接受合法的 `X-Request-ID`，并传递给Account、Marketplace与Pass。日志不得包含Cookie、Authorization、token、OIDC code、state和完整用户邮箱。
 
 一期最低指标：
 
@@ -237,6 +255,7 @@ GET请求可以使用短时熔断保护下游，但不得因熔断把整个Hub�
 - 当前会话数与刷新结果；
 - Account userinfo/entitlements调用延迟与结果；
 - Marketplace summary调用延迟与结果；
+- Pass summary调用延迟与结果；
 - Hub模块降级次数；
 - Redis错误和熔断状态。
 
@@ -256,6 +275,10 @@ WEB_BFF_ACCOUNT_POST_LOGOUT_REDIRECT_URI
 WEB_BFF_MARKETPLACE_BASE_URL
 WEB_BFF_MARKETPLACE_MACHINE_ID
 WEB_BFF_MARKETPLACE_MACHINE_SECRET
+WEB_BFF_PASS_BASE_URL
+WEB_BFF_PASS_PUBLIC_URL
+WEB_BFF_PASS_MACHINE_ID
+WEB_BFF_PASS_MACHINE_SECRET
 WEB_BFF_REDIS_URL
 WEB_BFF_SESSION_ENCRYPTION_KEYS
 WEB_BFF_TRUSTED_PROXIES
@@ -269,10 +292,11 @@ WEB_BFF_TRUSTED_PROXIES
 - BFF使用独立容器和健康检查；
 - 代理只把明确的BFF路径转发给BFF；
 - BFF发布失败时不得替换最后一个健康版本；
-- 静态站发布不依赖Account、Marketplace或Redis在线；
+- 静态站发布不依赖Account、Marketplace、Pass或Redis在线；
 - BFF回滚不要求回滚静态内容，除非浏览器契约发生破坏性变化。
 
-## 13. 二期扩展点
+## 13. 二期 P2.1 边界
 
-二期在`hub`聚合层增加独立`passclient`，沿用模块级`status/data/error`信封。Pass功能必须受Feature Flag控制；关闭或故障时不得影响Account和Marketplace模块。一期代码、配置、导航和响应中不得出现Pass字段。
+P2.1 以向后兼容的顶层 `pass` 模块加入 Hub，沿用模块级 `status/data/error` 信封。Pass 未开通、暂停、用量日志关闭和下游故障都有明确展示语义，且不影响 Account、Marketplace 和权益模块。
 
+官网仍是只读聚合层。充值、钱包扣款、支付回调、API Key 和消费账本继续由 Pass 自有控制台与后端负责；后续引入任何写操作都必须新增 ADR、威胁模型与独立契约版本。

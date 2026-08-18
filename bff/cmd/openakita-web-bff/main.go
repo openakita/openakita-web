@@ -14,6 +14,7 @@ import (
 	"openakita-web-bff/internal/cryptobox"
 	marketplaceclient "openakita-web-bff/internal/marketplace"
 	"openakita-web-bff/internal/oidc"
+	passclient "openakita-web-bff/internal/pass"
 	"openakita-web-bff/internal/securestore"
 	webapi "openakita-web-bff/internal/web"
 )
@@ -53,7 +54,12 @@ func main() {
 		logger.Error("Marketplace client initialization failed", "error", err)
 		os.Exit(1)
 	}
-	app, err := webapi.New(cfg, store, box, idp, marketplace, accountPage, logger)
+	pass, err := passclient.New(cfg.PassBaseURL, cfg.PassMachineID, cfg.PassMachineSecret, nil)
+	if err != nil {
+		logger.Error("Pass client initialization failed", "error", err)
+		os.Exit(1)
+	}
+	app, err := webapi.New(cfg, store, box, idp, marketplace, pass, accountPage, logger)
 	if err != nil {
 		logger.Error("BFF initialization failed", "error", err)
 		os.Exit(1)

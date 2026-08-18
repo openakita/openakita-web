@@ -1,0 +1,58 @@
+name: openakita-web
+
+services:
+  static:
+    image: ${WEB_STATIC_IMAGE:-openakita-web-static}:${WEB_STATIC_IMAGE_TAG:?WEB_STATIC_IMAGE_TAG is required}
+    build:
+      context: .
+      dockerfile: Dockerfile.static
+    ports:
+      - "127.0.0.1:8081:8081"
+    restart: unless-stopped
+
+  bff:
+    image: ${WEB_BFF_IMAGE:-openakita-web-bff}:${WEB_BFF_IMAGE_TAG:?WEB_BFF_IMAGE_TAG is required}
+    build:
+      context: .
+      dockerfile: Dockerfile.bff
+    environment:
+      WEB_BFF_ENV: production
+      WEB_BFF_HTTP_ADDR: :8080
+      WEB_BFF_PUBLIC_URL: ${WEB_BFF_PUBLIC_URL:?WEB_BFF_PUBLIC_URL is required}
+      WEB_BFF_ACCOUNT_ISSUER: ${WEB_BFF_ACCOUNT_ISSUER:?WEB_BFF_ACCOUNT_ISSUER is required}
+      WEB_BFF_ACCOUNT_CLIENT_ID: ${WEB_BFF_ACCOUNT_CLIENT_ID:?WEB_BFF_ACCOUNT_CLIENT_ID is required}
+      WEB_BFF_ACCOUNT_CLIENT_SECRET: ${WEB_BFF_ACCOUNT_CLIENT_SECRET:?WEB_BFF_ACCOUNT_CLIENT_SECRET is required}
+      WEB_BFF_ACCOUNT_REDIRECT_URI: ${WEB_BFF_ACCOUNT_REDIRECT_URI:?WEB_BFF_ACCOUNT_REDIRECT_URI is required}
+      WEB_BFF_ACCOUNT_POST_LOGOUT_REDIRECT_URI: ${WEB_BFF_ACCOUNT_POST_LOGOUT_REDIRECT_URI:?WEB_BFF_ACCOUNT_POST_LOGOUT_REDIRECT_URI is required}
+      WEB_BFF_MARKETPLACE_BASE_URL: ${WEB_BFF_MARKETPLACE_BASE_URL:?WEB_BFF_MARKETPLACE_BASE_URL is required}
+      WEB_BFF_MARKETPLACE_MACHINE_ID: ${WEB_BFF_MARKETPLACE_MACHINE_ID:-openakita-web-bff}
+      WEB_BFF_MARKETPLACE_MACHINE_SECRET: ${WEB_BFF_MARKETPLACE_MACHINE_SECRET:?WEB_BFF_MARKETPLACE_MACHINE_SECRET is required}
+      WEB_BFF_MARKETPLACE_ASSET_ALLOWED_ORIGINS: ${WEB_BFF_MARKETPLACE_ASSET_ALLOWED_ORIGINS:-}
+      WEB_BFF_PASS_BASE_URL: ${WEB_BFF_PASS_BASE_URL:?WEB_BFF_PASS_BASE_URL is required}
+      WEB_BFF_PASS_PUBLIC_URL: ${WEB_BFF_PASS_PUBLIC_URL:?WEB_BFF_PASS_PUBLIC_URL is required}
+      WEB_BFF_PASS_MACHINE_ID: ${WEB_BFF_PASS_MACHINE_ID:-openakita-web-bff}
+      WEB_BFF_PASS_MACHINE_SECRET: ${WEB_BFF_PASS_MACHINE_SECRET:?WEB_BFF_PASS_MACHINE_SECRET is required}
+      WEB_BFF_REDIS_URL: ${WEB_BFF_REDIS_URL:?An authenticated rediss URL is required}
+      WEB_BFF_SESSION_ENCRYPTION_KEYS: ${WEB_BFF_SESSION_ENCRYPTION_KEYS:?WEB_BFF_SESSION_ENCRYPTION_KEYS is required}
+      WEB_BFF_SESSION_TTL: ${WEB_BFF_SESSION_TTL:-720h}
+      WEB_BFF_ACCOUNT_PAGE_PATH: ../dist/account/index.html
+      WEB_BFF_AVATAR_ALLOWED_ORIGINS: ${WEB_BFF_AVATAR_ALLOWED_ORIGINS:-}
+      WEB_BFF_TRUSTED_PROXIES: ${WEB_BFF_TRUSTED_PROXIES:-172.29.8.1/32}
+      WEB_BFF_AUTH_RATE_LIMIT_PER_MINUTE: ${WEB_BFF_AUTH_RATE_LIMIT_PER_MINUTE:-30}
+      WEB_BFF_API_RATE_LIMIT_PER_MINUTE: ${WEB_BFF_API_RATE_LIMIT_PER_MINUTE:-240}
+    ports:
+      - "127.0.0.1:8080:8080"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://127.0.0.1:8080/ready"]
+      interval: 10s
+      timeout: 3s
+      retries: 12
+    networks:
+      - runtime
+    restart: unless-stopped
+
+networks:
+  runtime:
+    ipam:
+      config:
+        - subnet: 172.29.8.0/24

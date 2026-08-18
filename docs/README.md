@@ -12,5 +12,11 @@
 - [第五周交付：我的OpenAkita前端Hub](week-05-account-hub-frontend.md)
 - [第六周交付：Account OIDC与官网Go BFF](week-06-account-oidc-bff.md)
 - [第七周交付：Marketplace Hub摘要闭环](week-07-marketplace-hub-integration.md)
+- [第八周交付：生产就绪与上线收口](week-08-production-readiness.md)
+- [ADR-0002：Pass只读摘要接入](adr/0002-pass-summary-integration.md)
+- [第九周交付：Pass摘要与统一Hub接入](week-09-pass-hub-integration.md)
+- [第十周交付：Pass存量账户认领](week-10-pass-existing-user-claim.md)
+- [第十一周交付：Pass SSO-only受控切换](week-11-pass-sso-only-cutover.md)
+- [生产发布与故障处置运行手册](operations/production-runbook.md)
 
-以上文档是一期官网实现基线。破坏性接口变化、运行边界变化或系统权威职责变化必须新增或更新ADR。
+以上文档包含一期官网基线与二期 P2.1 增量。破坏性接口变化、运行边界变化或系统权威职责变化必须新增或更新ADR。

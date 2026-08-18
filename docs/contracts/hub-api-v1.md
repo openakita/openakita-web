@@ -1,6 +1,6 @@
 # OpenAkita 官网 BFF Hub API v1
 
-- 状态：一期契约已冻结
+- 状态：一期契约已冻结；二期 P2.1 已按向后兼容方式增加 Pass 模块
 - 日期：2026-08-17
 - 面向调用方：官网静态页面与“我的 OpenAkita”页面
 - 媒体类型：`application/json; charset=utf-8`
@@ -10,7 +10,7 @@
 - 所有时间使用UTC RFC 3339；
 - 所有响应包含`X-Request-ID`；
 - 用户响应必须设置`Cache-Control: no-store`；
-- 浏览器不得向Account或Marketplace直接发送token；
+- 浏览器不得向Account、Marketplace或Pass直接发送token；
 - 未知响应字段必须被客户端忽略，以允许向后兼容扩展；
 - 错误使用稳定机器码，不透传下游错误正文。
 
@@ -46,7 +46,9 @@
     "hub": "/account",
     "marketplace_library": "https://marketplace.example/library",
     "account_security": "https://account.example/portal?view=security",
-    "account_entitlements": "https://account.example/portal?view=entitlements"
+    "account_entitlements": "https://account.example/portal?view=entitlements",
+    "pass_console": "https://pass.example/console",
+    "pass_topup": "https://pass.example/console/topup"
   }
 }
 ```
@@ -62,7 +64,7 @@
 
 ### `GET /api/v1/hub`
 
-要求有效官网会话。三个模块独立返回，HTTP 200不代表每个模块都成功。
+要求有效官网会话。四个模块独立返回，HTTP 200不代表每个模块都成功。
 
 成功或部分降级响应：
 
@@ -112,11 +114,33 @@
       "updated_at": "2026-08-17T07:59:58Z"
     }
   },
+  "pass": {
+    "status": "ok",
+    "data": {
+      "account_status": "active",
+      "available_quota": 2500000,
+      "warning_threshold_quota": 1000000,
+      "current_month_used_quota": 750000,
+      "current_month_request_count": 42,
+      "usage_available": true,
+      "period_start": "2026-08-01T00:00:00Z",
+      "period_end": "2026-09-01T00:00:00Z",
+      "display": {
+        "type": "CNY",
+        "quota_per_unit": 1000000,
+        "currency_symbol": "¥",
+        "currency_exchange_rate": 1
+      },
+      "alerts": []
+    }
+  },
   "links": {
     "marketplace_explore": "https://marketplace.example/catalog",
     "marketplace_library": "https://marketplace.example/library",
     "account_security": "https://account.example/portal?view=security",
-    "account_entitlements": "https://account.example/portal?view=entitlements"
+    "account_entitlements": "https://account.example/portal?view=entitlements",
+    "pass_console": "https://pass.example/console",
+    "pass_topup": "https://pass.example/console/topup"
   }
 }
 ```
@@ -278,15 +302,40 @@ Accept: application/json
 
 机器客户端固定为专用`openakita-web-bff`身份，只授予`marketplace.library-summary:read`能力，不能领取、下载、安装、审核或写入资源。
 
-## 7. 兼容性规则
+## 7. Pass 下游契约（二期 P2.1）
+
+官网 BFF 使用专用机器身份读取：
+
+```text
+GET /api/internal/openakita/users/{account_sub}/summary
+Authorization: Basic <openakita-web-bff:pass-machine-secret>
+X-Request-ID: <request-id>
+Accept: application/json
+```
+
+Pass 返回 `success` 信封，`data` 包含 Account `sub`、Pass 本地账户状态、原始整数额度、本月 UTC 用量、用量可用性、Pass 自有显示规则、稳定提醒码和生成时间。详细规范以 Pass 仓库 `contracts/web-summary/v1` 为准。
+
+规则：
+
+- Pass 只允许按 OIDC `sub` 查询，不接受邮箱、手机号或显示名；
+- 未创建 Pass 本地投影时返回 HTTP 200 和 `account_status=not_provisioned`，不是故障；
+- 额度及用量均为 Pass 原始整数 quota，官网不得硬编码 `quota_per_unit`、人民币或其他币种；
+- `usage_available=false` 时用量零值只是占位，官网必须显示不可用状态；
+- 官网仅展示摘要和控制台/充值深链接，不创建 API Key、不充值、不修改或冻结余额；
+- Pass 401、403、超时或 5xx 只使 `pass` 模块降级，不影响 Account、Marketplace 和权益模块；
+- Pass 机器 Secret 必须与 OIDC Client Secret、Marketplace Secret 和 Account 状态传播 Secret 完全分离。
+
+`account_status`：`active`、`suspended`、`not_provisioned`。提醒码：`account_suspended`、`balance_depleted`、`low_balance`、`usage_unavailable`。
+
+## 8. 兼容性规则
 
 - v1可以增加可选字段和新的模块稳定错误码；
 - 不能删除或改变已冻结字段语义；
 - 计数口径变化必须新增契约版本或先经过ADR；
-- Account和Marketplace响应模型不得直接透传给浏览器；
-- 二期Pass字段不能提前加入一期v1响应。
+- Account、Marketplace和Pass响应模型不得直接透传给浏览器；
+- Pass 以新增顶层模块加入 v1；旧客户端必须按“忽略未知字段”规则保持兼容。
 
-## 8. 必需契约测试
+## 9. 必需契约测试
 
 官网BFF：
 
@@ -295,6 +344,7 @@ Accept: application/json
 - state一次性消费、PKCE和nonce校验；
 - Account资料成功、权益失败时部分响应；
 - Marketplace超时和5xx时模块降级；
+- Pass正常、未开通、暂停、低余额、超时和5xx时独立展示/降级；
 - refresh token失效后会话销毁；
 - Hub响应不包含token、Cookie、原始邮箱和下游错误正文。
 
@@ -305,3 +355,12 @@ Marketplace：
 - 多设备安装时更新数按资源去重；
 - `recent_limit`边界；
 - subject不存在时返回零摘要。
+
+Pass：
+
+- 合法/非法专用机器身份；
+- subject不存在时返回`not_provisioned`；
+- 本月用量使用UTC半开区间且不混入历史月份；
+- 消费日志关闭时返回`usage_available=false`而不是伪装成真实零用量；
+- 响应不包含邮箱、密码、API Key、调用明细或账本流水；
+- 显示规则来自Pass运行时配置，官网不得自行猜测换算率。

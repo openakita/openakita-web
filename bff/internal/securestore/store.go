@@ -21,6 +21,7 @@ type Store interface {
 	DeleteSession(context.Context, string) error
 	AcquireRefreshLock(context.Context, string, time.Duration) (string, bool, error)
 	ReleaseRefreshLock(context.Context, string, string) error
+	AllowFixedWindow(context.Context, string, int, time.Duration) (int, bool, error)
 	Ping(context.Context) error
 	Close() error
 }
@@ -79,6 +80,19 @@ func (s *RedisStore) ReleaseRefreshLock(ctx context.Context, key, token string) 
 	return s.client.Eval(ctx, script, []string{"oa:web:refresh:" + key}, token).Err()
 }
 
+func (s *RedisStore) AllowFixedWindow(ctx context.Context, key string, limit int, window time.Duration) (int, bool, error) {
+	const script = `local current = redis.call("INCR", KEYS[1]); if current == 1 then redis.call("PEXPIRE", KEYS[1], ARGV[1]) end; return current`
+	current, err := s.client.Eval(ctx, script, []string{"oa:web:ratelimit:" + key}, window.Milliseconds()).Int64()
+	if err != nil {
+		return 0, false, err
+	}
+	remaining := limit - int(current)
+	if remaining < 0 {
+		remaining = 0
+	}
+	return remaining, current <= int64(limit), nil
+}
+
 func (s *RedisStore) Ping(ctx context.Context) error { return s.client.Ping(ctx).Err() }
 func (s *RedisStore) Close() error                   { return s.client.Close() }
 
@@ -92,10 +106,19 @@ type MemoryStore struct {
 	states   map[string]memoryItem
 	sessions map[string]memoryItem
 	locks    map[string]memoryItem
+	counters map[string]memoryCounter
+}
+
+type memoryCounter struct {
+	count   int
+	expires time.Time
 }
 
 func NewMemory() *MemoryStore {
-	return &MemoryStore{states: map[string]memoryItem{}, sessions: map[string]memoryItem{}, locks: map[string]memoryItem{}}
+	return &MemoryStore{
+		states: map[string]memoryItem{}, sessions: map[string]memoryItem{}, locks: map[string]memoryItem{},
+		counters: map[string]memoryCounter{},
+	}
 }
 
 func (s *MemoryStore) PutState(_ context.Context, key string, value []byte, ttl time.Duration) error {
@@ -162,6 +185,23 @@ func (s *MemoryStore) ReleaseRefreshLock(_ context.Context, key, token string) e
 		delete(s.locks, key)
 	}
 	return nil
+}
+
+func (s *MemoryStore) AllowFixedWindow(_ context.Context, key string, limit int, window time.Duration) (int, bool, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	now := time.Now()
+	counter, ok := s.counters[key]
+	if !ok || !counter.expires.After(now) {
+		counter = memoryCounter{expires: now.Add(window)}
+	}
+	counter.count++
+	s.counters[key] = counter
+	remaining := limit - counter.count
+	if remaining < 0 {
+		remaining = 0
+	}
+	return remaining, counter.count <= limit, nil
 }
 
 func (s *MemoryStore) Ping(context.Context) error { return nil }

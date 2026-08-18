@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-08-17T08:00:00Z",
+  "account": {
+    "status": "ok",
+    "data": {
+      "sub": "usr_pass_partial",
+      "display_name": "Pass Partial User",
+      "email_label": "p***@example.com",
+      "email_verified": true,
+      "requires_email_binding": false,
+      "avatar_url": null
+    }
+  },
+  "marketplace": {
+    "status": "ok",
+    "data": { "acquired_count": 0, "update_available_count": 0, "recent": [] }
+  },
+  "entitlements": {
+    "status": "ok",
+    "data": { "active_count": 0, "products": [], "updated_at": "2026-08-17T07:59:58Z" }
+  },
+  "pass": {
+    "status": "unavailable",
+    "error": { "code": "temporarily_unavailable", "retryable": true }
+  },
+  "links": {
+    "marketplace_explore": "https://marketplace.fzstack.com/catalog",
+    "marketplace_library": "https://marketplace.fzstack.com/library",
+    "account_security": "https://account.example/portal?view=security",
+    "account_entitlements": "https://account.example/portal?view=entitlements",
+    "pass_console": "https://pass.example/console",
+    "pass_topup": "https://pass.example/console/topup"
+  }
+}

@@ -7,7 +7,7 @@ const projectRoot = fileURLToPath(new URL("..", import.meta.url));
 const outputDirectory = resolve(projectRoot, "dist");
 const fixtureDirectory = resolve(projectRoot, "build-tools/fixtures/hub");
 const port = Number.parseInt(process.env.HUB_FIXTURE_PORT || "4180", 10);
-const allowedFixtures = new Set(["success", "empty", "partial", "unavailable", "unauthorized", "disabled", "rate-limited"]);
+const allowedFixtures = new Set(["success", "empty", "partial", "pass-partial", "unavailable", "unauthorized", "disabled", "rate-limited"]);
 
 function json(response, status, body) {
   response.writeHead(status, {
@@ -30,7 +30,7 @@ function requestedFixture(request) {
 
 function serveHub(request, response) {
   const selected = requestedFixture(request);
-  if (["success", "empty", "partial"].includes(selected)) {
+  if (["success", "empty", "partial", "pass-partial"].includes(selected)) {
     const body = JSON.parse(readFileSync(resolve(fixtureDirectory, `${selected}.json`), "utf8"));
     json(response, 200, body);
     return;
@@ -88,7 +88,7 @@ const server = createServer((request, response) => {
       authenticated: true,
       user: { display_name: "Fixture User", email_label: "f***@example.com", email_verified: true },
       csrf_token: "fixture-csrf",
-      links: { hub: "/account" }
+      links: { hub: "/account", pass_console: "https://pass.example/console" }
     });
     return;
   }

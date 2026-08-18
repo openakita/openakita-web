@@ -27,10 +27,27 @@
       "updated_at": "2026-08-17T07:59:58Z"
     }
   },
+  "pass": {
+    "status": "ok",
+    "data": {
+      "account_status": "not_provisioned",
+      "available_quota": 0,
+      "warning_threshold_quota": 1000000,
+      "current_month_used_quota": 0,
+      "current_month_request_count": 0,
+      "usage_available": false,
+      "period_start": "2026-08-01T00:00:00Z",
+      "period_end": "2026-09-01T00:00:00Z",
+      "display": { "type": "CNY", "quota_per_unit": 1000000, "currency_symbol": "¥", "currency_exchange_rate": 1 },
+      "alerts": []
+    }
+  },
   "links": {
     "marketplace_explore": "https://marketplace.fzstack.com/catalog",
     "marketplace_library": "https://marketplace.fzstack.com/library",
     "account_security": "https://account.example/portal?view=security",
-    "account_entitlements": "https://account.example/portal?view=entitlements"
+    "account_entitlements": "https://account.example/portal?view=entitlements",
+    "pass_console": "https://pass.example/console",
+    "pass_topup": "https://pass.example/console/topup"
   }
 }

@@ -11,6 +11,8 @@ import (
 )
 
 func (s *Server) handleLogin(response http.ResponseWriter, request *http.Request) {
+	result := "internal_error"
+	defer func() { s.metrics.OIDC("login", result) }()
 	state, err := randomToken(32)
 	if err != nil {
 		writeError(response, http.StatusInternalServerError, "internal_error")
@@ -30,13 +32,18 @@ func (s *Server) handleLogin(response http.ResponseWriter, request *http.Request
 	challenge := base64.RawURLEncoding.EncodeToString(challengeHash[:])
 	login := loginState{Kind: "login", Nonce: nonce, CodeVerifier: verifier, ReturnTo: safeReturnTo(request.URL.Query().Get("return_to")), CreatedAt: s.now()}
 	if err := s.putState(request.Context(), state, login); err != nil {
+		result = "state_unavailable"
+		s.metrics.RedisError("put_oidc_state")
 		writeError(response, http.StatusServiceUnavailable, "temporarily_unavailable")
 		return
 	}
+	result = "started"
 	http.Redirect(response, request, s.idp.AuthorizationURL(state, nonce, challenge), http.StatusFound)
 }
 
 func (s *Server) handleCallback(response http.ResponseWriter, request *http.Request) {
+	result := "invalid_request"
+	defer func() { s.metrics.OIDC("callback", result) }()
 	rawState := request.URL.Query().Get("state")
 	if rawState == "" {
 		s.writeAuthErrorPage(response, request, "登录请求无效")
@@ -44,10 +51,12 @@ func (s *Server) handleCallback(response http.ResponseWriter, request *http.Requ
 	}
 	state, err := s.consumeState(request.Context(), rawState)
 	if err != nil || state.Kind != "login" {
+		result = "invalid_state"
 		s.writeAuthErrorPage(response, request, "登录请求已过期或已使用")
 		return
 	}
 	if request.URL.Query().Get("error") != "" || request.URL.Query().Get("code") == "" {
+		result = "authorization_rejected"
 		s.writeAuthErrorPage(response, request, "Account 未完成授权")
 		return
 	}
@@ -55,6 +64,7 @@ func (s *Server) handleCallback(response http.ResponseWriter, request *http.Requ
 	defer cancel()
 	tokens, err := s.idp.ExchangeCode(exchangeCtx, request.URL.Query().Get("code"), state.CodeVerifier, state.Nonce)
 	if err != nil {
+		result = "token_exchange_failed"
 		s.writeAuthErrorPage(response, request, "登录验证失败")
 		return
 	}
@@ -62,6 +72,7 @@ func (s *Server) handleCallback(response http.ResponseWriter, request *http.Requ
 	defer infoCancel()
 	info, err := s.idp.UserInfo(infoCtx, tokens.AccessToken)
 	if err != nil || info.Subject == "" || info.Subject != tokens.Subject {
+		result = "userinfo_failed"
 		s.writeAuthErrorPage(response, request, "账户资料验证失败")
 		return
 	}
@@ -85,9 +96,14 @@ func (s *Server) handleCallback(response http.ResponseWriter, request *http.Requ
 	}
 	key := digest(rawSession)
 	if err := s.putSession(request.Context(), key, session); err != nil {
+		result = "session_unavailable"
+		s.metrics.RedisError("put_session")
+		s.metrics.Session("create", "error")
 		writeError(response, http.StatusServiceUnavailable, "temporarily_unavailable")
 		return
 	}
+	result = "success"
+	s.metrics.Session("create", "ok")
 	s.setSessionCookie(response, rawSession, session.ExpiresAt)
 	http.Redirect(response, request, state.ReturnTo, http.StatusSeeOther)
 }
@@ -111,9 +127,12 @@ func (s *Server) handleLogout(response http.ResponseWriter, request *http.Reques
 		return
 	}
 	if err := s.store.DeleteSession(request.Context(), key); err != nil {
+		s.metrics.RedisError("delete_session")
+		s.metrics.Session("destroy", "error")
 		writeError(response, http.StatusServiceUnavailable, "temporarily_unavailable")
 		return
 	}
+	s.metrics.Session("destroy", "ok")
 	s.clearSessionCookie(response)
 	state, err := randomToken(32)
 	if err != nil {
@@ -122,6 +141,7 @@ func (s *Server) handleLogout(response http.ResponseWriter, request *http.Reques
 	}
 	logoutState := loginState{Kind: "logout", ReturnTo: "/", CreatedAt: s.now()}
 	if err := s.putState(request.Context(), state, logoutState); err != nil {
+		s.metrics.RedisError("put_logout_state")
 		writeError(response, http.StatusServiceUnavailable, "temporarily_unavailable")
 		return
 	}

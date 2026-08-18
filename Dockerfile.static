@@ -1,0 +1,18 @@
+FROM node:22-alpine AS build
+WORKDIR /src
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM nginx:1.27-alpine
+COPY deploy/nginx/static.conf /etc/nginx/nginx.conf
+COPY --from=build /src/dist /usr/share/nginx/html
+RUN mkdir -p /tmp/openakita-nginx/client_body /tmp/openakita-nginx/proxy \
+        /tmp/openakita-nginx/fastcgi /tmp/openakita-nginx/uwsgi /tmp/openakita-nginx/scgi \
+    && chown -R nginx:nginx /usr/share/nginx/html /tmp/openakita-nginx \
+    && nginx -t \
+    && rm -f /tmp/openakita-nginx/nginx.pid
+USER nginx
+EXPOSE 8081
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD wget -q -O - http://127.0.0.1:8081/health || exit 1

@@ -2421,7 +2421,7 @@ body[data-page="home"] .home-section .reveal.is-visible {
 
 .hub-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
   align-items: stretch;
 }
@@ -2720,6 +2720,17 @@ body[data-page="home"] .home-section .reveal.is-visible {
   margin-left: 7px;
 }
 
+.hub-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: auto;
+}
+
+.hub-actions .hub-action-link {
+  margin-top: 0;
+}
+
 .hub-module-error {
   display: flex;
   min-height: 250px;
@@ -2917,8 +2928,7 @@ body[data-page="home"] .home-section .reveal.is-visible {
   }
 
   .hub-card-entitlements {
-    min-height: 360px;
-    grid-column: 1 / -1;
+    min-height: 430px;
   }
 }
 
@@ -3096,6 +3106,12 @@ body[data-page="home"] .home-section .reveal.is-visible {
     min-height: 390px;
     grid-column: auto;
     padding: 20px;
+  }
+
+  .hub-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .hub-global-message {

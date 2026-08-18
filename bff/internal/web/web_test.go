@@ -18,6 +18,7 @@ import (
 	"openakita-web-bff/internal/cryptobox"
 	marketplaceclient "openakita-web-bff/internal/marketplace"
 	"openakita-web-bff/internal/oidc"
+	passclient "openakita-web-bff/internal/pass"
 	"openakita-web-bff/internal/securestore"
 )
 
@@ -37,6 +38,18 @@ type fakeMarketplaceProvider struct {
 	subject   string
 	limit     int
 	requestID string
+}
+
+type fakePassProvider struct {
+	summary   passclient.Summary
+	err       error
+	subject   string
+	requestID string
+}
+
+func (f *fakePassProvider) Summary(_ context.Context, subject, requestID string) (passclient.Summary, error) {
+	f.subject, f.requestID = subject, requestID
+	return f.summary, f.err
 }
 
 func (f *fakeMarketplaceProvider) LibrarySummary(_ context.Context, subject string, limit int, requestID string) (marketplaceclient.LibrarySummary, error) {
@@ -72,6 +85,7 @@ type testRig struct {
 	store  *securestore.MemoryStore
 	idp    *fakeProvider
 	market *fakeMarketplaceProvider
+	pass   *fakePassProvider
 	clock  time.Time
 }
 
@@ -80,12 +94,14 @@ func newTestRig(t *testing.T) *testRig {
 	publicURL, _ := url.Parse("https://www.example")
 	issuer, _ := url.Parse("https://account.example")
 	marketplace, _ := url.Parse("https://marketplace.example/")
+	passURL, _ := url.Parse("https://pass.example/")
 	cfg := config.Config{
 		Environment: "production", PublicURL: publicURL, AccountIssuer: issuer, MarketplaceBaseURL: marketplace,
+		PassBaseURL: passURL, PassPublicURL: passURL,
 		AccountRedirectURI: "https://www.example/auth/callback", AccountPostLogoutURI: "https://www.example/auth/logout/callback",
 		SessionTTL: 24 * time.Hour, CookieSecure: true, CookieName: "__Host-oa_web_session",
 		AccountUserInfoTimeout: time.Second, AccountEntitlementTimeout: time.Second, HubTimeout: 1500 * time.Millisecond,
-		MarketplaceTimeout:      time.Second,
+		MarketplaceTimeout: time.Second, PassTimeout: time.Second,
 		AvatarAllowedOrigins:    map[string]bool{"https://account.example": true},
 		MarketplaceAssetOrigins: map[string]bool{"https://marketplace.example": true},
 	}
@@ -97,14 +113,20 @@ func newTestRig(t *testing.T) *testRig {
 	store := securestore.NewMemory()
 	idp := &fakeProvider{}
 	market := &fakeMarketplaceProvider{}
+	pass := &fakePassProvider{summary: passclient.Summary{
+		AccountSubject: "usr_123", AccountStatus: "not_provisioned",
+		Usage:   passclient.Usage{Period: "month", PeriodStart: time.Date(2026, 8, 1, 0, 0, 0, 0, time.UTC), PeriodEnd: time.Date(2026, 9, 1, 0, 0, 0, 0, time.UTC)},
+		Display: passclient.Display{Type: "CNY", QuotaPerUnit: 1_000_000, CurrencySymbol: "¥", CurrencyExchangeRate: 1},
+		Alerts:  []string{}, GeneratedAt: time.Date(2026, 8, 17, 8, 0, 0, 0, time.UTC),
+	}}
 	logger := slog.New(slog.NewTextHandler(io.Discard, nil))
-	server, err := New(cfg, store, box, idp, market, []byte("<!doctype html><title>account</title>"), logger)
+	server, err := New(cfg, store, box, idp, market, pass, []byte("<!doctype html><title>account</title>"), logger)
 	if err != nil {
 		t.Fatal(err)
 	}
 	clock := time.Date(2026, 8, 17, 8, 0, 0, 0, time.UTC)
 	server.now = func() time.Time { return clock }
-	return &testRig{server: server, store: store, idp: idp, market: market, clock: clock}
+	return &testRig{server: server, store: store, idp: idp, market: market, pass: pass, clock: clock}
 }
 
 func (r *testRig) authenticate(t *testing.T, expires time.Time) *http.Cookie {
@@ -271,6 +293,50 @@ func TestHubDegradesMarketplaceFailureOnly(t *testing.T) {
 	}
 }
 
+func TestHubMapsPassSummaryAndBuildsTrustedLinks(t *testing.T) {
+	rig := newTestRig(t)
+	rig.idp.info = oidc.UserInfo{Subject: "usr_123", Name: "Akita User", Email: "alice@example.com", EmailVerified: true}
+	rig.pass.summary = passclient.Summary{
+		AccountSubject: "usr_123", AccountStatus: "active",
+		Balance: passclient.Balance{AvailableQuota: 2_500_000, WarningThresholdQuota: 1_000_000},
+		Usage:   passclient.Usage{Available: true, Period: "month", PeriodStart: time.Date(2026, 8, 1, 0, 0, 0, 0, time.UTC), PeriodEnd: time.Date(2026, 9, 1, 0, 0, 0, 0, time.UTC), UsedQuota: 750_000, RequestCount: 42},
+		Display: passclient.Display{Type: "CNY", QuotaPerUnit: 1_000_000, CurrencySymbol: "¥", CurrencyExchangeRate: 1},
+		Alerts:  []string{"low_balance"}, GeneratedAt: rig.clock,
+	}
+	cookie := rig.authenticate(t, rig.clock.Add(time.Hour))
+	request := httptest.NewRequest(http.MethodGet, "/api/v1/hub", nil)
+	request.AddCookie(cookie)
+	request.Header.Set("X-Request-ID", "pass-hub-request")
+	response := httptest.NewRecorder()
+	rig.server.Handler().ServeHTTP(response, request)
+	if response.Code != http.StatusOK || !strings.Contains(response.Body.String(), `"pass":{"status":"ok"`) ||
+		!strings.Contains(response.Body.String(), `"available_quota":2500000`) || !strings.Contains(response.Body.String(), `"current_month_request_count":42`) {
+		t.Fatalf("Pass hub = %d %s", response.Code, response.Body.String())
+	}
+	if !strings.Contains(response.Body.String(), `"pass_console":"https://pass.example/console"`) ||
+		!strings.Contains(response.Body.String(), `"pass_topup":"https://pass.example/console/topup"`) ||
+		rig.pass.subject != "usr_123" || rig.pass.requestID != "pass-hub-request" {
+		t.Fatalf("Pass mapping or links are incomplete: %s", response.Body.String())
+	}
+	if strings.Contains(response.Body.String(), `"account_sub"`) {
+		t.Fatal("Pass downstream identity was forwarded directly")
+	}
+}
+
+func TestHubDegradesPassFailureOnly(t *testing.T) {
+	rig := newTestRig(t)
+	rig.idp.info = oidc.UserInfo{Subject: "usr_123", Name: "Akita User", Email: "alice@example.com", EmailVerified: true}
+	rig.pass.err = errors.New("private Pass ledger failure")
+	cookie := rig.authenticate(t, rig.clock.Add(time.Hour))
+	response := doRequest(rig.server.Handler(), http.MethodGet, "/api/v1/hub", cookie)
+	if response.Code != http.StatusOK || !strings.Contains(response.Body.String(), `"account":{"status":"ok"`) || !strings.Contains(response.Body.String(), `"pass":{"status":"unavailable"`) {
+		t.Fatalf("Pass degradation = %d %s", response.Code, response.Body.String())
+	}
+	if strings.Contains(response.Body.String(), "private Pass ledger failure") {
+		t.Fatal("Pass error details leaked")
+	}
+}
+
 func TestRefreshRejectionDestroysSession(t *testing.T) {
 	rig := newTestRig(t)
 	rig.idp.refreshErr = &oidc.HTTPError{Status: http.StatusBadRequest, Code: "invalid_grant"}
@@ -300,5 +366,77 @@ func TestLogoutRequiresOriginAndCSRF(t *testing.T) {
 	rig.server.Handler().ServeHTTP(response, request)
 	if response.Code != http.StatusOK || !strings.Contains(response.Body.String(), "logout_url") {
 		t.Fatalf("logout = %d %s", response.Code, response.Body.String())
+	}
+}
+
+func TestLoginRateLimitRejectsThirdRequest(t *testing.T) {
+	rig := newTestRig(t)
+	rig.server.cfg.AuthRateLimitPerMinute = 2
+	handler := rig.server.Handler()
+	for index := 0; index < 2; index++ {
+		response := doRequest(handler, http.MethodGet, "/auth/login", nil)
+		if response.Code != http.StatusFound {
+			t.Fatalf("allowed login %d = %d %s", index, response.Code, response.Body.String())
+		}
+	}
+	limited := doRequest(handler, http.MethodGet, "/auth/login", nil)
+	if limited.Code != http.StatusTooManyRequests || limited.Header().Get("Retry-After") != "60" || !strings.Contains(limited.Body.String(), "rate_limited") {
+		t.Fatalf("limited login = %d %s", limited.Code, limited.Body.String())
+	}
+}
+
+func TestUntrustedClientCannotSpoofForwardedAddress(t *testing.T) {
+	rig := newTestRig(t)
+	rig.server.cfg.AuthRateLimitPerMinute = 1
+	handler := rig.server.Handler()
+	firstRequest := httptest.NewRequest(http.MethodGet, "/auth/login", nil)
+	firstRequest.RemoteAddr = "192.0.2.10:1234"
+	firstRequest.Header.Set("X-Forwarded-For", "198.51.100.1")
+	first := httptest.NewRecorder()
+	handler.ServeHTTP(first, firstRequest)
+	secondRequest := httptest.NewRequest(http.MethodGet, "/auth/login", nil)
+	secondRequest.RemoteAddr = "192.0.2.10:4567"
+	secondRequest.Header.Set("X-Forwarded-For", "198.51.100.2")
+	second := httptest.NewRecorder()
+	handler.ServeHTTP(second, secondRequest)
+	if first.Code != http.StatusFound || second.Code != http.StatusTooManyRequests {
+		t.Fatalf("spoofed forwarded addresses bypassed limit: first=%d second=%d", first.Code, second.Code)
+	}
+}
+
+func TestTrustedProxyUsesForwardedClientAddress(t *testing.T) {
+	rig := newTestRig(t)
+	rig.server.cfg.AuthRateLimitPerMinute = 1
+	trustedProxies, err := parseTrustedProxies([]string{"10.0.0.0/8"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	rig.server.trustedProxies = trustedProxies
+	handler := rig.server.Handler()
+	for _, client := range []string{"198.51.100.1", "198.51.100.2"} {
+		request := httptest.NewRequest(http.MethodGet, "/auth/login", nil)
+		request.RemoteAddr = "10.0.0.2:443"
+		request.Header.Set("X-Forwarded-For", client)
+		response := httptest.NewRecorder()
+		handler.ServeHTTP(response, request)
+		if response.Code != http.StatusFound {
+			t.Fatalf("trusted proxy client %s = %d %s", client, response.Code, response.Body.String())
+		}
+	}
+}
+
+func TestMetricsUseBoundedRouteLabels(t *testing.T) {
+	rig := newTestRig(t)
+	handler := rig.server.Handler()
+	request := httptest.NewRequest(http.MethodGet, "/health", nil)
+	request.Header.Set("X-Request-ID", "secret-looking-request-value")
+	health := httptest.NewRecorder()
+	handler.ServeHTTP(health, request)
+	metrics := doRequest(handler, http.MethodGet, "/metrics", nil)
+	if metrics.Code != http.StatusOK || !strings.Contains(metrics.Body.String(), `openakita_web_bff_http_requests_total{method="GET",route="/health",status="200"}`) {
+		t.Fatalf("metrics response missing bounded route: %d", metrics.Code)
+	}
+	if strings.Contains(metrics.Body.String(), "secret-looking-request-value") {
+		t.Fatal("request ID leaked into metric labels")
 	}
 }

@@ -43,6 +43,7 @@
           label: "账户",
           hub: "我的 OpenAkita",
           marketplaceLibrary: "Marketplace：已获取资源",
+          passConsole: "OpenAkita Pass：控制台",
           security: "登录与安全",
           entitlements: "权益与 License",
           logout: "退出登录",
@@ -240,6 +241,7 @@
           label: "Account",
           hub: "My OpenAkita",
           marketplaceLibrary: "Marketplace: Acquired resources",
+          passConsole: "OpenAkita Pass: Console",
           security: "Sign-in & security",
           entitlements: "Entitlements & License",
           logout: "Sign out",
@@ -420,7 +422,7 @@
         skipToContent: "メインコンテンツへ移動",
         language: "言語",
         nav: { home: "ホーム", download: "ダウンロード", marketplace: "Marketplace", services: "サービス", scenarios: "活用シーン", tutorials: "チュートリアル", about: "概要", github: "GitHub" },
-        account: { login: "ログイン / 登録", menu: "アカウントメニュー", label: "アカウント", hub: "マイ OpenAkita", marketplaceLibrary: "Marketplace：取得済みリソース", security: "ログインとセキュリティ", entitlements: "権利と License", logout: "ログアウト", unavailable: "アカウントサービスを利用できません" },
+        account: { login: "ログイン / 登録", menu: "アカウントメニュー", label: "アカウント", hub: "マイ OpenAkita", marketplaceLibrary: "Marketplace：取得済みリソース", passConsole: "OpenAkita Pass：コンソール", security: "ログインとセキュリティ", entitlements: "権利と License", logout: "ログアウト", unavailable: "アカウントサービスを利用できません" },
         footerTagline: "Self-Evolving AI Agent：自ら学び、決して諦めない。",
         footer: {
           quickLinks: "クイックリンク",
@@ -474,7 +476,7 @@
         skipToContent: "본문으로 건너뛰기",
         language: "언어",
         nav: { home: "홈", download: "다운로드", marketplace: "Marketplace", services: "서비스", scenarios: "활용 사례", tutorials: "튜토리얼", about: "소개", github: "GitHub" },
-        account: { login: "로그인 / 가입", menu: "계정 메뉴", label: "계정", hub: "내 OpenAkita", marketplaceLibrary: "Marketplace: 획득한 리소스", security: "로그인 및 보안", entitlements: "권한 및 License", logout: "로그아웃", unavailable: "계정 서비스를 일시적으로 사용할 수 없습니다" },
+        account: { login: "로그인 / 가입", menu: "계정 메뉴", label: "계정", hub: "내 OpenAkita", marketplaceLibrary: "Marketplace: 획득한 리소스", passConsole: "OpenAkita Pass: 콘솔", security: "로그인 및 보안", entitlements: "권한 및 License", logout: "로그아웃", unavailable: "계정 서비스를 일시적으로 사용할 수 없습니다" },
         footerTagline: "Self-Evolving AI Agent: 스스로 학습하고, 절대 포기하지 않습니다.",
         footer: {
           quickLinks: "바로가기",
@@ -529,7 +531,7 @@
         skipToContent: "Перейти к основному содержанию",
         language: "Язык",
         nav: { home: "Главная", download: "Скачать", marketplace: "Marketplace", services: "Услуги", scenarios: "Сценарии", tutorials: "Руководства", about: "О проекте", github: "GitHub" },
-        account: { login: "Войти / Регистрация", menu: "Меню аккаунта", label: "Аккаунт", hub: "Мой OpenAkita", marketplaceLibrary: "Marketplace: полученные ресурсы", security: "Вход и безопасность", entitlements: "Права и License", logout: "Выйти", unavailable: "Сервис аккаунта временно недоступен" },
+        account: { login: "Войти / Регистрация", menu: "Меню аккаунта", label: "Аккаунт", hub: "Мой OpenAkita", marketplaceLibrary: "Marketplace: полученные ресурсы", passConsole: "OpenAkita Pass: консоль", security: "Вход и безопасность", entitlements: "Права и License", logout: "Выйти", unavailable: "Сервис аккаунта временно недоступен" },
         footerTagline: "Self-Evolving AI Agent: Учится, адаптируется, никогда не сдаётся.",
         footer: {
           quickLinks: "Быстрые ссылки",
@@ -594,7 +596,7 @@
         skipToContent: "Aller au contenu principal",
         language: "Langue",
         nav: { home: "Accueil", download: "Télécharger", marketplace: "Marketplace", services: "Services", scenarios: "Cas d'usage", tutorials: "Tutoriels", about: "À propos", github: "GitHub" },
-        account: { login: "Connexion / Inscription", menu: "Menu du compte", label: "Compte", hub: "Mon OpenAkita", marketplaceLibrary: "Marketplace : ressources acquises", security: "Connexion et sécurité", entitlements: "Droits et License", logout: "Se déconnecter", unavailable: "Le service de compte est temporairement indisponible" },
+        account: { login: "Connexion / Inscription", menu: "Menu du compte", label: "Compte", hub: "Mon OpenAkita", marketplaceLibrary: "Marketplace : ressources acquises", passConsole: "OpenAkita Pass : console", security: "Connexion et sécurité", entitlements: "Droits et License", logout: "Se déconnecter", unavailable: "Le service de compte est temporairement indisponible" },
         footerTagline: "Self-Evolving AI Agent : Apprendre, s'adapter, ne jamais abandonner.",
         footer: {
           quickLinks: "Liens rapides",
@@ -659,7 +661,7 @@
         skipToContent: "Zum Hauptinhalt springen",
         language: "Sprache",
         nav: { home: "Start", download: "Download", marketplace: "Marketplace", services: "Dienste", scenarios: "Anwendungen", tutorials: "Tutorials", about: "Über uns", github: "GitHub" },
-        account: { login: "Anmelden / Registrieren", menu: "Kontomenü", label: "Konto", hub: "Mein OpenAkita", marketplaceLibrary: "Marketplace: erworbene Ressourcen", security: "Anmeldung und Sicherheit", entitlements: "Berechtigungen und License", logout: "Abmelden", unavailable: "Der Kontodienst ist vorübergehend nicht verfügbar" },
+        account: { login: "Anmelden / Registrieren", menu: "Kontomenü", label: "Konto", hub: "Mein OpenAkita", marketplaceLibrary: "Marketplace: erworbene Ressourcen", passConsole: "OpenAkita Pass: Konsole", security: "Anmeldung und Sicherheit", entitlements: "Berechtigungen und License", logout: "Abmelden", unavailable: "Der Kontodienst ist vorübergehend nicht verfügbar" },
         footerTagline: "Self-Evolving AI Agent: Lernen, anpassen, nie aufgeben.",
         footer: {
           quickLinks: "Schnellzugriff",
@@ -1160,6 +1162,7 @@
     setAttr("[data-account-trigger]", "aria-label", t("common.account.menu"));
     setText('[data-account-link="hub"]', t("common.account.hub"));
     setText('[data-account-link="marketplace_library"]', t("common.account.marketplaceLibrary"));
+    setText('[data-account-link="pass_console"]', t("common.account.passConsole"));
     setText('[data-account-link="account_security"]', t("common.account.security"));
     setText('[data-account-link="account_entitlements"]', t("common.account.entitlements"));
     setText("[data-account-logout]", t("common.account.logout"));
@@ -1524,6 +1527,7 @@
         const linkFallbacks = {
           hub: "/account",
           marketplace_library: marketplaceFallback,
+          pass_console: "/account",
           account_security: "/account",
           account_entitlements: "/account",
         };

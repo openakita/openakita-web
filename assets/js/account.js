@@ -5,7 +5,7 @@
     zh: {
       "hero.eyebrow": "Account Hub",
       "hero.title": "我的 OpenAkita",
-      "hero.description": "集中查看账户状态、已获取资源与统一权益；详细管理仍在对应产品中完成。",
+      "hero.description": "集中查看账户状态、已获取资源、统一权益与 Pass 摘要；详细管理仍在对应产品中完成。",
       "common.loading": "加载中",
       "common.available": "可用",
       "common.unavailable": "暂不可用",
@@ -34,6 +34,19 @@
       "entitlements.action": "前往权益与 License",
       "entitlements.updated": "更新时间",
       "entitlements.item": "项",
+      "pass.title": "API 与余额摘要",
+      "pass.balance": "可用余额",
+      "pass.usage": "本月用量",
+      "pass.emptyTitle": "尚未启用 OpenAkita Pass",
+      "pass.emptyDescription": "进入 Pass 控制台后，将使用当前 OpenAkita Account 自动创建业务账户。",
+      "pass.console": "前往 Pass 控制台",
+      "pass.topup": "充值",
+      "pass.active": "Pass 账户状态正常。",
+      "pass.suspended": "Pass 账户已暂停，请进入控制台查看详情。",
+      "pass.depleted": "可用余额已用尽，请进入 Pass 控制台处理。",
+      "pass.lowBalance": "可用余额较低，请留意后续用量。",
+      "pass.usageUnavailable": "本月用量暂不可用，余额数据不受影响。",
+      "pass.period": "本月请求",
       "global.unavailableTitle": "我的 OpenAkita 暂时无法加载",
       "global.unavailableDescription": "页面框架仍然可用，请稍后重试。",
       "global.disabledTitle": "账户当前不可用",
@@ -44,7 +57,7 @@
     en: {
       "hero.eyebrow": "Account Hub",
       "hero.title": "My OpenAkita",
-      "hero.description": "View your account, acquired resources, and entitlements here. Detailed management stays in the relevant product.",
+      "hero.description": "View your account, acquired resources, entitlements, and Pass summary here. Detailed management stays in the relevant product.",
       "common.loading": "Loading",
       "common.available": "Available",
       "common.unavailable": "Unavailable",
@@ -73,6 +86,19 @@
       "entitlements.action": "Open entitlements and License",
       "entitlements.updated": "Updated",
       "entitlements.item": "active",
+      "pass.title": "API and balance summary",
+      "pass.balance": "Available balance",
+      "pass.usage": "Usage this month",
+      "pass.emptyTitle": "OpenAkita Pass is not enabled yet",
+      "pass.emptyDescription": "Open Pass Console to create the product account with your current OpenAkita Account.",
+      "pass.console": "Open Pass Console",
+      "pass.topup": "Top up",
+      "pass.active": "Your Pass account is active.",
+      "pass.suspended": "Your Pass account is suspended. Open the console for details.",
+      "pass.depleted": "Your available balance is depleted. Open Pass Console to continue.",
+      "pass.lowBalance": "Your available balance is low. Keep an eye on upcoming usage.",
+      "pass.usageUnavailable": "Usage for this month is unavailable. Balance data is unaffected.",
+      "pass.period": "Requests this month",
       "global.unavailableTitle": "My OpenAkita is temporarily unavailable",
       "global.unavailableDescription": "The page shell is still available. Please try again later.",
       "global.disabledTitle": "This account is unavailable",
@@ -82,7 +108,7 @@
     }
   };
 
-  const MODULE_NAMES = ["account", "marketplace", "entitlements"];
+  const MODULE_NAMES = ["account", "marketplace", "entitlements", "pass"];
   const root = document.querySelector("[data-hub-root]");
   if (!root) return;
 
@@ -178,6 +204,28 @@
       month: "short",
       day: "numeric"
     }).format(date);
+  }
+
+  function safeQuota(value) {
+    return typeof value === "number" && Number.isSafeInteger(value) ? value : 0;
+  }
+
+  function formatQuota(value, display) {
+    const quota = safeQuota(value);
+    const type = display && ["CNY", "TOKENS", "CUSTOM"].includes(display.type) ? display.type : "TOKENS";
+    const quotaPerUnit = display && typeof display.quota_per_unit === "number" && display.quota_per_unit > 0
+      ? display.quota_per_unit : 1;
+    if (type === "TOKENS") {
+      return new Intl.NumberFormat(document.documentElement.lang || "en", { maximumFractionDigits: 0 }).format(quota);
+    }
+    const exchangeRate = type === "CUSTOM" && display && typeof display.currency_exchange_rate === "number" && display.currency_exchange_rate > 0
+      ? display.currency_exchange_rate : 1;
+    const amount = quota / quotaPerUnit * exchangeRate;
+    const symbol = safeText(display && display.currency_symbol, type === "CNY" ? "CNY " : "").slice(0, 8);
+    return symbol + new Intl.NumberFormat(document.documentElement.lang || "en", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: Math.abs(amount) < 1 ? 4 : 2
+    }).format(amount);
   }
 
   function moduleNode(name) {
@@ -326,6 +374,41 @@
     setModuleState("entitlements", "ok");
   }
 
+  function renderPass(data, links) {
+    const card = moduleNode("pass");
+    const status = safeText(data && data.account_status, "not_provisioned");
+    const isProvisioned = status === "active" || status === "suspended";
+    const alerts = Array.isArray(data && data.alerts) ? data.alerts.filter(function (value) { return typeof value === "string"; }) : [];
+    const metrics = card.querySelector("[data-hub-pass-metrics]");
+    const empty = card.querySelector("[data-hub-pass-empty]");
+    const state = card.querySelector("[data-hub-pass-state]");
+    const topUp = card.querySelector('[data-hub-link="pass_topup"]');
+    metrics.hidden = !isProvisioned;
+    empty.hidden = isProvisioned;
+    topUp.hidden = status !== "active";
+    card.querySelector("[data-hub-pass-balance]").textContent = formatQuota(data && data.available_quota, data && data.display);
+    const usageAvailable = data && data.usage_available === true;
+    card.querySelector("[data-hub-pass-usage]").textContent = usageAvailable
+      ? formatQuota(data && data.current_month_used_quota, data && data.display) : "—";
+
+    let stateKey = "pass.active";
+    if (status === "suspended" || alerts.includes("account_suspended")) stateKey = "pass.suspended";
+	else if (alerts.includes("balance_depleted")) stateKey = "pass.depleted";
+	else if (alerts.includes("low_balance")) stateKey = "pass.lowBalance";
+	else if (!usageAvailable || alerts.includes("usage_unavailable")) stateKey = "pass.usageUnavailable";
+    state.hidden = !isProvisioned;
+    state.dataset.tone = stateKey === "pass.active" ? "normal" : "warning";
+    state.textContent = hubText(stateKey);
+
+    const period = card.querySelector("[data-hub-pass-period]");
+    const requests = safeCount(data && data.current_month_request_count);
+    period.hidden = !isProvisioned;
+    period.textContent = isProvisioned ? hubText("pass.period") + " · " + new Intl.NumberFormat(document.documentElement.lang || "en").format(requests) : "";
+    updateLink("pass_console", links && links.pass_console, false);
+    updateLink("pass_topup", links && links.pass_topup, false);
+    setModuleState("pass", "ok");
+  }
+
   function renderModule(name, envelope, links) {
     if (!envelope || envelope.status !== "ok" || !envelope.data || typeof envelope.data !== "object") {
       setModuleState(name, "unavailable");
@@ -334,6 +417,7 @@
     if (name === "account") renderAccount(envelope.data, links);
     if (name === "marketplace") renderMarketplace(envelope.data, links);
     if (name === "entitlements") renderEntitlements(envelope.data, links);
+    if (name === "pass") renderPass(envelope.data, links);
   }
 
   function renderPayload(payload) {

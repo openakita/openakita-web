@@ -21,6 +21,8 @@ type publicLinks struct {
 	MarketplaceLibrary  string `json:"marketplace_library"`
 	AccountSecurity     string `json:"account_security"`
 	AccountEntitlements string `json:"account_entitlements"`
+	PassConsole         string `json:"pass_console"`
+	PassTopUp           string `json:"pass_topup"`
 }
 
 func (s *Server) handleSession(response http.ResponseWriter, request *http.Request) {
@@ -72,9 +74,12 @@ func (s *Server) handleAccountPage(response http.ResponseWriter, request *http.R
 func (s *Server) links() publicLinks {
 	accountOrigin := s.cfg.AccountIssuer.Scheme + "://" + s.cfg.AccountIssuer.Host
 	marketplace := strings.TrimSuffix(s.cfg.MarketplaceBaseURL.String(), "/")
+	passConsole := s.cfg.PassPublicURL.ResolveReference(&url.URL{Path: "/console"}).String()
+	passTopUp := s.cfg.PassPublicURL.ResolveReference(&url.URL{Path: "/console/topup"}).String()
 	return publicLinks{
 		Hub: "/account", MarketplaceExplore: marketplace + "/catalog", MarketplaceLibrary: marketplace + "/library",
 		AccountSecurity: accountOrigin + "/portal?view=security", AccountEntitlements: accountOrigin + "/portal?view=entitlements",
+		PassConsole: passConsole, PassTopUp: passTopUp,
 	}
 }
 

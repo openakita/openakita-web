@@ -11,6 +11,7 @@ import (
 
 	marketplaceclient "openakita-web-bff/internal/marketplace"
 	"openakita-web-bff/internal/oidc"
+	passclient "openakita-web-bff/internal/pass"
 )
 
 type moduleError struct {
@@ -61,11 +62,32 @@ type hubMarketplaceResource struct {
 	DetailURL    string    `json:"detail_url"`
 }
 
+type hubPass struct {
+	AccountStatus        string         `json:"account_status"`
+	AvailableQuota       int64          `json:"available_quota"`
+	WarningThreshold     int64          `json:"warning_threshold_quota"`
+	CurrentMonthUsage    int64          `json:"current_month_used_quota"`
+	CurrentMonthRequests int64          `json:"current_month_request_count"`
+	UsageAvailable       bool           `json:"usage_available"`
+	PeriodStart          time.Time      `json:"period_start"`
+	PeriodEnd            time.Time      `json:"period_end"`
+	Display              hubPassDisplay `json:"display"`
+	Alerts               []string       `json:"alerts"`
+}
+
+type hubPassDisplay struct {
+	Type                 string  `json:"type"`
+	QuotaPerUnit         float64 `json:"quota_per_unit"`
+	CurrencySymbol       string  `json:"currency_symbol"`
+	CurrencyExchangeRate float64 `json:"currency_exchange_rate"`
+}
+
 type hubResult struct {
 	kind         string
 	info         oidc.UserInfo
 	entitlements oidc.EntitlementView
 	marketplace  marketplaceclient.LibrarySummary
+	pass         passclient.Summary
 	err          error
 }
 
@@ -86,30 +108,45 @@ func (s *Server) handleHub(response http.ResponseWriter, request *http.Request) 
 
 	ctx, cancel := context.WithTimeout(request.Context(), s.cfg.HubTimeout)
 	defer cancel()
-	results := make(chan hubResult, 3)
+	results := make(chan hubResult, 4)
 	go func() {
+		started := time.Now()
 		callCtx, callCancel := context.WithTimeout(ctx, s.cfg.AccountUserInfoTimeout)
 		defer callCancel()
 		info, callErr := s.idp.UserInfo(callCtx, session.AccessToken)
+		s.metrics.Downstream("account", "userinfo", downstreamMetricResult(callErr), time.Since(started))
 		results <- hubResult{kind: "account", info: info, err: callErr}
 	}()
 	go func() {
+		started := time.Now()
 		callCtx, callCancel := context.WithTimeout(ctx, s.cfg.AccountEntitlementTimeout)
 		defer callCancel()
 		view, callErr := s.idp.Entitlements(callCtx, session.AccessToken)
+		s.metrics.Downstream("account", "entitlements", downstreamMetricResult(callErr), time.Since(started))
 		results <- hubResult{kind: "entitlements", entitlements: view, err: callErr}
 	}()
 	go func() {
+		started := time.Now()
 		callCtx, callCancel := context.WithTimeout(ctx, s.cfg.MarketplaceTimeout)
 		defer callCancel()
 		summary, callErr := s.marketplace.LibrarySummary(callCtx, session.Subject, 3, requestID(request.Context()))
+		s.metrics.Downstream("marketplace", "library_summary", downstreamMetricResult(callErr), time.Since(started))
 		results <- hubResult{kind: "marketplace", marketplace: summary, err: callErr}
+	}()
+	go func() {
+		started := time.Now()
+		callCtx, callCancel := context.WithTimeout(ctx, s.cfg.PassTimeout)
+		defer callCancel()
+		summary, callErr := s.pass.Summary(callCtx, session.Subject, requestID(request.Context()))
+		s.metrics.Downstream("pass", "summary", downstreamMetricResult(callErr), time.Since(started))
+		results <- hubResult{kind: "pass", pass: summary, err: callErr}
 	}()
 
 	account := unavailableModule()
 	entitlements := unavailableModule()
 	marketplace := unavailableModule()
-	for range 3 {
+	pass := unavailableModule()
+	for range 4 {
 		select {
 		case result := <-results:
 			if result.err != nil {
@@ -135,25 +172,59 @@ func (s *Server) handleHub(response http.ResponseWriter, request *http.Request) 
 				account = moduleEnvelope{Status: "ok", Data: s.mapAccount(result.info)}
 			} else if result.kind == "entitlements" {
 				entitlements = moduleEnvelope{Status: "ok", Data: summarizeEntitlements(result.entitlements)}
-			} else {
+			} else if result.kind == "marketplace" {
 				marketplace = moduleEnvelope{Status: "ok", Data: s.mapMarketplace(result.marketplace)}
+			} else {
+				pass = moduleEnvelope{Status: "ok", Data: mapPass(result.pass)}
 			}
 		case <-ctx.Done():
-			writeHubResponse(response, s.now(), account, marketplace, entitlements, s.links())
+			s.writeHubResponse(response, s.now(), account, marketplace, entitlements, pass, s.links())
 			return
 		}
 	}
-	writeHubResponse(response, s.now(), account, marketplace, entitlements, s.links())
+	s.writeHubResponse(response, s.now(), account, marketplace, entitlements, pass, s.links())
 }
 
-func writeHubResponse(response http.ResponseWriter, now time.Time, account, marketplace, entitlements moduleEnvelope, links publicLinks) {
+func (s *Server) writeHubResponse(response http.ResponseWriter, now time.Time, account, marketplace, entitlements, pass moduleEnvelope, links publicLinks) {
+	for name, module := range map[string]moduleEnvelope{"account": account, "marketplace": marketplace, "entitlements": entitlements, "pass": pass} {
+		if module.Status == "unavailable" {
+			s.metrics.HubDegraded(name)
+		}
+	}
 	writeJSON(response, http.StatusOK, map[string]any{
 		"generated_at": now.Format(time.RFC3339),
 		"account":      account,
 		"marketplace":  marketplace,
 		"entitlements": entitlements,
+		"pass":         pass,
 		"links":        links,
 	})
+}
+
+func mapPass(summary passclient.Summary) hubPass {
+	alerts := append([]string(nil), summary.Alerts...)
+	return hubPass{
+		AccountStatus: summary.AccountStatus, AvailableQuota: summary.Balance.AvailableQuota,
+		WarningThreshold: summary.Balance.WarningThresholdQuota, CurrentMonthUsage: summary.Usage.UsedQuota,
+		CurrentMonthRequests: summary.Usage.RequestCount, UsageAvailable: summary.Usage.Available,
+		PeriodStart: summary.Usage.PeriodStart, PeriodEnd: summary.Usage.PeriodEnd,
+		Display: hubPassDisplay{Type: summary.Display.Type, QuotaPerUnit: summary.Display.QuotaPerUnit,
+			CurrencySymbol: summary.Display.CurrencySymbol, CurrencyExchangeRate: summary.Display.CurrencyExchangeRate},
+		Alerts: alerts,
+	}
+}
+
+func downstreamMetricResult(err error) string {
+	if err == nil {
+		return "ok"
+	}
+	if errors.Is(err, context.DeadlineExceeded) || errors.Is(err, context.Canceled) {
+		return "timeout"
+	}
+	if status := oidc.StatusCode(err); status == http.StatusUnauthorized || status == http.StatusForbidden {
+		return "authentication_error"
+	}
+	return "error"
 }
 
 func (s *Server) mapMarketplace(summary marketplaceclient.LibrarySummary) hubMarketplace {

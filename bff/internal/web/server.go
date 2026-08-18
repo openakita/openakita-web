@@ -12,6 +12,7 @@ import (
 	"html/template"
 	"log/slog"
 	"net/http"
+	"net/netip"
 	"net/url"
 	"regexp"
 	"strings"
@@ -20,24 +21,29 @@ import (
 	"openakita-web-bff/internal/config"
 	"openakita-web-bff/internal/cryptobox"
 	marketplaceclient "openakita-web-bff/internal/marketplace"
+	"openakita-web-bff/internal/observability"
 	"openakita-web-bff/internal/oidc"
+	passclient "openakita-web-bff/internal/pass"
 	"openakita-web-bff/internal/securestore"
 )
 
 type Server struct {
-	cfg         config.Config
-	store       securestore.Store
-	box         *cryptobox.KeyRing
-	idp         oidc.Provider
-	marketplace marketplaceclient.Provider
-	accountPage []byte
-	logger      *slog.Logger
-	now         func() time.Time
+	cfg            config.Config
+	store          securestore.Store
+	box            *cryptobox.KeyRing
+	idp            oidc.Provider
+	marketplace    marketplaceclient.Provider
+	pass           passclient.Provider
+	accountPage    []byte
+	logger         *slog.Logger
+	now            func() time.Time
+	metrics        *observability.Metrics
+	trustedProxies []netip.Prefix
 }
 
-func New(cfg config.Config, store securestore.Store, box *cryptobox.KeyRing, idp oidc.Provider, marketplace marketplaceclient.Provider, accountPage []byte, logger *slog.Logger) (*Server, error) {
-	if store == nil || box == nil || idp == nil || marketplace == nil {
-		return nil, errors.New("store, encryption key ring, OIDC provider, and Marketplace provider are required")
+func New(cfg config.Config, store securestore.Store, box *cryptobox.KeyRing, idp oidc.Provider, marketplace marketplaceclient.Provider, pass passclient.Provider, accountPage []byte, logger *slog.Logger) (*Server, error) {
+	if store == nil || box == nil || idp == nil || marketplace == nil || pass == nil {
+		return nil, errors.New("store, encryption key ring, OIDC provider, Marketplace provider, and Pass provider are required")
 	}
 	if len(accountPage) == 0 {
 		return nil, errors.New("account page is required")
@@ -45,13 +51,24 @@ func New(cfg config.Config, store securestore.Store, box *cryptobox.KeyRing, idp
 	if logger == nil {
 		logger = slog.Default()
 	}
-	return &Server{cfg: cfg, store: store, box: box, idp: idp, marketplace: marketplace, accountPage: accountPage, logger: logger, now: func() time.Time { return time.Now().UTC() }}, nil
+	trustedProxies, err := parseTrustedProxies(cfg.TrustedProxies)
+	if err != nil {
+		return nil, err
+	}
+	return &Server{
+		cfg: cfg, store: store, box: box, idp: idp, marketplace: marketplace, pass: pass,
+		accountPage: accountPage, logger: logger, now: func() time.Time { return time.Now().UTC() },
+		metrics: observability.NewMetrics(), trustedProxies: trustedProxies,
+	}, nil
 }
 
 func (s *Server) Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /health/live", s.handleLive)
 	mux.HandleFunc("GET /health/ready", s.handleReady)
+	mux.HandleFunc("GET /health", s.handleLive)
+	mux.HandleFunc("GET /ready", s.handleReady)
+	mux.Handle("GET /metrics", s.metrics.Handler())
 	mux.HandleFunc("GET /auth/login", s.handleLogin)
 	mux.HandleFunc("GET /auth/callback", s.handleCallback)
 	mux.HandleFunc("POST /auth/logout", s.handleLogout)
@@ -102,13 +119,29 @@ func (s *Server) middleware(next http.Handler) http.Handler {
 		}
 		recorder := &responseRecorder{ResponseWriter: response}
 		request = request.WithContext(context.WithValue(request.Context(), requestIDKey{}, requestID))
-		next.ServeHTTP(recorder, request)
+		if s.applyRateLimit(recorder, request) {
+			next.ServeHTTP(recorder, request)
+		}
 		status := recorder.status
 		if status == 0 {
 			status = http.StatusOK
 		}
 		s.logger.Info("http request", "request_id", requestID, "method", request.Method, "path", request.URL.Path, "status", status, "duration_ms", s.now().Sub(started).Milliseconds())
+		s.metrics.ObserveHTTP(request.Method, metricRoute(request.URL.Path), status, s.now().Sub(started))
 	})
+}
+
+func metricRoute(path string) string {
+	switch path {
+	case "/health", "/health/live":
+		return "/health"
+	case "/ready", "/health/ready":
+		return "/ready"
+	case "/metrics", "/auth/login", "/auth/callback", "/auth/logout", "/auth/logout/callback", "/api/v1/session", "/api/v1/hub", "/account", "/account/":
+		return path
+	default:
+		return "not_found"
+	}
 }
 
 func requestID(ctx context.Context) string {
@@ -124,6 +157,7 @@ func (s *Server) handleReady(response http.ResponseWriter, request *http.Request
 	ctx, cancel := context.WithTimeout(request.Context(), time.Second)
 	defer cancel()
 	if err := s.store.Ping(ctx); err != nil {
+		s.metrics.RedisError("ping")
 		writeJSON(response, http.StatusServiceUnavailable, map[string]string{"status": "unavailable"})
 		return
 	}

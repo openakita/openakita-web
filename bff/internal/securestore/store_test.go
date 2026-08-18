@@ -39,3 +39,17 @@ func TestMemoryRefreshLockIsOwned(t *testing.T) {
 		t.Fatal("owner did not release lock")
 	}
 }
+
+func TestMemoryFixedWindowRateLimit(t *testing.T) {
+	store := NewMemory()
+	for expectedRemaining := 1; expectedRemaining >= 0; expectedRemaining-- {
+		remaining, allowed, err := store.AllowFixedWindow(context.Background(), "client", 2, time.Minute)
+		if err != nil || !allowed || remaining != expectedRemaining {
+			t.Fatalf("allowed call = remaining %d allowed %v error %v", remaining, allowed, err)
+		}
+	}
+	remaining, allowed, err := store.AllowFixedWindow(context.Background(), "client", 2, time.Minute)
+	if err != nil || allowed || remaining != 0 {
+		t.Fatalf("limited call = remaining %d allowed %v error %v", remaining, allowed, err)
+	}
+}
