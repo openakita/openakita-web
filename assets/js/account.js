@@ -444,15 +444,14 @@
 
   async function loadHub(retryModule) {
     if (activeRequest) return;
-    if (retryModule) setModuleState(retryModule, "loading");
-    else MODULE_NAMES.forEach(function (name) { setModuleState(name, "loading"); });
+    if (!latestPayload) MODULE_NAMES.forEach(function (name) { setModuleState(name, "loading"); });
     globalMessage.hidden = true;
     moduleContainer.hidden = false;
     root.dataset.state = "loading";
     root.setAttribute("aria-busy", "true");
 
     const controller = new AbortController();
-    const timeout = window.setTimeout(function () { controller.abort(); }, 4000);
+    const timeout = window.setTimeout(function () { controller.abort(); }, 6000);
     activeRequest = controller;
     try {
       const response = await fetch("/api/v1/hub", {
@@ -491,6 +490,9 @@
     button.addEventListener("click", function () { loadHub(button.getAttribute("data-hub-retry")); });
   });
   retryAllButton.addEventListener("click", function () { loadHub(); });
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) loadHub();
+  });
   root.querySelector("[data-hub-avatar]").addEventListener("error", function (event) {
     event.currentTarget.hidden = true;
     event.currentTarget.removeAttribute("src");

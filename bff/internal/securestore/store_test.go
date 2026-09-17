@@ -7,6 +7,29 @@ import (
 	"time"
 )
 
+func TestRefreshWriteRequiresCurrentLease(t *testing.T) {
+	ctx := context.Background()
+	store := NewMemory()
+	if err := store.PutSession(ctx, "session", []byte("initial"), time.Minute); err != nil {
+		t.Fatal(err)
+	}
+	old, _, _ := store.AcquireRefreshLock(ctx, "session", time.Minute)
+	if err := store.ReleaseRefreshLock(ctx, "session", old); err != nil {
+		t.Fatal(err)
+	}
+	current, _, _ := store.AcquireRefreshLock(ctx, "session", time.Minute)
+	if err := store.UpdateSession(ctx, "session", []byte("new"), time.Minute, current); err != nil {
+		t.Fatal(err)
+	}
+	if err := store.UpdateSession(ctx, "session", []byte("stale"), time.Minute, old); !errors.Is(err, ErrNotFound) {
+		t.Fatal("previous lease overwrote current identity")
+	}
+	value, err := store.GetSession(ctx, "session")
+	if err != nil || string(value) != "new" {
+		t.Fatal("lost current identity")
+	}
+}
+
 func TestMemoryStateIsConsumedExactlyOnce(t *testing.T) {
 	store := NewMemory()
 	if err := store.PutState(context.Background(), "state", []byte("value"), time.Minute); err != nil {

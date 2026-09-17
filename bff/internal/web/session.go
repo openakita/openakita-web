@@ -14,6 +14,7 @@ import (
 var (
 	errAnonymous          = errors.New("anonymous session")
 	errSessionUnavailable = errors.New("session service unavailable")
+	errAccountDisabled    = errors.New("account disabled")
 )
 
 type loginState struct {
@@ -25,19 +26,21 @@ type loginState struct {
 }
 
 type webSession struct {
-	Subject       string    `json:"sub"`
-	DisplayName   string    `json:"display_name"`
-	EmailLabel    string    `json:"email_label"`
-	EmailVerified bool      `json:"email_verified"`
-	AvatarURL     string    `json:"avatar_url,omitempty"`
-	AccessToken   string    `json:"access_token"`
-	RefreshToken  string    `json:"refresh_token"`
-	IDToken       string    `json:"id_token"`
-	AccessExpires time.Time `json:"access_expires_at"`
-	CreatedAt     time.Time `json:"created_at"`
-	LastSeenAt    time.Time `json:"last_seen_at"`
-	ExpiresAt     time.Time `json:"expires_at"`
-	CSRFToken     string    `json:"csrf_token"`
+	IdentityVersion   int64     `json:"identity_version"`
+	IdentityCheckedAt time.Time `json:"identity_checked_at"`
+	Subject           string    `json:"sub"`
+	DisplayName       string    `json:"display_name"`
+	EmailLabel        string    `json:"email_label"`
+	EmailVerified     bool      `json:"email_verified"`
+	AvatarURL         string    `json:"avatar_url,omitempty"`
+	AccessToken       string    `json:"access_token"`
+	RefreshToken      string    `json:"refresh_token"`
+	IDToken           string    `json:"id_token"`
+	AccessExpires     time.Time `json:"access_expires_at"`
+	CreatedAt         time.Time `json:"created_at"`
+	LastSeenAt        time.Time `json:"last_seen_at"`
+	ExpiresAt         time.Time `json:"expires_at"`
+	CSRFToken         string    `json:"csrf_token"`
 }
 
 func (s *Server) putState(ctx context.Context, rawState string, state loginState) error {
@@ -73,7 +76,7 @@ func (s *Server) consumeState(ctx context.Context, rawState string) (loginState,
 	return state, nil
 }
 
-func (s *Server) putSession(ctx context.Context, key string, session *webSession) error {
+func (s *Server) putSession(ctx context.Context, key string, session *webSession, lock ...string) error {
 	remaining := session.ExpiresAt.Sub(s.now())
 	if remaining <= 0 {
 		return errAnonymous
@@ -85,6 +88,9 @@ func (s *Server) putSession(ctx context.Context, key string, session *webSession
 	encrypted, err := s.box.Encrypt(plaintext, []byte("session:"+key))
 	if err != nil {
 		return err
+	}
+	if len(lock) > 0 {
+		return s.store.UpdateSession(ctx, key, encrypted, remaining, lock[0])
 	}
 	return s.store.PutSession(ctx, key, encrypted, remaining)
 }
@@ -125,13 +131,22 @@ func (s *Server) sessionForRequest(ctx context.Context, request *http.Request) (
 		s.metrics.RedisError("get_session")
 		return nil, key, errSessionUnavailable
 	}
-	if session.AccessExpires.After(s.now().Add(30 * time.Second)) {
+	// Logout only needs the local session and CSRF token, even during an IdP outage.
+	if request.URL.Path == "/auth/logout" {
 		return session, key, nil
 	}
-	return s.refreshSession(ctx, key)
+	fresh := request.URL.Query().Get("refresh") == "1" || (request.Method != "GET" && request.Method != "HEAD") || request.URL.Path == "/account" || request.URL.Path == "/account/" || request.URL.Path == "/api/v1/hub"
+	if !fresh && session.IdentityCheckedAt.After(s.now().Add(-20*time.Second)) && session.AccessExpires.After(s.now().Add(30*time.Second)) {
+		return session, key, nil
+	}
+	return s.refreshSession(ctx, key, fresh)
 }
 
-func (s *Server) refreshSession(ctx context.Context, key string) (*webSession, string, error) {
+func (s *Server) refreshSession(ctx context.Context, key string, force ...bool) (*webSession, string, error) {
+	checkedAfter := s.now().Add(-20 * time.Second)
+	if len(force) > 0 && force[0] {
+		checkedAfter = s.now()
+	}
 	result := "unavailable"
 	defer func() { s.metrics.Session("refresh", result) }()
 	lockToken, acquired, err := s.store.AcquireRefreshLock(ctx, key, 10*time.Second)
@@ -140,14 +155,14 @@ func (s *Server) refreshSession(ctx context.Context, key string) (*webSession, s
 		return nil, key, errSessionUnavailable
 	}
 	if !acquired {
-		for range 8 {
+		for range 45 {
 			select {
 			case <-ctx.Done():
 				return nil, key, errSessionUnavailable
 			case <-time.After(75 * time.Millisecond):
 			}
 			session, loadErr := s.getStoredSession(ctx, key)
-			if loadErr == nil && session.AccessExpires.After(s.now().Add(30*time.Second)) {
+			if loadErr == nil && !session.IdentityCheckedAt.Before(checkedAfter) && session.AccessExpires.After(s.now().Add(30*time.Second)) {
 				result = "shared"
 				return session, key, nil
 			}
@@ -163,27 +178,55 @@ func (s *Server) refreshSession(ctx context.Context, key string) (*webSession, s
 		}
 		return nil, key, errSessionUnavailable
 	}
-	if session.AccessExpires.After(s.now().Add(30 * time.Second)) {
+	if !session.IdentityCheckedAt.Before(checkedAfter) && session.AccessExpires.After(s.now().Add(30*time.Second)) {
 		result = "shared"
 		return session, key, nil
 	}
 	refreshCtx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
-	tokens, err := s.idp.Refresh(refreshCtx, session.RefreshToken, session.Subject)
+	if !session.AccessExpires.After(s.now().Add(30 * time.Second)) {
+		tokens, err := s.idp.Refresh(refreshCtx, session.RefreshToken, session.Subject)
+		if err != nil {
+			if oidc.IsRefreshRejected(err) || oidc.IsAuthenticationError(err) {
+				_ = s.store.DeleteSession(ctx, key)
+				result = "rejected"
+				return nil, key, errAnonymous
+			}
+			return nil, key, errSessionUnavailable
+		}
+		session.AccessToken = tokens.AccessToken
+		if tokens.RefreshToken != "" {
+			session.RefreshToken = tokens.RefreshToken
+		}
+		session.IDToken = tokens.IDToken
+		session.AccessExpires = s.now().Add(time.Duration(tokens.ExpiresIn) * time.Second)
+		session.LastSeenAt = s.now()
+		// Persist rotated credentials even if the subsequent profile read fails.
+		if err := s.putSession(ctx, key, session, lockToken); err != nil {
+			return nil, key, errSessionUnavailable
+		}
+	}
+	info, err := s.idp.UserInfo(refreshCtx, session.AccessToken)
 	if err != nil {
-		if oidc.IsRefreshRejected(err) || oidc.IsAuthenticationError(err) {
+		if oidc.StatusCode(err) == http.StatusUnauthorized || oidc.StatusCode(err) == http.StatusForbidden {
 			_ = s.store.DeleteSession(ctx, key)
-			result = "rejected"
+			if oidc.StatusCode(err) == http.StatusForbidden {
+				return nil, key, errAccountDisabled
+			}
 			return nil, key, errAnonymous
 		}
 		return nil, key, errSessionUnavailable
 	}
-	session.AccessToken = tokens.AccessToken
-	session.RefreshToken = tokens.RefreshToken
-	session.IDToken = tokens.IDToken
-	session.AccessExpires = s.now().Add(time.Duration(tokens.ExpiresIn) * time.Second)
-	session.LastSeenAt = s.now()
-	if err := s.putSession(ctx, key, session); err != nil {
+	if info.Subject != session.Subject {
+		return nil, key, errSessionUnavailable
+	}
+	if info.IdentityVersion >= session.IdentityVersion {
+		session.IdentityVersion = info.IdentityVersion
+		session.DisplayName, session.EmailLabel = displayName(info.Name), maskEmail(info.Email)
+		session.EmailVerified, session.AvatarURL = info.EmailVerified, s.safeAvatarURL(info.Picture)
+	}
+	session.IdentityCheckedAt = s.now()
+	if err := s.putSession(ctx, key, session, lockToken); err != nil {
 		return nil, key, errSessionUnavailable
 	}
 	result = "ok"

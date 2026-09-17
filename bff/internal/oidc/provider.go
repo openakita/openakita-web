@@ -30,11 +30,12 @@ type Tokens struct {
 }
 
 type UserInfo struct {
-	Subject       string `json:"sub"`
-	Email         string `json:"email"`
-	EmailVerified bool   `json:"email_verified"`
-	Name          string `json:"name"`
-	Picture       string `json:"picture"`
+	IdentityVersion int64  `json:"identity_version"`
+	Subject         string `json:"sub"`
+	Email           string `json:"email"`
+	EmailVerified   bool   `json:"email_verified"`
+	Name            string `json:"name"`
+	Picture         string `json:"picture"`
 }
 
 type Entitlement struct {

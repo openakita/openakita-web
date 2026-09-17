@@ -1479,71 +1479,91 @@
       }
     });
 
-    const controller = new AbortController();
-    const timeout = window.setTimeout(function () { controller.abort(); }, 1800);
-    fetch("/api/v1/session", {
-      credentials: "same-origin",
-      headers: { Accept: "application/json" },
-      signal: controller.signal,
-    })
-      .then(function (response) {
-        if (!response.ok || !(response.headers.get("content-type") || "").includes("application/json")) {
-          throw new Error("session_unavailable");
-        }
-        return response.json();
+    let sessionRequest = null;
+    function refreshIdentity(force) {
+      if (sessionRequest) sessionRequest.abort();
+      const controller = new AbortController();
+      sessionRequest = controller;
+      const timeout = window.setTimeout(function () { controller.abort(); }, 4000);
+      fetch("/api/v1/session" + (force ? "?refresh=1" : ""), {
+        credentials: "same-origin",
+        headers: { Accept: "application/json" },
+        signal: controller.signal,
       })
-      .then(function (session) {
-        if (!session || session.authenticated !== true || !session.user) {
-          shell.dataset.state = "anonymous";
-          loginLink.setAttribute("href", safeLoginLink(session && session.login_url, fallbackLogin));
-          return;
-        }
+        .then(function (response) {
+          if (!response.ok || !(response.headers.get("content-type") || "").includes("application/json")) {
+            throw new Error("session_unavailable");
+          }
+          return response.json();
+        })
+        .then(function (session) {
+          if (sessionRequest !== controller) return;
+          if (!session || session.authenticated !== true || !session.user) {
+            shell.dataset.state = "anonymous";
+            loginLink.hidden = false;
+            menu.hidden = true;
+            shell.dataset.csrfToken = "";
+            loginLink.setAttribute("href", safeLoginLink(session && session.login_url, fallbackLogin));
+            return;
+          }
 
-        const displayName = typeof session.user.display_name === "string" && session.user.display_name.trim()
-          ? session.user.display_name.trim()
-          : "OpenAkita";
-        const accountLabel = typeof session.user.email_label === "string" && session.user.email_label.trim()
-          ? session.user.email_label.trim()
-          : t("common.account.label");
-        const links = session.links || {};
+          const displayName = typeof session.user.display_name === "string" && session.user.display_name.trim()
+            ? session.user.display_name.trim()
+            : "OpenAkita";
+          const accountLabel = typeof session.user.email_label === "string" && session.user.email_label.trim()
+            ? session.user.email_label.trim()
+            : t("common.account.label");
+          const links = session.links || {};
+          status.textContent = "";
 
-        shell.dataset.state = "authenticated";
-        shell.dataset.csrfToken = typeof session.csrf_token === "string" ? session.csrf_token : "";
-        loginLink.hidden = true;
-        menu.hidden = false;
-        nameNode.textContent = displayName;
-        labelNode.textContent = accountLabel;
-        avatarFallback.textContent = initialsForName(displayName);
+          shell.dataset.state = "authenticated";
+          shell.dataset.csrfToken = typeof session.csrf_token === "string" ? session.csrf_token : "";
+          loginLink.hidden = true;
+          menu.hidden = false;
+          nameNode.textContent = displayName;
+          labelNode.textContent = accountLabel;
+          avatarFallback.textContent = initialsForName(displayName);
 
-        const avatarUrl = safeAccountLink(session.user.avatar_url, "");
-        if (avatarUrl && avatarUrl.startsWith("https://")) {
-          avatar.setAttribute("src", avatarUrl);
-          avatar.hidden = false;
-          avatarFallback.hidden = true;
-        }
+          const avatarUrl = safeAccountLink(session.user.avatar_url, "");
+          if (avatarUrl && avatarUrl.startsWith("https://")) {
+            avatar.setAttribute("src", avatarUrl);
+            avatar.hidden = false;
+            avatarFallback.hidden = true;
+          } else {
+            avatar.removeAttribute("src");
+            avatar.hidden = true;
+            avatarFallback.hidden = false;
+          }
 
-        const marketplaceLink = document.querySelector('[data-nav="marketplace"]');
-        const marketplaceFallback = marketplaceLink ? marketplaceLink.getAttribute("href") + "library" : "/";
-        const linkFallbacks = {
-          hub: "/account",
-          marketplace_library: marketplaceFallback,
-          pass_console: "/account",
-          account_security: "/account",
-          account_entitlements: "/account",
-        };
-        Object.keys(linkFallbacks).forEach(function (key) {
-          const link = document.querySelector('[data-account-link="' + key + '"]');
-          if (link) link.setAttribute("href", safeAccountLink(links[key], linkFallbacks[key]));
+          const marketplaceLink = document.querySelector('[data-nav="marketplace"]');
+          const marketplaceFallback = marketplaceLink ? marketplaceLink.getAttribute("href") + "library" : "/";
+          const linkFallbacks = {
+            hub: "/account",
+            marketplace_library: marketplaceFallback,
+            pass_console: "/account",
+            account_security: "/account",
+            account_entitlements: "/account",
+          };
+          Object.keys(linkFallbacks).forEach(function (key) {
+            const link = document.querySelector('[data-account-link="' + key + '"]');
+            if (link) link.setAttribute("href", safeAccountLink(links[key], linkFallbacks[key]));
+          });
+        })
+        .catch(function () {
+          if (sessionRequest !== controller) return;
+          shell.dataset.state = "unavailable";
+          loginLink.setAttribute("href", fallbackLogin);
+          status.textContent = t("common.account.unavailable");
+        })
+        .finally(function () {
+          window.clearTimeout(timeout);
+          if (sessionRequest === controller) sessionRequest = null;
         });
-      })
-      .catch(function () {
-        shell.dataset.state = "unavailable";
-        loginLink.setAttribute("href", fallbackLogin);
-        status.textContent = t("common.account.unavailable");
-      })
-      .finally(function () {
-        window.clearTimeout(timeout);
-      });
+    }
+    refreshIdentity(false);
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) refreshIdentity(true);
+    });
   }
 
   function getCopyButtonLabel(state) {

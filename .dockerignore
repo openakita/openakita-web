@@ -5,3 +5,7 @@ dist
 node_modules
 bff/bin
 openakita
+.env
+.env.*
+tools-temp
+tools-tmp

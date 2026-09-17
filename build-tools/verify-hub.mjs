@@ -69,7 +69,7 @@ if (failures.length === 0) {
   if (!script.includes('envelope.status !== "ok"') || !script.includes('setModuleState(name, "unavailable")')) {
     fail("Hub client must degrade modules independently");
   }
-  if (!script.includes("AbortController") || !script.includes("4000")) fail("Hub client must bound request latency");
+  if (!script.includes("AbortController") || !script.includes("6000")) fail("Hub client must bound identity refresh plus module request latency");
   if (/\binnerHTML\b/.test(script)) fail("Hub client must render untrusted data with DOM text APIs, not innerHTML");
   if (/localStorage|sessionStorage|document\.cookie/.test(script)) fail("Hub client must not access browser token or cookie storage");
   if (count(script, "fetch(") !== 1) fail("Hub client must not call Account, Marketplace, or Pass directly");

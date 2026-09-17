@@ -2,19 +2,13 @@ name: openakita-web
 
 services:
   static:
-    image: ${WEB_STATIC_IMAGE:-openakita-web-static}:${WEB_STATIC_IMAGE_TAG:?WEB_STATIC_IMAGE_TAG is required}
-    build:
-      context: .
-      dockerfile: Dockerfile.static
+    image: registry.cn-hangzhou.aliyuncs.com/fzstack/openakita-web-static:${APP_IMAGE_TAG:?APP_IMAGE_TAG is required}
     ports:
       - "127.0.0.1:8081:8081"
     restart: unless-stopped
 
   bff:
-    image: ${WEB_BFF_IMAGE:-openakita-web-bff}:${WEB_BFF_IMAGE_TAG:?WEB_BFF_IMAGE_TAG is required}
-    build:
-      context: .
-      dockerfile: Dockerfile.bff
+    image: registry.cn-hangzhou.aliyuncs.com/fzstack/openakita-web-bff:${APP_IMAGE_TAG:?APP_IMAGE_TAG is required}
     environment:
       WEB_BFF_ENV: production
       WEB_BFF_HTTP_ADDR: :8080

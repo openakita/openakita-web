@@ -88,6 +88,7 @@ func (s *Server) handleCallback(response http.ResponseWriter, request *http.Requ
 	}
 	now := s.now()
 	session := &webSession{
+		IdentityVersion: info.IdentityVersion, IdentityCheckedAt: now,
 		Subject: info.Subject, DisplayName: displayName(info.Name), EmailLabel: maskEmail(info.Email),
 		EmailVerified: info.EmailVerified, AvatarURL: s.safeAvatarURL(info.Picture),
 		AccessToken: tokens.AccessToken, RefreshToken: tokens.RefreshToken, IDToken: tokens.IDToken,

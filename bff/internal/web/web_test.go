@@ -111,7 +111,7 @@ func newTestRig(t *testing.T) *testRig {
 		t.Fatal(err)
 	}
 	store := securestore.NewMemory()
-	idp := &fakeProvider{}
+	idp := &fakeProvider{info: oidc.UserInfo{Subject: "usr_123", Name: "Akita User", Email: "akita@example.com", EmailVerified: true}}
 	market := &fakeMarketplaceProvider{}
 	pass := &fakePassProvider{summary: passclient.Summary{
 		AccountSubject: "usr_123", AccountStatus: "not_provisioned",
@@ -133,7 +133,8 @@ func (r *testRig) authenticate(t *testing.T, expires time.Time) *http.Cookie {
 	t.Helper()
 	raw := "test-browser-session-token"
 	session := &webSession{
-		Subject: "usr_123", DisplayName: "Akita User", EmailLabel: "a***@example.com", EmailVerified: true,
+		IdentityCheckedAt: r.clock.Add(-time.Second),
+		Subject:           "usr_123", DisplayName: "Akita User", EmailLabel: "a***@example.com", EmailVerified: true,
 		AccessToken: "access-secret", RefreshToken: "refresh-secret", IDToken: "id-secret",
 		AccessExpires: expires, CreatedAt: r.clock, LastSeenAt: r.clock, ExpiresAt: r.clock.Add(24 * time.Hour), CSRFToken: "csrf-secret",
 	}

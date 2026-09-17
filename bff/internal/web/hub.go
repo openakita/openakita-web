@@ -84,7 +84,6 @@ type hubPassDisplay struct {
 
 type hubResult struct {
 	kind         string
-	info         oidc.UserInfo
 	entitlements oidc.EntitlementView
 	marketplace  marketplaceclient.LibrarySummary
 	pass         passclient.Summary
@@ -101,6 +100,11 @@ func (s *Server) handleHub(response http.ResponseWriter, request *http.Request) 
 		s.writeAuthenticationRequired(response)
 		return
 	}
+	if errors.Is(err, errAccountDisabled) {
+		s.clearSessionCookie(response)
+		writeError(response, http.StatusForbidden, "account_disabled")
+		return
+	}
 	if err != nil {
 		writeError(response, http.StatusServiceUnavailable, "temporarily_unavailable")
 		return
@@ -108,15 +112,7 @@ func (s *Server) handleHub(response http.ResponseWriter, request *http.Request) 
 
 	ctx, cancel := context.WithTimeout(request.Context(), s.cfg.HubTimeout)
 	defer cancel()
-	results := make(chan hubResult, 4)
-	go func() {
-		started := time.Now()
-		callCtx, callCancel := context.WithTimeout(ctx, s.cfg.AccountUserInfoTimeout)
-		defer callCancel()
-		info, callErr := s.idp.UserInfo(callCtx, session.AccessToken)
-		s.metrics.Downstream("account", "userinfo", downstreamMetricResult(callErr), time.Since(started))
-		results <- hubResult{kind: "account", info: info, err: callErr}
-	}()
+	results := make(chan hubResult, 3)
 	go func() {
 		started := time.Now()
 		callCtx, callCancel := context.WithTimeout(ctx, s.cfg.AccountEntitlementTimeout)
@@ -142,11 +138,15 @@ func (s *Server) handleHub(response http.ResponseWriter, request *http.Request) 
 		results <- hubResult{kind: "pass", pass: summary, err: callErr}
 	}()
 
-	account := unavailableModule()
+	account := moduleEnvelope{Status: "ok", Data: hubAccount{
+		Subject: session.Subject, DisplayName: session.DisplayName, EmailLabel: session.EmailLabel,
+		EmailVerified: session.EmailVerified, RequiresEmailBinding: session.EmailLabel == "" || !session.EmailVerified,
+		AvatarURL: session.AvatarURL,
+	}}
 	entitlements := unavailableModule()
 	marketplace := unavailableModule()
 	pass := unavailableModule()
-	for range 4 {
+	for range 3 {
 		select {
 		case result := <-results:
 			if result.err != nil {
@@ -155,22 +155,9 @@ func (s *Server) handleHub(response http.ResponseWriter, request *http.Request) 
 					s.writeAuthenticationRequired(response)
 					return
 				}
-				if result.kind == "account" && oidc.StatusCode(result.err) == http.StatusForbidden {
-					_ = s.store.DeleteSession(request.Context(), key)
-					s.clearSessionCookie(response)
-					writeError(response, http.StatusForbidden, "account_disabled")
-					return
-				}
 				continue
 			}
-			if result.kind == "account" {
-				if result.info.Subject == "" || result.info.Subject != session.Subject {
-					_ = s.store.DeleteSession(request.Context(), key)
-					s.writeAuthenticationRequired(response)
-					return
-				}
-				account = moduleEnvelope{Status: "ok", Data: s.mapAccount(result.info)}
-			} else if result.kind == "entitlements" {
+			if result.kind == "entitlements" {
 				entitlements = moduleEnvelope{Status: "ok", Data: summarizeEntitlements(result.entitlements)}
 			} else if result.kind == "marketplace" {
 				marketplace = moduleEnvelope{Status: "ok", Data: s.mapMarketplace(result.marketplace)}
@@ -256,14 +243,6 @@ func (s *Server) safeMarketplaceAssetURL(raw string) string {
 		return ""
 	}
 	return parsed.String()
-}
-
-func (s *Server) mapAccount(info oidc.UserInfo) hubAccount {
-	return hubAccount{
-		Subject: info.Subject, DisplayName: displayName(info.Name), EmailLabel: maskEmail(info.Email),
-		EmailVerified: info.EmailVerified, RequiresEmailBinding: strings.TrimSpace(info.Email) == "" || !info.EmailVerified,
-		AvatarURL: s.safeAvatarURL(info.Picture),
-	}
 }
 
 func summarizeEntitlements(view oidc.EntitlementView) hubEntitlements {

@@ -17,6 +17,7 @@ type Store interface {
 	PutState(context.Context, string, []byte, time.Duration) error
 	ConsumeState(context.Context, string) ([]byte, error)
 	PutSession(context.Context, string, []byte, time.Duration) error
+	UpdateSession(context.Context, string, []byte, time.Duration, string) error
 	GetSession(context.Context, string) ([]byte, error)
 	DeleteSession(context.Context, string) error
 	AcquireRefreshLock(context.Context, string, time.Duration) (string, bool, error)
@@ -52,6 +53,18 @@ func (s *RedisStore) ConsumeState(ctx context.Context, key string) ([]byte, erro
 
 func (s *RedisStore) PutSession(ctx context.Context, key string, value []byte, ttl time.Duration) error {
 	return s.client.Set(ctx, "oa:web:session:"+key, value, ttl).Err()
+}
+
+func (s *RedisStore) UpdateSession(ctx context.Context, key string, value []byte, ttl time.Duration, lock string) error {
+	const script = `if redis.call("exists", KEYS[1]) == 1 and redis.call("get", KEYS[2]) == ARGV[1] then redis.call("psetex", KEYS[1], ARGV[2], ARGV[3]); return 1 else return 0 end`
+	ok, err := s.client.Eval(ctx, script, []string{"oa:web:session:" + key, "oa:web:refresh:" + key}, lock, ttl.Milliseconds(), value).Int()
+	if err != nil {
+		return err
+	}
+	if ok != 1 {
+		return ErrNotFound
+	}
+	return nil
 }
 
 func (s *RedisStore) GetSession(ctx context.Context, key string) ([]byte, error) {
@@ -142,6 +155,21 @@ func (s *MemoryStore) ConsumeState(_ context.Context, key string) ([]byte, error
 func (s *MemoryStore) PutSession(_ context.Context, key string, value []byte, ttl time.Duration) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	s.sessions[key] = memoryItem{append([]byte(nil), value...), time.Now().Add(ttl)}
+	return nil
+}
+
+func (s *MemoryStore) UpdateSession(_ context.Context, key string, value []byte, ttl time.Duration, token string) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	item, ok := s.sessions[key]
+	if !ok || time.Now().After(item.expires) {
+		return ErrNotFound
+	}
+	lock, held := s.locks[key]
+	if !held || string(lock.value) != token || time.Now().After(lock.expires) {
+		return ErrNotFound
+	}
 	s.sessions[key] = memoryItem{append([]byte(nil), value...), time.Now().Add(ttl)}
 	return nil
 }
