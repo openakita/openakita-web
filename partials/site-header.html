@@ -31,8 +31,9 @@
             <option value="de">Deutsch</option>
           </select>
         </div>
-        <div class="account-shell" data-account-shell data-state="anonymous">
-          <a class="account-login" data-account-login href="/auth/login?return_to=%2F">登录/注册</a>
+        <div class="account-shell" data-account-shell data-state="loading" aria-busy="true">
+          <span class="account-placeholder" aria-hidden="true"></span>
+          <a class="account-login" data-account-login href="/auth/login?return_to=%2F" hidden>登录/注册</a>
           <div class="account-menu" data-account-menu hidden>
             <button class="account-trigger" data-account-trigger type="button" aria-expanded="false" aria-haspopup="menu" aria-controls="account-popover">
               <span class="account-avatar-fallback" data-account-avatar-fallback aria-hidden="true">OA</span>

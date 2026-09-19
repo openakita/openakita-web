@@ -267,6 +267,27 @@ img {
 .account-shell {
   position: relative;
   flex: 0 0 auto;
+  width: 180px;
+  min-height: 46px;
+}
+
+.account-placeholder {
+  display: none;
+  width: 100%;
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.account-shell[data-state="loading"] .account-placeholder {
+  display: block;
+}
+
+.account-shell .account-login,
+.account-shell .account-trigger {
+  width: 100%;
+  height: 46px;
 }
 
 .account-login {
@@ -326,6 +347,7 @@ img {
 
 .account-identity {
   max-width: 128px;
+  min-width: 0;
   display: grid;
   text-align: left;
   line-height: 1.15;

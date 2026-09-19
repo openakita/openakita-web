@@ -84,12 +84,25 @@ const server = createServer((request, response) => {
     return;
   }
   if (url.pathname === "/api/v1/session") {
-    json(response, 200, {
-      authenticated: true,
-      user: { display_name: "Fixture User", email_label: "f***@example.com", email_verified: true },
-      csrf_token: "fixture-csrf",
-      links: { hub: "/account", pass_console: "https://pass.example/console" }
-    });
+    const referer = new URL(request.headers.referer || "http://127.0.0.1/");
+    const sessionFixture = referer.searchParams.get("session_fixture");
+    const delay = sessionFixture === "slow" ? 2500 : 0;
+    setTimeout(() => {
+      if (sessionFixture === "unavailable") {
+        json(response, 503, { error: "temporarily_unavailable" });
+        return;
+      }
+      if (sessionFixture === "anonymous") {
+        json(response, 200, { authenticated: false });
+        return;
+      }
+      json(response, 200, {
+        authenticated: true,
+        user: { display_name: "Fixture User", email_label: "f***@example.com", email_verified: true },
+        csrf_token: "fixture-csrf",
+        links: { hub: "/account", pass_console: "https://pass.example/console" }
+      });
+    }, delay);
     return;
   }
   if (url.pathname === "/auth/login") {

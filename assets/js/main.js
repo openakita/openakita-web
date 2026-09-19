@@ -1499,10 +1499,12 @@
         .then(function (session) {
           if (sessionRequest !== controller) return;
           if (!session || session.authenticated !== true || !session.user) {
+            closeMenu(false);
             shell.dataset.state = "anonymous";
             loginLink.hidden = false;
             menu.hidden = true;
             shell.dataset.csrfToken = "";
+            status.textContent = "";
             loginLink.setAttribute("href", safeLoginLink(session && session.login_url, fallbackLogin));
             return;
           }
@@ -1552,12 +1554,16 @@
         .catch(function () {
           if (sessionRequest !== controller) return;
           shell.dataset.state = "unavailable";
+          loginLink.hidden = !menu.hidden;
           loginLink.setAttribute("href", fallbackLogin);
           status.textContent = t("common.account.unavailable");
         })
         .finally(function () {
           window.clearTimeout(timeout);
-          if (sessionRequest === controller) sessionRequest = null;
+          if (sessionRequest === controller) {
+            shell.setAttribute("aria-busy", "false");
+            sessionRequest = null;
+          }
         });
     }
     refreshIdentity(false);
