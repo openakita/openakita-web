@@ -30,7 +30,7 @@
         nav: {
           home: "首页",
           download: "下载",
-          marketplace: "Marketplace",
+          marketplace: "市场",
           services: "服务",
           scenarios: "应用场景",
           tutorials: "教程",

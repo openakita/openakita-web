@@ -78,10 +78,11 @@ if (failures.length === 0) {
   if (!output.includes('<header class="site-header">') || !output.includes('<footer class="site-footer">')) {
     fail("built account page must use the shared public shell");
   }
-  if (!output.includes('href="https://marketplace.fzstack.com/catalog"') || !output.includes('data-marketplace-target-id="catalog:all"')) {
+  const marketplaceBase = JSON.parse(read("config/site.json")).marketplace_url;
+  if (!output.includes(`href="${new URL("catalog", marketplaceBase).href}"`) || !output.includes('data-marketplace-target-id="catalog:all"')) {
     fail("built account page must receive its Marketplace explore link from config");
   }
-  if (!output.includes('href="https://marketplace.fzstack.com/library"') || !output.includes('data-marketplace-target-id="marketplace:library"')) {
+  if (!output.includes(`href="${new URL("library", marketplaceBase).href}"`) || !output.includes('data-marketplace-target-id="marketplace:library"')) {
     fail("built account page must receive its Marketplace library link from config");
   }
   if (!/assets\/js\/account\.js\?v=[a-f0-9]{12}/.test(output)) fail("built account page must version the Hub client");
