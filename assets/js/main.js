@@ -1167,7 +1167,7 @@
     setText('[data-account-link="account_entitlements"]', t("common.account.entitlements"));
     setText("[data-account-logout]", t("common.account.logout"));
     const accountShell = document.querySelector("[data-account-shell]");
-    if (accountShell && accountShell.dataset.state !== "authenticated") {
+    if (accountShell && !["authenticated", "preview"].includes(accountShell.dataset.state)) {
       setText("[data-account-label]", t("common.account.label"));
     }
     if (accountShell && accountShell.dataset.state === "unavailable") {
@@ -1385,6 +1385,7 @@
     if (!shell || !loginLink || !menu || !trigger || !popover || !nameNode || !labelNode || !avatar || !avatarFallback || !status || !logoutButton) return;
 
     const fallbackLogin = defaultLoginUrl();
+    const accountPreview = window.OpenAkitaAccountPreview;
     loginLink.setAttribute("href", fallbackLogin);
 
     function closeMenu(restoreFocus) {
@@ -1449,7 +1450,13 @@
       avatar.hidden = true;
       avatar.removeAttribute("src");
       avatarFallback.hidden = false;
+      if (accountPreview && shell.dataset.state === "authenticated") accountPreview.save(true);
     });
+    if (!avatar.hidden && avatar.complete && avatar.naturalWidth === 0) {
+      avatar.hidden = true;
+      avatar.removeAttribute("src");
+      avatarFallback.hidden = false;
+    }
 
     logoutButton.addEventListener("click", async function () {
       const csrfToken = shell.dataset.csrfToken;
@@ -1472,6 +1479,7 @@
           redirectUrl = body.logout_url || body.redirect_url || redirectUrl;
         }
         if (!response.ok) throw new Error("logout_failed");
+        if (accountPreview) accountPreview.clear();
         window.location.assign(safeAccountLink(redirectUrl, "/"));
       } catch (_) {
         status.textContent = t("common.account.unavailable");
@@ -1506,6 +1514,7 @@
             shell.dataset.csrfToken = "";
             status.textContent = "";
             loginLink.setAttribute("href", safeLoginLink(session && session.login_url, fallbackLogin));
+            if (accountPreview) accountPreview.save(false);
             return;
           }
 
@@ -1528,7 +1537,7 @@
 
           const avatarUrl = safeAccountLink(session.user.avatar_url, "");
           if (avatarUrl && avatarUrl.startsWith("https://")) {
-            avatar.setAttribute("src", avatarUrl);
+            if (avatar.getAttribute("src") !== avatarUrl) avatar.setAttribute("src", avatarUrl);
             avatar.hidden = false;
             avatarFallback.hidden = true;
           } else {
@@ -1550,6 +1559,7 @@
             const link = document.querySelector('[data-account-link="' + key + '"]');
             if (link) link.setAttribute("href", safeAccountLink(links[key], linkFallbacks[key]));
           });
+          if (accountPreview) accountPreview.save(true);
         })
         .catch(function () {
           if (sessionRequest !== controller) return;
@@ -1567,6 +1577,9 @@
         });
     }
     refreshIdentity(false);
+    window.addEventListener("pageshow", function (event) {
+      if (event.persisted) refreshIdentity(true);
+    });
     document.addEventListener("visibilitychange", function () {
       if (!document.hidden) refreshIdentity(true);
     });

@@ -85,6 +85,7 @@ if (!existsSync(outputDirectory)) {
     "api/latest-dev.json",
     "assets/js/main.js",
     "assets/js/account.js",
+    "assets/js/account-preview.js",
     "assets/js/motion.js",
     "assets/js/tracker.js",
     "assets/js/download.js",

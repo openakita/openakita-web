@@ -289,6 +289,7 @@ function injectStaticShell(): Plugin {
           output = output.replace(placeholder, partial);
         }
         output = output.replaceAll("{{MARKETPLACE_URL}}", siteConfig.marketplace_url);
+        output = output.replace("</head>", '<script src="/assets/js/account-preview.js" blocking="render"></script></head>');
         output = output.replaceAll(
           '<div data-marketplace-featured></div>',
           renderFeaturedMarketplace(marketplaceConfig),
