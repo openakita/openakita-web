@@ -2542,8 +2542,8 @@ body[data-page="home"] .home-section .reveal.is-visible {
   font-weight: 800;
 }
 
-.hub-identity strong,
-.hub-identity span {
+.hub-identity div > strong,
+.hub-identity div > span {
   display: block;
   overflow-wrap: anywhere;
 }
