@@ -1,0 +1,10 @@
+bind 0.0.0.0
+port 0
+tls-port 6379
+tls-cert-file /tls/redis.crt
+tls-key-file /tls/redis.key
+tls-ca-cert-file /tls/ca.crt
+tls-auth-clients no
+requirepass REPLACE_WITH_RANDOM_PASSWORD
+appendonly yes
+dir /data

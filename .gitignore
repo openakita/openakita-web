@@ -22,3 +22,5 @@ bff/bin/
 scripts/
 
 AGENTS.override.md
+runtime/
+tools-temp/
