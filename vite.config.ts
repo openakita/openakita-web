@@ -290,6 +290,7 @@ function injectStaticShell(): Plugin {
         }
         output = output.replaceAll("{{MARKETPLACE_URL}}", siteConfig.marketplace_url);
         output = output.replace("</head>", '<script src="/assets/js/account-preview.js" blocking="render"></script></head>');
+        output = output.replace("</head>", '<script src="/assets/js/chat-entry.js"></script></head>');
         output = output.replaceAll(
           '<div data-marketplace-featured></div>',
           renderFeaturedMarketplace(marketplaceConfig),
@@ -384,6 +385,7 @@ export default defineConfig({
   server: {
     host: "127.0.0.1",
     port: 5173,
+    proxy: { "/api/v1/chat": "http://127.0.0.1:8080" },
   },
   preview: {
     host: "127.0.0.1",

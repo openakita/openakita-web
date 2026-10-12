@@ -95,6 +95,7 @@
           slogan: "一直在身边，一直在变强。",
           desc: "填一个 API Key，剩下的交给 OpenAkita。",
           btnDownload: "立即下载",
+          btnChat: "网页对话",
           btnSetup: "3 分钟开始",
           btnTutorials: "全部教程",
         },
@@ -215,7 +216,7 @@
         },
         hero: {
           title: "隐私政策",
-          desc: "最后更新日期：2026 年 3 月 11 日",
+          desc: "最后更新日期：2026 年 10 月 12 日",
         },
       },
     },
@@ -293,6 +294,7 @@
           slogan: "Always with you. Always getting stronger.",
           desc: "Bring one API key. OpenAkita handles the rest.",
           btnDownload: "Download Now",
+          btnChat: "Web Chat",
           btnSetup: "Start in 3 Min",
           btnTutorials: "All Tutorials",
         },
@@ -411,7 +413,7 @@
         },
         hero: {
           title: "Privacy Policy",
-          desc: "Last updated: March 11, 2026",
+          desc: "Last updated: October 12, 2026",
         },
       },
     },
@@ -444,6 +446,7 @@
           title: "あなたに寄り添い成長する、万能 AI アシスタント",
           slogan: "毎日に寄り添う、あなたの本当の相棒。",
           desc: "API Key を 1 つ入れるだけ。あとは OpenAkita が実行します。",
+          btnChat: "ウェブチャット",
         },
       },
       download: { hero: { title: "OpenAkita をダウンロード", desc: "Desktop / CLI / Source の 3 つの導入方法を提供します。" } },
@@ -467,7 +470,7 @@
       about: { hero: { title: "私たちについて", desc: "OpenAkita のビジョンとコミュニティ。" } },
       services: { hero: { title: "製品とサービス", desc: "オープンソースの汎用アシスタントからエンタープライズ向けカスタムソリューションまで。" } },
       terms: { hero: { title: "利用規約", desc: "最終更新日：2026年3月11日" } },
-      privacy: { hero: { title: "プライバシーポリシー", desc: "最終更新日：2026年3月11日" } },
+      privacy: { hero: { title: "プライバシーポリシー", desc: "最終更新日：2026年10月12日" } },
     },
     ko: {
       common: {
@@ -498,6 +501,7 @@
           title: "함께 성장하는 올인원 AI 어시스턴트",
           slogan: "매일 곁에서 함께하는 진짜 전능한 도우미.",
           desc: "API Key 하나면 시작됩니다. 나머지는 OpenAkita가 처리합니다.",
+          btnChat: "웹 채팅",
         },
       },
       download: { hero: { title: "OpenAkita 다운로드", desc: "Desktop / CLI / Source 3가지 설치 경로를 지원합니다." } },
@@ -522,7 +526,7 @@
       about: { hero: { title: "소개", desc: "OpenAkita 비전과 커뮤니티." } },
       services: { hero: { title: "제품 및 서비스", desc: "오픈 소스 범용 어시스턴트부터 기업용 맞춤 솔루션까지." } },
       terms: { hero: { title: "서비스 약관", desc: "최종 업데이트: 2026년 3월 11일" } },
-      privacy: { hero: { title: "개인정보 처리방침", desc: "최종 업데이트: 2026년 3월 11일" } },
+      privacy: { hero: { title: "개인정보 처리방침", desc: "최종 업데이트: 2026년 10월 12일" } },
     },
     ru: {
       common: {
@@ -553,6 +557,7 @@
           title: "Универсальный AI-помощник, который растет вместе с вами",
           slogan: "Каждый день рядом с вами — как надежный компаньон.",
           desc: "Нужен только API Key. Остальное OpenAkita сделает сам.",
+          btnChat: "Веб-чат",
         },
       },
       download: { hero: { title: "Скачать OpenAkita", desc: "Доступны Desktop, CLI и исходная установка." } },
@@ -587,7 +592,7 @@
       about: { hero: { title: "О нас", desc: "Видение OpenAkita и сообщество." } },
       services: { hero: { title: "Продукты и услуги", desc: "От универсального помощника до корпоративных решений." } },
       terms: { hero: { title: "Условия использования", desc: "Последнее обновление: 11 марта 2026 г." } },
-      privacy: { hero: { title: "Политика конфиденциальности", desc: "Последнее обновление: 11 марта 2026 г." } },
+      privacy: { hero: { title: "Политика конфиденциальности", desc: "Последнее обновление: 12 октября 2026 г." } },
     },
     fr: {
       common: {
@@ -618,6 +623,7 @@
           title: "Un assistant IA tout-en-un qui grandit avec vous",
           slogan: "Un compagnon au quotidien, un assistant vraiment complet.",
           desc: "Ajoutez une clé API. OpenAkita gère le reste.",
+          btnChat: "Chat en ligne",
         },
       },
       download: { hero: { title: "Télécharger OpenAkita", desc: "Installation Desktop, CLI et source." } },
@@ -652,7 +658,7 @@
       about: { hero: { title: "À propos", desc: "Vision OpenAkita et communauté." } },
       services: { hero: { title: "Produits et services", desc: "De l'assistant open source aux solutions d'entreprise sur mesure." } },
       terms: { hero: { title: "Conditions d'utilisation", desc: "Dernière mise à jour : 11 mars 2026" } },
-      privacy: { hero: { title: "Politique de confidentialité", desc: "Dernière mise à jour : 11 mars 2026" } },
+      privacy: { hero: { title: "Politique de confidentialité", desc: "Dernière mise à jour : 12 octobre 2026" } },
     },
     de: {
       common: {
@@ -683,6 +689,7 @@
           title: "Ein Allround-AI-Assistent, der mit dir mitwächst",
           slogan: "Dein täglicher Begleiter und wirklich vielseitiger Assistent.",
           desc: "Ein API Key reicht. Den Rest erledigt OpenAkita.",
+          btnChat: "Web-Chat",
         },
       },
       download: { hero: { title: "OpenAkita herunterladen", desc: "Desktop-, CLI- und Source-Installation verfügbar." } },
@@ -717,7 +724,7 @@
       about: { hero: { title: "Über uns", desc: "Vision und Community von OpenAkita." } },
       services: { hero: { title: "Produkte und Dienste", desc: "Vom Open-Source-Universalassistenten bis zur maßgeschneiderten Unternehmenslösung." } },
       terms: { hero: { title: "Nutzungsbedingungen", desc: "Letzte Aktualisierung: 11. März 2026" } },
-      privacy: { hero: { title: "Datenschutzrichtlinie", desc: "Letzte Aktualisierung: 11. März 2026" } },
+      privacy: { hero: { title: "Datenschutzrichtlinie", desc: "Letzte Aktualisierung: 12. Oktober 2026" } },
     },
   };
 
@@ -748,6 +755,10 @@
   }
 
   function detectLanguage() {
+    if (document.body.dataset.page === "chat") {
+      try { return localStorage.getItem("openakita_chat_language") === "zh" ? "zh" : "en"; }
+      catch (_) { return "en"; }
+    }
     const saved = localStorage.getItem("openakita_language");
     if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
     const browserCandidates = Array.isArray(navigator.languages) && navigator.languages.length > 0 ? navigator.languages : [navigator.language || "zh-CN"];
@@ -760,6 +771,7 @@
 
   function resolvePageKey() {
     const path = (window.location.pathname || "").toLowerCase();
+    if (document.body.dataset.page === "chat") return "chat";
     if (path === "/account" || path.startsWith("/account/")) return "accountHub";
     if (path.includes("/tutorials/setup-install")) return "setup";
     if (path.includes("/tutorials/im-channels")) return "im";
@@ -1151,6 +1163,7 @@
     setText(".skip-link", t("common.skipToContent"));
     setText('.main-nav a[data-nav="home"]', t("common.nav.home"));
     setText('.main-nav a[data-nav="download"]', t("common.nav.download"));
+    setText('.main-nav a[data-nav="chat"]', t("home.hero.btnChat"));
     setText('.main-nav a[data-nav="marketplace"]', t("common.nav.marketplace"));
     setText('.main-nav a[data-nav="services"]', t("common.nav.services"));
     setText('.main-nav a[data-nav="scenarios"]', t("common.nav.scenarios"));
@@ -1226,11 +1239,26 @@
     link.dataset.i18nManaged = "";
   }
 
+  function applyHomePrimaryAction() {
+    setInlineLabel("#downloadDesktopButton", t("home.hero.btnDownload"));
+    if (!window.OpenAkitaChatEntry?.enabled) return;
+    document.querySelectorAll("[data-home-primary-action]").forEach(function (link) {
+      const action = link.getAttribute("data-home-primary-action");
+      setInlineLabel('[data-home-primary-action="' + action + '"]', t("home.hero.btnChat"));
+      link.setAttribute("href", "/chat/");
+      const icon = link.querySelector("img");
+      if (icon) {
+        icon.setAttribute("src", "/assets/img/icons/chat.svg");
+        icon.setAttribute("alt", "");
+      }
+    });
+  }
+
   function applyHomeTexts() {
     setText("#heroTypedTitle", getHomeHeroSubtitle(t("home.hero.title"), "让私人AI随时陪伴"));
     setText("#heroSloganText", t("home.hero.slogan"));
     setText(".hero .hero-lead", t("home.hero.desc"));
-    setInlineLabel("#downloadDesktopButton", t("home.hero.btnDownload"));
+    applyHomePrimaryAction();
     setInlineLabel('.hero .hero-actions a[href="/tutorials/setup-install/"]', t("home.hero.btnSetup"));
     setInlineLabel('.hero .hero-actions a[href="/tutorials/"]', t("home.hero.btnTutorials"));
     startHomeHeroTyping();

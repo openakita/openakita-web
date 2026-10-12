@@ -208,6 +208,7 @@ img {
 
 .product-nav > a,
 .account-login {
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2862,6 +2863,14 @@ body[data-page="home"] .home-section .reveal.is-visible {
   .card h3 {
     font-size: clamp(22px, 1.8vw, 27px);
   }
+}
+
+@media (min-width: 1121px) and (max-width: 1400px) {
+  .brand { font-size: 26px; flex-shrink: 0; }
+  .brand img { width: 34px; height: 34px; }
+  .product-nav > a { font-size: 13px; padding: 0 7px; }
+  .main-nav { gap: 8px; }
+  .lang-label { display: none; }
 }
 
 @media (max-width: 1120px) {

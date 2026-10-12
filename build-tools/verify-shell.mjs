@@ -8,7 +8,7 @@ const ignoredDirectories = new Set([".git", ".idea", ".vite", "dist", "node_modu
 const excludedHtmlFiles = new Set(["memu_reference.html"]);
 const headerPlaceholder = '<div data-site-header></div>';
 const footerPlaceholder = '<div data-site-footer></div>';
-const expectedNavigation = ["home", "download", "marketplace", "services", "scenarios", "tutorials", "about"];
+const expectedNavigation = ["home", "download", "chat", "marketplace", "services", "scenarios", "tutorials", "about"];
 
 function filesRecursively(directory) {
   const files = [];
@@ -106,7 +106,7 @@ for (const sourcePath of sourcePages) {
   else if (footer !== canonicalFooter) failures.push(`${projectPath(outputPath)} rendered footer differs from the canonical shell`);
 }
 
-if (sourcePages.length !== 15) failures.push(`expected 15 official source pages, found ${sourcePages.length}`);
+if (sourcePages.length !== 16) failures.push(`expected 16 official source pages, found ${sourcePages.length}`);
 
 if (failures.length) {
   for (const failure of failures) console.error(`[verify-shell] ${failure}`);
