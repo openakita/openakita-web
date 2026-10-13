@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-08-17T08:00:00Z",
+  "account": {
+    "status": "ok",
+    "data": {
+      "sub": "usr_fixture",
+      "display_name": "Akita User",
+      "email_label": "a***@example.com",
+      "email_verified": true,
+      "requires_email_binding": false,
+      "avatar_url": "https://account.example/avatar.png"
+    }
+  },
+  "marketplace": {
+    "status": "ok",
+    "data": {
+      "acquired_count": 4,
+      "update_available_count": 1,
+      "recent": [
+        {
+          "resource_id": "res_123",
+          "slug": "github-assistant",
+          "name": "GitHub 协作助手",
+          "resource_type": "plugin",
+          "icon_url": "https://marketplace.example/icons/github.png",
+          "acquired_at": "2026-08-16T08:00:00Z",
+          "detail_url": "https://marketplace.fzstack.com/resources/github-assistant"
+        }
+      ]
+    }
+  },
+  "entitlements": {
+    "status": "ok",
+    "data": {
+      "active_count": 4,
+      "products": [
+        {
+          "product_code": "marketplace",
+          "active_count": 3,
+          "expires_at": null
+        }
+      ],
+      "updated_at": "2026-08-17T07:59:58Z"
+    }
+  },
+  "pass": {
+    "status": "ok",
+    "data": {
+      "account_status": "active",
+      "available_quota": 2500000,
+      "warning_threshold_quota": 1000000,
+      "current_month_used_quota": 750000,
+      "current_month_request_count": 42,
+      "usage_available": true,
+      "period_start": "2026-08-01T00:00:00Z",
+      "period_end": "2026-09-01T00:00:00Z",
+      "display": { "type": "CNY", "quota_per_unit": 1000000, "currency_symbol": "¥", "currency_exchange_rate": 1 },
+      "alerts": []
+    }
+  },
+  "links": {
+    "marketplace_explore": "https://marketplace.fzstack.com/catalog",
+    "marketplace_library": "https://marketplace.fzstack.com/library",
+    "account_security": "https://account.example/portal?view=security",
+    "account_entitlements": "https://account.example/portal?view=entitlements",
+    "pass_console": "https://pass.example/console",
+    "pass_topup": "https://pass.example/console/topup"
+  }
+}

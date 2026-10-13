@@ -9,7 +9,18 @@ openakita/
 node_modules/
 dist/
 .vite/
+bff/bin/
+
+# local and deployment secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
+!**/.env.*.example
 
 # build scripts
 scripts/
 
+AGENTS.override.md
+runtime/
+tools-temp/

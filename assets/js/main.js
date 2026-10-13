@@ -24,15 +24,30 @@
     zh: {
       common: {
         navToggle: "打开导航",
+        navClose: "关闭导航",
+        skipToContent: "跳至主要内容",
         language: "语言",
         nav: {
           home: "首页",
           download: "下载",
+          marketplace: "市场",
           services: "服务",
           scenarios: "应用场景",
           tutorials: "教程",
           about: "关于我们",
           github: "GitHub",
+        },
+        account: {
+          login: "登录/注册",
+          menu: "账户菜单",
+          label: "账户",
+          hub: "我的 OpenAkita",
+          marketplaceLibrary: "Marketplace：已获取资源",
+          passConsole: "OpenAkita Pass：控制台",
+          security: "登录与安全",
+          entitlements: "权益与 License",
+          logout: "退出登录",
+          unavailable: "账户服务暂时不可用",
         },
         release: {
           loading: "加载中...",
@@ -64,6 +79,12 @@
           privacy: "隐私政策",
         },
       },
+      accountHub: {
+        meta: {
+          title: "我的 OpenAkita",
+          description: "查看你的 OpenAkita 账户状态、Marketplace 资源摘要与统一权益摘要。",
+        },
+      },
       home: {
         meta: {
           title: "OpenAkita - 自进化 AI Agent 官网",
@@ -75,6 +96,7 @@
           slogan: "一直在身边，一直在变强。",
           desc: "填一个 API Key，剩下的交给 OpenAkita。",
           btnDownload: "立即下载",
+          btnChat: "网页对话",
           btnSetup: "3 分钟开始",
           btnTutorials: "全部教程",
         },
@@ -236,22 +258,37 @@
         },
         hero: {
           title: "隐私政策",
-          desc: "最后更新日期：2026 年 3 月 11 日",
+          desc: "最后更新日期：2026 年 10 月 12 日",
         },
       },
     },
     en: {
       common: {
         navToggle: "Open navigation",
+        navClose: "Close navigation",
+        skipToContent: "Skip to main content",
         language: "Language",
         nav: {
           home: "Home",
           download: "Download",
+          marketplace: "Marketplace",
           services: "Services",
           scenarios: "Use Cases",
           tutorials: "Tutorials",
           about: "About",
           github: "GitHub",
+        },
+        account: {
+          login: "Sign in / Register",
+          menu: "Account menu",
+          label: "Account",
+          hub: "My OpenAkita",
+          marketplaceLibrary: "Marketplace: Acquired resources",
+          passConsole: "OpenAkita Pass: Console",
+          security: "Sign-in & security",
+          entitlements: "Entitlements & License",
+          logout: "Sign out",
+          unavailable: "Account service is temporarily unavailable",
         },
         release: {
           loading: "Loading...",
@@ -283,6 +320,12 @@
           privacy: "Privacy Policy",
         },
       },
+      accountHub: {
+        meta: {
+          title: "My OpenAkita",
+          description: "View your OpenAkita account status, Marketplace resource summary, and entitlements.",
+        },
+      },
       home: {
         meta: {
           title: "OpenAkita - Self-Evolving AI Agent",
@@ -294,6 +337,7 @@
           slogan: "Always with you. Always getting stronger.",
           desc: "Bring one API key. OpenAkita handles the rest.",
           btnDownload: "Download Now",
+          btnChat: "Web Chat",
           btnSetup: "Start in 3 Min",
           btnTutorials: "All Tutorials",
         },
@@ -453,15 +497,18 @@
         },
         hero: {
           title: "Privacy Policy",
-          desc: "Last updated: March 11, 2026",
+          desc: "Last updated: October 12, 2026",
         },
       },
     },
     ja: {
       common: {
         navToggle: "ナビを開く",
+        navClose: "ナビを閉じる",
+        skipToContent: "メインコンテンツへ移動",
         language: "言語",
-        nav: { home: "ホーム", download: "ダウンロード", services: "サービス", scenarios: "活用シーン", tutorials: "チュートリアル", about: "概要", github: "GitHub" },
+        nav: { home: "ホーム", download: "ダウンロード", marketplace: "Marketplace", services: "サービス", scenarios: "活用シーン", tutorials: "チュートリアル", about: "概要", github: "GitHub" },
+        account: { login: "ログイン / 登録", menu: "アカウントメニュー", label: "アカウント", hub: "マイ OpenAkita", marketplaceLibrary: "Marketplace：取得済みリソース", passConsole: "OpenAkita Pass：コンソール", security: "ログインとセキュリティ", entitlements: "権利と License", logout: "ログアウト", unavailable: "アカウントサービスを利用できません" },
         footerTagline: "Self-Evolving AI Agent：自ら学び、決して諦めない。",
         tutorialBackToTop: "ページトップへ",
         footer: {
@@ -484,6 +531,7 @@
           title: "あなたに寄り添い成長する、万能 AI アシスタント",
           slogan: "毎日に寄り添う、あなたの本当の相棒。",
           desc: "API Key を 1 つ入れるだけ。あとは OpenAkita が実行します。",
+          btnChat: "ウェブチャット",
         },
       },
       download: { hero: { title: "OpenAkita をダウンロード", desc: "Desktop / CLI / Docker / ソースコードの 4 つの導入方法を提供します。" } },
@@ -546,13 +594,16 @@
       about: { hero: { title: "私たちについて", desc: "OpenAkita のビジョンとコミュニティ。" } },
       services: { hero: { title: "製品とサービス", desc: "オープンソースの汎用アシスタントからエンタープライズ向けカスタムソリューションまで。" } },
       terms: { hero: { title: "利用規約", desc: "最終更新日：2026年3月11日" } },
-      privacy: { hero: { title: "プライバシーポリシー", desc: "最終更新日：2026年3月11日" } },
+      privacy: { hero: { title: "プライバシーポリシー", desc: "最終更新日：2026年10月12日" } },
     },
     ko: {
       common: {
         navToggle: "탐색 열기",
+        navClose: "탐색 닫기",
+        skipToContent: "본문으로 건너뛰기",
         language: "언어",
-        nav: { home: "홈", download: "다운로드", services: "서비스", scenarios: "활용 사례", tutorials: "튜토리얼", about: "소개", github: "GitHub" },
+        nav: { home: "홈", download: "다운로드", marketplace: "Marketplace", services: "서비스", scenarios: "활용 사례", tutorials: "튜토리얼", about: "소개", github: "GitHub" },
+        account: { login: "로그인 / 가입", menu: "계정 메뉴", label: "계정", hub: "내 OpenAkita", marketplaceLibrary: "Marketplace: 획득한 리소스", passConsole: "OpenAkita Pass: 콘솔", security: "로그인 및 보안", entitlements: "권한 및 License", logout: "로그아웃", unavailable: "계정 서비스를 일시적으로 사용할 수 없습니다" },
         footerTagline: "Self-Evolving AI Agent: 스스로 학습하고, 절대 포기하지 않습니다.",
         tutorialBackToTop: "맨 위로",
         footer: {
@@ -575,6 +626,7 @@
           title: "함께 성장하는 올인원 AI 어시스턴트",
           slogan: "매일 곁에서 함께하는 진짜 전능한 도우미.",
           desc: "API Key 하나면 시작됩니다. 나머지는 OpenAkita가 처리합니다.",
+          btnChat: "웹 채팅",
         },
       },
       download: { hero: { title: "OpenAkita 다운로드", desc: "Desktop / CLI / Docker / 소스 코드 4가지 설치 경로를 지원합니다." } },
@@ -638,13 +690,16 @@
       about: { hero: { title: "소개", desc: "OpenAkita 비전과 커뮤니티." } },
       services: { hero: { title: "제품 및 서비스", desc: "오픈 소스 범용 어시스턴트부터 기업용 맞춤 솔루션까지." } },
       terms: { hero: { title: "서비스 약관", desc: "최종 업데이트: 2026년 3월 11일" } },
-      privacy: { hero: { title: "개인정보 처리방침", desc: "최종 업데이트: 2026년 3월 11일" } },
+      privacy: { hero: { title: "개인정보 처리방침", desc: "최종 업데이트: 2026년 10월 12일" } },
     },
     ru: {
       common: {
         navToggle: "Открыть навигацию",
+        navClose: "Закрыть навигацию",
+        skipToContent: "Перейти к основному содержанию",
         language: "Язык",
-        nav: { home: "Главная", download: "Скачать", services: "Услуги", scenarios: "Сценарии", tutorials: "Руководства", about: "О проекте", github: "GitHub" },
+        nav: { home: "Главная", download: "Скачать", marketplace: "Marketplace", services: "Услуги", scenarios: "Сценарии", tutorials: "Руководства", about: "О проекте", github: "GitHub" },
+        account: { login: "Войти / Регистрация", menu: "Меню аккаунта", label: "Аккаунт", hub: "Мой OpenAkita", marketplaceLibrary: "Marketplace: полученные ресурсы", passConsole: "OpenAkita Pass: консоль", security: "Вход и безопасность", entitlements: "Права и License", logout: "Выйти", unavailable: "Сервис аккаунта временно недоступен" },
         footerTagline: "Self-Evolving AI Agent: Учится, адаптируется, никогда не сдаётся.",
         tutorialBackToTop: "Наверх",
         footer: {
@@ -667,6 +722,7 @@
           title: "Универсальный AI-помощник, который растет вместе с вами",
           slogan: "Каждый день рядом с вами — как надежный компаньон.",
           desc: "Нужен только API Key. Остальное OpenAkita сделает сам.",
+          btnChat: "Веб-чат",
         },
       },
       download: { hero: { title: "Скачать OpenAkita", desc: "Доступны Desktop, CLI, Docker и установка из исходного кода." } },
@@ -737,13 +793,16 @@
       about: { hero: { title: "О нас", desc: "Видение OpenAkita и сообщество." } },
       services: { hero: { title: "Продукты и услуги", desc: "От универсального помощника до корпоративных решений." } },
       terms: { hero: { title: "Условия использования", desc: "Последнее обновление: 11 марта 2026 г." } },
-      privacy: { hero: { title: "Политика конфиденциальности", desc: "Последнее обновление: 11 марта 2026 г." } },
+      privacy: { hero: { title: "Политика конфиденциальности", desc: "Последнее обновление: 12 октября 2026 г." } },
     },
     fr: {
       common: {
         navToggle: "Ouvrir la navigation",
+        navClose: "Fermer la navigation",
+        skipToContent: "Aller au contenu principal",
         language: "Langue",
-        nav: { home: "Accueil", download: "Télécharger", services: "Services", scenarios: "Cas d'usage", tutorials: "Tutoriels", about: "À propos", github: "GitHub" },
+        nav: { home: "Accueil", download: "Télécharger", marketplace: "Marketplace", services: "Services", scenarios: "Cas d'usage", tutorials: "Tutoriels", about: "À propos", github: "GitHub" },
+        account: { login: "Connexion / Inscription", menu: "Menu du compte", label: "Compte", hub: "Mon OpenAkita", marketplaceLibrary: "Marketplace : ressources acquises", passConsole: "OpenAkita Pass : console", security: "Connexion et sécurité", entitlements: "Droits et License", logout: "Se déconnecter", unavailable: "Le service de compte est temporairement indisponible" },
         footerTagline: "Self-Evolving AI Agent : Apprendre, s'adapter, ne jamais abandonner.",
         tutorialBackToTop: "Retour en haut",
         footer: {
@@ -766,6 +825,7 @@
           title: "Un assistant IA tout-en-un qui grandit avec vous",
           slogan: "Un compagnon au quotidien, un assistant vraiment complet.",
           desc: "Ajoutez une clé API. OpenAkita gère le reste.",
+          btnChat: "Chat en ligne",
         },
       },
       download: { hero: { title: "Télécharger OpenAkita", desc: "Installation Desktop, CLI, Docker et depuis les sources." } },
@@ -836,13 +896,16 @@
       about: { hero: { title: "À propos", desc: "Vision OpenAkita et communauté." } },
       services: { hero: { title: "Produits et services", desc: "De l'assistant open source aux solutions d'entreprise sur mesure." } },
       terms: { hero: { title: "Conditions d'utilisation", desc: "Dernière mise à jour : 11 mars 2026" } },
-      privacy: { hero: { title: "Politique de confidentialité", desc: "Dernière mise à jour : 11 mars 2026" } },
+      privacy: { hero: { title: "Politique de confidentialité", desc: "Dernière mise à jour : 12 octobre 2026" } },
     },
     de: {
       common: {
         navToggle: "Navigation öffnen",
+        navClose: "Navigation schließen",
+        skipToContent: "Zum Hauptinhalt springen",
         language: "Sprache",
-        nav: { home: "Start", download: "Download", services: "Dienste", scenarios: "Anwendungen", tutorials: "Tutorials", about: "Über uns", github: "GitHub" },
+        nav: { home: "Start", download: "Download", marketplace: "Marketplace", services: "Dienste", scenarios: "Anwendungen", tutorials: "Tutorials", about: "Über uns", github: "GitHub" },
+        account: { login: "Anmelden / Registrieren", menu: "Kontomenü", label: "Konto", hub: "Mein OpenAkita", marketplaceLibrary: "Marketplace: erworbene Ressourcen", passConsole: "OpenAkita Pass: Konsole", security: "Anmeldung und Sicherheit", entitlements: "Berechtigungen und License", logout: "Abmelden", unavailable: "Der Kontodienst ist vorübergehend nicht verfügbar" },
         footerTagline: "Self-Evolving AI Agent: Lernen, anpassen, nie aufgeben.",
         tutorialBackToTop: "Nach oben",
         footer: {
@@ -865,6 +928,7 @@
           title: "Ein Allround-AI-Assistent, der mit dir mitwächst",
           slogan: "Dein täglicher Begleiter und wirklich vielseitiger Assistent.",
           desc: "Ein API Key reicht. Den Rest erledigt OpenAkita.",
+          btnChat: "Web-Chat",
         },
       },
       download: { hero: { title: "OpenAkita herunterladen", desc: "Desktop-, CLI-, Docker- und Source-Installation verfügbar." } },
@@ -935,7 +999,7 @@
       about: { hero: { title: "Über uns", desc: "Vision und Community von OpenAkita." } },
       services: { hero: { title: "Produkte und Dienste", desc: "Vom Open-Source-Universalassistenten bis zur maßgeschneiderten Unternehmenslösung." } },
       terms: { hero: { title: "Nutzungsbedingungen", desc: "Letzte Aktualisierung: 11. März 2026" } },
-      privacy: { hero: { title: "Datenschutzrichtlinie", desc: "Letzte Aktualisierung: 11. März 2026" } },
+      privacy: { hero: { title: "Datenschutzrichtlinie", desc: "Letzte Aktualisierung: 12. Oktober 2026" } },
     },
   };
 
@@ -966,11 +1030,12 @@
   }
 
   function detectLanguage() {
-    const saved = localStorage.getItem("openakita_language");
+    let saved;
+    try { saved = localStorage.getItem("openakita_language"); } catch (_) {}
     if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
     const browserCandidates = Array.isArray(navigator.languages) && navigator.languages.length > 0 ? navigator.languages : [navigator.language || "zh-CN"];
     for (const tag of browserCandidates) {
-      const normalized = normalizeLanguageTag(tag);
+      const normalized = tag.toLowerCase().split("-")[0];
       if (SUPPORTED_LANGS.includes(normalized)) return normalized;
     }
     return "zh";
@@ -978,6 +1043,8 @@
 
   function resolvePageKey() {
     const path = (window.location.pathname || "").toLowerCase();
+    if (document.body.dataset.page === "chat") return "chat";
+    if (path === "/account" || path.startsWith("/account/")) return "accountHub";
     if (path.includes("/tutorials/im-channels")) return "im";
     if (path.includes("/tutorials/llm-endpoints")) return "llm";
     if (path.includes("/tutorials/web-search-source")) return "webSearch";
@@ -1366,24 +1433,70 @@
     if (descMeta && description) descMeta.setAttribute("content", description);
   }
 
+  function applyMarketplaceTexts() {
+    const scripts = document.querySelectorAll("script[data-marketplace-copy]");
+    if (!scripts.length) return;
+
+    let copy = {};
+    scripts.forEach(function (script) {
+      try {
+        const parsed = JSON.parse(script.textContent || "{}");
+        Object.keys(parsed).forEach(function (language) {
+          copy[language] = Object.assign({}, copy[language] || {}, parsed[language]);
+        });
+      } catch (error) {
+        console.warn("Unable to read Marketplace translations", error);
+      }
+    });
+
+    const translations = copy[currentLanguage] || copy.en || copy.zh || {};
+    const fallback = copy.en || copy.zh || {};
+    document.querySelectorAll("[data-marketplace-text]").forEach(function (node) {
+      const key = node.getAttribute("data-marketplace-text");
+      if (!key) return;
+      const value = translations[key] || fallback[key];
+      if (typeof value === "string") {
+        node.textContent = value;
+        node.dataset.i18nManaged = "";
+      }
+    });
+  }
+
   function applyCommonTexts() {
-    setAttr(".nav-toggle", "aria-label", t("common.navToggle"));
+    const navigationToggle = document.querySelector(".nav-toggle");
+    const navigationExpanded = navigationToggle && navigationToggle.getAttribute("aria-expanded") === "true";
+    setAttr(".nav-toggle", "aria-label", t(navigationExpanded ? "common.navClose" : "common.navToggle"));
+    setText(".skip-link", t("common.skipToContent"));
     setText('.main-nav a[data-nav="home"]', t("common.nav.home"));
     setText('.main-nav a[data-nav="download"]', t("common.nav.download"));
+    setText('.main-nav a[data-nav="chat"]', t("home.hero.btnChat"));
+    setText('.main-nav a[data-nav="marketplace"]', t("common.nav.marketplace"));
     setText('.main-nav a[data-nav="services"]', t("common.nav.services"));
     setText('.main-nav a[data-nav="scenarios"]', t("common.nav.scenarios"));
     setText('.main-nav a[data-nav="tutorials"]', t("common.nav.tutorials"));
     setText('.main-nav a[data-nav="about"]', t("common.nav.about"));
-    const githubLink = document.querySelector('.main-nav a[href*="github.com/openakita/openakita"]');
-    if (githubLink) {
-      githubLink.textContent = t("common.nav.github");
-      githubLink.dataset.i18nManaged = "";
-    }
     setText(".lang-label", t("common.language"));
+    setAttr(".lang-select", "aria-label", t("common.language"));
+    setText("[data-account-login]", t("common.account.login"));
+    setAttr("[data-account-trigger]", "aria-label", t("common.account.menu"));
+    setText('[data-account-link="hub"]', t("common.account.hub"));
+    setText('[data-account-link="marketplace_library"]', t("common.account.marketplaceLibrary"));
+    setText('[data-account-link="pass_console"]', t("common.account.passConsole"));
+    setText('[data-account-link="account_security"]', t("common.account.security"));
+    setText('[data-account-link="account_entitlements"]', t("common.account.entitlements"));
+    setText("[data-account-logout]", t("common.account.logout"));
+    const accountShell = document.querySelector("[data-account-shell]");
+    if (accountShell && !["authenticated", "preview"].includes(accountShell.dataset.state)) {
+      setText("[data-account-label]", t("common.account.label"));
+    }
+    if (accountShell && accountShell.dataset.state === "unavailable") {
+      setText("[data-account-status]", t("common.account.unavailable"));
+    }
     setText(".footer-tagline", t("common.footerTagline"));
     updateTutorialBackToTopLabel();
 
     applyFooterTexts();
+    applyMarketplaceTexts();
   }
 
   function isTutorialPage() {
@@ -1499,11 +1612,26 @@
     link.dataset.i18nManaged = "";
   }
 
+  function applyHomePrimaryAction() {
+    setInlineLabel("#downloadDesktopButton", t("home.hero.btnDownload"));
+    if (!window.OpenAkitaChatEntry?.enabled) return;
+    document.querySelectorAll("[data-home-primary-action]").forEach(function (link) {
+      const action = link.getAttribute("data-home-primary-action");
+      setInlineLabel('[data-home-primary-action="' + action + '"]', t("home.hero.btnChat"));
+      link.setAttribute("href", "/chat/");
+      const icon = link.querySelector("img");
+      if (icon) {
+        icon.setAttribute("src", "/assets/img/icons/chat.svg");
+        icon.setAttribute("alt", "");
+      }
+    });
+  }
+
   function applyHomeTexts() {
     setText("#heroTypedTitle", getHomeHeroSubtitle(t("home.hero.title"), "让私人AI随时陪伴"));
     setText("#heroSloganText", t("home.hero.slogan"));
     setText(".hero .hero-lead", t("home.hero.desc"));
-    setInlineLabel("#downloadDesktopButton", t("home.hero.btnDownload"));
+    applyHomePrimaryAction();
     setInlineLabel("#heroSetupButton", t("home.hero.btnSetup"));
     setInlineLabel('.hero .hero-actions a[href="/tutorials/"]:not(#heroSetupButton)', t("home.hero.btnTutorials"));
     startHomeHeroTyping();
@@ -1596,43 +1724,14 @@
     if (pageKey === "privacy") applyPrivacyTexts();
   }
 
-  function injectLanguageSwitcher(pageKey) {
-    const nav = document.querySelector(".main-nav");
-    if (!nav || nav.querySelector(".lang-switch")) return;
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "lang-switch";
-    const label = document.createElement("label");
-    label.className = "lang-label";
-    label.setAttribute("for", "languageSelect");
-    label.textContent = t("common.language");
-
-    const select = document.createElement("select");
-    select.className = "lang-select";
-    select.id = "languageSelect";
-
-    const options = [
-      { value: "zh", label: "中文" },
-      { value: "en", label: "English" },
-      { value: "ja", label: "日本語" },
-      { value: "ko", label: "한국어" },
-      { value: "ru", label: "Русский" },
-      { value: "fr", label: "Français" },
-      { value: "de", label: "Deutsch" },
-    ];
-
-    options.forEach(function (item) {
-      const option = document.createElement("option");
-      option.value = item.value;
-      option.textContent = item.label;
-      select.appendChild(option);
-    });
-
+  function initLanguageSwitcher(pageKey) {
+    const select = document.querySelector(".lang-select");
+    if (!select) return;
     select.value = currentLanguage;
-    select.addEventListener("change", function () {
-      var targetLang = normalizeLanguageTag(select.value);
+    function changeLanguage(targetLang, remember) {
       currentLanguage = targetLang;
-      localStorage.setItem("openakita_language", currentLanguage);
+      select.value = currentLanguage;
+      if (remember) { try { localStorage.setItem("openakita_language", currentLanguage); } catch (_) {} }
       document.documentElement.lang = LANG_TO_LOCALE[currentLanguage] || "en-US";
 
       applyMeta(pageKey);
@@ -1643,6 +1742,7 @@
       enhanceCodeBlocks();
 
       applyImageTranslations();
+      if (pageKey === "chat") document.dispatchEvent(new CustomEvent("openakita:language-changed"));
 
       if (currentLanguage === "zh" || languagePacks[currentLanguage]) {
         applyContentTranslations();
@@ -1657,11 +1757,267 @@
           document.dispatchEvent(new CustomEvent("openakita:language-changed"));
         });
       }
+    }
+    select.addEventListener("change", function () { changeLanguage(normalizeLanguageTag(select.value), true); });
+    window.addEventListener("storage", function (event) {
+      if (event.key !== "openakita_language") return;
+      const language = event.newValue && SUPPORTED_LANGS.includes(event.newValue) ? event.newValue : detectLanguage();
+      if (language !== currentLanguage) changeLanguage(language, false);
+    });
+  }
+
+  function currentReturnPath() {
+    const path = window.location.pathname + window.location.search;
+    return path.startsWith("/") && !path.startsWith("//") ? path : "/";
+  }
+
+  function defaultLoginUrl() {
+    return "/auth/login?return_to=" + encodeURIComponent(currentReturnPath());
+  }
+
+  function safeAccountLink(value, fallback) {
+    if (typeof value !== "string" || !value) return fallback;
+    try {
+      const url = new URL(value, window.location.origin);
+      const sameOrigin = url.origin === window.location.origin;
+      if ((!sameOrigin && url.protocol !== "https:") || url.username || url.password) return fallback;
+      return sameOrigin ? url.pathname + url.search + url.hash : url.href;
+    } catch (_) {
+      return fallback;
+    }
+  }
+
+  function safeLoginLink(value, fallback) {
+    const link = safeAccountLink(value, fallback);
+    try {
+      const url = new URL(link, window.location.origin);
+      return url.origin === window.location.origin && url.pathname === "/auth/login" ? link : fallback;
+    } catch (_) {
+      return fallback;
+    }
+  }
+
+  function initialsForName(name) {
+    const parts = String(name || "OpenAkita").trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return "OA";
+    return parts.slice(0, 2).map(function (part) { return Array.from(part)[0] || ""; }).join("").toUpperCase();
+  }
+
+  function initAccountShell() {
+    if (document.body.dataset.page === "chat") return;
+    const shell = document.querySelector("[data-account-shell]");
+    const loginLink = document.querySelector("[data-account-login]");
+    const menu = document.querySelector("[data-account-menu]");
+    const trigger = document.querySelector("[data-account-trigger]");
+    const popover = document.querySelector("[data-account-popover]");
+    const nameNode = document.querySelector("[data-account-name]");
+    const labelNode = document.querySelector("[data-account-label]");
+    const avatar = document.querySelector("[data-account-avatar]");
+    const avatarFallback = document.querySelector("[data-account-avatar-fallback]");
+    const status = document.querySelector("[data-account-status]");
+    const logoutButton = document.querySelector("[data-account-logout]");
+
+    if (!shell || !loginLink || !menu || !trigger || !popover || !nameNode || !labelNode || !avatar || !avatarFallback || !status || !logoutButton) return;
+
+    const fallbackLogin = defaultLoginUrl();
+    const accountPreview = window.OpenAkitaAccountPreview;
+    loginLink.setAttribute("href", fallbackLogin);
+
+    function closeMenu(restoreFocus) {
+      popover.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+      if (restoreFocus) trigger.focus();
+    }
+
+    function openMenu(focusFirst) {
+      popover.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      if (focusFirst) {
+        const first = popover.querySelector('[role="menuitem"]');
+        if (first) first.focus();
+      }
+    }
+
+    trigger.addEventListener("click", function () {
+      if (popover.hidden) openMenu(false);
+      else closeMenu(false);
     });
 
-    wrapper.appendChild(label);
-    wrapper.appendChild(select);
-    nav.appendChild(wrapper);
+    trigger.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        openMenu(true);
+      }
+    });
+
+    popover.addEventListener("keydown", function (event) {
+      const items = Array.from(popover.querySelectorAll('[role="menuitem"]'));
+      const currentIndex = items.indexOf(document.activeElement);
+      if (event.key === "Escape") {
+        event.preventDefault();
+        event.stopPropagation();
+        closeMenu(true);
+      } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        const direction = event.key === "ArrowDown" ? 1 : -1;
+        const nextIndex = currentIndex < 0 ? 0 : (currentIndex + direction + items.length) % items.length;
+        items[nextIndex].focus();
+      } else if (event.key === "Home" && items.length) {
+        event.preventDefault();
+        items[0].focus();
+      } else if (event.key === "End" && items.length) {
+        event.preventDefault();
+        items[items.length - 1].focus();
+      }
+    });
+
+    menu.addEventListener("focusout", function () {
+      window.setTimeout(function () {
+        if (!menu.contains(document.activeElement)) closeMenu(false);
+      }, 0);
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!menu.contains(event.target)) closeMenu(false);
+    });
+
+    avatar.addEventListener("error", function () {
+      avatar.hidden = true;
+      avatar.removeAttribute("src");
+      avatarFallback.hidden = false;
+      if (accountPreview && shell.dataset.state === "authenticated") accountPreview.save(true);
+    });
+    if (!avatar.hidden && avatar.complete && avatar.naturalWidth === 0) {
+      avatar.hidden = true;
+      avatar.removeAttribute("src");
+      avatarFallback.hidden = false;
+    }
+
+    logoutButton.addEventListener("click", async function () {
+      const csrfToken = shell.dataset.csrfToken;
+      if (!csrfToken) return;
+      logoutButton.disabled = true;
+      status.textContent = "";
+      try {
+        const response = await fetch("/auth/logout", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "X-CSRF-Token": csrfToken,
+          },
+        });
+        let redirectUrl = response.redirected ? response.url : "";
+        const contentType = response.headers.get("content-type") || "";
+        if (contentType.includes("application/json")) {
+          const body = await response.json();
+          redirectUrl = body.logout_url || body.redirect_url || redirectUrl;
+        }
+        if (!response.ok) throw new Error("logout_failed");
+        if (accountPreview) accountPreview.clear();
+        window.location.assign(safeAccountLink(redirectUrl, "/"));
+      } catch (_) {
+        status.textContent = t("common.account.unavailable");
+        logoutButton.disabled = false;
+      }
+    });
+
+    let sessionRequest = null;
+    function refreshIdentity(force) {
+      if (sessionRequest) sessionRequest.abort();
+      const controller = new AbortController();
+      sessionRequest = controller;
+      const timeout = window.setTimeout(function () { controller.abort(); }, 4000);
+      fetch("/api/v1/session" + (force ? "?refresh=1" : ""), {
+        credentials: "same-origin",
+        headers: { Accept: "application/json" },
+        signal: controller.signal,
+      })
+        .then(function (response) {
+          if (!response.ok || !(response.headers.get("content-type") || "").includes("application/json")) {
+            throw new Error("session_unavailable");
+          }
+          return response.json();
+        })
+        .then(function (session) {
+          if (sessionRequest !== controller) return;
+          if (!session || session.authenticated !== true || !session.user) {
+            closeMenu(false);
+            shell.dataset.state = "anonymous";
+            loginLink.hidden = false;
+            menu.hidden = true;
+            shell.dataset.csrfToken = "";
+            status.textContent = "";
+            loginLink.setAttribute("href", safeLoginLink(session && session.login_url, fallbackLogin));
+            if (accountPreview) accountPreview.save(false);
+            return;
+          }
+
+          const displayName = typeof session.user.display_name === "string" && session.user.display_name.trim()
+            ? session.user.display_name.trim()
+            : "OpenAkita";
+          const accountLabel = typeof session.user.email_label === "string" && session.user.email_label.trim()
+            ? session.user.email_label.trim()
+            : t("common.account.label");
+          const links = session.links || {};
+          status.textContent = "";
+
+          shell.dataset.state = "authenticated";
+          shell.dataset.csrfToken = typeof session.csrf_token === "string" ? session.csrf_token : "";
+          loginLink.hidden = true;
+          menu.hidden = false;
+          nameNode.textContent = displayName;
+          labelNode.textContent = accountLabel;
+          avatarFallback.textContent = initialsForName(displayName);
+
+          const avatarUrl = safeAccountLink(session.user.avatar_url, "");
+          if (avatarUrl && avatarUrl.startsWith("https://")) {
+            if (avatar.getAttribute("src") !== avatarUrl) avatar.setAttribute("src", avatarUrl);
+            avatar.hidden = false;
+            avatarFallback.hidden = true;
+          } else {
+            avatar.removeAttribute("src");
+            avatar.hidden = true;
+            avatarFallback.hidden = false;
+          }
+
+          const marketplaceLink = document.querySelector('[data-nav="marketplace"]');
+          const marketplaceFallback = marketplaceLink ? marketplaceLink.getAttribute("href") + "library" : "/";
+          const linkFallbacks = {
+            hub: "/account",
+            marketplace_library: marketplaceFallback,
+            pass_console: "/account",
+            account_security: "/account",
+            account_entitlements: "/account",
+          };
+          Object.keys(linkFallbacks).forEach(function (key) {
+            const link = document.querySelector('[data-account-link="' + key + '"]');
+            if (link) link.setAttribute("href", safeAccountLink(links[key], linkFallbacks[key]));
+          });
+          if (accountPreview) accountPreview.save(true);
+        })
+        .catch(function () {
+          if (sessionRequest !== controller) return;
+          shell.dataset.state = "unavailable";
+          loginLink.hidden = !menu.hidden;
+          loginLink.setAttribute("href", fallbackLogin);
+          status.textContent = t("common.account.unavailable");
+        })
+        .finally(function () {
+          window.clearTimeout(timeout);
+          if (sessionRequest === controller) {
+            shell.setAttribute("aria-busy", "false");
+            sessionRequest = null;
+          }
+        });
+    }
+    refreshIdentity(false);
+    window.addEventListener("pageshow", function (event) {
+      if (event.persisted) refreshIdentity(true);
+    });
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) refreshIdentity(true);
+    });
   }
 
   function getCopyButtonLabel(state) {
@@ -1734,17 +2090,31 @@
   const nav = document.querySelector(".main-nav");
 
   if (navToggle && nav) {
+    function setNavigationOpen(open, restoreFocus) {
+      nav.classList.toggle("open", open);
+      navToggle.setAttribute("aria-expanded", String(open));
+      navToggle.setAttribute("aria-label", t(open ? "common.navClose" : "common.navToggle"));
+      if (restoreFocus) navToggle.focus();
+    }
+
     navToggle.addEventListener("click", function () {
-      nav.classList.toggle("open");
-      const expanded = nav.classList.contains("open");
-      navToggle.setAttribute("aria-expanded", String(expanded));
+      setNavigationOpen(!nav.classList.contains("open"), false);
     });
 
     nav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
-        nav.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
+        setNavigationOpen(false, false);
       });
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && nav.classList.contains("open")) {
+        setNavigationOpen(false, true);
+      }
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.matchMedia("(min-width: 1121px)").matches) setNavigationOpen(false, false);
     });
   }
 
@@ -1797,6 +2167,7 @@
     const activeLink = document.querySelector('.main-nav a[data-nav="' + pageId + '"]');
     if (activeLink) {
       activeLink.classList.add("active");
+      activeLink.setAttribute("aria-current", "page");
     }
   }
 
@@ -1808,7 +2179,8 @@
   applyPageTexts(pageKey);
   initLocalizedVideos();
   applyHomeRevealStagger();
-  injectLanguageSwitcher(pageKey);
+  initLanguageSwitcher(pageKey);
+  initAccountShell();
   enhanceCodeBlocks();
   initSetupInstallDrawer();
   initSceneNav();

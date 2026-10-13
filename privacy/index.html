@@ -16,42 +16,28 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=22802da5cc7c" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
 </head>
 <body data-page="privacy">
-  <header class="site-header">
-    <div class="container nav-inner">
-      <a class="brand" href="/">
-        <img src="../assets/img/logo.png" alt="OpenAkita" />
-        <span>OpenAkita</span>
-      </a>
-      <button class="nav-toggle" aria-label="打开导航" aria-expanded="false">
-        <img src="../assets/img/icons/menu.svg" alt="menu" />
-      </button>
-      <nav class="main-nav" aria-label="主导航">
-        <a href="/" data-nav="home">首页</a>
-        <a href="/download/" data-nav="download">下载</a>
-        <a href="/services/" data-nav="services">服务</a>
-        <a href="/scenarios/" data-nav="scenarios">应用场景</a>
-        <a href="/tutorials/" data-nav="tutorials">教程</a>
-        <a href="/about/" data-nav="about">关于我们</a>
-        <a href="https://github.com/openakita/openakita" target="_blank" rel="noreferrer noopener">GitHub</a>
-      </nav>
-    </div>
-  </header>
+  <div data-site-header></div>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     <section class="page-hero">
       <div class="container reveal">
         <div class="eyebrow">Privacy Policy</div>
         <h1>隐私政策</h1>
-        <p>最后更新日期：2026 年 3 月 11 日</p>
+        <p>最后更新日期：2026 年 10 月 13 日</p>
       </div>
     </section>
 
     <section>
       <div class="container">
         <div class="card-stack">
+          <article class="card reveal" data-i18n-managed>
+            <h3>Browser chat / 网页对话</h3>
+            <p>On openakita.ai, Web Chat sends your API key and conversation directly from your browser to your selected LLM provider to generate responses. These requests do not pass through OpenAkita servers. When "Remember API key on this device" is enabled, saving an endpoint stores its key unencrypted in this browser's localStorage. Otherwise, the key stays only in tab memory. Disable this option and save, delete the endpoint, or clear site data to remove a stored key. Conversation history and endpoint metadata also stay in this browser. You can export or delete conversations in Web Chat; exports do not include API keys. Your provider's data retention and privacy policies apply to the requests it receives.</p>
+            <p>openakita.ai 网页对话由浏览器直接向你选择的 LLM 供应商发送 API Key 和对话，以生成回答。这些请求不经过 OpenAkita 服务器。启用“在此设备上记住 API Key”后，保存端点会将密钥以未加密形式保存在当前浏览器的 localStorage 中；关闭该选项时，密钥仅保留在标签页内存。关闭该选项后保存、删除端点或清除站点数据，可以移除已保存的密钥。聊天记录和端点信息也保存在当前浏览器，对话可以删除或导出，导出文件不包含 API Key。供应商收到的数据适用其隐私与数据保留政策。</p>
+          </article>
           <article class="card reveal">
             <h3>1. 概述</h3>
             <p>福州堆栈科技有限公司（Fuzhou Stack Technology Co., Ltd.，以下简称"我们"）非常重视您的隐私保护。本隐私政策说明了我们在您使用 OpenAkita 产品和服务时如何收集、使用和保护您的信息。</p>
@@ -139,53 +125,10 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <h4>OpenAkita</h4>
-        <p class="footer-tagline">Self-Evolving AI Agent：自主学习，永不放弃。</p>
-        <div class="footer-brand-icons">
-          <a href="https://github.com/openakita/openakita" target="_blank" rel="noreferrer noopener" aria-label="GitHub"><img src="../assets/img/icons/github.svg" alt="" /></a>
-          <a href="https://gitee.com/openakita/openakita" target="_blank" rel="noreferrer noopener" aria-label="Gitee"><img src="../assets/img/icons/gitee.svg" alt="" /></a>
-          <a href="https://x.com/openakita" target="_blank" rel="noreferrer noopener" aria-label="X"><img src="../assets/img/icons/x.svg" alt="" /></a>
-          <a href="https://discord.gg/vFwxNVNH" target="_blank" rel="noreferrer noopener" aria-label="Discord"><img src="../assets/img/icons/discord.svg" alt="" /></a>
-        </div>
-      </div>
-      <div>
-        <h4>快速链接</h4>
-        <ul>
-          <li><a href="/download/">下载</a></li>
-          <li><a href="/services/">服务</a></li>
-          <li><a href="/tutorials/">教程</a></li>
-          <li><a href="/about/">关于我们</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>关注我们</h4>
-        <ul class="social-list footer-qr-list">
-          <li class="footer-qr"><img src="../assets/img/wx_fficial_accounts.jpg" alt="微信公众号" class="footer-qr-img" /><span>微信公众号</span></li>
-          <li class="footer-qr"><img src="../assets/img/bilibili.png" alt="Bilibili" class="footer-qr-img" /><span>Bilibili</span></li>
-        </ul>
-      </div>
-      <div>
-        <h4>联系我们</h4>
-        <ul class="social-list">
-          <li><a class="social-link" href="mailto:openakita@fzstack.com"><img src="../assets/img/icons/mail.svg" alt="Email" />openakita@fzstack.com</a></li>
-          <li><a class="social-link" href="mailto:simyng@fzstack.com"><img src="../assets/img/icons/mail.svg" alt="Email" />simyng@fzstack.com</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="container" style="margin-top: 16px; color: var(--text-muted); font-size: 13px;">
-      © <span data-current-year></span> Fuzhou Stack Technology Co., Ltd. All rights reserved.
-      <span style="margin: 0 8px;">|</span>
-      <a href="/terms/" style="color: var(--text-dim);">服务条款</a>
-      <span style="margin: 0 8px;">|</span>
-      <a href="/privacy/" style="color: var(--text-dim);">隐私政策</a>
-    </div>
-  </footer>
+  <div data-site-footer></div>
 
-<script src="../assets/js/tracker.js?v=22802da5cc7c"></script>
-  <script src="../assets/js/motion.js?v=22802da5cc7c"></script>
-  <script src="../assets/js/main.js?v=22802da5cc7c"></script>
+<script vite-ignore src="../assets/js/tracker.js"></script>
+  <script vite-ignore src="../assets/js/motion.js"></script>
+  <script vite-ignore src="../assets/js/main.js"></script>
 </body>
 </html>

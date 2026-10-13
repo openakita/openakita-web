@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>我的 OpenAkita</title>
+  <meta name="description" content="查看你的 OpenAkita 账户状态、Marketplace 资源摘要与统一权益摘要。" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="icon" href="../assets/img/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body data-page="account">
+  <div data-site-header></div>
+
+  <main id="main-content" tabindex="-1">
+    <section class="page-hero account-hero">
+      <div class="container reveal">
+        <div class="eyebrow" data-hub-text="hero.eyebrow">Account Hub</div>
+        <h1 data-hub-text="hero.title">我的 OpenAkita</h1>
+        <p data-hub-text="hero.description">集中查看账户状态、已获取资源、统一权益与 Pass 摘要；详细管理仍在对应产品中完成。</p>
+      </div>
+    </section>
+
+    <section class="account-hub-section" data-hub-root data-state="loading" aria-busy="true">
+      <div class="container">
+        <div class="hub-global-message" data-hub-global-message role="alert" hidden>
+          <div>
+            <strong data-hub-global-title></strong>
+            <p data-hub-global-description></p>
+            <small data-hub-request-id hidden></small>
+          </div>
+          <button class="btn btn-secondary" type="button" data-hub-retry-all data-hub-text="common.retry">重试</button>
+        </div>
+
+        <div class="hub-grid" data-hub-modules>
+          <article class="hub-card hub-card-account" data-hub-module="account" data-state="loading" aria-labelledby="hub-account-title">
+            <header class="hub-card-header">
+              <div>
+                <span class="hub-card-kicker" data-hub-text="account.kicker">Account</span>
+                <h2 id="hub-account-title" data-hub-text="account.title">账户状态</h2>
+              </div>
+              <span class="hub-status" data-hub-status aria-live="polite" data-hub-text="common.loading">加载中</span>
+            </header>
+            <div class="hub-skeleton" data-hub-loading aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="hub-card-content" data-hub-content hidden>
+              <div class="hub-identity">
+                <span class="hub-avatar-fallback" data-hub-avatar-fallback aria-hidden="true">OA</span>
+                <img class="hub-avatar" data-hub-avatar alt="" referrerpolicy="no-referrer" hidden />
+                <div>
+                  <strong data-hub-account-name>OpenAkita</strong>
+                  <span data-hub-account-email></span>
+                </div>
+              </div>
+              <div class="hub-inline-notice" data-hub-email-state></div>
+              <a class="hub-action-link" data-hub-link="account_security" href="/account" data-hub-text="account.action">前往登录与安全</a>
+            </div>
+            <div class="hub-module-error" data-hub-error hidden>
+              <p data-hub-text="common.moduleUnavailable">暂时无法加载，稍后重试。</p>
+              <button type="button" data-hub-retry="account" data-hub-text="common.retry">重试</button>
+            </div>
+          </article>
+
+          <article class="hub-card hub-card-marketplace" data-hub-module="marketplace" data-state="loading" aria-labelledby="hub-marketplace-title">
+            <header class="hub-card-header">
+              <div>
+                <span class="hub-card-kicker">Marketplace</span>
+                <h2 id="hub-marketplace-title" data-hub-text="marketplace.title">已获取资源</h2>
+              </div>
+              <span class="hub-status" data-hub-status aria-live="polite" data-hub-text="common.loading">加载中</span>
+            </header>
+            <div class="hub-skeleton" data-hub-loading aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="hub-card-content" data-hub-content hidden>
+              <div class="hub-metrics">
+                <div><strong data-hub-acquired-count>0</strong><span data-hub-text="marketplace.acquired">已获取</span></div>
+                <div><strong data-hub-update-count>0</strong><span data-hub-text="marketplace.updates">待更新</span></div>
+              </div>
+              <div class="hub-empty" data-hub-marketplace-empty hidden>
+                <strong data-hub-text="marketplace.emptyTitle">还没有获取资源</strong>
+                <p data-hub-text="marketplace.emptyDescription">从官方资源开始，为 OpenAkita 添加新能力。</p>
+                <a class="hub-action-link" data-hub-link="marketplace_explore" data-marketplace-target="catalog" data-hub-text="marketplace.explore">探索市场</a>
+              </div>
+              <div data-hub-marketplace-recent hidden>
+                <h3 data-hub-text="marketplace.recent">最近获取</h3>
+                <ul class="hub-resource-list" data-hub-resource-list></ul>
+              </div>
+              <a class="hub-action-link" data-hub-link="marketplace_library" data-marketplace-target="library" data-hub-text="marketplace.action">前往已获取资源</a>
+            </div>
+            <div class="hub-module-error" data-hub-error hidden>
+              <p data-hub-text="common.moduleUnavailable">暂时无法加载，稍后重试。</p>
+              <button type="button" data-hub-retry="marketplace" data-hub-text="common.retry">重试</button>
+            </div>
+          </article>
+
+          <article class="hub-card hub-card-entitlements" data-hub-module="entitlements" data-state="loading" aria-labelledby="hub-entitlements-title">
+            <header class="hub-card-header">
+              <div>
+                <span class="hub-card-kicker" data-hub-text="entitlements.kicker">Access</span>
+                <h2 id="hub-entitlements-title" data-hub-text="entitlements.title">统一权益</h2>
+              </div>
+              <span class="hub-status" data-hub-status aria-live="polite" data-hub-text="common.loading">加载中</span>
+            </header>
+            <div class="hub-skeleton" data-hub-loading aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="hub-card-content" data-hub-content hidden>
+              <div class="hub-entitlement-summary"><strong data-hub-entitlement-count>0</strong><span data-hub-text="entitlements.active">项有效权益</span></div>
+              <div class="hub-empty" data-hub-entitlements-empty hidden>
+                <strong data-hub-text="entitlements.emptyTitle">暂无有效权益</strong>
+                <p data-hub-text="entitlements.emptyDescription">你获得的产品访问权限会显示在这里。</p>
+              </div>
+              <ul class="hub-product-list" data-hub-product-list></ul>
+              <p class="hub-updated-at" data-hub-updated-at hidden></p>
+              <a class="hub-action-link" data-hub-link="account_entitlements" href="/account" data-hub-text="entitlements.action">前往权益与 License</a>
+            </div>
+            <div class="hub-module-error" data-hub-error hidden>
+              <p data-hub-text="common.moduleUnavailable">暂时无法加载，稍后重试。</p>
+              <button type="button" data-hub-retry="entitlements" data-hub-text="common.retry">重试</button>
+            </div>
+          </article>
+
+          <article class="hub-card hub-card-pass" data-hub-module="pass" data-state="loading" aria-labelledby="hub-pass-title">
+            <header class="hub-card-header">
+              <div>
+                <span class="hub-card-kicker">OpenAkita Pass</span>
+                <h2 id="hub-pass-title" data-hub-text="pass.title">API 与余额摘要</h2>
+              </div>
+              <span class="hub-status" data-hub-status aria-live="polite" data-hub-text="common.loading">加载中</span>
+            </header>
+            <div class="hub-skeleton" data-hub-loading aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="hub-card-content" data-hub-content hidden>
+              <div class="hub-metrics" data-hub-pass-metrics>
+                <div><strong data-hub-pass-balance>—</strong><span data-hub-text="pass.balance">可用余额</span></div>
+                <div><strong data-hub-pass-usage>—</strong><span data-hub-text="pass.usage">本月用量</span></div>
+              </div>
+              <div class="hub-empty" data-hub-pass-empty hidden>
+                <strong data-hub-text="pass.emptyTitle">尚未启用 OpenAkita Pass</strong>
+                <p data-hub-text="pass.emptyDescription">进入 Pass 控制台后，将使用当前 OpenAkita Account 自动创建业务账户。</p>
+              </div>
+              <div class="hub-inline-notice" data-hub-pass-state></div>
+              <p class="hub-updated-at" data-hub-pass-period hidden></p>
+              <div class="hub-actions">
+                <a class="hub-action-link" data-hub-link="pass_console" href="/account" data-hub-text="pass.console">前往 Pass 控制台</a>
+                <a class="hub-action-link" data-hub-link="pass_topup" href="/account" data-hub-text="pass.topup">充值</a>
+              </div>
+            </div>
+            <div class="hub-module-error" data-hub-error hidden>
+              <p data-hub-text="common.moduleUnavailable">暂时无法加载，稍后重试。</p>
+              <button type="button" data-hub-retry="pass" data-hub-text="common.retry">重试</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-site-footer></div>
+
+  <script vite-ignore src="../assets/js/motion.js"></script>
+  <script vite-ignore src="../assets/js/main.js"></script>
+  <script vite-ignore src="../assets/js/account.js"></script>
+</body>
+</html>

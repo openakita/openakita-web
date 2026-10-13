@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Web Chat — OpenAkita</title>
+  <meta name="description" content="Chat with OpenAI, Claude, Grok and DeepSeek in your browser. Connect your own LLM endpoints and start a conversation with OpenAkita." />
+  <link rel="canonical" href="https://openakita.ai/chat/" />
+  <link rel="icon" href="/assets/img/logo.png" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/chat.css" />
+</head>
+<body data-page="chat">
+  <div data-site-header></div>
+  <main id="main-content" tabindex="-1">
+    <div class="chat-gate" id="chat-gate" role="status" data-i18n-managed>Connecting to Web Chat…</div>
+    <div class="web-chat" id="web-chat" hidden data-i18n-managed>
+      <aside class="chat-sidebar" aria-label="Conversations" id="chat-sidebar">
+        <div class="chat-sidebar-heading"><span data-chat-text="workspace">YOUR WORKSPACE</span><button type="button" id="close-sidebar" class="chat-icon mobile-only" aria-label="Close sidebar">×</button></div>
+        <button class="chat-primary" id="new-chat" type="button"><span>＋</span> <span data-chat-text="newChat">New conversation</span></button>
+        <label class="chat-search"><span class="visually-hidden" data-chat-text="search">Search conversations</span><input id="search-chats" type="search" placeholder="Search conversations" /></label>
+        <div class="chat-section-label" data-chat-text="recent">Recent conversations</div>
+        <div class="chat-conversations" id="conversations"></div>
+        <div class="chat-sidebar-bottom">
+          <button id="manage-endpoints" class="chat-secondary" type="button"><span>⚙</span> <span data-chat-text="endpoints">LLM endpoints</span><span id="endpoint-count" class="chat-count">0</span></button>
+          <a href="/" class="chat-home-link"><span aria-hidden="true">←</span><span data-chat-text="home">Home</span></a>
+          <div class="chat-local"><span class="chat-dot"></span><span data-chat-text="local">History stays in this browser</span></div>
+        </div>
+      </aside>
+      <section class="chat-panel" aria-label="Chat">
+        <div class="chat-topbar">
+          <button class="chat-icon mobile-only" id="open-sidebar" type="button" aria-label="Open conversations">☰</button>
+          <div><strong data-chat-text="webChat">Web Chat</strong><span class="chat-topbar-sub" data-chat-text="subtitle">A conversation, a little clarity.</span></div>
+        </div>
+        <div id="chat-action-status" class="chat-action-status" role="status" aria-live="polite" hidden></div>
+        <div class="chat-scroll" id="chat-scroll">
+          <div class="chat-welcome" id="chat-welcome">
+            <div class="chat-welcome-logo"><img src="/assets/img/logo.png" alt="" /></div>
+            <span class="chat-eyebrow" data-chat-text="eyebrow">OPENAKITA · IN YOUR BROWSER</span>
+            <h1 data-chat-text="welcome">What's on your mind?</h1>
+            <p data-chat-text="intro">A space to think, write and explore. Connect your favorite model and make yourself at home.</p>
+            <button class="chat-primary" id="welcome-connect" type="button" data-chat-text="connect">Connect an LLM endpoint</button>
+            <div class="chat-suggestions"><button type="button" data-prompt="explain"><span>◎</span><strong data-chat-text="explainTitle">Make it simple</strong><span data-chat-text="explainDesc">Understand something new</span></button><button type="button" data-prompt="write"><span>✎</span><strong data-chat-text="writeTitle">Find the right words</strong><span data-chat-text="writeDesc">Give your ideas a voice</span></button><button type="button" data-prompt="brainstorm"><span>✧</span><strong data-chat-text="brainstormTitle">Think together</strong><span data-chat-text="brainstormDesc">Explore a fresh perspective</span></button></div>
+          </div>
+          <div id="messages" class="chat-messages" role="log" aria-label="Conversation messages" aria-live="off"></div>
+        </div>
+        <div class="chat-compose-area">
+          <div id="chat-status" class="chat-status" role="status" aria-live="polite"></div>
+          <form id="composer" class="chat-composer">
+            <textarea id="chat-input" rows="2" maxlength="16000" placeholder="Message your model…" aria-label="Message" required></textarea>
+            <div class="chat-compose-toolbar"><label class="chat-model-picker"><span class="chat-dot"></span><span class="visually-hidden" data-chat-text="selectEndpoint">Select LLM endpoint</span><select id="active-endpoint"><option value="">Connect an endpoint</option></select></label><span class="chat-key-hint" data-chat-text="shortcut">Enter to send · Shift+Enter for a new line</span><button class="chat-send" id="send-message" type="submit" aria-label="Send message">↑</button><button class="chat-stop" id="stop-message" type="button" hidden data-chat-text="stop">Stop</button></div>
+          </form>
+          <p class="chat-disclosure" data-chat-text="disclosure">Your browser sends your API key and conversation directly to your selected provider. Provider usage fees apply. AI can make mistakes.</p>
+        </div>
+      </section>
+    </div>
+    <noscript><p class="chat-gate">Enable JavaScript to use Web Chat on openakita.ai.</p></noscript>
+    <dialog id="delete-chat-dialog" class="chat-dialog chat-delete-dialog" aria-labelledby="delete-chat-title" aria-describedby="delete-chat-note" data-i18n-managed>
+      <h2 id="delete-chat-title" data-chat-text="deleteTitle">Delete conversation?</h2>
+      <p id="delete-conversation-name" class="chat-delete-name"></p>
+      <p id="delete-chat-note" data-chat-text="deleteNote">This conversation will be removed from this browser. This cannot be undone.</p>
+      <div class="chat-dialog-actions"><button id="cancel-delete-chat" class="chat-secondary" type="button" autofocus data-chat-text="cancel">Cancel</button><button id="confirm-delete-chat" class="chat-danger" type="button" data-chat-text="confirmRemove">Delete</button></div>
+    </dialog>
+    <dialog id="endpoint-dialog" class="chat-dialog" aria-labelledby="endpoint-dialog-title" data-i18n-managed>
+      <div class="chat-dialog-heading"><div><span class="chat-eyebrow" data-chat-text="settings">YOUR CONNECTIONS</span><h2 id="endpoint-dialog-title" data-chat-text="endpoints">LLM endpoints</h2></div><button id="close-endpoints" type="button" class="chat-icon" aria-label="Close endpoints">×</button></div>
+      <div class="chat-dialog-scroll">
+      <div id="endpoint-dialog-content" class="chat-dialog-content" tabindex="0" role="region" aria-label="Endpoint settings">
+      <div class="chat-dialog-content-inner">
+      <p class="chat-dialog-intro" data-chat-text="endpointIntro">Bring your own API key. Add one or more connections and switch models whenever you like.</p>
+      <div id="endpoint-list" class="chat-endpoint-list"></div>
+      <form id="endpoint-form" class="chat-endpoint-form">
+        <h3 id="endpoint-form-title" data-chat-text="addEndpoint">Add an endpoint</h3>
+        <label><span data-chat-text="provider">Provider</span><select id="endpoint-provider"><option value="openai">OpenAI</option><option value="anthropic">Anthropic · Claude</option><option value="xai">xAI · Grok</option><option value="deepseek">DeepSeek</option></select></label>
+        <label><span data-chat-text="name">Connection name</span><input id="endpoint-name" maxlength="60" placeholder="My OpenAI" required /></label>
+        <label><span data-chat-text="baseURL">API base URL</span><input id="endpoint-url" readonly value="https://api.openai.com/v1" /></label>
+        <label><span data-chat-text="apiKey">API key</span><input id="endpoint-key" type="password" maxlength="4096" autocomplete="off" spellcheck="false" placeholder="Paste your provider API key" required /></label>
+        <label class="chat-remember-key"><input id="endpoint-remember-key" type="checkbox" checked aria-describedby="endpoint-key-note" /><span data-chat-text="rememberKey">Remember API key on this device</span></label>
+        <div class="chat-model-field"><label><span data-chat-text="model">Model ID</span><input id="endpoint-model" list="provider-models" maxlength="200" placeholder="Enter a model ID or load models" required /><datalist id="provider-models"></datalist></label><button type="button" id="load-models" class="chat-secondary" data-chat-text="loadModels">Load models</button></div>
+        <p id="endpoint-key-note" class="chat-key-note" data-chat-text="keyNote">Remembered keys are stored unencrypted in this browser. Turn this off on shared devices. Save after turning it off to remove the stored key; deleting an endpoint also removes its key. Keys are sent directly to your provider.</p>
+        <a id="provider-key-link" href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" data-chat-text="getKey">Get an API key from your provider ↗</a>
+        <div id="endpoint-status" class="chat-status" role="status" aria-live="polite"></div>
+        <div class="chat-dialog-actions"><button class="chat-secondary" id="reset-endpoint" type="button" data-chat-text="reset">New endpoint</button><button class="chat-primary" type="submit" data-chat-text="save">Save endpoint</button></div>
+      </form>
+      </div>
+      </div>
+      <div id="endpoint-scrollbar" class="chat-dialog-scrollbar" hidden>
+        <div id="endpoint-scrollthumb" class="chat-dialog-scrollthumb" role="scrollbar" tabindex="0" aria-controls="endpoint-dialog-content" aria-orientation="vertical" aria-label="Scroll LLM endpoints" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+      </div>
+      </div>
+    </dialog>
+  </main>
+  <div data-site-footer></div>
+  <script vite-ignore src="/assets/js/main.js"></script>
+  <script vite-ignore src="/assets/js/chat-i18n.js"></script>
+  <script vite-ignore src="/assets/js/chat-controls.js"></script>
+  <script vite-ignore src="/assets/js/chat-provider.js"></script>
+  <script vite-ignore src="/assets/js/chat-markdown.js"></script>
+  <script vite-ignore src="/assets/js/chat.js"></script>
+</body>
+</html>
