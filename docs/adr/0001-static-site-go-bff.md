@@ -92,4 +92,3 @@ Go BFF：/auth/*, /account, /api/v1/session, /api/v1/hub, /health, /ready, /metr
 - 需要独立团队和独立安全发布权限；
 - Redis 会话无法满足可用性或合规要求；
 - 官网开始承担订单、支付或其他业务事实。
-

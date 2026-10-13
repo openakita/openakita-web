@@ -63,6 +63,7 @@
           failed: "复制失败",
         },
         footerTagline: "Self-Evolving AI Agent：自主学习，永不放弃。",
+        tutorialBackToTop: "回到顶部",
         footer: {
           quickLinks: "快速链接",
           followUs: "关注我们",
@@ -106,12 +107,12 @@
       },
       download: {
         meta: {
-          title: "下载 OpenAkita - Desktop / CLI / Source",
-          description: "OpenAkita 下载页面：Desktop 安装包、PyPI CLI 安装、源码部署和一键脚本。",
+          title: "下载 OpenAkita - Desktop / CLI / Docker / Source",
+          description: "OpenAkita 下载页面：Desktop 安装包、PyPI CLI、Docker Compose 容器部署与源码安装。",
         },
         hero: {
           title: "下载与安装 OpenAkita",
-          desc: "官方支持 Desktop、CLI、源码部署三种方式。你可以从简单到深入逐步切换。",
+          desc: "官方支持 Desktop、CLI、Docker、源码部署四种方式。你可以从简单到深入逐步切换。",
         },
         buttons: {
           latest: "查看全部安装包",
@@ -123,9 +124,9 @@
             desc: "只保留三端最新安装包入口，按你的系统直接下载即可。",
           },
           cli: {
-            title: "PyPI CLI 安装",
+            title: "CLI 安装",
             desc: "适合命令行用户与自动化部署，步骤最短。",
-            btn: "查看安装教程",
+            btn: "查看完整安装教程",
           },
           source: {
             title: "源码安装",
@@ -135,13 +136,18 @@
       },
       tutorials: {
         meta: {
-          title: "OpenAkita 教程中心 - 图文与视频",
+          title: "OpenAkita 教程中心",
           description:
-            "OpenAkita 官方教程中心：安装配置、IM 通道接入、QQ、微信、LLM 端点配置，包含图文和视频入口。",
+            "OpenAkita 官方教程中心：安装 OpenAkita 与功能配置两大分类，图文与视频教程入口。",
         },
         hero: {
-          title: "教程中心：图文 + 视频",
-          desc: "覆盖安装、IM 通道和 LLM 端点配置。",
+          title: "教程中心",
+          desc: "按分类浏览安装与功能配置教程，快速找到你需要的内容。",
+        },
+        search: {
+          placeholder: "搜索教程…",
+          empty: "未找到匹配的教程",
+          label: "搜索教程",
         },
       },
       setup: {
@@ -165,19 +171,55 @@
         hero: {
           title: "IM 通道配置与平台端申请",
           desc: "覆盖平台申请步骤与 OpenAkita 配置，含 QQ 与微信。",
+          back: "返回教程中心",
+          eyebrow: "教程 / IM 通道",
         },
         side: ["平台概览", "Telegram", "飞书", "钉钉", "企业微信", "QQ", "微信", "语音转写", "视频教程"],
       },
       llm: {
         meta: {
-          title: "LLM 端点配置教程",
-          description: "OpenAkita Desktop 上的 LLM 端点添加、服务商选择、多端点容灾与可选编译器/语音识别端点。",
+          title: "大模型端点配置教程",
+          description: "OpenAkita Desktop 上的大模型端点添加、服务商选择、多端点容灾与可选编译器/语音识别端点。",
         },
         hero: {
-          title: "LLM 端点配置",
-          desc: "在桌面端中管理 LLM 端点、服务商与多端点。",
+          title: "大模型端点配置",
+          desc: "在桌面端中管理大模型端点、服务商与多端点。",
+          back: "返回教程中心",
+          eyebrow: "教程 / 大模型端点",
         },
         side: ["概述", "添加端点", "支持的服务商", "多端点与 Failover", "编译器端点", "语音识别端点"],
+      },
+      installDesktop: {
+        hero: {
+          back: "返回教程中心",
+          eyebrow: "教程 / 安装 / Windows 桌面端",
+        },
+      },
+      installPypi: {
+        hero: {
+          back: "返回教程中心",
+          eyebrow: "教程 / 安装 / Linux",
+        },
+      },
+      installDocker: {
+        hero: {
+          back: "返回教程中心",
+          eyebrow: "教程 / 安装 / Docker",
+        },
+      },
+      webSearch: {
+        meta: {
+          title: "网页搜索源配置教程",
+          description:
+            "OpenAkita 网页搜索源配置教程：博查 Bocha、Tavily、SearXNG、Jina 与 DuckDuckGo 的对比与配置步骤。",
+        },
+        hero: {
+          title: "网页搜索源配置",
+          desc: "本教程基于 OpenAkita v1.27.20。",
+          back: "返回教程中心",
+          eyebrow: "教程 / 网页搜索源",
+        },
+        side: ["搜索源对比", "博查 Bocha", "Tavily", "SearXNG", "Jina"],
       },
       about: {
         meta: {
@@ -262,6 +304,7 @@
           failed: "Copy failed",
         },
         footerTagline: "Self-Evolving AI Agent: Learn, adapt, never give up.",
+        tutorialBackToTop: "Back to top",
         footer: {
           quickLinks: "Quick Links",
           followUs: "Follow Us",
@@ -305,12 +348,12 @@
       },
       download: {
         meta: {
-          title: "Download OpenAkita - Desktop / CLI / Source",
-          description: "OpenAkita downloads: Desktop packages, PyPI CLI install, source deployment, and quick scripts.",
+          title: "Download OpenAkita - Desktop / CLI / Docker / Source",
+          description: "OpenAkita downloads: Desktop packages, PyPI CLI, Docker Compose deployment, and source installation.",
         },
         hero: {
           title: "Download and Install OpenAkita",
-          desc: "Choose Desktop, CLI, or source deployment based on your team workflow.",
+          desc: "Officially supports Desktop, CLI, Docker, and source deployment. Switch gradually from simple to advanced.",
         },
         buttons: {
           latest: "All Packages",
@@ -322,9 +365,9 @@
             desc: "Only the latest packages for three platforms are shown.",
           },
           cli: {
-            title: "PyPI CLI Install",
-            desc: "Best for CLI workflows and automation.",
-            btn: "View Setup Guide",
+            title: "CLI Installation",
+            desc: "Best for command-line users and automated deployment—the shortest path.",
+            btn: "View Full Installation Guide",
           },
           source: {
             title: "Source Installation",
@@ -334,13 +377,18 @@
       },
       tutorials: {
         meta: {
-          title: "OpenAkita Tutorials - Text and Video",
+          title: "OpenAkita Tutorial Center",
           description:
-            "Official OpenAkita tutorials for setup, IM channels, QQ, WeChat, and LLM endpoint configuration.",
+            "Official OpenAkita tutorial center: installation and configuration categories with text and video guides.",
         },
         hero: {
           title: "Tutorial Center",
-          desc: "Covers setup, IM channels, and LLM endpoint configuration.",
+          desc: "Browse installation and configuration tutorials by category.",
+        },
+        search: {
+          placeholder: "Search tutorials…",
+          empty: "No matching tutorials found",
+          label: "Search tutorials",
         },
       },
       setup: {
@@ -362,6 +410,8 @@
         hero: {
           title: "IM Channel Config and Platform Onboarding",
           desc: "Covers platform onboarding and configuration, including QQ and WeChat.",
+          back: "Back to Tutorial Center",
+          eyebrow: "Tutorial / IM Channels",
         },
         side: ["Platform Overview", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Voice", "Video"],
       },
@@ -373,8 +423,42 @@
         hero: {
           title: "LLM Endpoint Configuration",
           desc: "Manage LLM endpoints, providers, and multiple endpoints in OpenAkita Desktop.",
+          back: "Back to Tutorial Center",
+          eyebrow: "Tutorials / LLM endpoints",
         },
         side: ["Overview", "Add endpoint", "Supported providers", "Multi-endpoint & Failover", "Compiler endpoint", "Speech recognition"],
+      },
+      installDesktop: {
+        hero: {
+          back: "Back to Tutorial Center",
+          eyebrow: "Tutorial / Installation / Windows Desktop",
+        },
+      },
+      installPypi: {
+        hero: {
+          back: "Back to Tutorial Center",
+          eyebrow: "Tutorial / Installation / Linux",
+        },
+      },
+      installDocker: {
+        hero: {
+          back: "Back to Tutorial Center",
+          eyebrow: "Tutorial / Installation / Docker",
+        },
+      },
+      webSearch: {
+        meta: {
+          title: "Web Search Source Configuration Guide",
+          description:
+            "Compare and configure Bocha, Tavily, SearXNG, Jina, and DuckDuckGo web search sources in OpenAkita.",
+        },
+        hero: {
+          title: "Web Search Source Configuration",
+          desc: "Based on OpenAkita v1.27.20.",
+          back: "Back to Tutorial Center",
+          eyebrow: "Tutorial / Web Search",
+        },
+        side: ["Source comparison", "Bocha", "Tavily", "SearXNG", "Jina"],
       },
       about: {
         meta: {
@@ -426,6 +510,7 @@
         nav: { home: "ホーム", download: "ダウンロード", marketplace: "Marketplace", services: "サービス", scenarios: "活用シーン", tutorials: "チュートリアル", about: "概要", github: "GitHub" },
         account: { login: "ログイン / 登録", menu: "アカウントメニュー", label: "アカウント", hub: "マイ OpenAkita", marketplaceLibrary: "Marketplace：取得済みリソース", passConsole: "OpenAkita Pass：コンソール", security: "ログインとセキュリティ", entitlements: "権利と License", logout: "ログアウト", unavailable: "アカウントサービスを利用できません" },
         footerTagline: "Self-Evolving AI Agent：自ら学び、決して諦めない。",
+        tutorialBackToTop: "ページトップへ",
         footer: {
           quickLinks: "クイックリンク",
           followUs: "フォロー",
@@ -449,14 +534,26 @@
           btnChat: "ウェブチャット",
         },
       },
-      download: { hero: { title: "OpenAkita をダウンロード", desc: "Desktop / CLI / Source の 3 つの導入方法を提供します。" } },
-      tutorials: { hero: { title: "チュートリアルセンター", desc: "インストール、IM 連携、LLM 設定を網羅。" } },
+      download: { hero: { title: "OpenAkita をダウンロード", desc: "Desktop / CLI / Docker / ソースコードの 4 つの導入方法を提供します。" } },
+      tutorials: {
+        hero: { title: "チュートリアルセンター", desc: "カテゴリ別にインストールと機能設定のチュートリアルを閲覧。" },
+        search: {
+          placeholder: "チュートリアルを検索…",
+          empty: "一致するチュートリアルが見つかりません",
+          label: "チュートリアルを検索",
+        },
+      },
       setup: {
         hero: { title: "初期セットアップ", desc: "Desktop と CLI の導入手順。" },
         side: ["概要", "要件", "OpenAkita のインストール", "起動検証"],
       },
       im: {
-        hero: { title: "IM チャネル設定", desc: "各プラットフォームの申請と接続手順（QQとWeChatを含む）。" },
+        hero: {
+          title: "IM チャネル設定",
+          desc: "各プラットフォームの申請と接続手順（QQとWeChatを含む）。",
+          back: "チュートリアルセンターに戻る",
+          eyebrow: "チュートリアル / IM チャネル",
+        },
         side: ["プラットフォーム概要", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "音声変換", "動画"],
       },
       llm: {
@@ -464,8 +561,35 @@
           title: "LLM エンドポイント設定チュートリアル",
           description: "OpenAkita Desktop での LLM エンドポイント追加、プロバイダー選択、フェイルオーバー、オプションのコンパイラ/音声認識エンドポイント。",
         },
-        hero: { title: "LLM エンドポイント設定", desc: "OpenAkita Desktop で LLM エンドポイント、プロバイダー、複数エンドポイントを管理。" },
+        hero: {
+          title: "LLM エンドポイント設定",
+          desc: "OpenAkita Desktop で LLM エンドポイント、プロバイダー、複数エンドポイントを管理。",
+          back: "チュートリアルセンターに戻る",
+          eyebrow: "チュートリアル / LLM エンドポイント",
+        },
         side: ["概要", "エンドポイント追加", "対応プロバイダー", "複数エンドポイントとフェイルオーバー", "コンパイラエンドポイント", "音声認識エンドポイント"],
+      },
+      installDesktop: {
+        hero: { back: "チュートリアルセンターに戻る", eyebrow: "チュートリアル / インストール / Windows デスクトップ" },
+      },
+      installPypi: {
+        hero: { back: "チュートリアルセンターに戻る", eyebrow: "チュートリアル / インストール / Linux" },
+      },
+      installDocker: {
+        hero: { back: "チュートリアルセンターに戻る", eyebrow: "チュートリアル / インストール / Docker" },
+      },
+      webSearch: {
+        meta: {
+          title: "Web 検索ソース設定チュートリアル",
+          description: "OpenAkita で Bocha、Tavily、SearXNG、Jina、DuckDuckGo の Web 検索ソースを比較・設定する手順。",
+        },
+        hero: {
+          title: "Web 検索ソース設定",
+          desc: "OpenAkita v1.27.20 ベース。",
+          back: "チュートリアルセンターに戻る",
+          eyebrow: "チュートリアル / Web 検索",
+        },
+        side: ["検索ソース比較", "Bocha", "Tavily", "SearXNG", "Jina"],
       },
       about: { hero: { title: "私たちについて", desc: "OpenAkita のビジョンとコミュニティ。" } },
       services: { hero: { title: "製品とサービス", desc: "オープンソースの汎用アシスタントからエンタープライズ向けカスタムソリューションまで。" } },
@@ -481,6 +605,7 @@
         nav: { home: "홈", download: "다운로드", marketplace: "Marketplace", services: "서비스", scenarios: "활용 사례", tutorials: "튜토리얼", about: "소개", github: "GitHub" },
         account: { login: "로그인 / 가입", menu: "계정 메뉴", label: "계정", hub: "내 OpenAkita", marketplaceLibrary: "Marketplace: 획득한 리소스", passConsole: "OpenAkita Pass: 콘솔", security: "로그인 및 보안", entitlements: "권한 및 License", logout: "로그아웃", unavailable: "계정 서비스를 일시적으로 사용할 수 없습니다" },
         footerTagline: "Self-Evolving AI Agent: 스스로 학습하고, 절대 포기하지 않습니다.",
+        tutorialBackToTop: "맨 위로",
         footer: {
           quickLinks: "바로가기",
           followUs: "팔로우",
@@ -504,14 +629,26 @@
           btnChat: "웹 채팅",
         },
       },
-      download: { hero: { title: "OpenAkita 다운로드", desc: "Desktop / CLI / Source 3가지 설치 경로를 지원합니다." } },
-      tutorials: { hero: { title: "튜토리얼 센터", desc: "설치, IM 연동, LLM 설정을 다룹니다." } },
+      download: { hero: { title: "OpenAkita 다운로드", desc: "Desktop / CLI / Docker / 소스 코드 4가지 설치 경로를 지원합니다." } },
+      tutorials: {
+        hero: { title: "튜토리얼 센터", desc: "카테고리별로 설치 및 기능 설정 튜토리얼을 둘러보세요." },
+        search: {
+          placeholder: "튜토리얼 검색…",
+          empty: "일치하는 튜토리얼을 찾을 수 없습니다",
+          label: "튜토리얼 검색",
+        },
+      },
       setup: {
         hero: { title: "초기 설정", desc: "Desktop 및 CLI 설치 가이드." },
         side: ["개요", "요구 사항", "OpenAkita 설치", "시작 검증"],
       },
       im: {
-        hero: { title: "IM 채널 설정", desc: "플랫폼 신청 및 연동 절차(QQ와 WeChat 포함)." },
+        hero: {
+          title: "IM 채널 설정",
+          desc: "플랫폼 신청 및 연동 절차(QQ와 WeChat 포함).",
+          back: "튜토리얼 센터로 돌아가기",
+          eyebrow: "튜토리얼 / IM 채널",
+        },
         side: ["플랫폼 개요", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "음성 전사", "영상"],
       },
       llm: {
@@ -520,8 +657,35 @@
           description:
             "OpenAkita Desktop에서 LLM 엔드포인트 추가, 공급자 선택, 페일오버, 선택적 컴파일러·음성 인식 엔드포인트.",
         },
-        hero: { title: "LLM 엔드포인트 설정", desc: "OpenAkita Desktop에서 LLM 엔드포인트, 공급자, 다중 엔드포인트를 관리합니다." },
+        hero: {
+          title: "LLM 엔드포인트 설정",
+          desc: "OpenAkita Desktop에서 LLM 엔드포인트, 공급자, 다중 엔드포인트를 관리합니다.",
+          back: "튜토리얼 센터로 돌아가기",
+          eyebrow: "튜토리얼 / LLM 엔드포인트",
+        },
         side: ["개요", "엔드포인트 추가", "지원 공급자", "다중 엔드포인트 및 페일오버", "컴파일러 엔드포인트", "음성 인식 엔드포인트"],
+      },
+      installDesktop: {
+        hero: { back: "튜토리얼 센터로 돌아가기", eyebrow: "튜토리얼 / 설치 / Windows 데스크톱" },
+      },
+      installPypi: {
+        hero: { back: "튜토리얼 센터로 돌아가기", eyebrow: "튜토리얼 / 설치 / Linux" },
+      },
+      installDocker: {
+        hero: { back: "튜토리얼 센터로 돌아가기", eyebrow: "튜토리얼 / 설치 / Docker" },
+      },
+      webSearch: {
+        meta: {
+          title: "웹 검색 소스 설정 가이드",
+          description: "OpenAkita에서 Bocha, Tavily, SearXNG, Jina, DuckDuckGo 웹 검색 소스를 비교하고 설정하는 방법.",
+        },
+        hero: {
+          title: "웹 검색 소스 설정",
+          desc: "OpenAkita v1.27.20 기준.",
+          back: "튜토리얼 센터로 돌아가기",
+          eyebrow: "튜토리얼 / 웹 검색",
+        },
+        side: ["검색 소스 비교", "Bocha", "Tavily", "SearXNG", "Jina"],
       },
       about: { hero: { title: "소개", desc: "OpenAkita 비전과 커뮤니티." } },
       services: { hero: { title: "제품 및 서비스", desc: "오픈 소스 범용 어시스턴트부터 기업용 맞춤 솔루션까지." } },
@@ -537,6 +701,7 @@
         nav: { home: "Главная", download: "Скачать", marketplace: "Marketplace", services: "Услуги", scenarios: "Сценарии", tutorials: "Руководства", about: "О проекте", github: "GitHub" },
         account: { login: "Войти / Регистрация", menu: "Меню аккаунта", label: "Аккаунт", hub: "Мой OpenAkita", marketplaceLibrary: "Marketplace: полученные ресурсы", passConsole: "OpenAkita Pass: консоль", security: "Вход и безопасность", entitlements: "Права и License", logout: "Выйти", unavailable: "Сервис аккаунта временно недоступен" },
         footerTagline: "Self-Evolving AI Agent: Учится, адаптируется, никогда не сдаётся.",
+        tutorialBackToTop: "Наверх",
         footer: {
           quickLinks: "Быстрые ссылки",
           followUs: "Подписаться",
@@ -560,14 +725,26 @@
           btnChat: "Веб-чат",
         },
       },
-      download: { hero: { title: "Скачать OpenAkita", desc: "Доступны Desktop, CLI и исходная установка." } },
-      tutorials: { hero: { title: "Центр руководств", desc: "Установка, IM-каналы и настройка LLM." } },
+      download: { hero: { title: "Скачать OpenAkita", desc: "Доступны Desktop, CLI, Docker и установка из исходного кода." } },
+      tutorials: {
+        hero: { title: "Центр руководств", desc: "Просматривайте руководства по установке и настройке по категориям." },
+        search: {
+          placeholder: "Поиск руководств…",
+          empty: "Подходящие руководства не найдены",
+          label: "Поиск руководств",
+        },
+      },
       setup: {
         hero: { title: "Начальная установка", desc: "Пошаговый гайд для Desktop и CLI." },
         side: ["Обзор", "Требования", "Установка OpenAkita", "Проверка запуска"],
       },
       im: {
-        hero: { title: "Настройка IM-каналов", desc: "Подключение платформ и конфигурация (включая QQ и WeChat)." },
+        hero: {
+          title: "Настройка IM-каналов",
+          desc: "Подключение платформ и конфигурация (включая QQ и WeChat).",
+          back: "Назад в центр руководств",
+          eyebrow: "Руководство / IM-каналы",
+        },
         side: ["Обзор платформ", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Голос", "Видео"],
       },
       llm: {
@@ -579,6 +756,8 @@
         hero: {
           title: "Настройка LLM-эндпоинтов",
           desc: "Управляйте LLM-эндпоинтами, провайдерами и несколькими эндпоинтами в OpenAkita Desktop.",
+          back: "Назад в центр руководств",
+          eyebrow: "Руководства / LLM-эндпоинты",
         },
         side: [
           "Обзор",
@@ -588,6 +767,28 @@
           "Эндпоинт компилятора",
           "Распознавание речи",
         ],
+      },
+      installDesktop: {
+        hero: { back: "Назад в центр руководств", eyebrow: "Руководство / Установка / Windows Desktop" },
+      },
+      installPypi: {
+        hero: { back: "Назад в центр руководств", eyebrow: "Руководство / Установка / Linux" },
+      },
+      installDocker: {
+        hero: { back: "Назад в центр руководств", eyebrow: "Руководство / Установка / Docker" },
+      },
+      webSearch: {
+        meta: {
+          title: "Руководство по настройке источников веб-поиска",
+          description: "Сравнение и настройка Bocha, Tavily, SearXNG, Jina и DuckDuckGo в OpenAkita.",
+        },
+        hero: {
+          title: "Настройка источников веб-поиска",
+          desc: "На базе OpenAkita v1.27.20.",
+          back: "Назад в центр руководств",
+          eyebrow: "Руководство / Веб-поиск",
+        },
+        side: ["Сравнение источников", "Bocha", "Tavily", "SearXNG", "Jina"],
       },
       about: { hero: { title: "О нас", desc: "Видение OpenAkita и сообщество." } },
       services: { hero: { title: "Продукты и услуги", desc: "От универсального помощника до корпоративных решений." } },
@@ -603,6 +804,7 @@
         nav: { home: "Accueil", download: "Télécharger", marketplace: "Marketplace", services: "Services", scenarios: "Cas d'usage", tutorials: "Tutoriels", about: "À propos", github: "GitHub" },
         account: { login: "Connexion / Inscription", menu: "Menu du compte", label: "Compte", hub: "Mon OpenAkita", marketplaceLibrary: "Marketplace : ressources acquises", passConsole: "OpenAkita Pass : console", security: "Connexion et sécurité", entitlements: "Droits et License", logout: "Se déconnecter", unavailable: "Le service de compte est temporairement indisponible" },
         footerTagline: "Self-Evolving AI Agent : Apprendre, s'adapter, ne jamais abandonner.",
+        tutorialBackToTop: "Retour en haut",
         footer: {
           quickLinks: "Liens rapides",
           followUs: "Suivez-nous",
@@ -626,14 +828,26 @@
           btnChat: "Chat en ligne",
         },
       },
-      download: { hero: { title: "Télécharger OpenAkita", desc: "Installation Desktop, CLI et source." } },
-      tutorials: { hero: { title: "Centre de tutoriels", desc: "Installation, canaux IM et configuration LLM." } },
+      download: { hero: { title: "Télécharger OpenAkita", desc: "Installation Desktop, CLI, Docker et depuis les sources." } },
+      tutorials: {
+        hero: { title: "Centre de tutoriels", desc: "Parcourez les tutoriels d'installation et de configuration par catégorie." },
+        search: {
+          placeholder: "Rechercher des tutoriels…",
+          empty: "Aucun tutoriel correspondant trouvé",
+          label: "Rechercher des tutoriels",
+        },
+      },
       setup: {
         hero: { title: "Installation initiale", desc: "Guide Desktop et CLI étape par étape." },
         side: ["Aperçu", "Prérequis", "Installer OpenAkita", "Vérification du démarrage"],
       },
       im: {
-        hero: { title: "Configuration des canaux IM", desc: "Onboarding des plateformes et intégration (QQ et WeChat inclus)." },
+        hero: {
+          title: "Configuration des canaux IM",
+          desc: "Onboarding des plateformes et intégration (QQ et WeChat inclus).",
+          back: "Retour au centre de tutoriels",
+          eyebrow: "Tutoriel / Canaux IM",
+        },
         side: ["Aperçu plateforme", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Voix", "Vidéo"],
       },
       llm: {
@@ -645,6 +859,8 @@
         hero: {
           title: "Configuration des endpoints LLM",
           desc: "Gérez les points de terminaison LLM, les fournisseurs et les endpoints multiples dans OpenAkita Desktop.",
+          back: "Retour au centre de tutoriels",
+          eyebrow: "Tutoriels / Endpoints LLM",
         },
         side: [
           "Vue d’ensemble",
@@ -654,6 +870,28 @@
           "Endpoint compilateur",
           "Reconnaissance vocale",
         ],
+      },
+      installDesktop: {
+        hero: { back: "Retour au centre de tutoriels", eyebrow: "Tutoriel / Installation / Windows Desktop" },
+      },
+      installPypi: {
+        hero: { back: "Retour au centre de tutoriels", eyebrow: "Tutoriel / Installation / Linux" },
+      },
+      installDocker: {
+        hero: { back: "Retour au centre de tutoriels", eyebrow: "Tutoriel / Installation / Docker" },
+      },
+      webSearch: {
+        meta: {
+          title: "Guide de configuration des sources de recherche web",
+          description: "Comparer et configurer Bocha, Tavily, SearXNG, Jina et DuckDuckGo dans OpenAkita.",
+        },
+        hero: {
+          title: "Configuration des sources de recherche web",
+          desc: "Basé sur OpenAkita v1.27.20.",
+          back: "Retour au centre de tutoriels",
+          eyebrow: "Tutoriel / Recherche web",
+        },
+        side: ["Comparaison des sources", "Bocha", "Tavily", "SearXNG", "Jina"],
       },
       about: { hero: { title: "À propos", desc: "Vision OpenAkita et communauté." } },
       services: { hero: { title: "Produits et services", desc: "De l'assistant open source aux solutions d'entreprise sur mesure." } },
@@ -669,6 +907,7 @@
         nav: { home: "Start", download: "Download", marketplace: "Marketplace", services: "Dienste", scenarios: "Anwendungen", tutorials: "Tutorials", about: "Über uns", github: "GitHub" },
         account: { login: "Anmelden / Registrieren", menu: "Kontomenü", label: "Konto", hub: "Mein OpenAkita", marketplaceLibrary: "Marketplace: erworbene Ressourcen", passConsole: "OpenAkita Pass: Konsole", security: "Anmeldung und Sicherheit", entitlements: "Berechtigungen und License", logout: "Abmelden", unavailable: "Der Kontodienst ist vorübergehend nicht verfügbar" },
         footerTagline: "Self-Evolving AI Agent: Lernen, anpassen, nie aufgeben.",
+        tutorialBackToTop: "Nach oben",
         footer: {
           quickLinks: "Schnellzugriff",
           followUs: "Folgen",
@@ -692,14 +931,26 @@
           btnChat: "Web-Chat",
         },
       },
-      download: { hero: { title: "OpenAkita herunterladen", desc: "Desktop-, CLI- und Source-Installation verfügbar." } },
-      tutorials: { hero: { title: "Tutorial-Zentrum", desc: "Installation, IM-Kanäle und LLM-Konfiguration." } },
+      download: { hero: { title: "OpenAkita herunterladen", desc: "Desktop-, CLI-, Docker- und Source-Installation verfügbar." } },
+      tutorials: {
+        hero: { title: "Tutorial-Zentrum", desc: "Installations- und Konfigurationstutorials nach Kategorie durchsuchen." },
+        search: {
+          placeholder: "Tutorials suchen…",
+          empty: "Keine passenden Tutorials gefunden",
+          label: "Tutorials suchen",
+        },
+      },
       setup: {
         hero: { title: "Ersteinrichtung", desc: "Schritt-für-Schritt für Desktop und CLI." },
         side: ["Überblick", "Voraussetzungen", "OpenAkita installieren", "Startprüfung"],
       },
       im: {
-        hero: { title: "IM-Kanal-Konfiguration", desc: "Plattform-Onboarding und Integration (inkl. QQ und WeChat)." },
+        hero: {
+          title: "IM-Kanal-Konfiguration",
+          desc: "Plattform-Onboarding und Integration (inkl. QQ und WeChat).",
+          back: "Zurück zum Tutorial-Zentrum",
+          eyebrow: "Tutorial / IM-Kanäle",
+        },
         side: ["Plattformüberblick", "Telegram", "Feishu", "DingTalk", "WeCom", "QQ", "WeChat", "Sprache", "Video"],
       },
       llm: {
@@ -711,6 +962,8 @@
         hero: {
           title: "LLM-Endpunkt-Konfiguration",
           desc: "Verwalten Sie LLM-Endpunkte, Anbieter und mehrere Endpunkte in OpenAkita Desktop.",
+          back: "Zurück zum Tutorial-Zentrum",
+          eyebrow: "Tutorials / LLM-Endpunkte",
         },
         side: [
           "Überblick",
@@ -720,6 +973,28 @@
           "Compiler-Endpunkt",
           "Spracherkennung",
         ],
+      },
+      installDesktop: {
+        hero: { back: "Zurück zum Tutorial-Zentrum", eyebrow: "Tutorial / Installation / Windows Desktop" },
+      },
+      installPypi: {
+        hero: { back: "Zurück zum Tutorial-Zentrum", eyebrow: "Tutorial / Installation / Linux" },
+      },
+      installDocker: {
+        hero: { back: "Zurück zum Tutorial-Zentrum", eyebrow: "Tutorial / Installation / Docker" },
+      },
+      webSearch: {
+        meta: {
+          title: "Anleitung zur Konfiguration von Web-Suchquellen",
+          description: "Vergleich und Einrichtung von Bocha, Tavily, SearXNG, Jina und DuckDuckGo in OpenAkita.",
+        },
+        hero: {
+          title: "Web-Suchquellen konfigurieren",
+          desc: "Basierend auf OpenAkita v1.27.20.",
+          back: "Zurück zum Tutorial-Zentrum",
+          eyebrow: "Tutorial / Web-Suche",
+        },
+        side: ["Quellenvergleich", "Bocha", "Tavily", "SearXNG", "Jina"],
       },
       about: { hero: { title: "Über uns", desc: "Vision und Community von OpenAkita." } },
       services: { hero: { title: "Produkte und Dienste", desc: "Vom Open-Source-Universalassistenten bis zur maßgeschneiderten Unternehmenslösung." } },
@@ -770,10 +1045,14 @@
     const path = (window.location.pathname || "").toLowerCase();
     if (document.body.dataset.page === "chat") return "chat";
     if (path === "/account" || path.startsWith("/account/")) return "accountHub";
-    if (path.includes("/tutorials/setup-install")) return "setup";
     if (path.includes("/tutorials/im-channels")) return "im";
     if (path.includes("/tutorials/llm-endpoints")) return "llm";
-    if (path === "/tutorials" || path.startsWith("/tutorials/")) return "tutorials";
+    if (path.includes("/tutorials/web-search-source")) return "webSearch";
+    if (path.includes("/tutorials/install/desktop")) return "installDesktop";
+    if (path.includes("/tutorials/install/pypi")) return "installPypi";
+    if (path.includes("/tutorials/install/docker")) return "installDocker";
+    if (path === "/tutorials" || path === "/tutorials/" || path.endsWith("/tutorials/index.html")) return "tutorials";
+    if (path.startsWith("/tutorials/")) return null;
     if (path === "/download" || path.startsWith("/download/")) return "download";
     if (path === "/services" || path.startsWith("/services/")) return "services";
     if (path === "/terms" || path.startsWith("/terms/")) return "terms";
@@ -835,13 +1114,38 @@
   var languagePacks = {};
   var loadingPacks = {};
   var originalTextMap = new WeakMap();
+  var blockOriginalMap = new WeakMap();
+  var blockOriginalHtmlMap = new WeakMap();
+
+  function applyBlockTranslations() {
+    document.querySelectorAll("[data-i18n-block]").forEach(function (el) {
+      if (!blockOriginalHtmlMap.has(el)) {
+        blockOriginalHtmlMap.set(el, el.innerHTML);
+        var source = el.getAttribute("data-i18n-block") || collapseWhitespaceForI18nLookup(el.textContent);
+        blockOriginalMap.set(el, source);
+      }
+
+      if (currentLanguage === "zh") {
+        el.innerHTML = blockOriginalHtmlMap.get(el);
+        return;
+      }
+
+      var pack = languagePacks[currentLanguage];
+      if (!pack || !CONTENT_TRANSLATE_LANGS.has(currentLanguage)) return;
+
+      var translated = lookupLanguagePackString(blockOriginalMap.get(el), pack);
+      if (translated && translated.trim()) {
+        el.textContent = translated;
+      }
+    });
+  }
 
   function loadLanguagePack(lang) {
     if (lang === "zh") return Promise.resolve(null);
     if (languagePacks[lang]) return Promise.resolve(languagePacks[lang]);
     if (loadingPacks[lang]) return loadingPacks[lang];
 
-    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260424-i18n-fragment-fix")
+    var promise = fetch("/assets/i18n/" + lang + ".json?v=20260611-web-search-source")
       .then(function (response) {
         if (!response.ok) throw new Error("i18n_load_failed");
         return response.json();
@@ -874,6 +1178,14 @@
     return null;
   }
 
+  function translatePackString(zhText) {
+    if (currentLanguage === "zh") return zhText;
+    var pack = languagePacks[currentLanguage];
+    if (!pack) return zhText;
+    var translated = lookupLanguagePackString(zhText, pack);
+    return translated && translated.trim() ? translated : zhText;
+  }
+
   function applyCodeSampleTranslations() {
     var pack = currentLanguage !== "zh" ? languagePacks[currentLanguage] : null;
     document.querySelectorAll("code[data-i18n-translate]").forEach(function (code) {
@@ -895,6 +1207,7 @@
   }
 
   function applyContentTranslations() {
+    applyBlockTranslations();
     var pack = currentLanguage !== "zh" ? languagePacks[currentLanguage] : null;
 
     var roots = [];
@@ -917,7 +1230,7 @@
         var parent = node.parentElement;
         if (!parent) { node = walker.nextNode(); continue; }
 
-        if (parent.closest("script,style,noscript,textarea,code,pre,.code-block,[data-i18n-managed]")) {
+        if (parent.closest("script,style,noscript,textarea,code,pre,.code-block,[data-i18n-managed],[data-i18n-block]")) {
           node = walker.nextNode();
           continue;
         }
@@ -963,6 +1276,12 @@
   var originalImgSrcMap = new WeakMap();
 
   function applyImageTranslations() {
+    function setImageVisible(img, visible) {
+      img.hidden = !visible;
+      var figure = img.closest("figure");
+      if (figure) figure.hidden = !visible;
+    }
+
     var imgs = document.querySelectorAll("[data-i18n-img]");
     imgs.forEach(function (img) {
       if (!originalImgSrcMap.has(img)) {
@@ -972,39 +1291,28 @@
 
       if (currentLanguage === "zh") {
         img.setAttribute("src", zhSrc);
+        setImageVisible(img, true);
         return;
       }
 
       var langSrc = zhSrc.replace("/zh/", "/" + currentLanguage + "/");
-      var enSrc = zhSrc.replace("/zh/", "/en/");
-
-      var candidates = [langSrc];
-      if (currentLanguage !== "en") {
-        candidates.push(enSrc);
-      }
-
-      function tryNext(i) {
-        if (i >= candidates.length) {
-          img.setAttribute("src", zhSrc);
-          return;
-        }
-        var probe = new Image();
-        probe.onload = function () {
-          window.setTimeout(function () {
-            if (probe.naturalWidth > 0 || probe.naturalHeight > 0) {
-              img.setAttribute("src", candidates[i]);
-            } else {
-              tryNext(i + 1);
-            }
-          }, 0);
-        };
-        probe.onerror = function () {
-          tryNext(i + 1);
-        };
-        probe.src = candidates[i];
-      }
-
-      tryNext(0);
+      var probe = new Image();
+      probe.onload = function () {
+        window.setTimeout(function () {
+          if (probe.naturalWidth > 0 || probe.naturalHeight > 0) {
+            img.setAttribute("src", langSrc);
+            setImageVisible(img, true);
+          } else {
+            img.setAttribute("src", zhSrc);
+            setImageVisible(img, true);
+          }
+        }, 0);
+      };
+      probe.onerror = function () {
+        img.setAttribute("src", zhSrc);
+        setImageVisible(img, true);
+      };
+      probe.src = langSrc;
     });
   }
 
@@ -1117,6 +1425,7 @@
   }
 
   function applyMeta(pageKey) {
+    if (!pageKey) return;
     const title = t(pageKey + ".meta.title");
     const description = t(pageKey + ".meta.description");
     if (title) document.title = title;
@@ -1184,9 +1493,76 @@
       setText("[data-account-status]", t("common.account.unavailable"));
     }
     setText(".footer-tagline", t("common.footerTagline"));
+    updateTutorialBackToTopLabel();
 
     applyFooterTexts();
     applyMarketplaceTexts();
+  }
+
+  function isTutorialPage() {
+    const path = (window.location.pathname || "").replace(/\/+$/, "").toLowerCase();
+    return path === "/tutorials" || path.endsWith("/tutorials/index.html") || path.indexOf("/tutorials/") !== -1;
+  }
+
+  function updateTutorialBackToTopLabel() {
+    const button = document.querySelector("[data-tutorial-back-to-top]");
+    if (!button) return;
+    const label = t("common.tutorialBackToTop");
+    const labelNode = button.querySelector(".tutorial-back-to-top-label");
+    if (labelNode) {
+      labelNode.textContent = label;
+      labelNode.dataset.i18nManaged = "";
+    }
+    button.setAttribute("aria-label", label);
+    button.setAttribute("title", label);
+  }
+
+  function initTutorialBackToTop() {
+    if (!isTutorialPage() || document.querySelector("[data-tutorial-back-to-top]")) return;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "tutorial-back-to-top";
+    button.setAttribute("data-tutorial-back-to-top", "");
+    button.setAttribute("aria-label", t("common.tutorialBackToTop"));
+
+    const icon = document.createElement("img");
+    icon.className = "tutorial-back-to-top-icon";
+    icon.src = "/assets/img/icons/arrow-right.svg";
+    icon.alt = "";
+    icon.setAttribute("aria-hidden", "true");
+    button.appendChild(icon);
+
+    const label = document.createElement("span");
+    label.className = "tutorial-back-to-top-label";
+    label.textContent = t("common.tutorialBackToTop");
+    label.dataset.i18nManaged = "";
+    button.appendChild(label);
+
+    button.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    let ticking = false;
+    function updateVisibility() {
+      const shouldShow = window.scrollY > 360;
+      button.classList.toggle("is-visible", shouldShow);
+      ticking = false;
+    }
+
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(updateVisibility);
+        }
+      },
+      { passive: true }
+    );
+
+    updateVisibility();
+    document.body.appendChild(button);
   }
 
   function applyFooterTexts() {
@@ -1256,8 +1632,8 @@
     setText("#heroSloganText", t("home.hero.slogan"));
     setText(".hero .hero-lead", t("home.hero.desc"));
     applyHomePrimaryAction();
-    setInlineLabel('.hero .hero-actions a[href="/tutorials/setup-install/"]', t("home.hero.btnSetup"));
-    setInlineLabel('.hero .hero-actions a[href="/tutorials/"]', t("home.hero.btnTutorials"));
+    setInlineLabel("#heroSetupButton", t("home.hero.btnSetup"));
+    setInlineLabel('.hero .hero-actions a[href="/tutorials/"]:not(#heroSetupButton)', t("home.hero.btnTutorials"));
     startHomeHeroTyping();
   }
 
@@ -1266,27 +1642,49 @@
     setText(".page-hero p", t("download.hero.desc"));
   }
 
-  function applyTutorialIndexTexts() {
-    setText(".page-hero h1", t("tutorials.hero.title"));
-    setText(".page-hero p", t("tutorials.hero.desc"));
+  function isTutorialsIndexPage() {
+    const path = (window.location.pathname || "").replace(/\/+$/, "").toLowerCase();
+    return path === "/tutorials" || path.endsWith("/tutorials/index.html");
   }
 
-  function applySetupTexts() {
-    setText(".page-hero h1", t("setup.hero.title"));
-    setText(".page-hero p", t("setup.hero.desc"));
-    setList(".side-nav a", tArray("setup.side"));
+  function applyTutorialIndexTexts() {
+    if (!isTutorialsIndexPage()) return;
+    setText(".page-hero h1", t("tutorials.hero.title"));
+    setText(".page-hero .hero-lead", t("tutorials.hero.desc"));
+  }
+
+
+  function applyTutorialDetailHero(sectionKey) {
+    if (document.querySelector(".page-hero-back span")) {
+      setText(".page-hero-back span", t(sectionKey + ".hero.back"));
+    }
+    if (document.querySelector(".page-hero .eyebrow")) {
+      setText(".page-hero .eyebrow", t(sectionKey + ".hero.eyebrow"));
+    }
   }
 
   function applyImTexts() {
+    applyTutorialDetailHero("im");
     setText(".page-hero h1", t("im.hero.title"));
     setText(".page-hero p", t("im.hero.desc"));
     setList(".side-nav a", tArray("im.side"));
   }
 
   function applyLlmTexts() {
+    applyTutorialDetailHero("llm");
     setText(".page-hero h1", t("llm.hero.title"));
     setText(".page-hero p", t("llm.hero.desc"));
     setList(".side-nav a", tArray("llm.side"));
+  }
+
+  function applyWebSearchTexts() {
+    applyTutorialDetailHero("webSearch");
+    setText(".page-hero h1", t("webSearch.hero.title"));
+    setList(".side-nav a", tArray("webSearch.side"));
+  }
+
+  function applyInstallDetailTexts(sectionKey) {
+    applyTutorialDetailHero(sectionKey);
   }
 
   function applyAboutTexts() {
@@ -1310,12 +1708,16 @@
   }
 
   function applyPageTexts(pageKey) {
+    if (!pageKey) return;
     if (pageKey === "home") applyHomeTexts();
     if (pageKey === "download") applyDownloadTexts();
     if (pageKey === "tutorials") applyTutorialIndexTexts();
-    if (pageKey === "setup") applySetupTexts();
     if (pageKey === "im") applyImTexts();
     if (pageKey === "llm") applyLlmTexts();
+    if (pageKey === "webSearch") applyWebSearchTexts();
+    if (pageKey === "installDesktop") applyInstallDetailTexts("installDesktop");
+    if (pageKey === "installPypi") applyInstallDetailTexts("installPypi");
+    if (pageKey === "installDocker") applyInstallDetailTexts("installDocker");
     if (pageKey === "about") applyAboutTexts();
     if (pageKey === "services") applyServicesTexts();
     if (pageKey === "terms") applyTermsTexts();
@@ -1716,26 +2118,43 @@
     });
   }
 
+  function markRevealVisible(el) {
+    el.classList.add("is-visible");
+  }
+
+  function isRevealInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    const viewHeight = window.innerHeight || document.documentElement.clientHeight;
+    return rect.top < viewHeight && rect.bottom > 0;
+  }
+
   const reveals = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window && reveals.length > 0) {
     const observer = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
+            markRevealVisible(entry.target);
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.01 }
+      { threshold: 0 }
     );
     reveals.forEach(function (el) {
+      // Tall tutorial columns fail threshold: 0.01 until enough height enters the viewport.
+      if (el.closest(".tutorial-shell")) {
+        markRevealVisible(el);
+        return;
+      }
+      if (isRevealInViewport(el)) {
+        markRevealVisible(el);
+        return;
+      }
       observer.observe(el);
     });
   } else {
-    reveals.forEach(function (el) {
-      el.classList.add("is-visible");
-    });
+    reveals.forEach(markRevealVisible);
   }
 
   const yearNode = document.querySelector("[data-current-year]");
@@ -1765,6 +2184,8 @@
   enhanceCodeBlocks();
   initSetupInstallDrawer();
   initSceneNav();
+  initTutorialCategorySearch();
+  initTutorialBackToTop();
 
   function recoverBrokenSvgIcons() {
     const svgImages = document.querySelectorAll('img[src$=".svg"]');
@@ -1840,7 +2261,7 @@
           { id: "drawer-desktop-install-steps", label: "2. 正式安装" },
           { id: "drawer-desktop-wizard",        label: "3. 配置向导（初次配置）" },
           { id: "drawer-desktop-full-overview", label: "4. 完整配置" },
-          { id: "drawer-desktop-full-llm",      label: "4.1 LLM 端点配置" },
+          { id: "drawer-desktop-full-llm",      label: "4.1 大模型端点配置（必填）" },
           { id: "drawer-desktop-full-im",       label: "4.2 IM 通道" },
           { id: "drawer-desktop-full-tools",    label: "4.3 工具与技能" },
           { id: "drawer-desktop-full-soul",     label: "4.4 灵魂与意志" },
@@ -1850,20 +2271,51 @@
         ],
       },
       pypi: {
-        title: "方式二：PyPI CLI",
+        title: "方式二：Linux",
         templateId: "setup-drawer-template-pypi",
         chapters: [
-          { id: "drawer-pypi-install", label: "1. 安装步骤" },
-          { id: "drawer-pypi-verify", label: "2. 启动验证" },
+          {
+            label: "Linux CLI",
+            children: [
+              { id: "drawer-pypi-prereq", label: "一、环境要求" },
+              { id: "drawer-pypi-install", label: "二、安装步骤" },
+              { id: "drawer-pypi-first-run", label: "三、首次运行" },
+              { id: "drawer-pypi-verify", label: "四、日常使用" },
+              { id: "drawer-pypi-script", label: "五、可选：官方一键脚本" },
+              { id: "drawer-pypi-faq", label: "六、常见问题" },
+              { id: "drawer-pypi-cheatsheet", label: "七、完整命令速查" },
+            ],
+          },
+          {
+            label: "Linux GUI",
+            children: [
+              { id: "drawer-pypi-gui-prereq", label: "1、前置条件" },
+              { id: "drawer-pypi-gui-download", label: "2、下载安装包" },
+              { id: "drawer-pypi-gui-install", label: "3、正式安装" },
+              { id: "drawer-pypi-gui-start", label: "4、启动与配置" },
+              { id: "drawer-pypi-gui-wizard", label: "4.1 初次配置（配置向导）" },
+              { id: "drawer-pypi-gui-full-overview", label: "4.2 完整配置" },
+              { id: "drawer-pypi-gui-full-llm", label: "4.2.1 大模型端点配置（必填）" },
+              { id: "drawer-pypi-gui-full-im", label: "4.2.2 IM 通道" },
+              { id: "drawer-pypi-gui-full-tools", label: "4.2.3 工具与技能" },
+              { id: "drawer-pypi-gui-full-soul", label: "4.2.4 灵魂与意志" },
+              { id: "drawer-pypi-gui-full-advanced", label: "4.2.5 高级配置" },
+              { id: "drawer-pypi-gui-full-multi", label: "4.2.6 多 Agent 模式" },
+              { id: "drawer-pypi-gui-full-done", label: "4.2.7 完成" },
+            ],
+          },
         ],
       },
-      source: {
-        title: "方式三：源码安装",
-        templateId: "setup-drawer-template-source",
+      docker: {
+        title: "方式三：Docker 安装",
+        templateId: "setup-drawer-template-docker",
         chapters: [
-          { id: "drawer-source-install", label: "1. 安装步骤" },
-          { id: "drawer-source-check", label: "2. 必查项" },
-          { id: "drawer-source-verify", label: "3. 启动验证" },
+          { id: "drawer-docker-prereq", label: "一、环境要求" },
+          { id: "drawer-docker-install", label: "二、安装步骤" },
+          { id: "drawer-docker-deploy", label: "三、部署 OpenAkita" },
+          { id: "drawer-docker-access", label: "四、访问 OpenAkita" },
+          { id: "drawer-docker-commands", label: "五、常用管理命令" },
+          { id: "drawer-docker-troubleshoot", label: "六、故障排查" },
         ],
       },
     };
@@ -1883,20 +2335,35 @@
       if (!template) return;
       activeMethod = method;
 
-      titleNode.textContent = config.title;
+      titleNode.textContent = translatePackString(config.title);
       navNode.innerHTML = "";
       contentNode.innerHTML = "";
       contentNode.appendChild(template.content.cloneNode(true));
 
-      config.chapters.forEach(function (chapter) {
+      function bindNavScrollLinks(root) {
+        root.querySelectorAll("a[href^='#']").forEach(function (link) {
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+            const id = link.getAttribute("href").slice(1);
+            const target = contentNode.querySelector("#" + id);
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          });
+        });
+      }
+
+      function appendChapterLink(chapter, container) {
         const link = document.createElement("a");
         link.href = "#" + chapter.id;
-        link.textContent = chapter.label;
+        link.textContent = translatePackString(chapter.label);
         const match = chapter.label.match(/^(\d+)(?:\.(\d+))?(?:\.(\d+))?/);
         if (match) {
           if (match[3] !== undefined) link.classList.add("setup-nav-l3");
           else if (match[2] !== undefined) link.classList.add("setup-nav-l2");
           else link.classList.add("setup-nav-l1");
+        } else if (/^[一二三四五六七八九十]+、/.test(chapter.label)) {
+          link.classList.add("setup-nav-l2");
         } else {
           link.classList.add("setup-nav-l1");
         }
@@ -1907,8 +2374,37 @@
             target.scrollIntoView({ behavior: "smooth", block: "start" });
           }
         });
-        navNode.appendChild(link);
+        container.appendChild(link);
+      }
+
+      const navTemplate = document.getElementById("setup-drawer-nav-" + method);
+      if (navTemplate) {
+        navNode.appendChild(navTemplate.content.cloneNode(true));
+        bindNavScrollLinks(navNode);
+      } else {
+      config.chapters.forEach(function (chapter) {
+        if (chapter.children && chapter.children.length) {
+          const group = document.createElement("details");
+          group.className = "setup-drawer-nav-group";
+
+          const summary = document.createElement("summary");
+          summary.className = "setup-drawer-nav-group-title";
+          summary.textContent = translatePackString(chapter.label);
+          group.appendChild(summary);
+
+          const items = document.createElement("div");
+          items.className = "setup-drawer-nav-group-items";
+          chapter.children.forEach(function (child) {
+            appendChapterLink(child, items);
+          });
+          group.appendChild(items);
+          navNode.appendChild(group);
+          return;
+        }
+
+        appendChapterLink(chapter, navNode);
       });
+      }
 
       applyContentTranslations();
       applyCodeSampleTranslations();
@@ -1944,6 +2440,14 @@
   // ── GitHub Stars ──
   (function () {
     var REPO = "openakita/openakita";
+    var GH_API_BASE = (function () {
+      var h = location.hostname;
+      var port = location.port;
+      if (port && port !== "80" && port !== "443") return "/gh-api";
+      if (h === "localhost" || h === "127.0.0.1" || /^192\.168\./.test(h) || /^10\./.test(h) || /\.local$/i.test(h)) return "/gh-api";
+      var isProdHost = h === "openakita.ai" || h === "www.openakita.ai";
+      return isProdHost && location.protocol === "https:" ? "https://api.github.com" : "/gh-api";
+    })();
     var CACHE_KEY = "oa_gh_stars";
     var CACHE_TTL = 3600000; // 1 hour
 
@@ -1989,7 +2493,7 @@
       }
     } catch (_) {}
 
-    fetch("https://api.github.com/repos/" + REPO)
+    fetch(GH_API_BASE + "/repos/" + REPO)
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var count = data.stargazers_count;
@@ -2022,6 +2526,95 @@
       });
     }, { rootMargin: "-20% 0px -60% 0px" });
     sections.forEach(function (s) { observer.observe(s.el); });
+  }
+
+  function initTutorialCategorySearch() {
+    var panels = document.querySelectorAll("[data-tutorial-search-panel]");
+    if (!panels.length) return;
+
+    function normalizeSearchText(str) {
+      return String(str || "").toLowerCase().replace(/\s+/g, " ").trim();
+    }
+
+    function fuzzyMatch(haystack, needle) {
+      if (!needle) return true;
+      var h = normalizeSearchText(haystack);
+      var n = normalizeSearchText(needle);
+      if (!n) return true;
+      if (h.indexOf(n) !== -1) return true;
+      var hi = 0;
+      for (var ni = 0; ni < n.length; ni++) {
+        var found = false;
+        while (hi < h.length) {
+          if (h.charAt(hi) === n.charAt(ni)) {
+            found = true;
+            hi++;
+            break;
+          }
+          hi++;
+        }
+        if (!found) return false;
+      }
+      return true;
+    }
+
+    function getCardSearchText(card) {
+      var parts = [];
+      card.querySelectorAll("h3, p, .actions a").forEach(function (el) {
+        parts.push(el.textContent || "");
+      });
+      return parts.join(" ");
+    }
+
+    function applyTutorialSearchLabels() {
+      document.querySelectorAll(".tutorial-category-search-input").forEach(function (input) {
+        input.placeholder = t("tutorials.search.placeholder") || "搜索教程…";
+        input.setAttribute("aria-label", t("tutorials.search.label") || "搜索教程");
+      });
+      document.querySelectorAll(".tutorial-search-empty p").forEach(function (p) {
+        p.textContent = t("tutorials.search.empty") || "未找到匹配的教程";
+      });
+    }
+
+    function filterPanel(panel) {
+      var input = panel.querySelector(".tutorial-category-search-input");
+      var grid = panel.querySelector(".card-grid");
+      var empty = panel.querySelector(".tutorial-search-empty");
+      if (!input || !grid) return;
+
+      var query = input.value;
+      var cards = grid.querySelectorAll("article.card");
+      var visible = 0;
+
+      cards.forEach(function (card) {
+        var match = fuzzyMatch(getCardSearchText(card), query);
+        card.classList.toggle("tutorial-card-filter-hidden", !match);
+        if (match) visible++;
+      });
+
+      if (empty) {
+        empty.hidden = visible > 0 || !normalizeSearchText(query);
+      }
+    }
+
+    panels.forEach(function (panel) {
+      var input = panel.querySelector(".tutorial-category-search-input");
+      if (!input || input.dataset.searchBound === "1") return;
+      input.dataset.searchBound = "1";
+      input.addEventListener("input", function () {
+        filterPanel(panel);
+      });
+      input.addEventListener("search", function () {
+        filterPanel(panel);
+      });
+    });
+
+    applyTutorialSearchLabels();
+
+    document.addEventListener("openakita:language-changed", function () {
+      applyTutorialSearchLabels();
+      panels.forEach(filterPanel);
+    });
   }
 
 })();

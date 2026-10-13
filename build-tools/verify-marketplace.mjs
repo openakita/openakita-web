@@ -15,10 +15,10 @@ const expectedRelatedPages = new Map([
   ["tutorials/index.html", "tutorials"],
   ["tutorials/im-channels/index.html", "tutorials"],
   ["tutorials/llm-endpoints/index.html", "tutorials"],
-  ["tutorials/setup-install/index.html", "tutorials"],
-  ["tutorials/setup-install/desktop/index.html", "tutorials"],
-  ["tutorials/setup-install/pypi/index.html", "tutorials"],
-  ["tutorials/setup-install/source/index.html", "tutorials"],
+  ["tutorials/web-search-source/index.html", "tutorials"],
+  ["tutorials/install/desktop/index.html", "tutorials"],
+  ["tutorials/install/pypi/index.html", "tutorials"],
+  ["tutorials/install/docker/index.html", "tutorials"],
 ]);
 
 function read(path) {

@@ -106,7 +106,7 @@ for (const sourcePath of sourcePages) {
   else if (footer !== canonicalFooter) failures.push(`${projectPath(outputPath)} rendered footer differs from the canonical shell`);
 }
 
-if (sourcePages.length !== 16) failures.push(`expected 16 official source pages, found ${sourcePages.length}`);
+if (sourcePages.length !== 19) failures.push(`expected 19 official source pages, found ${sourcePages.length}`);
 
 if (failures.length) {
   for (const failure of failures) console.error(`[verify-shell] ${failure}`);
