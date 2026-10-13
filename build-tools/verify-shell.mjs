@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = fileURLToPath(new URL("..", import.meta.url));
 const outputDirectory = resolve(projectRoot, "dist");
-const ignoredDirectories = new Set([".git", ".idea", ".vite", "dist", "node_modules", "partials"]);
+const ignoredDirectories = new Set([".git", ".idea", ".vite", "dist", "node_modules", "partials", "tools-temp", "tools-tmp", "runtime", "openakita"]);
 const excludedHtmlFiles = new Set(["memu_reference.html"]);
 const headerPlaceholder = '<div data-site-header></div>';
 const footerPlaceholder = '<div data-site-footer></div>';

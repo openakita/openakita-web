@@ -1,6 +1,6 @@
 # ADR-0003: International browser text chat
 
-Status: Accepted
+Status: Superseded by [ADR-0004](0004-browser-chat-direct.md) on 2026-10-13.
 
 Date: 2026-10-12
 

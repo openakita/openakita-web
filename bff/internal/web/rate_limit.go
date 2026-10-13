@@ -34,8 +34,6 @@ func parseTrustedProxies(values []string) ([]netip.Prefix, error) {
 func (s *Server) applyRateLimit(response http.ResponseWriter, request *http.Request) bool {
 	limit, bucket := 0, ""
 	switch request.URL.Path {
-	case "/api/v1/chat/models", "/api/v1/chat/completions":
-		limit, bucket = 20, "chat"
 	case "/auth/login", "/auth/callback":
 		limit, bucket = s.cfg.AuthRateLimitPerMinute, "auth"
 	case "/auth/logout", "/auth/logout/callback", "/api/v1/session", "/api/v1/hub", "/account", "/account/":

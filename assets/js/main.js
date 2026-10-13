@@ -755,15 +755,12 @@
   }
 
   function detectLanguage() {
-    if (document.body.dataset.page === "chat") {
-      try { return localStorage.getItem("openakita_chat_language") === "zh" ? "zh" : "en"; }
-      catch (_) { return "en"; }
-    }
-    const saved = localStorage.getItem("openakita_language");
+    let saved;
+    try { saved = localStorage.getItem("openakita_language"); } catch (_) {}
     if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
     const browserCandidates = Array.isArray(navigator.languages) && navigator.languages.length > 0 ? navigator.languages : [navigator.language || "zh-CN"];
     for (const tag of browserCandidates) {
-      const normalized = normalizeLanguageTag(tag);
+      const normalized = tag.toLowerCase().split("-")[0];
       if (SUPPORTED_LANGS.includes(normalized)) return normalized;
     }
     return "zh";
@@ -1329,10 +1326,10 @@
     const select = document.querySelector(".lang-select");
     if (!select) return;
     select.value = currentLanguage;
-    select.addEventListener("change", function () {
-      var targetLang = normalizeLanguageTag(select.value);
+    function changeLanguage(targetLang, remember) {
       currentLanguage = targetLang;
-      localStorage.setItem("openakita_language", currentLanguage);
+      select.value = currentLanguage;
+      if (remember) { try { localStorage.setItem("openakita_language", currentLanguage); } catch (_) {} }
       document.documentElement.lang = LANG_TO_LOCALE[currentLanguage] || "en-US";
 
       applyMeta(pageKey);
@@ -1343,6 +1340,7 @@
       enhanceCodeBlocks();
 
       applyImageTranslations();
+      if (pageKey === "chat") document.dispatchEvent(new CustomEvent("openakita:language-changed"));
 
       if (currentLanguage === "zh" || languagePacks[currentLanguage]) {
         applyContentTranslations();
@@ -1357,6 +1355,12 @@
           document.dispatchEvent(new CustomEvent("openakita:language-changed"));
         });
       }
+    }
+    select.addEventListener("change", function () { changeLanguage(normalizeLanguageTag(select.value), true); });
+    window.addEventListener("storage", function (event) {
+      if (event.key !== "openakita_language") return;
+      const language = event.newValue && SUPPORTED_LANGS.includes(event.newValue) ? event.newValue : detectLanguage();
+      if (language !== currentLanguage) changeLanguage(language, false);
     });
   }
 
@@ -1398,6 +1402,7 @@
   }
 
   function initAccountShell() {
+    if (document.body.dataset.page === "chat") return;
     const shell = document.querySelector("[data-account-shell]");
     const loginLink = document.querySelector("[data-account-login]");
     const menu = document.querySelector("[data-account-menu]");

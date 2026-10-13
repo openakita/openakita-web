@@ -2,7 +2,7 @@
   "use strict";
   const controls = new Map();
   let opened = null;
-  const text = (en, zh) => document.documentElement.lang.startsWith("zh") ? zh : en;
+  const text = (key) => window.OpenAkitaChatI18n.t(key);
 
   function createControl(source, suggestions) {
     const wrapper = document.createElement("div");
@@ -90,7 +90,7 @@
       panel.replaceChildren();
       if (!items.length) {
         const empty = document.createElement("div"); empty.className = "chat-choice-empty";
-        empty.textContent = text("No matching models. You can enter a model ID.", "没有匹配的模型，也可手动填写模型 ID。"); panel.append(empty);
+        empty.textContent = text("noMatchingModels"); panel.append(empty);
       }
       items.forEach((item, index) => {
         const row = document.createElement("button"); row.type = "button";
@@ -174,7 +174,7 @@
     sync();
   }
   function enhance() {
-    document.querySelectorAll("select").forEach((source) => { if (!controls.has(source)) createControl(source, null); });
+    document.querySelectorAll(".web-chat select, .chat-dialog select").forEach((source) => { if (!controls.has(source)) createControl(source, null); });
     document.querySelectorAll("input[list]").forEach((source) => {
       const options = document.getElementById(source.getAttribute("list"));
       if (options && !controls.has(source)) createControl(source, options);
@@ -194,8 +194,8 @@
       pending = false;
       const maximum = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
       track.hidden = !dialog.open || maximum <= 1 || !viewport.clientHeight;
-      thumb.setAttribute("aria-label", text("Scroll LLM endpoints", "滚动 LLM 端点设置"));
-      viewport.setAttribute("aria-label", text("Endpoint settings", "端点设置"));
+      thumb.setAttribute("aria-label", text("scrollEndpoints"));
+      viewport.setAttribute("aria-label", text("endpointSettings"));
       if (track.hidden) return;
       const height = Math.min(track.clientHeight, Math.max(32, track.clientHeight * viewport.clientHeight / viewport.scrollHeight));
       const offset = (track.clientHeight - height) * Math.min(1, viewport.scrollTop / maximum);

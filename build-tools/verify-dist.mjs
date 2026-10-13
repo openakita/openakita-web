@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = fileURLToPath(new URL("..", import.meta.url));
 const outputDirectory = resolve(projectRoot, "dist");
-const ignoredDirectories = new Set([".git", ".idea", ".vite", "dist", "node_modules", "partials"]);
+const ignoredDirectories = new Set([".git", ".idea", ".vite", "dist", "node_modules", "partials", "tools-temp", "tools-tmp", "runtime", "openakita"]);
 const excludedHtmlFiles = new Set(["memu_reference.html"]);
 
 function filesRecursively(directory, accept, ignored = new Set()) {
@@ -82,6 +82,10 @@ if (!existsSync(outputDirectory)) {
 
   const requiredRuntimeFiles = [
     "CNAME",
+    ".nojekyll",
+    "assets/js/chat-provider.js",
+    "assets/js/chat-i18n.js",
+    "assets/js/chat-markdown.js",
     "api/latest-dev.json",
     "assets/js/main.js",
     "assets/js/account.js",

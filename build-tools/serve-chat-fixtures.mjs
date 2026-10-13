@@ -1,32 +1,28 @@
-// Local UI verification only. Never included in the production static output.
+// Local UI verification only. Neither this server nor its fixtures are published.
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import { resolve, extname, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("../dist/", import.meta.url));
+const mock = !process.argv.includes("--static");
+const portArgument = process.argv.find(argument => argument.startsWith("--port="));
+const port = portArgument ? Number(portArgument.slice(7)) : 4184;
+if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error("Invalid preview port");
+const fixture = await readFile(new URL("./chat-provider-fixture.js", import.meta.url));
 const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".png": "image/png", ".svg": "image/svg+xml" };
-const server = createServer(async (request, response) => {
+createServer(async (request, response) => {
   const path = new URL(request.url, "http://localhost").pathname;
-  if (path === "/api/v1/session") { response.setHeader("Content-Type", "application/json"); response.end('{"authenticated":false,"login_url":"/auth/login"}'); return; }
-  if (path === "/api/v1/chat/capabilities") { response.setHeader("Content-Type", "application/json"); response.end('{"enabled":true}'); return; }
-  if (path.startsWith("/api/v1/chat/")) {
-    let raw = ""; for await (const chunk of request) raw += chunk;
-    let input; try { input = JSON.parse(raw); } catch { response.writeHead(400); response.end(); return; }
-    if (path.endsWith("/models")) { response.setHeader("Content-Type", "application/json"); response.end(JSON.stringify({ models: ["fixture-text-model", "fixture-second-model"] })); return; }
-    if (input.messages.at(-1).content.includes("fixture:error")) { response.writeHead(400, { "Content-Type": "application/json" }); response.end('{"error":"provider_auth_failed"}'); return; }
-    response.writeHead(200, { "Content-Type": "text/event-stream" }); response.flushHeaders();
-    const text = "This is a local test response from " + input.provider + ".\n\nYour conversation is working.\n\n```js\nconsole.log('Hello, OpenAkita');\n```\n\n<script>alert('unsafe')</script> stays plain text.";
-    let offset = 0;
-    const timer = setInterval(() => { if (offset >= text.length) { response.end('data: {"done":true}\n\n'); clearInterval(timer); return; } response.write("data: " + JSON.stringify({ text: text.slice(offset, offset + 6) }) + "\n\n"); offset += 6; }, input.messages.at(-1).content.includes("fixture:slow") ? 500 : 25);
-    response.on("close", () => clearInterval(timer)); return;
-  }
+  if (mock && path === "/__fixtures__/chat-provider.js") { response.setHeader("Content-Type", "text/javascript"); response.end(fixture); return; }
+  if (path.startsWith("/api/v1/")) { response.writeHead(404); response.end("No website API is running"); return; }
   try {
     let target = resolve(root, "." + decodeURIComponent(path));
     if (target !== resolve(root) && !target.startsWith(root.endsWith(sep) ? root : root + sep)) throw new Error("outside root");
     if ((await stat(target)).isDirectory()) target = resolve(target, "index.html");
     response.setHeader("Content-Type", types[extname(target)] || "application/octet-stream");
-    response.end(await readFile(target));
+    response.setHeader("Cache-Control", "no-store");
+    let content = await readFile(target);
+    if (mock && path.startsWith("/chat") && extname(target) === ".html") content = content.toString().replace("</head>", '<script src="/__fixtures__/chat-provider.js"></script></head>');
+    response.end(content);
   } catch { response.writeHead(404); response.end("Not found"); }
-});
-server.listen(4184, "127.0.0.1", () => console.log("Local chat fixtures: http://127.0.0.1:4184/chat/ (mock providers, no real API calls)"));
+}).listen(port, "127.0.0.1", () => console.log("Browser chat preview: http://127.0.0.1:" + port + "/chat/ (" + (mock ? "mock browser providers" : "static only, direct real provider requests") + ")"));

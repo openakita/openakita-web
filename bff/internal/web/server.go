@@ -39,7 +39,6 @@ type Server struct {
 	now            func() time.Time
 	metrics        *observability.Metrics
 	trustedProxies []netip.Prefix
-	chatClient     *http.Client
 }
 
 func New(cfg config.Config, store securestore.Store, box *cryptobox.KeyRing, idp oidc.Provider, marketplace marketplaceclient.Provider, pass passclient.Provider, accountPage []byte, logger *slog.Logger) (*Server, error) {
@@ -60,7 +59,6 @@ func New(cfg config.Config, store securestore.Store, box *cryptobox.KeyRing, idp
 		cfg: cfg, store: store, box: box, idp: idp, marketplace: marketplace, pass: pass,
 		accountPage: accountPage, logger: logger, now: func() time.Time { return time.Now().UTC() },
 		metrics: observability.NewMetrics(), trustedProxies: trustedProxies,
-		chatClient: &http.Client{Timeout: 180 * time.Second, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }},
 	}, nil
 }
 
@@ -77,9 +75,6 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /auth/logout/callback", s.handleLogoutCallback)
 	mux.HandleFunc("GET /api/v1/session", s.handleSession)
 	mux.HandleFunc("GET /api/v1/hub", s.handleHub)
-	mux.HandleFunc("GET /api/v1/chat/capabilities", s.handleChatCapabilities)
-	mux.HandleFunc("POST /api/v1/chat/models", s.handleChatModels)
-	mux.HandleFunc("POST /api/v1/chat/completions", s.handleChatCompletion)
 	mux.HandleFunc("GET /account", s.handleAccountPage)
 	mux.HandleFunc("GET /account/", s.handleAccountPage)
 	return s.middleware(mux)
@@ -145,7 +140,7 @@ func metricRoute(path string) string {
 		return "/health"
 	case "/ready", "/health/ready":
 		return "/ready"
-	case "/metrics", "/auth/login", "/auth/callback", "/auth/logout", "/auth/logout/callback", "/api/v1/session", "/api/v1/hub", "/api/v1/chat/capabilities", "/api/v1/chat/models", "/api/v1/chat/completions", "/account", "/account/":
+	case "/metrics", "/auth/login", "/auth/callback", "/auth/logout", "/auth/logout/callback", "/api/v1/session", "/api/v1/hub", "/account", "/account/":
 		return path
 	default:
 		return "not_found"

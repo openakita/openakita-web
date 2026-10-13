@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Web Chat — OpenAkita</title>
-  <meta name="description" content="Chat with OpenAI, Claude and Grok in your browser. Connect your own LLM endpoints and start a conversation with OpenAkita." />
+  <meta name="description" content="Chat with OpenAI, Claude, Grok and DeepSeek in your browser. Connect your own LLM endpoints and start a conversation with OpenAkita." />
   <link rel="canonical" href="https://openakita.ai/chat/" />
   <link rel="icon" href="/assets/img/logo.png" />
   <link rel="stylesheet" href="/assets/css/styles.css" />
@@ -23,7 +23,7 @@
         <div class="chat-conversations" id="conversations"></div>
         <div class="chat-sidebar-bottom">
           <button id="manage-endpoints" class="chat-secondary" type="button"><span>⚙</span> <span data-chat-text="endpoints">LLM endpoints</span><span id="endpoint-count" class="chat-count">0</span></button>
-          <div class="chat-sidebar-utilities"><a href="/" class="chat-home-link"><span aria-hidden="true">←</span><span data-chat-text="home">Home</span></a><div id="chat-language"></div></div>
+          <a href="/" class="chat-home-link"><span aria-hidden="true">←</span><span data-chat-text="home">Home</span></a>
           <div class="chat-local"><span class="chat-dot"></span><span data-chat-text="local">History stays in this browser</span></div>
         </div>
       </aside>
@@ -31,7 +31,6 @@
         <div class="chat-topbar">
           <button class="chat-icon mobile-only" id="open-sidebar" type="button" aria-label="Open conversations">☰</button>
           <div><strong data-chat-text="webChat">Web Chat</strong><span class="chat-topbar-sub" data-chat-text="subtitle">A conversation, a little clarity.</span></div>
-          <div class="chat-topbar-actions"><button class="chat-icon" id="export-chat" type="button" aria-label="Export conversation" title="Export conversation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4" /></svg></button><button class="chat-icon" id="delete-chat" type="button" aria-label="Delete conversation" title="Delete conversation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7" /></svg></button></div>
         </div>
         <div id="chat-action-status" class="chat-action-status" role="status" aria-live="polite" hidden></div>
         <div class="chat-scroll" id="chat-scroll">
@@ -51,7 +50,7 @@
             <textarea id="chat-input" rows="2" maxlength="16000" placeholder="Message your model…" aria-label="Message" required></textarea>
             <div class="chat-compose-toolbar"><label class="chat-model-picker"><span class="chat-dot"></span><span class="visually-hidden" data-chat-text="selectEndpoint">Select LLM endpoint</span><select id="active-endpoint"><option value="">Connect an endpoint</option></select></label><span class="chat-key-hint" data-chat-text="shortcut">Enter to send · Shift+Enter for a new line</span><button class="chat-send" id="send-message" type="submit" aria-label="Send message">↑</button><button class="chat-stop" id="stop-message" type="button" hidden data-chat-text="stop">Stop</button></div>
           </form>
-          <p class="chat-disclosure" data-chat-text="disclosure">Your API key and conversation are relayed securely to your selected provider. Provider usage fees apply. AI can make mistakes.</p>
+          <p class="chat-disclosure" data-chat-text="disclosure">Your browser sends your API key and conversation directly to your selected provider. Provider usage fees apply. AI can make mistakes.</p>
         </div>
       </section>
     </div>
@@ -71,12 +70,13 @@
       <div id="endpoint-list" class="chat-endpoint-list"></div>
       <form id="endpoint-form" class="chat-endpoint-form">
         <h3 id="endpoint-form-title" data-chat-text="addEndpoint">Add an endpoint</h3>
-        <label><span data-chat-text="provider">Provider</span><select id="endpoint-provider"><option value="openai">OpenAI</option><option value="anthropic">Anthropic · Claude</option><option value="xai">xAI · Grok</option></select></label>
+        <label><span data-chat-text="provider">Provider</span><select id="endpoint-provider"><option value="openai">OpenAI</option><option value="anthropic">Anthropic · Claude</option><option value="xai">xAI · Grok</option><option value="deepseek">DeepSeek</option></select></label>
         <label><span data-chat-text="name">Connection name</span><input id="endpoint-name" maxlength="60" placeholder="My OpenAI" required /></label>
         <label><span data-chat-text="baseURL">API base URL</span><input id="endpoint-url" readonly value="https://api.openai.com/v1" /></label>
         <label><span data-chat-text="apiKey">API key</span><input id="endpoint-key" type="password" maxlength="4096" autocomplete="off" spellcheck="false" placeholder="Paste your provider API key" required /></label>
+        <label class="chat-remember-key"><input id="endpoint-remember-key" type="checkbox" checked aria-describedby="endpoint-key-note" /><span data-chat-text="rememberKey">Remember API key on this device</span></label>
         <div class="chat-model-field"><label><span data-chat-text="model">Model ID</span><input id="endpoint-model" list="provider-models" maxlength="200" placeholder="Enter a model ID or load models" required /><datalist id="provider-models"></datalist></label><button type="button" id="load-models" class="chat-secondary" data-chat-text="loadModels">Load models</button></div>
-        <p class="chat-key-note" data-chat-text="keyNote">Keys stay in memory for this tab and are never saved by OpenAkita. After a refresh, enter your key again. Your model must support text chat.</p>
+        <p id="endpoint-key-note" class="chat-key-note" data-chat-text="keyNote">Remembered keys are stored unencrypted in this browser. Turn this off on shared devices. Save after turning it off to remove the stored key; deleting an endpoint also removes its key. Keys are sent directly to your provider.</p>
         <a id="provider-key-link" href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" data-chat-text="getKey">Get an API key from your provider ↗</a>
         <div id="endpoint-status" class="chat-status" role="status" aria-live="polite"></div>
         <div class="chat-dialog-actions"><button class="chat-secondary" id="reset-endpoint" type="button" data-chat-text="reset">New endpoint</button><button class="chat-primary" type="submit" data-chat-text="save">Save endpoint</button></div>
@@ -91,7 +91,10 @@
   </main>
   <div data-site-footer></div>
   <script vite-ignore src="/assets/js/main.js"></script>
+  <script vite-ignore src="/assets/js/chat-i18n.js"></script>
   <script vite-ignore src="/assets/js/chat-controls.js"></script>
+  <script vite-ignore src="/assets/js/chat-provider.js"></script>
+  <script vite-ignore src="/assets/js/chat-markdown.js"></script>
   <script vite-ignore src="/assets/js/chat.js"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@ import { build as buildWithEsbuild } from "esbuild";
 import { defineConfig, type Plugin } from "vite";
 
 const projectRoot = fileURLToPath(new URL(".", import.meta.url));
-const ignoredDirectories = new Set([".git", ".idea", ".vite", "dist", "node_modules", "partials"]);
+const ignoredDirectories = new Set([".git", ".idea", ".vite", "dist", "node_modules", "partials", "tools-temp", "tools-tmp", "runtime", "openakita"]);
 const excludedHtmlFiles = new Set(["memu_reference.html"]);
 const headerPlaceholder = '<div data-site-header></div>';
 const footerPlaceholder = '<div data-site-footer></div>';
@@ -362,6 +362,7 @@ function finalizeStaticOutput(): Plugin {
       }
       cpSync(resolve(projectRoot, "api"), resolve(outputDirectory, "api"), { recursive: true });
       copyFileSync(resolve(projectRoot, "CNAME"), resolve(outputDirectory, "CNAME"));
+      writeFileSync(resolve(outputDirectory, ".nojekyll"), "");
 
       const motionOutput = resolve(outputDirectory, "assets/js/motion.js");
       mkdirSync(dirname(motionOutput), { recursive: true });
@@ -373,6 +374,11 @@ function finalizeStaticOutput(): Plugin {
         format: "iife",
         minify: true,
       });
+      await buildWithEsbuild({
+        entryPoints: [resolve(projectRoot, "assets/ts/chat-markdown.ts")],
+        outfile: resolve(outputDirectory, "assets/js/chat-markdown.js"),
+        bundle: true, target: "es2019", format: "iife", minify: true,
+      });
 
       versionRuntimeLanguagePacks(outputDirectory);
       versionRuntimeReferences(outputDirectory);
@@ -380,12 +386,31 @@ function finalizeStaticOutput(): Plugin {
   };
 }
 
+function serveChatMarkdown(): Plugin {
+  return {
+    name: "openakita-chat-markdown-dev",
+    configureServer(server) {
+      server.middlewares.use(async (request, response, next) => {
+        if (request.url?.split("?")[0] !== "/assets/js/chat-markdown.js") { next(); return; }
+        try {
+          const result = await buildWithEsbuild({
+            entryPoints: [resolve(projectRoot, "assets/ts/chat-markdown.ts")],
+            bundle: true, target: "es2019", format: "iife", write: false,
+          });
+          response.setHeader("Content-Type", "text/javascript; charset=utf-8");
+          response.setHeader("Cache-Control", "no-store");
+          response.end(result.outputFiles[0].text);
+        } catch (error) { next(error); }
+      });
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [injectStaticShell(), finalizeStaticOutput()],
+  plugins: [injectStaticShell(), serveChatMarkdown(), finalizeStaticOutput()],
   server: {
     host: "127.0.0.1",
     port: 5173,
-    proxy: { "/api/v1/chat": "http://127.0.0.1:8080" },
   },
   preview: {
     host: "127.0.0.1",

@@ -18,7 +18,9 @@
 - [第十周交付：Pass存量账户认领](week-10-pass-existing-user-claim.md)
 - [第十一周交付：Pass SSO-only受控切换](week-11-pass-sso-only-cutover.md)
 - [生产发布与故障处置运行手册](operations/production-runbook.md)
+- [openakita.ai 的 GitHub Pages 自动发布](operations/github-pages.md)
 - [ADR-0003：国际站浏览器文本对话](adr/0003-browser-chat.md)
+- [ADR-0004：浏览器直连 LLM 与纯静态部署](adr/0004-browser-chat-direct.md)
 - [浏览器对话功能与验证](browser-chat.md)
 
 以上文档包含一期官网基线与二期 P2.1 增量。破坏性接口变化、运行边界变化或系统权威职责变化必须新增或更新ADR。

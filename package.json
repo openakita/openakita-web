@@ -12,7 +12,7 @@
     "build": "vite build",
     "postbuild": "npm run verify:dist",
     "hash:dist": "node build-tools/hash-dist.mjs",
-    "verify:dist": "node build-tools/verify-dist.mjs && node build-tools/verify-shell.mjs && node build-tools/verify-marketplace.mjs && node build-tools/verify-hub.mjs && node build-tools/verify-account-preview.mjs && node build-tools/verify-chat.mjs",
+    "verify:dist": "node build-tools/verify-dist.mjs && node build-tools/verify-shell.mjs && node build-tools/verify-marketplace.mjs && node build-tools/verify-hub.mjs && node build-tools/verify-account-preview.mjs && node build-tools/verify-chat.mjs && node build-tools/verify-chat-provider.mjs && node build-tools/verify-chat-storage.mjs && node build-tools/verify-chat-markdown.mjs && node build-tools/verify-chat-conversations.mjs",
     "preview:chat-fixtures": "node build-tools/serve-chat-fixtures.mjs",
     "verify:shell": "node build-tools/verify-shell.mjs",
     "verify:marketplace": "node build-tools/verify-marketplace.mjs",
@@ -21,7 +21,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "dompurify": "^3.4.17",
     "esbuild": "^0.25.9",
+    "highlight.js": "^11.12.0",
+    "jsdom": "^30.1.2",
+    "marked": "^18.1.1",
     "typescript": "^5.9.2",
     "vite": "^7.1.2"
   }
